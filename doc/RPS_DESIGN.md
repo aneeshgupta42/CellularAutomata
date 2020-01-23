@@ -1,4 +1,4 @@
-Rock, Paper Scissors practice exericse
+Rock, Paper Scissors practice  exericse
 
 
 * Because we have to consider the fact that there can be an infinite number of dependencies, we can make a class that
