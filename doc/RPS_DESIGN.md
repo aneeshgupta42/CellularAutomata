@@ -1,4 +1,5 @@
-Rock, Paper Scissors practice  exericse
+###Rock, Paper Scissors practice Exercise
+ccw43 ag468 sk593
 
 
 * Because we have to consider the fact that there can be an infinite number of dependencies, we can make a class that
