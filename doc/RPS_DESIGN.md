@@ -14,6 +14,7 @@ one wins, and this happens every turn
             * keepScore(); keeps score and determines a winner
             * start(); start game
             * makeChoice(); reads user interface and assigns a choice
+            * reset(); restarts the game and resets scores/weapons
         * interactions
             * user interface
             * destructor class   
@@ -23,9 +24,21 @@ one wins, and this happens every turn
             * makeWeapon(); handles addition of a new weapon, and edits the data structure accordingly.
             * Using a hash map, with key as a particular weapon, and associated value being a list of things it wins agains
             * Makes data structure with win/lose conditioning for each weapon
+                * createWeapons()
             * compareWeapons(); compares 2 weapons to see which wins
         * interactions
             * game class
             * text file/user input
   
 ### Use Cases
+A new game is started with two players, their scores are reset to 0.
+* call keepScore()
+A player chooses his RPS "weapon" with which he wants to play for this round.
+* reachChoice()
+* makeWeapon()
+Given two players' choices, one player wins the round, and their scores are updated.
+* compareWeapons()
+A new choice is added to an existing game and its relationship to all the other choices is updated.
+* makeWeapon()
+A new game is added to the system, with its own relationships for its all its "weapons".
+* reset()
