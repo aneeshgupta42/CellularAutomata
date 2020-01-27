@@ -15,22 +15,33 @@ Our program will then be split into 5 major classes:
 - Grid Class:
 We will have a grid class that serves as a basic grid, that will be able to hold and alter the Cell objects within based on the simulation we are doing. This grid will hold a certain x rows and y columns with each individual cell. The grid class will be the class that runs the simulation by updating cells and allowing them to change state. The grid is set up by calling on the Configuration class that reads in the XML file. The Grid class would likely be an abtract class that holds the basic functions that each simulation will have. It would have step function that would call the update function for each cell as time passes. As a result, it would be dependent on the Cell class because it needs to call the Cell class update function. For each game implemented in the CA simulation, we'd create a separate subclass that implements this parent Grid class. This class would read the data from the XML file and then applies it to the cells, using the Cell class' setter methods.
 Methods: `step()` , `populateGridCells()` , `getNeighbors()` , `updateGrid()`
+![](https://i.imgur.com/rjxTJRB.jpg)
+
 
 - Configuration Class:
 Our initial thought is that the Grid class is going to have the most functionality out of all the components. So in order to simplify the Grid class so that it only handles running and updating the simulation, we will also have a Configuration class that sets up the grid. This class will read from the XMLFile and set up how many rows/columns the grid needs to have. Thus it will also need to get the data from the XML file that the user will choose in the Display class. This class would also contain specification on how the data in the XML file would be read and stored.  
 Methods: `readXMLFile()`
+![](https://i.imgur.com/4QhvX5N.jpg)
+
 
 - Cell Class:
 The first is the Cell class that will define the states that each Cell object in the grid will have. The states will be updated in an update method based on the rules that are specified in the XML file. This method will need to be able to access the data of the neighbording cells in the grid so that updates to the current state can be made based on these. Comprises of setter and getter methods that change the state, and other parameters. 
 Methods: `getState()`, `setState()` , `updateCell()` , `applyRules()`  
 
+![CRC for Cell and Config](https://i.imgur.com/taM7apc.jpg)
 - Display Class: 
 Different GUI elements, such as displaying the grid, time, speed up, stop simulation. Also features to read in configuration files, change the simulation type. The text displayed here will also be read in through resource files. The text displayed in this class will be from resource files. This class would need information from both the Cell and the Grid class. The Cell class would hold information on the current state of the Cell and its corresponding display picture. The Display class will need this picture in order to show in the GUI which state the Cell is currently on. It will also depend on the Grid class because it needs access to how the Grid is set up (ie how many rows and columns) so that the user can track the simulation.
 Methods: `displayGrid()` , `displayInfo()` , `startSimulation()` , `stopSimulation` , `changeSimulationSpeed`
+![](https://i.imgur.com/yP4KsJh.png)
+
 
 - Main Class:
 This class would start and run the program. It displays an intial `startScreen()` scene, which comprises of the starting splash screen, and choice of simulation. Going on, it would have dependencies on all the other classes. It would call on the Grid class to start and run through the simulation, and it would call on the display class to implement the user interface. Apart from that it wouldn't have any other major functionalities.  
 Methods: `startScreen` , `start()`
+![](https://i.imgur.com/sDlSyYn.png)
+
+
+
 
 ## User Interface
 The user will choose from a dropdown menu specifying what game simulationthey want to play. Once clicked, the display screen that displays the grid will show. The user then can click a play button which starts the simulation, and they can pause it any time by clicking a pause button. There will also be a reset button which allows the user to go back to time 0. Once the play button is clicked, a timer will be displayed which shows the user elapsed time. We also well have a fastforward and rewind button.
@@ -138,39 +149,53 @@ The components we have are the Main class, Grid class (and its subclasses for ea
     1. Grid class updateGrid(Grid object) to run through the grid and update the cells
     2. Grid class getNeigbors(int rows, int columns, int x, int y) and then check the state of each of those cells to see if they are dead or not and then call updatecell() to change the state of the cell
     3. Cell class updateCell() and apply the rules of the current simulation to the cell and change its state
-    4. Cell class
+    4. Cell class setState() and set the new state on the Cell object
 
 2. Apply the rules to an edge cell: set the next state of a cell to live by counting its number of neighbors using the Game of Life rules for a cell on the edge (i.e., with some of its neighbors missing). 
 
     1. Grid class updateGrid(Grid object) to run through the grid and update the cells
-    2. Grid class getNeighbors(...) and if there are no neighbors on a specific side of the cell, then
+    2. Grid class getNeighbors(...) and if there are no neighbors on a specific side of the cell, then dont update. If there are then: 
+    3. Cell class updateCell() and apply the rules of the current simulation to the cell and change its state
+    4. Cell class setState() and set the new state on the Cell object
 
 3. Move to the next generation: update all cells in a simulation from their current state to their next state and display the result graphically
 
-    1. updategrid() in the grid class which would be in the step method. This would 
+    1. updategrid() in the grid class which would be in the step method. This would mean it updates over every iteration
 
 4. Set a simulation parameter: set the value of a global configuration parameter, probCatch, for a simulation, Fire, based on the value given in an XML fire
 
-    1. 
+    1. Configuration class readXMLFile() and get the probability number
+    2. assign instance variable to probcatch()
 
 5. Switch simulations: load a new simulation from an XML file, stopping the current running simulation, say Segregation, and starting the newly loaded simulation, say Wator
 
-    1. changeSimulation(): Load a new XML file from 
-    2. readXMLfile("Wator"): Since the Wator option was selected, the file corresponding to Wator will be read in.
+    1. Display class changeSimulation(): Load a new XML file from 
+    2. Configuration class readXMLfile("Wator"): Since the Wator option was selected, the file corresponding to Wator will be read in.
+    3. Grid class populateGridCells(...) to create the new grid based on the simulation 
+    4. Grid class step() to start the new simulation
+    5. Grid class updateGrid(...) to start updating cell states
     
-
-
-
 
 
 ## Team Responsibilities
 #### High Level Plan
+We'll each have our own personal branch that we push our changes too. Once code has been peer reviewed, we will push our changes to the master branch. Our first step will be to get a rough working simulation of the Game of the Life simulation, as this is the easiest simulation. We expect this to entail creating the different classes outlined above and getting them to work together properly. Once we have this working simulation, we will extend the Grid class and add more simulations as subclasses. We will spend the last couple of days refactoring our code and fixing any outstanding bugs.  
 
 #### Individual Responsibilities
 
  * Team Member #1 - Chris Warren
+     * Primary
+         * Display Class with buttons
+    * Secondary
+        * XML reading in
 
  * Team Member #2 - Shruthi Kumar
+     * Primary 
+         * Responsible for setting up the Grid class (and the necessary subclasses) and the Cell class
+     *  Secondary
+         *  Will help with Display/Main class
 
  * Team Member #3 - Aneesh Gupta
+     * Primary: Main; XML reading in, how to feed in data to Grid class
+     * Secondary: Grid class and simulation logic.
 
