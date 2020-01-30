@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="" ?>
+<data media = "Simulation">
+    <name>GameOfLife</name>
+    <author>Aneesh</author>
+    <size>300</size>
+    <rows>10</rows>
+    <cols>10</cols>
+</data>
