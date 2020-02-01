@@ -32,14 +32,15 @@ public class Toolbar extends ToolBar {
 
 
     private void handlePlay(ActionEvent actionEvent) {
-      mainView.getTimer().start();
+//      this.mainView.getTimer().start();
     }
     private void handleStop(ActionEvent actionEvent) {
         mainView.getTimer().stop();
     }
 
     private void handleStep(ActionEvent actionEvent) {
-
+//      this.mainView.getSimulation().step();
+        this.mainView.draw();
     }
 
     private void handleReset(ActionEvent actionEvent) {

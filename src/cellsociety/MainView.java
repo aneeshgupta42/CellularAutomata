@@ -19,6 +19,7 @@ public class MainView extends VBox {
     private AnimationTimer timer;
     private Label lblTime;
     private int seconds;
+    private InfoBar infobar;
 
     public MainView() {
 
@@ -32,6 +33,7 @@ public class MainView extends VBox {
 
         timer();
         Toolbar Toolbar = new Toolbar(this);
+        this.infobar = new InfoBar();
         this.getChildren().addAll(Toolbar, this.canvas, this.switchSimulation, this.lblTime);
 
     }
@@ -105,4 +107,9 @@ public class MainView extends VBox {
     public Label getLbltime() {
         return this.lblTime;
     }
+
+
+//    public Simulation getSimulation() {
+//        return this.simulation;
+//    }
 }
