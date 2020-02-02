@@ -23,6 +23,7 @@ public class Grid {
 
   public void populateGridCells(int width, int height, int choice) {
     Cell tempCell;
+    //System.out.println(choice);
     for(int i = 0; i < height; i++) {
       for(int j = 0; j < width; j++) {
 //        if(i == 2 && j == 3) {
@@ -36,10 +37,9 @@ public class Grid {
 //           tempCell = getSimulation(i, j, 1, choice);
 //
 //        }
-           if(i==1 && j == 5){
-             tempCell = getSimulation(i, j, 2, choice);
-           }
-           tempCell = getSimulation(i, j, 1, choice);
+
+             tempCell = getSimulation(i, j, numChooser.nextInt(9), choice);
+
 
         //System.out.println(tempCell);
         //System.out.println(tempCell.getState());
@@ -51,6 +51,7 @@ public class Grid {
   }
 
   public void updateGrid(int width, int height) {
+    //System.out.println("reached");
     HashMap<Point, Cell> cellGridClone = copy(cellGrid);
     HashMap<Point, Integer> newStateMap = new HashMap<>();
     int tempInitInt = 5;

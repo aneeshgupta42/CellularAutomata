@@ -57,7 +57,7 @@ public class MainView extends VBox {
 
     public void step() {
         //System.out.println("Update");
-//        displaygrid.updateGrid(rows, cols);
+       displaygrid.updateGrid(rows, cols);
         GridPane newGrid = displayGrid(displaygrid);
         newGrid.setLayoutX(0); newGrid.setLayoutY(100);
         this.getChildren().remove(2);
