@@ -8,6 +8,7 @@ import java.util.HashMap;
 public class PredatorPreyCell extends Cell {
 
   public PredatorPreyCell() {
+    super(0, 0 , 0);
 
   }
 
@@ -17,6 +18,12 @@ public class PredatorPreyCell extends Cell {
   }
 
   @Override
+  public void updateCell(HashMap<Point, Cell> cellHashMap, HashMap<Point, Cell> copycellHashMap,
+      int row, int col, int width, int height) {
+
+  }
+
+
   public void updateCell(HashMap<Point, Cell> cellHashMap, int row, int col, int width, int height) {
 
   }

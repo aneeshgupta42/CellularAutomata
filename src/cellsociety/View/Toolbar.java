@@ -4,10 +4,12 @@ import cellsociety.Model.*;
 import cellsociety.View.MainView;
 import cellsociety.configuration.Game;
 import cellsociety.configuration.XMLReader;
+import java.awt.event.MouseEvent;
 import javafx.animation.AnimationTimer;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import java.awt.Point;
 
@@ -22,7 +24,7 @@ import java.awt.event.ItemListener;
 public class Toolbar extends ToolBar {
 
 
-    private MainView mainView;
+    private MainView myMainView;
     private AnimationTimer timer;
 
     private int seconds;
@@ -31,8 +33,9 @@ public class Toolbar extends ToolBar {
 
 
     public Toolbar(MainView mainView) {
-
+        myMainView = mainView;
         Button play = new Button("Play");
+
         play.setOnAction(this::handlePlay);
         Button stop = new Button("Stop");
         stop.setOnAction(this::handleStop);
@@ -65,10 +68,10 @@ public class Toolbar extends ToolBar {
 
 
     private void handlePlay(ActionEvent actionEvent) {
-//      this.mainView.getTimer().start();
+      this.myMainView.step();
     }
     private void handleStop(ActionEvent actionEvent) {
-        mainView.getTimer().stop();
+        myMainView.getTimer().stop();
     }
 
     private void handleStep(ActionEvent actionEvent) {

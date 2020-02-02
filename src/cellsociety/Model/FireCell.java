@@ -15,6 +15,9 @@ public class FireCell extends Cell {
   private int state;
   private Random numChooser = new Random();
 
+  public FireCell(int row, int col, int mystate) {
+    super(row, col, mystate);
+  }
 
 
   @Override
@@ -23,6 +26,12 @@ public class FireCell extends Cell {
   }
 
   @Override
+  public void updateCell(HashMap<Point, Cell> cellHashMap, HashMap<Point, Cell> copycellHashMap,
+      int row, int col, int width, int height) {
+
+  }
+
+
   public void updateCell(HashMap<Point, Cell> cellHashMap, int row, int col, int width, int height) {
       if(cellHashMap.get(new Point(row, col)).getState() == TREE && getNeighborCount(cellHashMap, row, col) >= 1) {
         if(numChooser.nextDouble() < probCatch) {

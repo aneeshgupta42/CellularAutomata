@@ -35,6 +35,9 @@ public class MainView extends VBox {
     private InfoBar infobar;
     private Grid gridmap;
     private Grid displaygrid;
+    private int rows;
+    private int cols;
+    public Toolbar myToolbar;
 
     public MainView() {
 
@@ -43,14 +46,22 @@ public class MainView extends VBox {
 //        gridmap.populateGridCells(500,500,0);
 
         timer();
-        Toolbar myToolbar = new Toolbar(this);
+        myToolbar = new Toolbar(this);
 
         displaygrid = myToolbar.getCurrentGrid();
         this.infobar = new InfoBar();
         GridPane theGrid = displayGrid(displaygrid);
         theGrid.setLayoutX(0); theGrid.setLayoutY(100);
-        this.getChildren().addAll(myToolbar, theGrid, this.lblTime);
+        this.getChildren().addAll(myToolbar, this.lblTime, theGrid);
+    }
 
+    public void step() {
+        //System.out.println("Update");
+        displaygrid.updateGrid(rows, cols);
+        GridPane newGrid = displayGrid(displaygrid);
+        newGrid.setLayoutX(0); newGrid.setLayoutY(100);
+        this.getChildren().remove(2);
+        this.getChildren().addAll(newGrid);
     }
 
 
@@ -59,10 +70,10 @@ public class MainView extends VBox {
         GridPane gridPane = new GridPane();
         XMLReader reader = new XMLReader("media");
         Game game = reader.getGame("data/gameOfLife.xml");
-        int rows = game.getMyRows();
-        int cols = game.getMyCols();
+        this.rows = game.getMyRows();
+        this.cols = game.getMyCols();
         HashMap<Point, Cell> myMap = myGrid.getCellGrid();
-        System.out.println(myMap.size());
+        //System.out.println(myMap.size());
         gridPane.addColumn(cols);
         gridPane.addRow(rows);
         gridPane.setHgap(1);

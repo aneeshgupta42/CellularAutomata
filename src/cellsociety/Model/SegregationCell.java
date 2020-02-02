@@ -30,6 +30,12 @@ public class SegregationCell extends Cell {
 
   }
 
+  @Override
+  public void updateCell(HashMap<Point, Cell> cellHashMap, HashMap<Point, Cell> copycellHashMap,
+      int row, int col, int width, int height) {
+
+  }
+
   /*
   @Override
   public void updateCell(HashMap<Point, Cell> cellHashMap, int row, int col) {

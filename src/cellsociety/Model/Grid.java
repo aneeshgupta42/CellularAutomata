@@ -24,16 +24,21 @@ public class Grid {
     for(int i = 0; i < width; i++) {
       for(int j = 0; j < height; j++) {
         Cell tempCell = getSimulation(width, height, numChooser.nextInt(2), choice);
+        //System.out.println(tempCell);
+        //System.out.println(tempCell.getState());
         cellGrid.put(new Point(i, j), tempCell);
+
 //        System.out.println(tempCell.getCellColor().toString());
       }
     }
   }
 
   public void updateGrid(int width, int height) {
+    HashMap<Point, Cell> cellGridClone = (HashMap<Point, Cell>) cellGrid.clone();
     for(int i = 0; i < width; i++) {
       for(int j = 0; j < height; j++) {
-        cellGrid.get(new Point(i, j)).updateCell(cellGrid, i, j, width, height);
+        cellGrid.get(new Point(i, j)).updateCell(cellGrid, cellGridClone, i, j, width, height);
+        //System.out.println(cellGrid.get(new Point(i, j)).getState());
       }
     }
   }
@@ -65,7 +70,7 @@ public class Grid {
       return new PredatorPreyCell();
     }
     else {
-      return new FireCell();
+      return new FireCell(0, 0, 0);
     }
 
   }

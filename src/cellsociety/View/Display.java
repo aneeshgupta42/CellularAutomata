@@ -1,8 +1,12 @@
 package cellsociety.View;
 
+import cellsociety.Controller.Main;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class Display extends Application {
 
@@ -19,6 +23,18 @@ public class Display extends Application {
                 stage.setScene(myScene);
                 stage.setTitle("Simulation");
                 stage.show();
+
+                KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> {
+                        try {
+                                mainView.step();
+                        } catch (Exception ex) {
+                                ex.printStackTrace();
+                        }
+                });
+                Timeline animation = new Timeline();
+                animation.setCycleCount(Timeline.INDEFINITE);
+                animation.getKeyFrames().add(frame);
+                animation.play();
 //
 //                KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), event -> mainView.draw());
 //                Timeline animation = new Timeline();
