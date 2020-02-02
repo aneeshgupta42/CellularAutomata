@@ -27,8 +27,8 @@ public class MainView extends VBox {
     public MainView() {
 
         this.canvas = new Canvas(500,500);
-        this.gridmap = new Grid();
-        gridmap.populateGridCells(500,500,0);
+//        this.gridmap = new Grid();
+//        gridmap.populateGridCells(500,500,0);
 
         timer();
         Toolbar Toolbar = new Toolbar(this);

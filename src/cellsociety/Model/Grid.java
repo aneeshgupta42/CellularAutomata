@@ -15,8 +15,9 @@ public class Grid {
   HashMap<Point, Cell> cellGrid;
   Random numChooser = new Random();
 
-  public Grid() {
+  public Grid(int width, int height, int choice) {
     cellGrid = new HashMap<Point, Cell>();
+    populateGridCells(width, height, choice);
   }
 
   public void populateGridCells(int width, int height, int choice) {
