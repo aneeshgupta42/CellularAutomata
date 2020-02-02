@@ -38,6 +38,7 @@ public class Toolbar extends ToolBar {
     private Grid currentGrid;
     private int running = 0;
     private Timeline animation;
+    private Grid myGrid;
 
 
     public Toolbar(MainView mainView) {
@@ -62,10 +63,15 @@ public class Toolbar extends ToolBar {
         switchSimulation.setEditable(true);
 
         switchSimulation.setOnAction(event -> nameofGame = switchSimulation.getValue());
-            XMLReader reader = new XMLReader("media");
-            Game game = reader.getGame("data/gameOfLife.xml");
-            currentGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice());
+        XMLReader reader = new XMLReader("media");
+        Game game = reader.getGame("data/gameOfLife.xml");
+        currentGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice());
 
+        animationFunctions();
+        this.getItems().addAll(play, stop, step, reset, switchSimulation);
+    }
+
+    public void animationFunctions() {
         KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> {
             try {
                 myMainView.step();
@@ -76,10 +82,6 @@ public class Toolbar extends ToolBar {
         animation = new Timeline();
         animation.setCycleCount(Timeline.INDEFINITE);
         animation.getKeyFrames().add(frame);
-            
-
-
-        this.getItems().addAll(play, stop, step, reset, switchSimulation);
     }
 
     public Grid getCurrentGrid() {
@@ -90,8 +92,7 @@ public class Toolbar extends ToolBar {
 
 
     private void handlePlay(ActionEvent actionEvent) {
-            animation.play();
-
+        animation.play();
     }
 
     private void handleStop(ActionEvent actionEvent) {
@@ -99,10 +100,10 @@ public class Toolbar extends ToolBar {
     }
 
     private void handleStep(ActionEvent actionEvent) {
-//      this.mainView.getSimulation().step();
-//      this.mainView.draw();
+        animation.pause();
+        myMainView.step();
     }
     private void handleReset(ActionEvent actionEvent) {
-
+        myMainView.displayGrid(myGrid);
     }
 }
