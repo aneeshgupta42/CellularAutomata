@@ -1,4 +1,4 @@
-package Model;
+package cellsociety.Model;
 
 import java.awt.*;
 import java.util.HashMap;

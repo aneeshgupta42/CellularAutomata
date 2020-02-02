@@ -1,4 +1,4 @@
-package Controller;
+package cellsociety.Controller;
 
 /**
  * Feel free to completely change this code or delete it entirely. 
