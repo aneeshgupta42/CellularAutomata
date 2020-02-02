@@ -25,20 +25,22 @@ public class Grid {
     Cell tempCell;
     for(int i = 0; i < height; i++) {
       for(int j = 0; j < width; j++) {
-        if(i == 2 && j == 3) {
-          tempCell = getSimulation(i, j, 1, choice);
-        }
-        else if(i == 3 && j == 4) {
+//        if(i == 2 && j == 3) {
+//          tempCell = getSimulation(i, j, 1, choice);
+//        }
+//        else if(i == 3 && j == 4) {
+//           tempCell = getSimulation(i, j, 1, choice);
+//
+//        }
+//        else if(i == 4 && (j == 2 || j == 3 || j == 4)) {
+//           tempCell = getSimulation(i, j, 1, choice);
+//
+//        }
+           if(i==1 && j == 5){
+             tempCell = getSimulation(i, j, 2, choice);
+           }
            tempCell = getSimulation(i, j, 1, choice);
 
-        }
-        else if(i == 4 && (j == 2 || j == 3 || j == 4)) {
-           tempCell = getSimulation(i, j, 1, choice);
-
-        }
-        else {
-           tempCell = getSimulation(i, j, 0, choice);
-        }
         //System.out.println(tempCell);
         //System.out.println(tempCell.getState());
         cellGrid.put(new Point(i, j), tempCell);

@@ -57,7 +57,7 @@ public class MainView extends VBox {
 
     public void step() {
         //System.out.println("Update");
-        displaygrid.updateGrid(rows, cols);
+//        displaygrid.updateGrid(rows, cols);
         GridPane newGrid = displayGrid(displaygrid);
         newGrid.setLayoutX(0); newGrid.setLayoutY(100);
         this.getChildren().remove(2);
@@ -69,7 +69,7 @@ public class MainView extends VBox {
 
         GridPane gridPane = new GridPane();
         XMLReader reader = new XMLReader("media");
-        Game game = reader.getGame("data/gameOfLife.xml");
+        Game game = reader.getGame("data/percolation.xml");
         this.rows = game.getMyRows();
         this.cols = game.getMyCols();
         HashMap<Point, Cell> myMap = myGrid.getCellGrid();
