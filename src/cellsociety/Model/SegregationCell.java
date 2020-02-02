@@ -18,6 +18,8 @@ public class SegregationCell extends Cell {
 
   public SegregationCell(int width, int height, int state) {
     super(width, height, state);
+    this.state = state;
+    this.setCellColor();
     //state = 0;
     //currentState = ALIVE;
 
@@ -56,7 +58,7 @@ public class SegregationCell extends Cell {
 
   @Override
   public int getState() {
-    return 0;
+    return this.state;
   }
 
   @Override
@@ -87,6 +89,7 @@ public class SegregationCell extends Cell {
       }
     }
   }
+
   public int getNeighborCount(HashMap<Point, Cell> cellHashMap, int row, int col) {
     int count = 0;
     int delta = 1;

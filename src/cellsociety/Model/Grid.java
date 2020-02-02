@@ -26,19 +26,19 @@ public class Grid {
     //System.out.println(choice);
     for(int i = 0; i < height; i++) {
       for(int j = 0; j < width; j++) {
-//        if(i == 2 && j == 3) {
-//          tempCell = getSimulation(i, j, 1, choice);
-//        }
-//        else if(i == 3 && j == 4) {
-//           tempCell = getSimulation(i, j, 1, choice);
-//
-//        }
-//        else if(i == 4 && (j == 2 || j == 3 || j == 4)) {
-//           tempCell = getSimulation(i, j, 1, choice);
-//
-//        }
+        if(i == 2 && j == 3) {
+          tempCell = getSimulation(i, j, 1, choice);
+        }
+        else if(i == 3 && j == 4) {
+           tempCell = getSimulation(i, j, 1, choice);
 
-             tempCell = getSimulation(i, j, numChooser.nextInt(9), choice);
+        }
+        else if(i == 4 && (j == 2 || j == 3 || j == 4)) {
+           tempCell = getSimulation(i, j, 1, choice);
+
+        }
+
+        else tempCell = getSimulation(i, j, 0, choice);
 
 
         //System.out.println(tempCell);
