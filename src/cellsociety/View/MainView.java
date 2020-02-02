@@ -1,14 +1,24 @@
 package cellsociety.View;
 
-import cellsociety.Model.Grid;
+import cellsociety.Model.*;
+import cellsociety.Model.Cell;
+import cellsociety.configuration.Game;
+import cellsociety.configuration.XMLReader;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.transform.Affine;
+
+import java.awt.*;
+
+import java.util.HashMap;
 
 public class MainView extends VBox {
 
@@ -39,21 +49,28 @@ public class MainView extends VBox {
 
     public void displayGrid() {
         GridPane gridPane = new GridPane();
-        gridPane.addColumn(40);
-        gridPane.addRow(40);
+        XMLReader reader = new XMLReader("media");
+        Game game = reader.getGame("data/gameOfLife.xml");
+        int rows = game.getMyRows();
+        int cols = game.getMyCols();
+        Grid myGrid = new Grid(rows, cols, game.getMyChoice());
+        HashMap<Point, Cell> myMap = myGrid.getCellGrid();
+        gridPane.addColumn(cols);
+        gridPane.addRow(rows);
         gridPane.setHgap(5);
         gridPane.setVgap(5);
+        int size = 10;
+        for(int i = 0; i<rows; i++){
+            for (int j = 0; j<cols; j++){
+                Point tempPt = new Point(i,j);
+                Color tempColor = myMap.get(tempPt).getCellColor();
+                Rectangle temp = new Rectangle(10,10, new Paint(""));
+                temp.set
+            }
 
+        }
     }
 
-    public void loadGrid() {
-        GridPane gridPane = new GridPane();
-        gridPane.setVgap(3);
-        gridPane.setHgap(3);
-        this.getChildren().add(gridPane);
-
-
-    }
 
     public void timer() {
         this.lblTime = new Label("0 s");

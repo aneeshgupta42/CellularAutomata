@@ -30,7 +30,7 @@ public abstract class Cell {
     public abstract void updateCell(HashMap<Point, Cell> cellHashMap, int row, int col, int width, int height);
 
     public abstract int getState();
-
+    public abstract javafx.scene.paint.Color getCellColor();
     public void setState(int state) {
         this.state = state;
         //displayImage =

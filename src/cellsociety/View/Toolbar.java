@@ -1,6 +1,6 @@
 package cellsociety.View;
 
-import cellsociety.Model.Grid;
+import cellsociety.Model.*;
 import cellsociety.View.MainView;
 import cellsociety.configuration.Game;
 import cellsociety.configuration.XMLReader;
@@ -9,6 +9,8 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
+import java.awt.Point;
+
 import javafx.scene.control.ComboBox;
 
 import javafx.scene.control.ToolBar;

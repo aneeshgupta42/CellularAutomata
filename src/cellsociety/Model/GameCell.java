@@ -1,9 +1,11 @@
 package cellsociety.Model;
 
-import java.awt.Color;
+import javafx.scene.paint.Color;
+
 import java.awt.Image;
 import java.awt.Point;
 import java.util.HashMap;
+
 
 public class GameCell extends Cell {
   //HashMap<Point, Cell> cellGrid = new HashMap<Point, Cell>();
@@ -15,6 +17,7 @@ public class GameCell extends Cell {
 
   public GameCell(int width, int height, int state) {
     super(width, height, state);
+    this.setCellColor();
     state = 0;
     //currentState = ALIVE;
 
