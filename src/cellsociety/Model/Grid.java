@@ -13,12 +13,24 @@ import java.util.Map;
 import java.util.Random;
 
 public class Grid {
-  HashMap<Point, Cell> cellGrid;
-  Random numChooser = new Random();
+  private HashMap<Point, Cell> cellGrid;
+  private Random numChooser = new Random();
+  private float myProb;
+  private double myThreshold;
 
   public Grid(int width, int height, int choice) {
     cellGrid = new HashMap<Point, Cell>();
     populateGridCells(width, height, choice);
+  }
+
+  public Grid(int width, int height, int choice, float prob){
+    this(width, height, choice);
+    myProb = prob;
+  }
+
+  public Grid(int width, int height, int choice, double thresh){
+    this(width, height, choice);
+    myThreshold = thresh;
   }
 
   public void populateGridCells(int width, int height, int choice) {
@@ -34,18 +46,12 @@ public class Grid {
 
         }
         else if(i == 4 && (j == 2 || j == 3 || j == 4)) {
-           tempCell = getSimulation(i, j, 1, choice);
+           tempCell = getSimulation(i, j, 2, choice);
 
         }
+        else tempCell = getSimulation(i, j, 1, choice);
 
-        else tempCell = getSimulation(i, j, 0, choice);
-
-
-        //System.out.println(tempCell);
-        //System.out.println(tempCell.getState());
         cellGrid.put(new Point(i, j), tempCell);
-
-//        System.out.println(tempCell.getCellColor().toString());
       }
     }
   }
@@ -100,13 +106,13 @@ public class Grid {
       return new PercolationCell(row, col, state);
     }
     else if(choice == 2) {
-      return new SegregationCell(row, col, state);
+      return new SegregationCell(row, col, state, myThreshold);
     }
     else if(choice == 3) {
       return new PredatorPreyCell();
     }
     else {
-      return new FireCell(0, 0, 0);
+      return new FireCell(row, col, state, myProb);
     }
 
   }

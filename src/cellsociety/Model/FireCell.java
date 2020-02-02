@@ -7,7 +7,7 @@ import java.util.Random;
 
 public class FireCell extends Cell {
 
-  private final static double probCatch = .5;
+  private double probCatch = .5;
   private final static int EMPTY = 0;
   private final static int TREE = 1;
   private final static int BURNING = 2;
@@ -15,8 +15,12 @@ public class FireCell extends Cell {
   private int state;
   private Random numChooser = new Random();
 
-  public FireCell(int row, int col, int mystate) {
+  public FireCell(int row, int col, int mystate, float prob) {
+
     super(row, col, mystate);
+    this.state = mystate;
+    this.setCellColor();
+    this.probCatch = prob;
   }
 
 

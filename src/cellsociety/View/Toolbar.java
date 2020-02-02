@@ -63,9 +63,11 @@ public class Toolbar extends ToolBar {
         switchSimulation.setEditable(true);
 
         switchSimulation.setOnAction(event -> nameofGame = switchSimulation.getValue());
+
         XMLReader reader = new XMLReader("media");
         Game game = reader.getGame("data/gameOfLife.xml");
         currentGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice());
+
 
         animationFunctions();
         this.getItems().addAll(play, stop, step, reset, switchSimulation);

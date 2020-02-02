@@ -10,7 +10,7 @@ public class PercolationCell extends Cell {
   private static final int BLOCKED = 0;
   private static final int OPEN = 1;
   private static final int PERCOLATED = 2;
-  private javafx.scene.paint.Color cellColor;
+  private Color cellColor;
 
   public PercolationCell(int width, int height, int state) {
     super(width, height, state);
@@ -28,7 +28,7 @@ public class PercolationCell extends Cell {
   @Override
   public int updateCell(HashMap<Point, Cell> cellHashMap, HashMap<Point, Cell> copyCellHashMap,
       int row, int col, int width, int height) {
-    System.out.println("reached");
+//    System.out.println("reached");
     if(getNeighborCount(cellHashMap, copyCellHashMap, row, col) >= 1 && cellHashMap.get(new Point(row, col)).getState() == OPEN) {
       return PERCOLATED;
     }
