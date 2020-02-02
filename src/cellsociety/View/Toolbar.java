@@ -27,6 +27,7 @@ public class Toolbar extends ToolBar {
 
     private int seconds;
     private Object nameofGame = " ";
+    private Grid currentGrid;
 
 
     public Toolbar(MainView mainView) {
@@ -47,16 +48,17 @@ public class Toolbar extends ToolBar {
         switchSimulation.setEditable(true);
 
         switchSimulation.setOnAction(event -> nameofGame = switchSimulation.getValue());
-        if (nameofGame == "Game of Life") {
             XMLReader reader = new XMLReader("media");
             Game game = reader.getGame("data/gameOfLife.xml");
-            Grid myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice());
-
-//            updateGridPane();
-        }
+            currentGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice());
+            
 
 
         this.getItems().addAll(play, stop, step, reset, switchSimulation);
+    }
+
+    public Grid getCurrentGrid() {
+        return currentGrid;
     }
 
 

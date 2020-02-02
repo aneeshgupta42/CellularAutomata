@@ -34,6 +34,7 @@ public class MainView extends VBox {
     private int seconds;
     private InfoBar infobar;
     private Grid gridmap;
+    private Grid displaygrid;
 
     public MainView() {
 
@@ -42,34 +43,37 @@ public class MainView extends VBox {
 //        gridmap.populateGridCells(500,500,0);
 
         timer();
-        Toolbar Toolbar = new Toolbar(this);
+        Toolbar myToolbar = new Toolbar(this);
+
+        displaygrid = myToolbar.getCurrentGrid();
         this.infobar = new InfoBar();
-        GridPane theGrid = displayGrid();
+        GridPane theGrid = displayGrid(displaygrid);
         theGrid.setLayoutX(0); theGrid.setLayoutY(100);
-        this.getChildren().addAll(Toolbar, theGrid, this.lblTime);
+        this.getChildren().addAll(myToolbar, theGrid, this.lblTime);
 
     }
 
-    public GridPane displayGrid() {
+
+    public GridPane displayGrid(Grid myGrid) {
+
         GridPane gridPane = new GridPane();
         XMLReader reader = new XMLReader("media");
         Game game = reader.getGame("data/gameOfLife.xml");
         int rows = game.getMyRows();
         int cols = game.getMyCols();
-        Grid myGrid = new Grid(rows, cols, game.getMyChoice());
         HashMap<Point, Cell> myMap = myGrid.getCellGrid();
         System.out.println(myMap.size());
         gridPane.addColumn(cols);
         gridPane.addRow(rows);
-        gridPane.setHgap(5);
-        gridPane.setVgap(5);
+        gridPane.setHgap(1);
+        gridPane.setVgap(1);
         int size = 10;
         for(int i = 0; i<rows; i++){
             for (int j = 0; j<cols; j++){
                 Point tempPt = new Point(i,j);
                 Color tempColor = myMap.get(tempPt).getCellColor();
                 System.out.println("");
-                Rectangle rect = new Rectangle(10,10, tempColor);
+                Rectangle rect = new Rectangle(20,20, tempColor);
                 gridPane.add(rect, j, i);
             }
         }
