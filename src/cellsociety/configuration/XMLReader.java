@@ -102,9 +102,5 @@ public class XMLReader {
             throw new XMLException(e);
         }
     }
-    public static void main(String argv[]) {
-        System.out.println("XML Reader");
-
-    }
 }
 
