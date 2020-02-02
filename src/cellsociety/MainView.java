@@ -4,9 +4,13 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Affine;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class MainView extends VBox {
 
@@ -20,21 +24,18 @@ public class MainView extends VBox {
     private Label lblTime;
     private int seconds;
     private InfoBar infobar;
+    private Grid gridmap;
 
     public MainView() {
 
-        this.switchSimulation = new ComboBox();
-       this.switchSimulation.getItems().addAll("Game of life", "Percolation", "Segregation", "Predator-Prey",
-               "fire");
-
-        this.canvas = new Canvas(400,400);
-        this.affine = new Affine();
-        this.affine.appendScale(400/10f,400/10f);
+        this.canvas = new Canvas(500,500);
+        this.gridmap = new Grid();
+        gridmap.populateGridCells(500,500,0);
 
         timer();
         Toolbar Toolbar = new Toolbar(this);
         this.infobar = new InfoBar();
-        this.getChildren().addAll(Toolbar, this.canvas, this.switchSimulation, this.lblTime);
+        this.getChildren().addAll(Toolbar, this.canvas, this.lblTime);
 
     }
 
@@ -43,23 +44,26 @@ public class MainView extends VBox {
         g.setTransform(this.affine);
 
         g.setFill(Color.LIGHTGRAY);
-        g.fillRect(0,0,450,450);
+        g.fillRect(0,0,400,400);
 
         g.setFill(Color.BLACK);
-        for (int x = 0; x <  400; x++) {
-            for (int y = 0; y < 400; y++) {
+        for (int x = 0; x <  500; x++) {
+            for (int y = 0; y < 500; y++) {
                 g.fillRect(x, y, 1, 1);
             }
         }
 
         g.setStroke(Color.GRAY);
         g.setLineWidth(0.05f);
-        for (int x = 0; x < 400; x++) {
-            g.strokeLine(x,0,x,10);
-        }
-        for (int y = 0; y < 400; y++) {
-            g.strokeLine(0,y,10,y);
-        }
+    }
+
+    public void loadGrid() {
+        GridPane gridPane = new GridPane();
+        gridPane.setVgap(3);
+        gridPane.setHgap(3);
+        this.getChildren().add(gridPane);
+
+
     }
 
     public void timer() {

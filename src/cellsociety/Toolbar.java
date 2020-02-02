@@ -1,11 +1,18 @@
 package cellsociety;
 
 import javafx.animation.AnimationTimer;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.ComboBox;
+
 import javafx.scene.control.ToolBar;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
 
 
 public class Toolbar extends ToolBar {
@@ -15,6 +22,7 @@ public class Toolbar extends ToolBar {
     private AnimationTimer timer;
 
     private int seconds;
+    private String address = " ";
 
     public Toolbar(MainView mainView) {
 
@@ -26,10 +34,22 @@ public class Toolbar extends ToolBar {
         step.setOnAction(this::handleStep);
         Button reset = new Button("Reset");
         reset.setOnAction(this::handleReset);
+        ComboBox switchSimulation = new ComboBox();
+        switchSimulation.getItems().addAll("Game of life", "Percolation", "Segregation", "Predator-Prey",
+                "Fire");
 
-        this.getItems().addAll(play, stop, step, reset);
+        switchSimulation.setPromptText("Choose a Simulation");
+        switchSimulation.setEditable(true);
+        switchSimulation.valueProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue ov, String t, String t1) {
+                address = t1;
+            }
+        });
+
+
+        this.getItems().addAll(play, stop, step, reset, switchSimulation);
     }
-
 
     private void handlePlay(ActionEvent actionEvent) {
 //      this.mainView.getTimer().start();
@@ -40,9 +60,8 @@ public class Toolbar extends ToolBar {
 
     private void handleStep(ActionEvent actionEvent) {
 //      this.mainView.getSimulation().step();
-        this.mainView.draw();
+//      this.mainView.draw();
     }
-
     private void handleReset(ActionEvent actionEvent) {
 
     }
