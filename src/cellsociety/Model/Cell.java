@@ -11,7 +11,7 @@ public abstract class Cell {
     private Color color;
 
     public Cell() {
-      this.state = 0;
+        this.state = 0;
     }
     public Cell(int row, int col, int state) {
       Point gridPos = new  Point(row, col);
