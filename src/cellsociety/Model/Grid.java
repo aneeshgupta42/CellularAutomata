@@ -12,14 +12,17 @@ import java.util.HashMap;
 import java.util.Random;
 
 public class Grid {
-  HashMap<Point, Cell> cellGrid = new HashMap<Point, Cell>();
+  HashMap<Point, Cell> cellGrid;
   Random numChooser = new Random();
 
+  public Grid() {
+    cellGrid = new HashMap<Point, Cell>();
+  }
 
   public void populateGridCells(int width, int height, int choice) {
     for(int i = 0; i < width; i++) {
       for(int j = 0; j < height; j++) {
-        cellGrid.put(new Point(i, j), getSimulation(width, height, choice, numChooser.nextInt(3)));
+        cellGrid.put(new Point(i, j), getSimulation(width, height, choice, numChooser.nextInt(2)));
       }
     }
   }

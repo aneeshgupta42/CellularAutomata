@@ -39,7 +39,7 @@ public class MainView extends VBox {
 
     public void draw() {
         GraphicsContext g = canvas.getGraphicsContext2D();
-        g.setTransform(this.affine);
+        //g.setTransform(this.affine);
 
         g.setFill(Color.LIGHTGRAY);
         g.fillRect(0,0,400,400);
