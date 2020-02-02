@@ -1,6 +1,5 @@
-package Model;
+package cellsociety.Model;
 
-import cellsociety.Grid;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Point;
@@ -14,8 +13,8 @@ public class GameCell extends Cell {
   //alive = 1, dead = 0
   private Color cellColor;
 
-  public GameCell(int width, int height) {
-    super(width, height);
+  public GameCell(int width, int height, int state) {
+    super(width, height, state);
     state = 0;
     //currentState = ALIVE;
 
@@ -31,6 +30,7 @@ public class GameCell extends Cell {
     return 0;
   }
 
+  @Override
   public void setCellColor() {
     if(state == 0) {
       cellColor = Color.GRAY;
@@ -43,12 +43,11 @@ public class GameCell extends Cell {
     }
   }
 
-
-
-  @Override
-  public void applyRules(HashMap<Point, Cell> cellHashMap, int width, int height, int row, int col) {
-
+  public Color getCellColor() {
+    return cellColor;
   }
+
+
 
   private int getNeighborCount(HashMap<Point, Cell> cellHashMap, int row, int col) {
     int count = 0;
@@ -90,7 +89,7 @@ public class GameCell extends Cell {
   }
 
 
-  public void updateCell(HashMap<Point, Cell> cellHashMap, int row, int col) {
+  public void updateCell(HashMap<Point, Cell> cellHashMap, int row, int col, int width, int height) {
     if((getNeighborCount(cellHashMap, row, col) > 3 || getNeighborCount(cellHashMap, row, col) < 2) && cellHashMap.get(new Point(row, col)).getState() == ALIVE) {
       setState(DEAD);
     }
@@ -103,6 +102,7 @@ public class GameCell extends Cell {
     else {
       setState(state);
     }
+    cellHashMap.get(new Point(row, col)).setCellColor();
   }
 
   public Image[] getImageRoot() {
