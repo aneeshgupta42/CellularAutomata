@@ -37,6 +37,11 @@ public class PercolationCell extends Cell {
     return 0;
   }
 
+  @Override
+  public javafx.scene.paint.Color getCellColor() {
+    return null;
+  }
+
 
   @Override
   protected void setCellColor() {

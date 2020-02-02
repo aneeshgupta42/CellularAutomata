@@ -52,7 +52,7 @@ public class Toolbar extends ToolBar {
             Game game = reader.getGame("data/gameOfLife.xml");
             Grid myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice());
 
-            updateGridPane();
+//            updateGridPane();
         }
 
 

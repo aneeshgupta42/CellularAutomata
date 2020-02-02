@@ -44,11 +44,13 @@ public class MainView extends VBox {
         timer();
         Toolbar Toolbar = new Toolbar(this);
         this.infobar = new InfoBar();
-        this.getChildren().addAll(Toolbar, this.canvas, this.lblTime);
+        GridPane theGrid = displayGrid();
+        theGrid.setLayoutX(0); theGrid.setLayoutY(100);
+        this.getChildren().addAll(Toolbar, theGrid, this.lblTime);
 
     }
 
-    public void displayGrid() {
+    public GridPane displayGrid() {
         GridPane gridPane = new GridPane();
         XMLReader reader = new XMLReader("media");
         Game game = reader.getGame("data/gameOfLife.xml");
@@ -65,11 +67,12 @@ public class MainView extends VBox {
             for (int j = 0; j<cols; j++){
                 Point tempPt = new Point(i,j);
                 Color tempColor = myMap.get(tempPt).getCellColor();
-                Rectangle rect = new Rectangle(10,10, Color.GRAY);
-                
+                System.out.println("");
+                Rectangle rect = new Rectangle(10,10, tempColor);
+                gridPane.add(rect, j, i);
             }
-
         }
+        return gridPane;
     }
 
 

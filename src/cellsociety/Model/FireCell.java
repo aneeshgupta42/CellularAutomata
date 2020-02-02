@@ -36,6 +36,11 @@ public class FireCell extends Cell {
     return 0;
   }
 
+  @Override
+  public javafx.scene.paint.Color getCellColor() {
+    return null;
+  }
+
 
   private int getNeighborCount(HashMap<Point, Cell> cellHashMap, int row, int col) {
     int count = 0;

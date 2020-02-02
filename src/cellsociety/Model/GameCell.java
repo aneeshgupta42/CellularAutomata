@@ -18,7 +18,7 @@ public class GameCell extends Cell {
   public GameCell(int width, int height, int state) {
     super(width, height, state);
     this.setCellColor();
-    state = 0;
+//    state = 0;
     //currentState = ALIVE;
 
   }
@@ -35,14 +35,14 @@ public class GameCell extends Cell {
 
   @Override
   public void setCellColor() {
-    if(state == 0) {
-      cellColor = Color.GRAY;
-    }
-    else if(state == 1) {
+    if(state == ALIVE) {
       cellColor = Color.BLUE;
     }
-    else {
+    else if(state == DEAD) {
       cellColor = Color.BLACK;
+    }
+    else {
+      cellColor = Color.RED;
     }
   }
 
