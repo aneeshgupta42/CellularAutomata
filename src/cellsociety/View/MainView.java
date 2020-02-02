@@ -37,22 +37,13 @@ public class MainView extends VBox {
 
     }
 
-    public void draw() {
-        GraphicsContext g = canvas.getGraphicsContext2D();
-        //g.setTransform(this.affine);
+    public void displayGrid() {
+        GridPane gridPane = new GridPane();
+        gridPane.addColumn(40);
+        gridPane.addRow(40);
+        gridPane.setHgap(5);
+        gridPane.setVgap(5);
 
-        g.setFill(Color.LIGHTGRAY);
-        g.fillRect(0,0,400,400);
-
-        g.setFill(Color.BLACK);
-        for (int x = 0; x <  500; x++) {
-            for (int y = 0; y < 500; y++) {
-                g.fillRect(x, y, 1, 1);
-            }
-        }
-
-        g.setStroke(Color.GRAY);
-        g.setLineWidth(0.05f);
     }
 
     public void loadGrid() {
@@ -89,19 +80,6 @@ public class MainView extends VBox {
             }
         };
     }
-
-    public void actionButtons() {
-//        this.playbutton = new Button("play");
-//        playbutton.setOnAction(e ->
-//        {
-//            lblTime.setText("0 .s");
-//            timer.start();
-//        });
-//        this.btnStop = new Button("STOP");
-//        btnStop.setOnAction(e -> timer.stop());
-
-    }
-
     public AnimationTimer getTimer(){
         return this.timer;
     }

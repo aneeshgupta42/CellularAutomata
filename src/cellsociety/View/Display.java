@@ -18,7 +18,6 @@ public class Display extends Application {
                 myScene = new Scene(mainView, 740, 600);
                 stage.setScene(myScene);
                 stage.setTitle("Simulation");
-                mainView.draw();
                 stage.show();
 //
 //                KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), event -> mainView.draw());

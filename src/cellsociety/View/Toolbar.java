@@ -1,6 +1,9 @@
 package cellsociety.View;
 
+import cellsociety.Model.Grid;
 import cellsociety.View.MainView;
+import cellsociety.configuration.Game;
+import cellsociety.configuration.XMLReader;
 import javafx.animation.AnimationTimer;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -10,6 +13,9 @@ import javafx.scene.control.ComboBox;
 
 import javafx.scene.control.ToolBar;
 
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+
 
 public class Toolbar extends ToolBar {
 
@@ -18,7 +24,8 @@ public class Toolbar extends ToolBar {
     private AnimationTimer timer;
 
     private int seconds;
-    private String address = " ";
+    private Object nameofGame = " ";
+
 
     public Toolbar(MainView mainView) {
 
@@ -36,16 +43,22 @@ public class Toolbar extends ToolBar {
 
         switchSimulation.setPromptText("Choose a Simulation");
         switchSimulation.setEditable(true);
-        switchSimulation.valueProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue ov, String t, String t1) {
-                address = t1;
-            }
-        });
+
+        switchSimulation.setOnAction(event -> nameofGame = switchSimulation.getValue());
+        if (nameofGame == "Game of Life") {
+            XMLReader reader = new XMLReader("media");
+            Game game = reader.getGame("data/gameOfLife.xml");
+            Grid myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice());
+
+            updateGridPane();
+        }
 
 
         this.getItems().addAll(play, stop, step, reset, switchSimulation);
     }
+
+
+
 
     private void handlePlay(ActionEvent actionEvent) {
 //      this.mainView.getTimer().start();
