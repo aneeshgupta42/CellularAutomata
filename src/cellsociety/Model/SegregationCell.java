@@ -52,7 +52,6 @@ public class SegregationCell extends Cell {
       //should remove random index
       vacantCells.remove(0);
     }
-
   }
 
   @Override
