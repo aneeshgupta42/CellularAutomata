@@ -87,10 +87,5 @@ public class FireCell extends Cell {
       cellColor = Color.RED;
     }
   }
-
-  public enum FireStates {
-    EMPTY,
-    BURNING,
-    TREE
-  }
+  
 }
