@@ -13,9 +13,9 @@ public abstract class Cell {
     public Cell() {
       this.state = 0;
     }
-    public Cell(int row, int col) {
+    public Cell(int row, int col, int state) {
       Point gridPos = new  Point(row, col);
-      this.state = 0;
+      //this.state = 0;
     }
 
     public int getRowPos() {

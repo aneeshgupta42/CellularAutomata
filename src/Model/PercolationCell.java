@@ -14,9 +14,9 @@ public class PercolationCell extends Cell {
   private static final int PERCOLATED = 2;
   private Color cellColor;
 
-  public PercolationCell(int width, int height) {
-    super(width, height);
-    state = 0;
+  public PercolationCell(int width, int height, int state) {
+    super(width, height, state);
+    //state = 0;
     //currentState = ALIVE;
 
   }

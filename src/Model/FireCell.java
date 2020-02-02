@@ -7,11 +7,22 @@ import java.util.HashMap;
 
 public class FireCell extends Cell {
 
-  private double probCatch;
+  private final static double probCatch = .5;
+
 
   @Override
   public void updateCell() {
 
+  }
+
+  @Override
+  public void updateCell(HashMap<Point, Cell> cellHashMap, int row, int col) {
+
+  }
+
+  @Override
+  public int getState() {
+    return 0;
   }
 
   @Override

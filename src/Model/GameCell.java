@@ -14,8 +14,8 @@ public class GameCell extends Cell {
   //alive = 1, dead = 0
   private Color cellColor;
 
-  public GameCell(int width, int height) {
-    super(width, height);
+  public GameCell(int width, int height, int state) {
+    super(width, height, state);
     state = 0;
     //currentState = ALIVE;
 
