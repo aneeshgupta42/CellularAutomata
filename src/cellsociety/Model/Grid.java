@@ -46,10 +46,10 @@ public class Grid {
 
         }
         else if(i == 4 && (j == 2 || j == 3 || j == 4)) {
-           tempCell = getSimulation(i, j, 2, choice);
+           tempCell = getSimulation(i, j, 1, choice);
 
         }
-        else tempCell = getSimulation(i, j, 1, choice);
+        else tempCell = getSimulation(i, j, 0, choice);
 
         cellGrid.put(new Point(i, j), tempCell);
       }
