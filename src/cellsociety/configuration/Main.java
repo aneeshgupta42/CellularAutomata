@@ -10,9 +10,10 @@ public class Main {
     public static void main (String[] args) {
         System.out.println("Testing out XML reading");
         XMLReader reader = new XMLReader("media");
-        Game game = reader.getGame("data/example.xml");
+        Game game = reader.getGame("data/percolation.xml");
         System.out.println(game.getAuthor());
         System.out.println(game.getSimulationName());
+        System.out.println(game.getMyChoice());
         System.out.println(game.getMyRows());
         System.out.println(game.getMyCols());
         System.out.println(game.getMySize());
