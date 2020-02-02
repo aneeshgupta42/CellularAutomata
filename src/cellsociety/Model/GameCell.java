@@ -96,24 +96,25 @@ public class GameCell extends Cell {
 
 
   public void updateCell(HashMap<Point, Cell> cellHashMap, HashMap<Point, Cell> copycellHashMap, int row, int col, int width, int height) {
-    //System.out.println("reached");
+    //System.out.println(getNeighborCount(cellHashMap, copycellHashMap, row, col));
 
     if((getNeighborCount(cellHashMap, copycellHashMap, row, col) > 3 || getNeighborCount(cellHashMap, copycellHashMap, row, col) < 2) && copycellHashMap.get(new Point(row, col)).getState() == ALIVE) {
-      setState(DEAD);
+      //System.out.println(getNeighborCount(cellHashMap, copycellHashMap, row, col));
+      cellHashMap.get(new Point(row, col)).setState(DEAD);
       //System.out.println("dead");
     }
     else if(getNeighborCount(cellHashMap, copycellHashMap, row, col) == 3 && copycellHashMap.get(new Point(row, col)).getState() == DEAD) {
-      setState(ALIVE);
+      cellHashMap.get(new Point(row, col)).setState(ALIVE);
       //System.out.println("alive");
 
     }
     else if(getNeighborCount(cellHashMap, copycellHashMap, row, col) >= 2 && copycellHashMap.get(new Point(row, col)).getState() == ALIVE) {
-      setState(ALIVE);
+      cellHashMap.get(new Point(row, col)).setState(ALIVE);
       //System.out.println("alive");
 
     }
     else {
-      setState(state);
+      cellHashMap.get(new Point(row, col)).setState(state);
     }
     cellHashMap.get(new Point(row, col)).setCellColor();
   }

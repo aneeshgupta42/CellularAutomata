@@ -9,6 +9,7 @@ import cellsociety.Model.SegregationCell;
 
 import java.awt.Point;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 public class Grid {
@@ -48,7 +49,7 @@ public class Grid {
   }
 
   public void updateGrid(int width, int height) {
-    HashMap<Point, Cell> cellGridClone = (HashMap<Point, Cell>) cellGrid.clone();
+    HashMap<Point, Cell> cellGridClone = copy(cellGrid);
 
     for(int i = 0; i < height; i++) {
       for(int j = 0; j < width; j++) {
@@ -56,6 +57,14 @@ public class Grid {
         //System.out.println(cellGrid.get(new Point(i, j)).getState());
       }
     }
+  }
+
+  public HashMap<Point, Cell> copy(HashMap<Point, Cell> original) {
+    HashMap<Point, Cell> cellGridClone = new HashMap<Point, Cell>();
+    for(Map.Entry<Point, Cell> entry: original.entrySet()) {
+      cellGridClone.put(entry.getKey(), entry.getValue());
+    }
+    return cellGridClone;
   }
 
   public HashMap<Point, Cell> getCellGrid() {
