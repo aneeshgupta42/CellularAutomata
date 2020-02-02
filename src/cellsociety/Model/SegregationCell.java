@@ -12,14 +12,16 @@ public class SegregationCell extends Cell {
   private static final int VACANT = 0;
   private static final int AGENT1 = 1;
   private static final int AGENT2 = 2;
-  private static final double THRESHOLD = .3;
+  private double THRESHOLD = .3;
   private Color cellColor;
   private List<Point> vacantCells = new ArrayList<>();
 
-  public SegregationCell(int width, int height, int state) {
+  public SegregationCell(int width, int height, int state, double thresh) {
     super(width, height, state);
     this.state = state;
+    this.THRESHOLD = thresh;
     this.setCellColor();
+
     //state = 0;
     //currentState = ALIVE;
 
@@ -49,7 +51,7 @@ public class SegregationCell extends Cell {
 
   public void updateCell(HashMap<Point, Cell> cellHashMap, int row, int col, int width, int height) {
     if(((double) getNeighborTypeCount(cellHashMap, row, col, cellHashMap.get(new Point(row, col)).getState())) / getNeighborCount(cellHashMap, row, col) < THRESHOLD) {
-      cellHashMap.put(vacantCells.get(0), new SegregationCell(width, height, cellHashMap.get(new Point(row, col)).getState()));
+      cellHashMap.put(vacantCells.get(0), new SegregationCell(width, height, cellHashMap.get(new Point(row, col)).getState(), THRESHOLD));
       cellHashMap.remove(new Point(row, col));
       //should remove random index
       vacantCells.remove(0);
