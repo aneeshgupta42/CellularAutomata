@@ -109,7 +109,7 @@ public class Grid {
       return new SegregationCell(row, col, state, myThreshold);
     }
     else if(choice == 3) {
-      return new PredatorPreyCell();
+      return new PredatorPreyCell(row, col, state);
     }
     else {
       return new FireCell(row, col, state, myProb);
