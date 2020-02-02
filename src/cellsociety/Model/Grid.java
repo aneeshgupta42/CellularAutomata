@@ -21,9 +21,23 @@ public class Grid {
   }
 
   public void populateGridCells(int width, int height, int choice) {
-    for(int i = 0; i < width; i++) {
-      for(int j = 0; j < height; j++) {
-        Cell tempCell = getSimulation(width, height, numChooser.nextInt(2), choice);
+    Cell tempCell;
+    for(int i = 0; i < height; i++) {
+      for(int j = 0; j < width; j++) {
+        if(i == 2 && j == 3) {
+          tempCell = getSimulation(i, j, 1, choice);
+        }
+        else if(i == 3 && j == 4) {
+           tempCell = getSimulation(i, j, 1, choice);
+
+        }
+        else if(i == 4 && (j == 2 || j == 3 || j == 4)) {
+           tempCell = getSimulation(i, j, 1, choice);
+
+        }
+        else {
+           tempCell = getSimulation(i, j, 0, choice);
+        }
         //System.out.println(tempCell);
         //System.out.println(tempCell.getState());
         cellGrid.put(new Point(i, j), tempCell);
@@ -35,8 +49,9 @@ public class Grid {
 
   public void updateGrid(int width, int height) {
     HashMap<Point, Cell> cellGridClone = (HashMap<Point, Cell>) cellGrid.clone();
-    for(int i = 0; i < width; i++) {
-      for(int j = 0; j < height; j++) {
+
+    for(int i = 0; i < height; i++) {
+      for(int j = 0; j < width; j++) {
         cellGrid.get(new Point(i, j)).updateCell(cellGrid, cellGridClone, i, j, width, height);
         //System.out.println(cellGrid.get(new Point(i, j)).getState());
       }
@@ -56,15 +71,15 @@ public class Grid {
     return new Cell[0];
   }
 
-  private Cell getSimulation(int width, int height, int state, int choice) {
+  private Cell getSimulation(int row, int col, int state, int choice) {
     if(choice == 0) {
-      return new GameCell(width, height, state);
+      return new GameCell(row, col, state);
     }
     else if(choice == 1) {
-      return new PercolationCell(width, height, state);
+      return new PercolationCell(row, col, state);
     }
     else if(choice == 2) {
-      return new SegregationCell(width, height, state);
+      return new SegregationCell(row, col, state);
     }
     else if(choice == 3) {
       return new PredatorPreyCell();

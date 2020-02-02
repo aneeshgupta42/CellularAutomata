@@ -89,6 +89,7 @@ public class GameCell extends Cell {
     if(copycellHashMap.containsKey(new Point(row + delta, col + delta)) && copycellHashMap.get(new Point(row + delta, col + delta)).getState() == ALIVE) {
       count++;
     }
+    System.out.println(count);
 
     return count;
   }
