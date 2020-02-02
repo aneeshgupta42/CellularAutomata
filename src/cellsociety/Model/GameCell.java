@@ -16,7 +16,6 @@ public class GameCell extends Cell {
   private Color cellColor;
 
   public GameCell(int width, int height, int mystate) {
-
     super(width, height, mystate);
     this.state = mystate;
 
@@ -104,7 +103,7 @@ public class GameCell extends Cell {
       //System.out.println("dead");
     }
     else if(getNeighborCount(cellHashMap, copycellHashMap, row, col) == 3 && copycellHashMap.get(new Point(row, col)).getState() == DEAD) {
-      cellHashMap.get(new Point(row, col)).setState(ALIVE);
+      //cellHashMap.get(new Point(row, col)).setState(ALIVE);
       //System.out.println("alive");
       return ALIVE;
 

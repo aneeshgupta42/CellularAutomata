@@ -55,7 +55,7 @@ public class Grid {
     for(int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
         newStateMap.put(new Point(i,j), tempInitInt);
-        int newState =  cellGrid.get(new Point(i, j)).updateCell(cellGrid, cellGridClone, i, j, width, height);
+        int newState = cellGrid.get(new Point(i, j)).updateCell(cellGrid, cellGridClone, i, j, width, height);
         newStateMap.put(new Point(i,j), newState);
       }
     }

@@ -13,7 +13,7 @@ public class Display extends Application {
 
         private Scene myScene;
         private static final int FRAMES_PER_SECOND = 60;
-        private static final double MILLISECOND_DELAY = 1000/FRAMES_PER_SECOND;
+        private static final double MILLISECOND_DELAY = 10000/FRAMES_PER_SECOND;
 
         @Override
         public void start(Stage stage) throws Exception {
