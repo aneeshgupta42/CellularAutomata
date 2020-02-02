@@ -14,6 +14,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Affine;
 
 import java.awt.*;
@@ -64,8 +65,8 @@ public class MainView extends VBox {
             for (int j = 0; j<cols; j++){
                 Point tempPt = new Point(i,j);
                 Color tempColor = myMap.get(tempPt).getCellColor();
-                Rectangle temp = new Rectangle(10,10, new Paint(""));
-                temp.set
+                Rectangle rect = new Rectangle(10,10, Color.GRAY);
+                
             }
 
         }
