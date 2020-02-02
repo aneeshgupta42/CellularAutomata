@@ -50,12 +50,13 @@ public class XMLReader {
         Map<String, String> results = new HashMap<>();
 
         String simulationName = getTextValue(root, "name");
+        int choice = Integer.parseInt(getTextValue(root, "choice"));
         String author = getTextValue(root, "author");
         int mySize = Integer.parseInt(getTextValue(root, "size"));
         int myRows = Integer.parseInt(getTextValue(root, "rows"));
         int myCols = Integer.parseInt(getTextValue(root, "cols"));
 
-        return new Game(simulationName, author, mySize, myRows, myCols);
+        return new Game(simulationName, author, choice, mySize, myRows, myCols);
     }
 
     // get root element of an XML file
@@ -100,10 +101,6 @@ public class XMLReader {
         catch (ParserConfigurationException e) {
             throw new XMLException(e);
         }
-    }
-    public static void main(String argv[]) {
-        System.out.println("XML Reader");
-
     }
 }
 

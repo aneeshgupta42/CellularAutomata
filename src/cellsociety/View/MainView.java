@@ -1,14 +1,25 @@
 package cellsociety.View;
 
-import cellsociety.Model.Grid;
+import cellsociety.Model.*;
+import cellsociety.Model.Cell;
+import cellsociety.configuration.Game;
+import cellsociety.configuration.XMLReader;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Affine;
+
+import java.awt.*;
+
+import java.util.HashMap;
 
 public class MainView extends VBox {
 
@@ -23,46 +34,63 @@ public class MainView extends VBox {
     private int seconds;
     private InfoBar infobar;
     private Grid gridmap;
+    private Grid displaygrid;
+    private int rows;
+    private int cols;
+    public Toolbar myToolbar;
 
     public MainView() {
 
         this.canvas = new Canvas(500,500);
-        this.gridmap = new Grid();
-        gridmap.populateGridCells(500,500,0);
+//        this.gridmap = new Grid();
+//        gridmap.populateGridCells(500,500,0);
 
         timer();
-        Toolbar Toolbar = new Toolbar(this);
-        this.infobar = new InfoBar();
-        this.getChildren().addAll(Toolbar, this.canvas, this.lblTime);
+        myToolbar = new Toolbar(this);
 
+        displaygrid = myToolbar.getCurrentGrid();
+        this.infobar = new InfoBar();
+        GridPane theGrid = displayGrid(displaygrid);
+        theGrid.setLayoutX(0); theGrid.setLayoutY(100);
+        this.getChildren().addAll(myToolbar, this.lblTime, theGrid);
     }
 
-    public void draw() {
-        GraphicsContext g = canvas.getGraphicsContext2D();
-        //g.setTransform(this.affine);
+    public void step() {
+        //System.out.println("Update");
+//        displaygrid.updateGrid(rows, cols);
+        GridPane newGrid = displayGrid(displaygrid);
+        newGrid.setLayoutX(0); newGrid.setLayoutY(100);
+        this.getChildren().remove(2);
+        this.getChildren().addAll(newGrid);
+    }
 
-        g.setFill(Color.LIGHTGRAY);
-        g.fillRect(0,0,400,400);
 
-        g.setFill(Color.BLACK);
-        for (int x = 0; x <  500; x++) {
-            for (int y = 0; y < 500; y++) {
-                g.fillRect(x, y, 1, 1);
+    public GridPane displayGrid(Grid myGrid) {
+
+        GridPane gridPane = new GridPane();
+        XMLReader reader = new XMLReader("media");
+        Game game = reader.getGame("data/gameOfLife.xml");
+        this.rows = game.getMyRows();
+        this.cols = game.getMyCols();
+        HashMap<Point, Cell> myMap = myGrid.getCellGrid();
+        //System.out.println(myMap.size());
+        gridPane.addColumn(cols);
+        gridPane.addRow(rows);
+        gridPane.setHgap(1);
+        gridPane.setVgap(1);
+        int size = 10;
+        for(int i = 0; i<rows; i++){
+            for (int j = 0; j<cols; j++){
+                Point tempPt = new Point(i,j);
+                Color tempColor = myMap.get(tempPt).getCellColor();
+                System.out.println("");
+                Rectangle rect = new Rectangle(20,20, tempColor);
+                gridPane.add(rect, j, i);
             }
         }
-
-        g.setStroke(Color.GRAY);
-        g.setLineWidth(0.05f);
+        return gridPane;
     }
 
-    public void loadGrid() {
-        GridPane gridPane = new GridPane();
-        gridPane.setVgap(3);
-        gridPane.setHgap(3);
-        this.getChildren().add(gridPane);
-
-
-    }
 
     public void timer() {
         this.lblTime = new Label("0 s");
@@ -89,19 +117,6 @@ public class MainView extends VBox {
             }
         };
     }
-
-    public void actionButtons() {
-//        this.playbutton = new Button("play");
-//        playbutton.setOnAction(e ->
-//        {
-//            lblTime.setText("0 .s");
-//            timer.start();
-//        });
-//        this.btnStop = new Button("STOP");
-//        btnStop.setOnAction(e -> timer.stop());
-
-    }
-
     public AnimationTimer getTimer(){
         return this.timer;
     }

@@ -20,12 +20,18 @@ public class PercolationCell extends Cell {
   }
 
   @Override
-  public void updateCell() {
+  public int updateCell() {
+    return 0;
+  }
 
+  @Override
+  public int updateCell(HashMap<Point, Cell> cellHashMap, HashMap<Point, Cell> copycellHashMap,
+      int row, int col, int width, int height) {
+    return 0;
   }
 
 
-  @Override
+
   public void updateCell(HashMap<Point, Cell> cellHashMap, int row, int col, int width, int height) {
     if((getNeighborCount(cellHashMap, row, col) >= 3 || getNeighborCount(cellHashMap, row, col) < 2) && cellHashMap.get(new Point(row, col)).getState() == PERCOLATED) {
       setState(PERCOLATED);
@@ -35,6 +41,11 @@ public class PercolationCell extends Cell {
   @Override
   public int getState() {
     return 0;
+  }
+
+  @Override
+  public javafx.scene.paint.Color getCellColor() {
+    return null;
   }
 
 

@@ -1,26 +1,31 @@
 package cellsociety.Model;
 
+import javafx.scene.paint.Color;
+
 import java.awt.Point;
 import java.util.HashMap;
 
 public class PredatorPreyCell extends Cell {
-  private int state;
-  private static final int EMPTY = 0;
-  private static final int FISH = 1;
-  private static final int SHARK = 2;
 
-
-  public PredatorPreyCell(int width, int height, int state) {
-    super(width, height, state);
-  }
-
-  @Override
-  public void updateCell() {
+  public PredatorPreyCell() {
+    super(0, 0 , 0);
 
   }
 
   @Override
-  public void updateCell(HashMap<Point, Cell> cellHashMap, int row, int col, int width, int height) {
+  public int updateCell() {
+    return 0;
+  }
+
+  @Override
+  public int updateCell(HashMap<Point, Cell> cellHashMap, HashMap<Point, Cell> copycellHashMap,
+      int row, int col, int width, int height) {
+    return 0;
+  }
+
+
+  public int updateCell(HashMap<Point, Cell> cellHashMap, int row, int col, int width, int height) {
+    return 0;
 
   }
 
@@ -29,6 +34,10 @@ public class PredatorPreyCell extends Cell {
     return 0;
   }
 
+  @Override
+  public Color getCellColor() {
+    return null;
+  }
 
 
   @Override
@@ -36,4 +45,9 @@ public class PredatorPreyCell extends Cell {
 
   }
 
+  public enum PredatorPreyStates {
+    SHARK,
+    FISH,
+    OPEN
+  }
 }

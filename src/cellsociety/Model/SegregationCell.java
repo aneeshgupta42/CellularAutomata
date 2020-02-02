@@ -26,8 +26,14 @@ public class SegregationCell extends Cell {
 
 
   @Override
-  public void updateCell() {
+  public int updateCell() {
+    return 0;
+  }
 
+  @Override
+  public int updateCell(HashMap<Point, Cell> cellHashMap, HashMap<Point, Cell> copycellHashMap,
+      int row, int col, int width, int height) {
+    return 0;
   }
 
   /*
@@ -52,6 +58,11 @@ public class SegregationCell extends Cell {
   @Override
   public int getState() {
     return 0;
+  }
+
+  @Override
+  public javafx.scene.paint.Color getCellColor() {
+    return null;
   }
 
 

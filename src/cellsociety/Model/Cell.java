@@ -10,12 +10,16 @@ public abstract class Cell {
     Point gridPos;
     private Color color;
 
+    /*
     public Cell() {
         this.state = 0;
     }
-    public Cell(int row, int col, int state) {
+
+     */
+    public Cell(int row, int col, int mystate) {
       Point gridPos = new  Point(row, col);
-      //this.state = 0;
+      this.state = mystate;
+      //System.out.println(state);
     }
 
     public int getRowPos() {
@@ -26,10 +30,11 @@ public abstract class Cell {
       return (int) gridPos.getY();
     }
 
-    public abstract void updateCell();
-    public abstract void updateCell(HashMap<Point, Cell> cellHashMap, int row, int col, int width, int height);
+    public abstract int updateCell();
+    public abstract int updateCell(HashMap<Point, Cell> cellHashMap, HashMap<Point, Cell> copycellHashMap, int row, int col, int width, int height);
 
     public abstract int getState();
+    public abstract javafx.scene.paint.Color getCellColor();
 
     public void setState(int state) {
         this.state = state;

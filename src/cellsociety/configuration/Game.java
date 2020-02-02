@@ -27,9 +27,11 @@ public class Game {
     // specific data values for this instance
     private String simulationName;
     private String author;
+    private int myChoice;
     private int mySize;
     private int myRows;
     private int myCols;
+
     // NOTE: keep just as an example for converting toString(), otherwise not used
     private Map<String, String> myDataValues;
 
@@ -37,9 +39,10 @@ public class Game {
     /**
      * Create game data from given data.
      */
-    public Game(String simName, String authName, int size, int rows, int cols) {
+    public Game(String simName, String authName, int choice, int size, int rows, int cols) {
         simulationName = simName;
         author = authName;
+        myChoice = choice;
         mySize = size;
         myRows = rows;
         myCols = cols;
@@ -72,6 +75,10 @@ public class Game {
 
     public int getMySize() {
         return mySize;
+    }
+
+    public int getMyChoice() {
+        return myChoice;
     }
 
     /**

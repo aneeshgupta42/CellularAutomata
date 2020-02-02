@@ -9,30 +9,71 @@ import cellsociety.Model.SegregationCell;
 
 import java.awt.Point;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 public class Grid {
   HashMap<Point, Cell> cellGrid;
   Random numChooser = new Random();
 
-  public Grid() {
+  public Grid(int width, int height, int choice) {
     cellGrid = new HashMap<Point, Cell>();
+    populateGridCells(width, height, choice);
   }
 
   public void populateGridCells(int width, int height, int choice) {
-    for(int i = 0; i < width; i++) {
-      for(int j = 0; j < height; j++) {
-        cellGrid.put(new Point(i, j), getSimulation(width, height, choice, numChooser.nextInt(2)));
+    Cell tempCell;
+    for(int i = 0; i < height; i++) {
+      for(int j = 0; j < width; j++) {
+        if(i == 2 && j == 3) {
+          tempCell = getSimulation(i, j, 1, choice);
+        }
+        else if(i == 3 && j == 4) {
+           tempCell = getSimulation(i, j, 1, choice);
+
+        }
+        else if(i == 4 && (j == 2 || j == 3 || j == 4)) {
+           tempCell = getSimulation(i, j, 1, choice);
+
+        }
+        else {
+           tempCell = getSimulation(i, j, 0, choice);
+        }
+        //System.out.println(tempCell);
+        //System.out.println(tempCell.getState());
+        cellGrid.put(new Point(i, j), tempCell);
+
+//        System.out.println(tempCell.getCellColor().toString());
       }
     }
   }
 
   public void updateGrid(int width, int height) {
-    for(int i = 0; i < width; i++) {
-      for(int j = 0; j < height; j++) {
-        cellGrid.get(new Point(i, j)).updateCell(cellGrid, i, j, width, height);
+    HashMap<Point, Cell> cellGridClone = copy(cellGrid);
+    HashMap<Point, Integer> newStateMap = new HashMap<>();
+    int tempInitInt = 5;
+    for(int i = 0; i < height; i++) {
+      for (int j = 0; j < width; j++) {
+        newStateMap.put(new Point(i,j), tempInitInt);
+        int newState = cellGrid.get(new Point(i, j)).updateCell(cellGrid, cellGridClone, i, j, width, height);
+        newStateMap.put(new Point(i,j), newState);
       }
     }
+    for(int i = 0; i < height; i++) {
+      for(int j = 0; j < width; j++) {
+        cellGrid.get(new Point(i, j)).setState(newStateMap.get(new Point(i, j)));
+        cellGrid.get(new Point(i, j)).setCellColor();
+        //System.out.println(cellGrid.get(new Point(i, j)).getState());
+      }
+    }
+  }
+
+  public HashMap<Point, Cell> copy(HashMap<Point, Cell> original) {
+    HashMap<Point, Cell> cellGridClone = new HashMap<Point, Cell>();
+    for(Map.Entry<Point, Cell> entry: original.entrySet()) {
+      cellGridClone.put(entry.getKey(), entry.getValue());
+    }
+    return cellGridClone;
   }
 
   public HashMap<Point, Cell> getCellGrid() {
@@ -48,21 +89,21 @@ public class Grid {
     return new Cell[0];
   }
 
-  private Cell getSimulation(int width, int height, int state, int choice) {
+  private Cell getSimulation(int row, int col, int state, int choice) {
     if(choice == 0) {
-      return new GameCell(width, height, state);
+      return new GameCell(row, col, state);
     }
     else if(choice == 1) {
-      return new PercolationCell(width, height, state);
+      return new PercolationCell(row, col, state);
     }
     else if(choice == 2) {
-      return new SegregationCell(width, height, state);
+      return new SegregationCell(row, col, state);
     }
     else if(choice == 3) {
       return new PredatorPreyCell();
     }
     else {
-      return new FireCell();
+      return new FireCell(0, 0, 0);
     }
 
   }
