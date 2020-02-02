@@ -1,5 +1,6 @@
-package cellsociety;
+package cellsociety.View;
 
+import cellsociety.Model.Grid;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -8,9 +9,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Affine;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 
 public class MainView extends VBox {
 

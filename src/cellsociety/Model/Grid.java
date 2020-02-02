@@ -3,20 +3,23 @@ package cellsociety.Model;
 import cellsociety.Model.Cell;
 import cellsociety.Model.FireCell;
 import cellsociety.Model.GameCell;
-import cellsociety.Model.PercolationCell;
-import cellsociety.Model.PredatorPreyCell;
+//import cellsociety.Model.PercolationCell;
+//import cellsociety.Model.PredatorPreyCell;
 import cellsociety.Model.SegregationCell;
 
 import java.awt.Point;
 import java.util.HashMap;
+import java.util.Random;
 
 public class Grid {
   HashMap<Point, Cell> cellGrid = new HashMap<Point, Cell>();
+  Random numChooser = new Random();
 
-  public void populateGridCells(int width, int height, int choice, int state) {
+
+  public void populateGridCells(int width, int height, int choice) {
     for(int i = 0; i < width; i++) {
       for(int j = 0; j < height; j++) {
-        cellGrid.put(new Point(i, j), getSimulation(width, height, choice, state));
+        cellGrid.put(new Point(i, j), getSimulation(width, height, choice, numChooser.nextInt(3)));
       }
     }
   }

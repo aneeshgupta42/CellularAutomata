@@ -1,5 +1,6 @@
-package cellsociety;
+package cellsociety.View;
 
+import cellsociety.View.MainView;
 import javafx.animation.AnimationTimer;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -8,11 +9,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 
 import javafx.scene.control.ToolBar;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
 
 
 public class Toolbar extends ToolBar {

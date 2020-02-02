@@ -1,20 +1,8 @@
-package cellsociety;
+package cellsociety.View;
 
-import com.sun.tools.javac.Main;
-import javafx.animation.AnimationTimer;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.application.Application;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.util.Duration;
-
-import java.awt.event.ActionEvent;
 
 public class Display extends Application {
 
