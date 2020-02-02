@@ -50,10 +50,19 @@ public class Grid {
 
   public void updateGrid(int width, int height) {
     HashMap<Point, Cell> cellGridClone = copy(cellGrid);
-
+    HashMap<Point, Integer> newStateMap = new HashMap<>();
+    int tempInitInt = 5;
+    for(int i = 0; i < height; i++) {
+      for (int j = 0; j < width; j++) {
+        newStateMap.put(new Point(i,j), tempInitInt);
+        int newState =  cellGrid.get(new Point(i, j)).updateCell(cellGrid, cellGridClone, i, j, width, height);
+        newStateMap.put(new Point(i,j), newState);
+      }
+    }
     for(int i = 0; i < height; i++) {
       for(int j = 0; j < width; j++) {
-        cellGrid.get(new Point(i, j)).updateCell(cellGrid, cellGridClone, i, j, width, height);
+        cellGrid.get(new Point(i, j)).setState(newStateMap.get(new Point(i, j)));
+        cellGrid.get(new Point(i, j)).setCellColor();
         //System.out.println(cellGrid.get(new Point(i, j)).getState());
       }
     }

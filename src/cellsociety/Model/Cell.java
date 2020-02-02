@@ -30,8 +30,8 @@ public abstract class Cell {
       return (int) gridPos.getY();
     }
 
-    public abstract void updateCell();
-    public abstract void updateCell(HashMap<Point, Cell> cellHashMap, HashMap<Point, Cell> copycellHashMap, int row, int col, int width, int height);
+    public abstract int updateCell();
+    public abstract int updateCell(HashMap<Point, Cell> cellHashMap, HashMap<Point, Cell> copycellHashMap, int row, int col, int width, int height);
 
     public abstract int getState();
     public abstract javafx.scene.paint.Color getCellColor();
