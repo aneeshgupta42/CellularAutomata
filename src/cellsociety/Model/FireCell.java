@@ -1,8 +1,6 @@
-package Model;
+package cellsociety.Model;
 
-import cellsociety.Grid;
 import java.awt.Color;
-import java.awt.Image;
 import java.awt.Point;
 import java.util.HashMap;
 import java.util.Random;
