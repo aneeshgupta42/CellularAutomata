@@ -31,6 +31,8 @@ public class Game {
     private int mySize;
     private int myRows;
     private int myCols;
+    private float myProb;
+    private double myThreshold;
 
     // NOTE: keep just as an example for converting toString(), otherwise not used
     private Map<String, String> myDataValues;
@@ -48,6 +50,18 @@ public class Game {
         myCols = cols;
         // NOTE: this is useful so our code does not fail due to a NullPointerException
         myDataValues = new HashMap<>();
+    }
+
+    //Fire - has probability
+    public Game(String simName, String authName, int choice, int size, int rows, int cols, float prob){
+        this(simName, authName, choice, size,rows,cols);
+        this.myProb = prob;
+    }
+
+    //Segregation - has threshold
+    public Game(String simName, String authName, int choice, int size, int rows, int cols, double thresh){
+        this(simName, authName, choice, size,rows,cols);
+        this.myThreshold = thresh;
     }
 
     // NOTE: provides getters, but not setters
@@ -79,6 +93,14 @@ public class Game {
 
     public int getMyChoice() {
         return myChoice;
+    }
+
+    public float getMyProb() {
+        return myProb;
+    }
+
+    public double getMyThreshold() {
+        return myThreshold;
     }
 
     /**

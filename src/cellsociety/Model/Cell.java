@@ -38,7 +38,6 @@ public abstract class Cell {
 
     public void setState(int state) {
         this.state = state;
-        //displayImage =
     }
 
    //public abstract void applyRules(HashMap<Point, Cell> cellHashMap, int row, int col, int width, int height);

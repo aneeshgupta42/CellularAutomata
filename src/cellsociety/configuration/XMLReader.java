@@ -55,7 +55,14 @@ public class XMLReader {
         int mySize = Integer.parseInt(getTextValue(root, "size"));
         int myRows = Integer.parseInt(getTextValue(root, "rows"));
         int myCols = Integer.parseInt(getTextValue(root, "cols"));
-
+        if(choice == 4){//Fire
+            float myProb = Float.parseFloat(getTextValue(root, "prob"));
+            return new Game(simulationName, author, choice, mySize, myRows, myCols, myProb);
+        }
+        if(choice == 2){//Segregation
+            double myThreshold = Double.parseDouble(getTextValue(root, "threshold"));
+            return new Game(simulationName, author, choice, mySize, myRows, myCols, myThreshold);
+        }
         return new Game(simulationName, author, choice, mySize, myRows, myCols);
     }
 

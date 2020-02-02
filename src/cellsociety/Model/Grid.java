@@ -13,16 +13,29 @@ import java.util.Map;
 import java.util.Random;
 
 public class Grid {
-  HashMap<Point, Cell> cellGrid;
-  Random numChooser = new Random();
+  private HashMap<Point, Cell> cellGrid;
+  private Random numChooser = new Random();
+  private float myProb;
+  private double myThreshold;
 
   public Grid(int width, int height, int choice) {
     cellGrid = new HashMap<Point, Cell>();
     populateGridCells(width, height, choice);
   }
 
+  public Grid(int width, int height, int choice, float prob){
+    this(width, height, choice);
+    myProb = prob;
+  }
+
+  public Grid(int width, int height, int choice, double thresh){
+    this(width, height, choice);
+    myThreshold = thresh;
+  }
+
   public void populateGridCells(int width, int height, int choice) {
     Cell tempCell;
+    //System.out.println(choice);
     for(int i = 0; i < height; i++) {
       for(int j = 0; j < width; j++) {
         if(i == 2 && j == 3) {
@@ -36,19 +49,15 @@ public class Grid {
            tempCell = getSimulation(i, j, 1, choice);
 
         }
-        else {
-           tempCell = getSimulation(i, j, 0, choice);
-        }
-        //System.out.println(tempCell);
-        //System.out.println(tempCell.getState());
-        cellGrid.put(new Point(i, j), tempCell);
+        else tempCell = getSimulation(i, j, 0, choice);
 
-//        System.out.println(tempCell.getCellColor().toString());
+        cellGrid.put(new Point(i, j), tempCell);
       }
     }
   }
 
   public void updateGrid(int width, int height) {
+    //System.out.println("reached");
     HashMap<Point, Cell> cellGridClone = copy(cellGrid);
     HashMap<Point, Integer> newStateMap = new HashMap<>();
     int tempInitInt = 5;
@@ -97,13 +106,13 @@ public class Grid {
       return new PercolationCell(row, col, state);
     }
     else if(choice == 2) {
-      return new SegregationCell(row, col, state);
+      return new SegregationCell(row, col, state, myThreshold);
     }
     else if(choice == 3) {
       return new PredatorPreyCell();
     }
     else {
-      return new FireCell(0, 0, 0);
+      return new FireCell(row, col, state, myProb);
     }
 
   }

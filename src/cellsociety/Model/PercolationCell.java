@@ -1,6 +1,6 @@
 package cellsociety.Model;
 
-import java.awt.Color;
+import javafx.scene.paint.Color;
 import java.awt.Point;
 import java.util.HashMap;
 
@@ -14,9 +14,10 @@ public class PercolationCell extends Cell {
 
   public PercolationCell(int width, int height, int state) {
     super(width, height, state);
+    this.state = state;
+    this.setCellColor();
     //state = 0;
     //currentState = ALIVE;
-
   }
 
   @Override
@@ -25,76 +26,83 @@ public class PercolationCell extends Cell {
   }
 
   @Override
-  public int updateCell(HashMap<Point, Cell> cellHashMap, HashMap<Point, Cell> copycellHashMap,
+  public int updateCell(HashMap<Point, Cell> cellHashMap, HashMap<Point, Cell> copyCellHashMap,
       int row, int col, int width, int height) {
-    return 0;
-  }
-
-
-
-  public void updateCell(HashMap<Point, Cell> cellHashMap, int row, int col, int width, int height) {
-    if((getNeighborCount(cellHashMap, row, col) >= 3 || getNeighborCount(cellHashMap, row, col) < 2) && cellHashMap.get(new Point(row, col)).getState() == PERCOLATED) {
-      setState(PERCOLATED);
+//    System.out.println("reached");
+    if(getNeighborCount(cellHashMap, copyCellHashMap, row, col) >= 1 && cellHashMap.get(new Point(row, col)).getState() == OPEN) {
+      return PERCOLATED;
+    }
+    else{
+      return state;
     }
   }
+
+
 
   @Override
   public int getState() {
-    return 0;
+    return state;
   }
 
   @Override
-  public javafx.scene.paint.Color getCellColor() {
-    return null;
+  public Color getCellColor() {
+    return cellColor;
   }
 
+  public void setState(int state) {
+    this.state = state;
+  }
 
   @Override
   protected void setCellColor() {
-    if(state == 0) {
+    if(state == BLOCKED) {
       cellColor = Color.BLACK;
     }
-    else if(state == 1) {
+    else if(state == OPEN) {
       cellColor = Color.WHITE;
     }
-    else {
+    else if(state == PERCOLATED) {
       cellColor = Color.BLUE;
+    }
+    else {
+      setState(OPEN);
+      cellColor = Color.WHITE;
     }
   }
 
-  private int getNeighborCount(HashMap<Point, Cell> cellHashMap, int row, int col) {
+  private int getNeighborCount(HashMap<Point, Cell> cellHashMap, HashMap<Point, Cell> copyCellHashMap, int row, int col) {
     int count = 0;
     int delta = 1;
     //top left diagonal
-    if(cellHashMap.containsKey(new Point(row - delta, col - delta)) && cellHashMap.get(new Point(row - delta, col - delta)).getState() == OPEN) {
+    if(copyCellHashMap.containsKey(new Point(row - delta, col - delta)) && copyCellHashMap.get(new Point(row - delta, col - delta)).getState() == PERCOLATED) {
       count++;
     }
     //top
-    else if(cellHashMap.containsKey(new Point(row - delta, col)) && cellHashMap.get(new Point(row - delta, col)).getState() == OPEN) {
+    if(copyCellHashMap.containsKey(new Point(row - delta, col)) && copyCellHashMap.get(new Point(row - delta, col)).getState() == PERCOLATED) {
       count++;
     }
     //top right diagonal
-    else if(cellHashMap.containsKey(new Point(row - delta, col + delta)) && cellHashMap.get(new Point(row - delta, col + delta)).getState() == OPEN) {
+    if(copyCellHashMap.containsKey(new Point(row - delta, col + delta)) && copyCellHashMap.get(new Point(row - delta, col + delta)).getState() == PERCOLATED) {
       count++;
     }
     //left
-    else if(cellHashMap.containsKey(new Point(row, col - delta)) && cellHashMap.get(new Point(row, col - delta)).getState() == OPEN) {
+    if(copyCellHashMap.containsKey(new Point(row, col - delta)) && copyCellHashMap.get(new Point(row, col - delta)).getState() == PERCOLATED) {
       count++;
     }
     //right
-    else if(cellHashMap.containsKey(new Point(row, col + delta)) && cellHashMap.get(new Point(row, col + delta)).getState() == OPEN) {
+    if(copyCellHashMap.containsKey(new Point(row, col + delta)) && copyCellHashMap.get(new Point(row, col + delta)).getState() == PERCOLATED) {
       count++;
     }
     //bottom left diagonal
-    else if(cellHashMap.containsKey(new Point(row + delta, col - delta)) && cellHashMap.get(new Point(row + delta, col - delta)).getState() == OPEN) {
+    if(copyCellHashMap.containsKey(new Point(row + delta, col - delta)) && copyCellHashMap.get(new Point(row + delta, col - delta)).getState() == PERCOLATED) {
       count++;
     }
     //bottom
-    else if(cellHashMap.containsKey(new Point(row + delta, col)) && cellHashMap.get(new Point(row + delta, col)).getState() == OPEN) {
+    if(copyCellHashMap.containsKey(new Point(row + delta, col)) && copyCellHashMap.get(new Point(row + delta, col)).getState() == PERCOLATED) {
       count++;
     }
     //bottom right
-    else if(cellHashMap.containsKey(new Point(row + delta, col + delta)) && cellHashMap.get(new Point(row + delta, col + delta)).getState() == OPEN) {
+    if(copyCellHashMap.containsKey(new Point(row + delta, col + delta)) && copyCellHashMap.get(new Point(row + delta, col + delta)).getState() == PERCOLATED) {
       count++;
     }
     else {}
