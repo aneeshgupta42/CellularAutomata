@@ -1,4 +1,4 @@
-package cellsociety;
+package cellsociety.configuration;
 
 import java.util.HashMap;
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.Map;
  */
 public class Game {
     // name in data file that will indicate it represents data for this type of object
-    public static final String DATA_TYPE = "Simulation";
+    public static final String DATA_TYPE = "sim";
     // field names expected to appear in data file holding values for this object
     // NOTE: simple way to create an immutable list
     public static final List<String> DATA_FIELDS = List.of(
@@ -59,6 +59,18 @@ public class Game {
      */
     public String getAuthor() {
         return author;
+    }
+
+    public int getMyCols() {
+        return myCols;
+    }
+
+    public int getMyRows() {
+        return myRows;
+    }
+
+    public int getMySize() {
+        return mySize;
     }
 
     /**

@@ -1,4 +1,4 @@
-package cellsociety;
+package cellsociety.configuration;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -40,7 +40,8 @@ public class XMLReader {
     /**
      * Get data contained in this XML file as an object
      */
-    public Game getGame (File dataFile) {
+    public Game getGame (String fname) {
+        File dataFile = new File(fname);
         Element root = getRootElement(dataFile);
         if (! isValidFile(root, Game.DATA_TYPE)) {
             throw new XMLException(ERROR_MESSAGE, Game.DATA_TYPE);
@@ -101,6 +102,7 @@ public class XMLReader {
         }
     }
     public static void main(String argv[]) {
+        System.out.println("XML Reader");
 
     }
 }
