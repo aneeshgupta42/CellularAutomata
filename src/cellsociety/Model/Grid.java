@@ -23,22 +23,24 @@ public class Grid {
 
   public void populateGridCells(int width, int height, int choice) {
     Cell tempCell;
+    //System.out.println(choice);
     for(int i = 0; i < height; i++) {
       for(int j = 0; j < width; j++) {
-        if(i == 2 && j == 3) {
-          tempCell = getSimulation(i, j, 1, choice);
-        }
-        else if(i == 3 && j == 4) {
-           tempCell = getSimulation(i, j, 1, choice);
+//        if(i == 2 && j == 3) {
+//          tempCell = getSimulation(i, j, 1, choice);
+//        }
+//        else if(i == 3 && j == 4) {
+//           tempCell = getSimulation(i, j, 1, choice);
+//
+//        }
+//        else if(i == 4 && (j == 2 || j == 3 || j == 4)) {
+//           tempCell = getSimulation(i, j, 1, choice);
+//
+//        }
 
-        }
-        else if(i == 4 && (j == 2 || j == 3 || j == 4)) {
-           tempCell = getSimulation(i, j, 1, choice);
+             tempCell = getSimulation(i, j, numChooser.nextInt(9), choice);
 
-        }
-        else {
-           tempCell = getSimulation(i, j, 0, choice);
-        }
+
         //System.out.println(tempCell);
         //System.out.println(tempCell.getState());
         cellGrid.put(new Point(i, j), tempCell);
@@ -49,6 +51,7 @@ public class Grid {
   }
 
   public void updateGrid(int width, int height) {
+    //System.out.println("reached");
     HashMap<Point, Cell> cellGridClone = copy(cellGrid);
     HashMap<Point, Integer> newStateMap = new HashMap<>();
     int tempInitInt = 5;
