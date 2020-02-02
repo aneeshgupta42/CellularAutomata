@@ -50,11 +50,6 @@ public class GameCell extends Cell {
 
 
 
-  @Override
-  public void applyRules(HashMap<Point, Cell> cellHashMap, int width, int height, int row, int col) {
-
-  }
-
   private int getNeighborCount(HashMap<Point, Cell> cellHashMap, int row, int col) {
     int count = 0;
     int delta = 1;

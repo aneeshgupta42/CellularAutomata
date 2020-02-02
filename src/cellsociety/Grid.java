@@ -23,7 +23,7 @@ public class Grid {
     }
   }
 
-  public void updateGrid(int width, int height, Grid grid, Cell[] neighborCells, Cell currentCell) {
+  public void updateGrid(int width, int height) {
     for(int i = 0; i < width; i++) {
       for(int j = 0; j < height; j++) {
         cellGrid.get(new Point(i, j)).updateCell(cellGrid, i, j, width, height);
@@ -31,20 +31,18 @@ public class Grid {
     }
   }
 
-  public void step() {
+  public HashMap<Point, Cell> getCellGrid() {
+    return cellGrid;
+  }
+
+  public void step(int width, int height) {
+    updateGrid(width, height);
 
   }
 
   public Cell[] getNeighbors() {
     return new Cell[0];
   }
-
-  /*
-  public Image[] getImageRoot() {
-
-  }
-
-   */
 
   private Cell getSimulation(int width, int height, int state, int choice) {
     if(choice == 0) {

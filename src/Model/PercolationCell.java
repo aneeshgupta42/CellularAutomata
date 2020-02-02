@@ -39,11 +39,6 @@ public class PercolationCell extends Cell {
     return 0;
   }
 
-  @Override
-  public void applyRules(HashMap<Point, Cell> cellHashMap, int row, int col, int width,
-      int height) {
-
-  }
 
   @Override
   protected void setCellColor() {
