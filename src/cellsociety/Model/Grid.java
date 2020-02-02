@@ -1,14 +1,12 @@
-package cellsociety;
+package cellsociety.Model;
 
-import Model.Cell;
-import Model.FireCell;
-import Model.GameCell;
-import Model.GameCell.GameState;
-import Model.PercolationCell;
-import Model.PredatorPreyCell;
-import Model.SegregationCell;
-import java.awt.Color;
-import java.awt.Image;
+import cellsociety.Model.Cell;
+import cellsociety.Model.FireCell;
+import cellsociety.Model.GameCell;
+import cellsociety.Model.PercolationCell;
+import cellsociety.Model.PredatorPreyCell;
+import cellsociety.Model.SegregationCell;
+
 import java.awt.Point;
 import java.util.HashMap;
 

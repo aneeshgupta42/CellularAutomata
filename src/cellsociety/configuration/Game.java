@@ -6,9 +6,10 @@ import java.util.Map;
 
 
 /**
- * Simple immutable value object representing game product data.
+ * Simple immutable value object representing simulation data.
  *
  * @author Robert C. Duvall
+ * extended by Aneesh Gupta
  */
 public class Game {
     // name in data file that will indicate it represents data for this type of object
