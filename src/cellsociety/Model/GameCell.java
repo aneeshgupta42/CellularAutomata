@@ -16,7 +16,6 @@ public class GameCell extends Cell {
   private Color cellColor;
 
   public GameCell(int width, int height, int mystate) {
-
     super(width, height, mystate);
     this.state = mystate;
 
@@ -24,8 +23,7 @@ public class GameCell extends Cell {
   }
 
   @Override
-  public void updateCell() {
-
+  public int updateCell() {return 0;
   }
 
   @Override
@@ -95,28 +93,32 @@ public class GameCell extends Cell {
   }
 
 
-  public void updateCell(HashMap<Point, Cell> cellHashMap, HashMap<Point, Cell> copycellHashMap, int row, int col, int width, int height) {
+  public int updateCell(HashMap<Point, Cell> cellHashMap, HashMap<Point, Cell> copycellHashMap, int row, int col, int width, int height) {
     //System.out.println(getNeighborCount(cellHashMap, copycellHashMap, row, col));
 
     if((getNeighborCount(cellHashMap, copycellHashMap, row, col) > 3 || getNeighborCount(cellHashMap, copycellHashMap, row, col) < 2) && copycellHashMap.get(new Point(row, col)).getState() == ALIVE) {
       //System.out.println(getNeighborCount(cellHashMap, copycellHashMap, row, col));
-      cellHashMap.get(new Point(row, col)).setState(DEAD);
+//      cellHashMap.get(new Point(row, col)).setState(DEAD);
+      return DEAD;
       //System.out.println("dead");
     }
     else if(getNeighborCount(cellHashMap, copycellHashMap, row, col) == 3 && copycellHashMap.get(new Point(row, col)).getState() == DEAD) {
-      cellHashMap.get(new Point(row, col)).setState(ALIVE);
+      //cellHashMap.get(new Point(row, col)).setState(ALIVE);
       //System.out.println("alive");
+      return ALIVE;
 
     }
     else if(getNeighborCount(cellHashMap, copycellHashMap, row, col) >= 2 && copycellHashMap.get(new Point(row, col)).getState() == ALIVE) {
-      cellHashMap.get(new Point(row, col)).setState(ALIVE);
+//      cellHashMap.get(new Point(row, col)).setState(ALIVE);
       //System.out.println("alive");
+      return ALIVE;
 
     }
     else {
-      cellHashMap.get(new Point(row, col)).setState(state);
+//      cellHashMap.get(new Point(row, col)).setState(state);
+      return state;
     }
-    cellHashMap.get(new Point(row, col)).setCellColor();
+//    cellHashMap.get(new Point(row, col)).setCellColor();
   }
 
   public Image[] getImageRoot() {
