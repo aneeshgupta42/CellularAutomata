@@ -1,5 +1,7 @@
 package cellsociety.Model;
 
+import javafx.scene.paint.Color;
+
 import java.awt.Point;
 import java.util.HashMap;
 
@@ -24,6 +26,10 @@ public class PredatorPreyCell extends Cell {
     return 0;
   }
 
+  @Override
+  public Color getCellColor() {
+    return null;
+  }
 
 
   @Override
