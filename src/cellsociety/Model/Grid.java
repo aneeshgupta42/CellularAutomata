@@ -23,9 +23,9 @@ public class Grid {
   public void populateGridCells(int width, int height, int choice) {
     for(int i = 0; i < width; i++) {
       for(int j = 0; j < height; j++) {
-        Cell tempCell = getSimulation(width, height, choice, numChooser.nextInt(2));
+        Cell tempCell = getSimulation(width, height, numChooser.nextInt(2), choice);
         cellGrid.put(new Point(i, j), tempCell);
-        System.out.println(tempCell.getCellColor().toString());
+//        System.out.println(tempCell.getCellColor().toString());
       }
     }
   }

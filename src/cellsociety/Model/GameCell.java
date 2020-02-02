@@ -12,15 +12,14 @@ public class GameCell extends Cell {
   private int state;
   private static final int ALIVE = 1;
   private static final int DEAD = 0;
-  //alive = 1, dead = 0
+
   private Color cellColor;
 
-  public GameCell(int width, int height, int state) {
-    super(width, height, state);
-    this.setCellColor();
-//    state = 0;
-    //currentState = ALIVE;
+  public GameCell(int width, int height, int mystate) {
 
+    super(width, height, mystate);
+    this.state = mystate;
+    this.setCellColor();
   }
 
   @Override

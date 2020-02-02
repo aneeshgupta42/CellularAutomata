@@ -58,6 +58,7 @@ public class MainView extends VBox {
         int cols = game.getMyCols();
         Grid myGrid = new Grid(rows, cols, game.getMyChoice());
         HashMap<Point, Cell> myMap = myGrid.getCellGrid();
+        System.out.println(myMap.size());
         gridPane.addColumn(cols);
         gridPane.addRow(rows);
         gridPane.setHgap(5);
