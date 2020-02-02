@@ -32,14 +32,17 @@ public class SegregationCell extends Cell {
 
   }
 
+  /*
   @Override
   public void updateCell(HashMap<Point, Cell> cellHashMap, int row, int col) {
 
   }
 
+   */
+
 
   public void updateCell(HashMap<Point, Cell> cellHashMap, int row, int col, int width, int height) {
-    if(((double) getNeighborTypeCount(cellHashMap, row, col, width, height, cellHashMap.get(new Point(row, col)).getState())) / getNeighborCount(cellHashMap, row, col, width, height) < THRESHOLD) {
+    if(((double) getNeighborTypeCount(cellHashMap, row, col, cellHashMap.get(new Point(row, col)).getState())) / getNeighborCount(cellHashMap, row, col) < THRESHOLD) {
       cellHashMap.put(vacantCells.get(0), new SegregationCell(width, height, cellHashMap.get(new Point(row, col)).getState()));
       cellHashMap.remove(new Point(row, col));
       //should remove random index
@@ -58,6 +61,19 @@ public class SegregationCell extends Cell {
 
   }
 
+  @Override
+  protected void setCellColor() {
+    if(state == 0) {
+      cellColor = Color.WHITE;
+    }
+    else if(state == 1) {
+      cellColor = Color.BLUE;
+    }
+    else {
+      cellColor = Color.RED;
+    }
+  }
+
   public void getVacantCells(HashMap<Point, Cell> cellHashMap, int width, int height) {
     for(int i = 0; i < width; i++) {
       for(int k = 0; k < height; k++) {
@@ -67,7 +83,7 @@ public class SegregationCell extends Cell {
       }
     }
   }
-  public int getNeighborCount(HashMap<Point, Cell> cellHashMap, int row, int col, int width, int height) {
+  public int getNeighborCount(HashMap<Point, Cell> cellHashMap, int row, int col) {
     int count = 0;
     int delta = 1;
     //top left diagonal
@@ -106,7 +122,7 @@ public class SegregationCell extends Cell {
     return count;
   }
 
-  public int getNeighborTypeCount(HashMap<Point, Cell> cellHashMap, int row, int col, int width, int height, int state) {
+  public int getNeighborTypeCount(HashMap<Point, Cell> cellHashMap, int row, int col, int state) {
     int count = 0;
     int delta = 1;
     //top left diagonal

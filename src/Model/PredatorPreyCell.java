@@ -17,7 +17,7 @@ public class PredatorPreyCell extends Cell {
   }
 
   @Override
-  public void updateCell(HashMap<Point, Cell> cellHashMap, int row, int col) {
+  public void updateCell(HashMap<Point, Cell> cellHashMap, int row, int col, int width, int height) {
 
   }
 
@@ -28,6 +28,11 @@ public class PredatorPreyCell extends Cell {
 
   @Override
   public void applyRules(HashMap<Point, Cell> cellHashMap, int row, int col, int width, int height) {
+
+  }
+
+  @Override
+  protected void setCellColor() {
 
   }
 

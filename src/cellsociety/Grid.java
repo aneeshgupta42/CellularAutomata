@@ -26,7 +26,7 @@ public class Grid {
   public void updateGrid(int width, int height, Grid grid, Cell[] neighborCells, Cell currentCell) {
     for(int i = 0; i < width; i++) {
       for(int j = 0; j < height; j++) {
-        cellGrid.get(new Point(i, j)).updateCell();
+        cellGrid.get(new Point(i, j)).updateCell(cellGrid, i, j, width, height);
       }
     }
   }

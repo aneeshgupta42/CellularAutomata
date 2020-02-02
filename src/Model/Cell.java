@@ -27,7 +27,7 @@ public abstract class Cell {
     }
 
     public abstract void updateCell();
-    public abstract void updateCell(HashMap<Point, Cell> cellHashMap, int row, int col);
+    public abstract void updateCell(HashMap<Point, Cell> cellHashMap, int row, int col, int width, int height);
 
     public abstract int getState();
 
@@ -36,9 +36,11 @@ public abstract class Cell {
         //displayImage =
     }
 
-   public abstract void applyRules(HashMap<Point, Cell> cellHashMap, int row, int col, int width, int height);
+   //public abstract void applyRules(HashMap<Point, Cell> cellHashMap, int row, int col, int width, int height);
 
    public Image getImage() {
         return displayImage;
    }
+
+  protected abstract void setCellColor();
 }

@@ -31,6 +31,7 @@ public class GameCell extends Cell {
     return 0;
   }
 
+  @Override
   public void setCellColor() {
     if(state == 0) {
       cellColor = Color.GRAY;
@@ -41,6 +42,10 @@ public class GameCell extends Cell {
     else {
       cellColor = Color.BLACK;
     }
+  }
+
+  public Color getCellColor() {
+    return cellColor;
   }
 
 
@@ -90,7 +95,7 @@ public class GameCell extends Cell {
   }
 
 
-  public void updateCell(HashMap<Point, Cell> cellHashMap, int row, int col) {
+  public void updateCell(HashMap<Point, Cell> cellHashMap, int row, int col, int width, int height) {
     if((getNeighborCount(cellHashMap, row, col) > 3 || getNeighborCount(cellHashMap, row, col) < 2) && cellHashMap.get(new Point(row, col)).getState() == ALIVE) {
       setState(DEAD);
     }
@@ -103,6 +108,7 @@ public class GameCell extends Cell {
     else {
       setState(state);
     }
+    cellHashMap.get(new Point(row, col)).setCellColor();
   }
 
   public Image[] getImageRoot() {

@@ -28,7 +28,7 @@ public class PercolationCell extends Cell {
 
 
   @Override
-  public void updateCell(HashMap<Point, Cell> cellHashMap, int row, int col) {
+  public void updateCell(HashMap<Point, Cell> cellHashMap, int row, int col, int width, int height) {
     if((getNeighborCount(cellHashMap, row, col) >= 3 || getNeighborCount(cellHashMap, row, col) < 2) && cellHashMap.get(new Point(row, col)).getState() == PERCOLATED) {
       setState(PERCOLATED);
     }
@@ -43,6 +43,19 @@ public class PercolationCell extends Cell {
   public void applyRules(HashMap<Point, Cell> cellHashMap, int row, int col, int width,
       int height) {
 
+  }
+
+  @Override
+  protected void setCellColor() {
+    if(state == 0) {
+      cellColor = Color.BLACK;
+    }
+    else if(state == 1) {
+      cellColor = Color.WHITE;
+    }
+    else {
+      cellColor = Color.BLUE;
+    }
   }
 
   private int getNeighborCount(HashMap<Point, Cell> cellHashMap, int row, int col) {
