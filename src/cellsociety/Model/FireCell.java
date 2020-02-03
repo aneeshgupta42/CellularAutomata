@@ -92,9 +92,7 @@ public class FireCell extends Cell {
       //changeToEmpty();
     }
   }
-<<<<<<< HEAD
-  
-=======
+
 
   private void changeToEmpty() {
     cellColor = Color.YELLOW;
@@ -104,5 +102,4 @@ public class FireCell extends Cell {
     this.state = state;
   }
 
->>>>>>> a2ddaf55a8f1add7f9ceaf36bc602dee1cefc374
 }
