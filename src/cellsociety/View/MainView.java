@@ -6,8 +6,10 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.control.Label;
 import java.awt.*;
 import java.util.HashMap;
+
 
 public class MainView extends VBox {
 
@@ -39,7 +41,6 @@ public class MainView extends VBox {
         displaygrid = dispGrid;
     }
     public void step() {
-        //System.out.println("Update");
         displaygrid.updateGrid(rows, cols);
         GridPane newGrid = displayGrid(displaygrid);
         newGrid.setLayoutX(0); newGrid.setLayoutY(100);
@@ -81,4 +82,7 @@ public class MainView extends VBox {
         this.getChildren().remove(1);
         this.getChildren().addAll(newgrid);
     }
+
+
+
 }
