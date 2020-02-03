@@ -43,9 +43,11 @@ public class Toolbar extends ToolBar {
     private Label lblTime;
     private AnimationTimer timer;
     private Slider slider;
+    private int myChoice;
 
     public Toolbar(MainView mainView) {
         myMainView = mainView;
+        myChoice = 0;
         Button play = new Button("Play");
         play.setOnAction(this::handlePlay);
 
@@ -68,7 +70,6 @@ public class Toolbar extends ToolBar {
         switchSimulation.getSelectionModel().selectedItemProperty().addListener( (options, oldValue, newValue) -> {
             animation.stop();
                     if (newValue == "Game of life") {
-
                         choosingNewSim(0);
                     } else if (newValue == "Percolation") {
                         choosingNewSim(1);
@@ -125,8 +126,7 @@ public class Toolbar extends ToolBar {
         timer.stop();
     }
     private void handleReset(ActionEvent actionEvent) {
- //       myMainView.displayGrid(myGrid);
-        resetTime();
+        choosingNewSim(myChoice);
         animation.pause();
 //        myMainView.getOriginalGrid();
     }
@@ -187,6 +187,7 @@ public class Toolbar extends ToolBar {
         myMainView.setDisplaygrid(currentGrid);
         GridPane newGrid = myMainView.displayGrid(currentGrid);
         myMainView.replaceGrid(newGrid);
+        myChoice = choice;
         resetTime();
     }
 }

@@ -155,6 +155,7 @@ public class Grid {
 
   }
 
-
-
+  public int getChoice() {
+      return this.myChoice;
+  }
 }
