@@ -12,17 +12,19 @@ public class SegregationCell extends Cell {
   private int state;
   private int myNextState;
   private static final int VACANT = 0;
+  private boolean hasToMove;
   private static final int AGENT1 = 1;
   private static final int AGENT2 = 2;
-  private double THRESHOLD = .3;
+  private double THRESHOLD = .4;
   private Color cellColor;
   private List<Point> vacantCells;
 
   public SegregationCell(int width, int height, int state, double thresh) {
     super(width, height, state);
     this.state = state;
-    this.myNextState = VACANT;
-    this.THRESHOLD = thresh;
+    this.myNextState = state;
+    //this.THRESHOLD = thresh;
+    hasToMove = false;
     this.setCellColor();
   }
 
@@ -61,13 +63,17 @@ public class SegregationCell extends Cell {
     Collections.shuffle(vacantCells);
     double checkThreshold = ((double) getNeighborTypeCount(cellHashMap, row, col, cellHashMap.get(new Point(row, col)).getState())) / getNeighborCount(cellHashMap, row, col);
     if(checkThreshold < THRESHOLD && state!= VACANT) {
-      int tempState = this.state;
-      this.myNextState = VACANT;
+      int tempState = state;
+      myNextState = VACANT;
+      hasToMove = true;
       Point targetPt = vacantCells.get(0);
-      cellHashMap.put(targetPt, new SegregationCell(width, height, cellHashMap.get(new Point(row, col)).getState(), THRESHOLD));
+//      cellHashMap.put(targetPt, new SegregationCell(width, height, cellHashMap.get(new Point(row, col)).getState(), THRESHOLD));
       cellHashMap.get(targetPt).setMyNextState(tempState);
       //should remove random index
       vacantCells.remove(0);
+    }
+    else if(checkThreshold >= THRESHOLD && state!=VACANT){
+      this.myNextState = state;
     }
     return myNextState;
   }
@@ -79,11 +85,8 @@ public class SegregationCell extends Cell {
   }
   @Override
   public void setState(int myState){
-//    if (myNextState!= VACANT){
-//      System.out.println("changing vacancy");
-//      this.state = myNextState;
-//    }
-     state = myNextState;
+    state = myNextState;
+    myNextState = VACANT;
   }
 
   @Override
