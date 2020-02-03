@@ -122,19 +122,23 @@ public class PredatorPreyCell extends Cell {
     fishCells  = new ArrayList<>();
     int delta = 1;
 
-    if(cellHashMap.containsKey(new Point(row - delta, col)) && cellHashMap.get(new Point(row - delta, col)).getState() == FISH) {
+    if(cellHashMap.containsKey(new Point(row - delta, col)) && cellHashMap.get(new Point(row - delta, col)).getState() == FISH
+    && cellHashMap.get(new Point(row - delta, col)).getNextState() == FISH) {
       fishCells.add(new Point(row - delta, col));
     }
     //left
-    if(cellHashMap.containsKey(new Point(row, col - delta)) && cellHashMap.get(new Point(row, col - delta)).getState() == FISH) {
+    if(cellHashMap.containsKey(new Point(row, col - delta)) && cellHashMap.get(new Point(row, col - delta)).getState() == FISH
+        && cellHashMap.get(new Point(row, col - delta)).getNextState() == FISH) {
       fishCells.add(new Point(row, col - delta));
     }
     //right
-    if(cellHashMap.containsKey(new Point(row, col + delta)) && cellHashMap.get(new Point(row, col + delta)).getState() == FISH) {
+    if(cellHashMap.containsKey(new Point(row, col + delta)) && cellHashMap.get(new Point(row, col + delta)).getState() == FISH
+        && cellHashMap.get(new Point(row, col + delta)).getNextState() == FISH) {
       fishCells.add(new Point(row, col + delta));
     }
     //bottom
-    if(cellHashMap.containsKey(new Point(row + delta, col)) && cellHashMap.get(new Point(row + delta, col)).getState() == FISH) {
+    if(cellHashMap.containsKey(new Point(row + delta, col)) && cellHashMap.get(new Point(row + delta, col)).getState() == FISH
+        && cellHashMap.get(new Point(row + delta, col)).getNextState() == FISH) {
       fishCells.add(new Point(row + delta, col));
     }
   }
