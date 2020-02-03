@@ -81,7 +81,7 @@ public class Toolbar extends ToolBar {
         );
 
         GridCreator creator = new GridCreator();
-        currentGrid = creator.GridSelector(0);
+        currentGrid = creator.GridSelector(2);
 
         timer();
         animationFunctions();

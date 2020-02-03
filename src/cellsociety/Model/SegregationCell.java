@@ -15,7 +15,7 @@ public class SegregationCell extends Cell {
   private boolean hasToMove;
   private static final int AGENT1 = 1;
   private static final int AGENT2 = 2;
-  private double THRESHOLD = .4;
+  private double THRESHOLD;
   private Color cellColor;
   private List<Point> vacantCells;
 
@@ -23,7 +23,7 @@ public class SegregationCell extends Cell {
     super(width, height, state);
     this.state = state;
     this.myNextState = state;
-    //this.THRESHOLD = thresh;
+    this.THRESHOLD = thresh;
     hasToMove = false;
     this.setCellColor();
   }
