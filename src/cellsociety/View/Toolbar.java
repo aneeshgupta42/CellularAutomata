@@ -113,10 +113,12 @@ public class Toolbar extends ToolBar {
  //       myMainView.displayGrid(myGrid);
         timer.stop();
         seconds = 0;
+        animation.pause();
+        myMainView.getOriginalGrid();
     }
 
     public void timer() {
-        this.lblTime = new Label("0 s");
+        this.lblTime = new Label("Elapsed time: 0 s");
         this.timer = new AnimationTimer() {
 
             private long lastTime = 0;
@@ -125,7 +127,7 @@ public class Toolbar extends ToolBar {
                 if (lastTime != 0) {
                     if (now > lastTime + 1_000_000_000) {
                         seconds++;
-                        lblTime.setText(Integer.toString(seconds) + " s");
+                        lblTime.setText("Elapsed time: "+ Integer.toString(seconds) + " s");
                         lastTime = now;
                     }
                 } else {
