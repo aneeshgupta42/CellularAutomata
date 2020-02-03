@@ -22,7 +22,6 @@ public class Grid {
   private int myHeight;
   private double myThreshold;
   private int myChoice;
-  ArrayList <Point> vacantCells;
   private static final int GAMEOFLIFE = 0;
   private static final int PERCOLATION = 1;
   private static final int SEGREGATION = 2;
@@ -63,7 +62,7 @@ public class Grid {
 
   public void populateGridCells(int width, int height, int choice) {
     Cell tempCell;
-    //System.out.println(choice);
+
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
         if (choice == GAMEOFLIFE) {
@@ -75,6 +74,7 @@ public class Grid {
       }
     }
   }
+
   public Cell makeGlider(int i, int j, int choice){
     Cell tempCell;
     if (i == 2 && j == 3) {
@@ -92,22 +92,21 @@ public class Grid {
 
   public void updateGrid(int width, int height) {
     //System.out.println("reached");
-    HashMap<Point, Cell> cellGridClone = copy(cellGrid);
     HashMap<Point, Integer> newStateMap = new HashMap<>();
     int tempInitInt = 100;
     /*** if choice not segregation or predator***/
     for(int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
         newStateMap.put(new Point(i,j), tempInitInt);
-        int newState = cellGrid.get(new Point(i, j)).updateCell(cellGrid, cellGridClone, i, j, width, height);
+        int newState = cellGrid.get(new Point(i, j)).updateCell(cellGrid, i, j, width, height);
         newStateMap.put(new Point(i,j), newState);
       }
     }
+
     for(int i = 0; i < height; i++) {
       for(int j = 0; j < width; j++) {
         cellGrid.get(new Point(i, j)).setState(newStateMap.get(new Point(i, j)));
         cellGrid.get(new Point(i, j)).setCellColor();
-        //System.out.println(cellGrid.get(new Point(i, j)).getState());
       }
     }
 
@@ -115,25 +114,8 @@ public class Grid {
 
 
 
-  public HashMap<Point, Cell> copy(HashMap<Point, Cell> original) {
-    HashMap<Point, Cell> cellGridClone = new HashMap<Point, Cell>();
-    for(Map.Entry<Point, Cell> entry: original.entrySet()) {
-      cellGridClone.put(entry.getKey(), entry.getValue());
-    }
-    return cellGridClone;
-  }
-
   public HashMap<Point, Cell> getCellGrid() {
     return cellGrid;
-  }
-
-  public void step(int width, int height) {
-    updateGrid(width, height);
-
-  }
-
-  public Cell[] getNeighbors() {
-    return new Cell[0];
   }
 
   public int getMyHeight() {

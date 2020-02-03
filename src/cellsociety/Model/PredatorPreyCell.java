@@ -48,8 +48,7 @@ public class PredatorPreyCell extends Cell {
   }
 
   @Override
-  public int updateCell(HashMap<Point, Cell> cellHashMap, HashMap<Point, Cell> copycellHashMap,
-      int row, int col, int width, int height) {
+  public int updateCell(HashMap<Point, Cell> cellHashMap, int row, int col, int width, int height) {
     getVacantCells(cellHashMap, row, col);
     getFishCells(cellHashMap, row, col);
     Collections.shuffle(vacantCells);
@@ -118,85 +117,6 @@ public class PredatorPreyCell extends Cell {
       }
     }
 
-
-
-    /*
-
-
-
-    if(checkThreshold < THRESHOLD && state!= VACANT) {
-      int tempState = state;
-      myNextState = VACANT;
-      hasToMove = true;
-      Point targetPt = vacantCells.get(0);
-//      cellHashMap.put(targetPt, new SegregationCell(width, height, cellHashMap.get(new Point(row, col)).getState(), THRESHOLD));
-      cellHashMap.get(targetPt).setMyNextState(tempState);
-      //should remove random index
-      vacantCells.remove(0);
-    }
-    else if(checkThreshold >= THRESHOLD && state!=VACANT){
-      this.myNextState = state;
-    }
-
-
-
-    getVacantCells(cellHashMap, row, col);
-    Collections.shuffle(vacantCells);
-    if(cellHashMap.get(new Point(row, col)).getState() == FISH) {
-      increaseBreedingState();
-      if(vacantCells.size() > 0) {
-        int tempState = state;
-        if(breedingState >= MAX_BREEDING_TIME) {
-          myNextState = FISH;
-          breedingState = 0;
-        }
-
-        else {
-          myNextState = VACANT;
-        }
-
-
-        Point targetPt = vacantCells.get(0);
-        cellHashMap.get(targetPt).setMyNextState(tempState);
-        vacantCells.remove(0);
-      }
-    }
-    else if(cellHashMap.get(new Point(row, col)).getState() == SHARK) {
-      increaseBreedingState();
-      getFishCells(cellHashMap, row, col);
-      Collections.shuffle(fishCells);
-
-      if(energyLevel <= 0) {
-        myNextState = VACANT;
-      }
-      else if(fishCells.size() > 0) {
-        increaseEnergyLevel();
-        myNextState = VACANT;
-        int tempState = state;
-        Point targetPt = fishCells.get(0);
-        cellHashMap.get(targetPt).setMyNextState(tempState);
-        fishCells.remove(0);
-      }
-      else if(vacantCells.size() > 0) {
-        int tempState = state;
-        if(breedingState >= MAX_BREEDING_TIME) {
-          myNextState = SHARK;
-        }
-        else {
-          myNextState = VACANT;
-        }
-        Point targetPt = vacantCells.get(0);
-        cellHashMap.get(targetPt).setMyNextState(tempState);
-        vacantCells.remove(0);
-      }
-
-      decreaseEnergyLevel();
-    }
-    else if(state == VACANT){
-      this.myNextState = state;
-    }
-
-     */
     return myNextState;
   }
 
@@ -307,9 +227,4 @@ public class PredatorPreyCell extends Cell {
     }
   }
 
-  public enum PredatorPreyStates {
-    SHARK,
-    FISH,
-    OPEN
-  }
 }

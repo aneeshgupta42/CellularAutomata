@@ -50,95 +50,68 @@ public class GameCell extends Cell {
 
 
 
-  private int getNeighborCount(HashMap<Point, Cell> cellHashMap, HashMap<Point, Cell> copycellHashMap, int row, int col) {
+  private int getNeighborCount(HashMap<Point, Cell> cellHashMap, int row, int col) {
     int count = 0;
     int delta = 1;
     //top left diagonal
 
-    //System.out.println(cellHashMap.get(new Point(row, col)).getState());
-    if(copycellHashMap.containsKey(new Point(row - delta, col - delta)) && copycellHashMap.get(new Point(row - delta, col - delta)).getState() == ALIVE) {
+    if(cellHashMap.containsKey(new Point(row - delta, col - delta)) && cellHashMap.get(new Point(row - delta, col - delta)).getState() == ALIVE) {
       count++;
     }
     //top
-    if(copycellHashMap.containsKey(new Point(row - delta, col)) && copycellHashMap.get(new Point(row - delta, col)).getState() == ALIVE) {
+    if(cellHashMap.containsKey(new Point(row - delta, col)) && cellHashMap.get(new Point(row - delta, col)).getState() == ALIVE) {
       count++;
     }
     //top right diagonal
-    if(copycellHashMap.containsKey(new Point(row - delta, col + delta)) && copycellHashMap.get(new Point(row - delta, col + delta)).getState() == ALIVE) {
+    if(cellHashMap.containsKey(new Point(row - delta, col + delta)) && cellHashMap.get(new Point(row - delta, col + delta)).getState() == ALIVE) {
       count++;
     }
     //left
-    if(copycellHashMap.containsKey(new Point(row, col - delta)) && copycellHashMap.get(new Point(row, col - delta)).getState() == ALIVE) {
+    if(cellHashMap.containsKey(new Point(row, col - delta)) && cellHashMap.get(new Point(row, col - delta)).getState() == ALIVE) {
       count++;
     }
     //right
-    if(copycellHashMap.containsKey(new Point(row, col + delta)) && copycellHashMap.get(new Point(row, col + delta)).getState() == ALIVE) {
+    if(cellHashMap.containsKey(new Point(row, col + delta)) && cellHashMap.get(new Point(row, col + delta)).getState() == ALIVE) {
       count++;
     }
     //bottom left diagonal
-    if(copycellHashMap.containsKey(new Point(row + delta, col - delta)) && copycellHashMap.get(new Point(row + delta, col - delta)).getState() == ALIVE) {
+    if(cellHashMap.containsKey(new Point(row + delta, col - delta)) && cellHashMap.get(new Point(row + delta, col - delta)).getState() == ALIVE) {
       count++;
     }
     //bottom
-    if(copycellHashMap.containsKey(new Point(row + delta, col)) && copycellHashMap.get(new Point(row + delta, col)).getState() == ALIVE) {
+    if(cellHashMap.containsKey(new Point(row + delta, col)) && cellHashMap.get(new Point(row + delta, col)).getState() == ALIVE) {
       count++;
     }
     //bottom right
-    if(copycellHashMap.containsKey(new Point(row + delta, col + delta)) && copycellHashMap.get(new Point(row + delta, col + delta)).getState() == ALIVE) {
+    if(cellHashMap.containsKey(new Point(row + delta, col + delta)) && cellHashMap.get(new Point(row + delta, col + delta)).getState() == ALIVE) {
       count++;
     }
-//    System.out.println(count);
 
     return count;
   }
 
 
-  public int updateCell(HashMap<Point, Cell> cellHashMap, HashMap<Point, Cell> copycellHashMap, int row, int col, int width, int height) {
-    //System.out.println(getNeighborCount(cellHashMap, copycellHashMap, row, col));
+  public int updateCell(HashMap<Point, Cell> cellHashMap, int row, int col, int width, int height) {
 
-    if((getNeighborCount(cellHashMap, copycellHashMap, row, col) > 3 || getNeighborCount(cellHashMap, copycellHashMap, row, col) < 2) && copycellHashMap.get(new Point(row, col)).getState() == ALIVE) {
-      //System.out.println(getNeighborCount(cellHashMap, copycellHashMap, row, col));
-//      cellHashMap.get(new Point(row, col)).setState(DEAD);
+    if((getNeighborCount(cellHashMap, row, col) > 3 || getNeighborCount(cellHashMap, row, col) < 2) && cellHashMap.get(new Point(row, col)).getState() == ALIVE) {
       return DEAD;
-      //System.out.println("dead");
     }
-    else if(getNeighborCount(cellHashMap, copycellHashMap, row, col) == 3 && copycellHashMap.get(new Point(row, col)).getState() == DEAD) {
-      //cellHashMap.get(new Point(row, col)).setState(ALIVE);
-      //System.out.println("alive");
+    else if(getNeighborCount(cellHashMap, row, col) == 3 && cellHashMap.get(new Point(row, col)).getState() == DEAD) {
       return ALIVE;
 
     }
-    else if(getNeighborCount(cellHashMap, copycellHashMap, row, col) >= 2 && copycellHashMap.get(new Point(row, col)).getState() == ALIVE) {
-//      cellHashMap.get(new Point(row, col)).setState(ALIVE);
-      //System.out.println("alive");
+    else if(getNeighborCount(cellHashMap, row, col) >= 2 && cellHashMap.get(new Point(row, col)).getState() == ALIVE) {
       return ALIVE;
 
     }
     else {
-//      cellHashMap.get(new Point(row, col)).setState(state);
       return state;
     }
-//    cellHashMap.get(new Point(row, col)).setCellColor();
   }
 
-  public Image[] getImageRoot() {
-    return new Image[0];
-  }
-
-  public int getNumNeighbors() {
-    return 0;
-  }
-
-  public int getSate() {
-    return this.state;
-  }
 
   public void setState(int state) {
     this.state = state;
   }
 
-  public enum GameState {
-    ALIVE,
-    DEAD
-  }
 }

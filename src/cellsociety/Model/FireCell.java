@@ -29,7 +29,7 @@ public class FireCell extends Cell {
   }
 
   @Override
-  public int updateCell(HashMap<Point, Cell> cellHashMap, HashMap<Point, Cell> copycellHashMap,
+  public int updateCell(HashMap<Point, Cell> cellHashMap,
       int row, int col, int width, int height) {
     if(cellHashMap.get(new Point(row, col)).getState() == BURNING) {
       return EMPTY;
@@ -89,13 +89,7 @@ public class FireCell extends Cell {
     }
     else {
       cellColor = Color.RED;
-      //changeToEmpty();
     }
-  }
-
-
-  private void changeToEmpty() {
-    cellColor = Color.YELLOW;
   }
 
   public void setState(int state) {
