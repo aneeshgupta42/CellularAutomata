@@ -55,14 +55,14 @@ public class FireCell extends Cell {
 
   private int getNeighborCount(HashMap<Point, Cell> cellHashMap, int row, int col) {
     int count = 0;
-    int delta = 1;
+    int[] rowDelta = {-1, 0, 0, 1};
+    int[] colDelta = {0, -1, 1, 0};
 
     //increments count if top, left, right, or bottom neighbor is burning
-    if((mapContainsNeighbor(cellHashMap, col, row - delta) && checkState(cellHashMap, row - delta, col, BURNING))
-      || (mapContainsNeighbor(cellHashMap, col - delta, row) && checkState(cellHashMap, row,col - delta, BURNING))
-      || (mapContainsNeighbor(cellHashMap, col + delta, row) && checkState(cellHashMap, row,col + delta, BURNING))
-      || (mapContainsNeighbor(cellHashMap, col, row + delta) && checkState(cellHashMap, row + delta, col, BURNING))) {
-      count++;
+    for(int i = 0; i < rowDelta.length; i++) {
+      if(mapContainsNeighbor(cellHashMap, col + colDelta[i], row + rowDelta[i]) && checkState(cellHashMap, row + rowDelta[i], col + colDelta[i], BURNING)) {
+        count++;
+      }
     }
 
     return count;
@@ -73,7 +73,7 @@ public class FireCell extends Cell {
   }
 
   @Override
-  protected void setCellColor() {
+  public void setCellColor() {
     if(state == EMPTY) {
       cellColor = Color.YELLOW;
     }
