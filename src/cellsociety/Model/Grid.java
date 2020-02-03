@@ -23,6 +23,14 @@ public class Grid {
   private double myThreshold;
   private int myChoice;
   ArrayList <Point> vacantCells;
+  private static final int GAMEOFLIFE = 0;
+  private static final int PERCOLATION = 1;
+  private static final int SEGREGATION = 2;
+  private static final int PREDATORPREY = 3;
+  private static final int FIRE = 4;
+  private static final int NUMSTATES = 3;
+
+
 
   //Game, Percolation
   public Grid(int width, int height, int choice) {
@@ -58,10 +66,10 @@ public class Grid {
     //System.out.println(choice);
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
-        if (choice == 0) {
+        if (choice == GAMEOFLIFE) {
           tempCell = makeGlider(i, j, choice);
         } else {
-          tempCell = getSimulation(i, j, numChooser.nextInt(2), choice);
+          tempCell = getSimulation(i, j, numChooser.nextInt(NUMSTATES), choice);
         }
         cellGrid.put(new Point(i, j), tempCell);
       }
@@ -137,22 +145,21 @@ public class Grid {
   }
 
   private Cell getSimulation(int row, int col, int state, int choice) {
-    if(choice == 0) {
+    if(choice == GAMEOFLIFE) {
       return new GameCell(row, col, state);
     }
-    else if(choice == 1) {
+    else if(choice == PERCOLATION) {
       return new PercolationCell(row, col, state);
     }
-    else if(choice == 2) {
+    else if(choice == SEGREGATION) {
       return new SegregationCell(row, col, state, myThreshold);
     }
-    else if(choice == 3) {
+    else if(choice == PREDATORPREY) {
       return new PredatorPreyCell(row, col, state);
     }
     else {
       return new FireCell(row, col, state, myProb);
     }
-
   }
 
   public int getChoice() {
