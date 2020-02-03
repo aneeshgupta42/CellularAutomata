@@ -1,10 +1,10 @@
 <?xml version="1.0" ?>
 <data media="sim">
-    <name>Segregation</name>
-    <choice>2</choice>
+    <name>PredatorPrey</name>
+    <choice>3</choice>
     <author>Aneesh</author>
     <size>300</size>
-    <rows>10</rows>
-    <cols>10</cols>
+    <rows>4</rows>
+    <cols>4</cols>
     <threshold>0.4</threshold>
 </data>
