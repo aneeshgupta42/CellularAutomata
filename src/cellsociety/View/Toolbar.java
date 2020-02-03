@@ -163,7 +163,7 @@ public class Toolbar extends ToolBar {
             public void stop() {
                 super.stop();
                 lastTime = 0;
-                seconds = 0;
+
             }
         };
     }
