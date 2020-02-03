@@ -66,39 +66,18 @@ public class Toolbar extends ToolBar {
         switchSimulation.setEditable(true);
 
         switchSimulation.getSelectionModel().selectedItemProperty().addListener( (options, oldValue, newValue) -> {
-            GridCreator creator = new GridCreator();
             animation.stop();
                     if (newValue == "Game of life") {
 
-                        currentGrid = creator.GridSelector(0);
-                        mainView.setDisplaygrid(currentGrid);
-                        GridPane newGrid = mainView.displayGrid(currentGrid);
-                        myMainView.replaceGrid(newGrid);
-                        resetTime();
+                        choosingNewSim(0);
                     } else if (newValue == "Percolation") {
-                        currentGrid = creator.GridSelector(1);
-                        mainView.setDisplaygrid(currentGrid);
-                        GridPane newGrid = mainView.displayGrid(currentGrid);
-                        myMainView.replaceGrid(newGrid);
-                        resetTime();
+                        choosingNewSim(1);
                     }else if (newValue == "Segregation") {
-                        currentGrid = creator.GridSelector(2);
-                        mainView.setDisplaygrid(currentGrid);
-                        GridPane newGrid = mainView.displayGrid(currentGrid);
-                        myMainView.replaceGrid(newGrid);
-                        resetTime();
+                        choosingNewSim(2);
                     } else if (newValue == "Predator-Prey") {
-                        currentGrid = creator.GridSelector(3);
-                        mainView.setDisplaygrid(currentGrid);
-                        GridPane newGrid = mainView.displayGrid(currentGrid);
-                        myMainView.replaceGrid(newGrid);
-                        resetTime();
+                       choosingNewSim(3);
                     } else if (newValue == "Fire") {
-                        currentGrid = creator.GridSelector(4);
-                        mainView.setDisplaygrid(currentGrid);
-                        GridPane newGrid = mainView.displayGrid(currentGrid);
-                        myMainView.replaceGrid(newGrid);
-                        resetTime();
+                        choosingNewSim(4);
                     }
                 }
         );
@@ -200,5 +179,14 @@ public class Toolbar extends ToolBar {
         timer.stop();
         lblTime.setText("Elapsed time: " + 0 + " s");
         seconds = 0;
+    }
+
+    public void choosingNewSim(int choice) {
+        GridCreator creator = new GridCreator();
+        currentGrid = creator.GridSelector(choice);
+        myMainView.setDisplaygrid(currentGrid);
+        GridPane newGrid = myMainView.displayGrid(currentGrid);
+        myMainView.replaceGrid(newGrid);
+        resetTime();
     }
 }
