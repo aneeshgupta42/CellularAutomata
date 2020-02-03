@@ -3,6 +3,7 @@ package cellsociety.View;
 import cellsociety.Model.*;
 import cellsociety.Model.Cell;
 import cellsociety.configuration.Game;
+import cellsociety.configuration.GridCreator;
 import cellsociety.configuration.XMLReader;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.Canvas;
@@ -29,8 +30,6 @@ public class MainView extends VBox {
     private ComboBox switchSimulation;
     private Canvas canvas;
     private Affine affine;
-    private AnimationTimer timer;
-    private Label lblTime;
     private int seconds;
     private InfoBar infobar;
     private Grid gridmap;
@@ -38,29 +37,30 @@ public class MainView extends VBox {
     private int rows;
     private int cols;
     public Toolbar myToolbar;
+    private Grid originalGrid;
+    private GridPane theGrid;
 
     public MainView() {
 
         this.canvas = new Canvas(500,500);
-//        this.gridmap = new Grid();
-//        gridmap.populateGridCells(500,500,0);
 
-        timer();
         myToolbar = new Toolbar(this);
 
+        originalGrid = myToolbar.getCurrentGrid();
         displaygrid = myToolbar.getCurrentGrid();
+
         this.infobar = new InfoBar();
-        GridPane theGrid = displayGrid(displaygrid);
+        this.theGrid = displayGrid(displaygrid);
         theGrid.setLayoutX(0); theGrid.setLayoutY(100);
-        this.getChildren().addAll(myToolbar, this.lblTime, theGrid);
+        this.getChildren().addAll(myToolbar, theGrid);
     }
 
     public void step() {
         //System.out.println("Update");
-//        displaygrid.updateGrid(rows, cols);
+        displaygrid.updateGrid(rows, cols);
         GridPane newGrid = displayGrid(displaygrid);
         newGrid.setLayoutX(0); newGrid.setLayoutY(100);
-        this.getChildren().remove(2);
+        this.getChildren().remove(1);
         this.getChildren().addAll(newGrid);
     }
 
@@ -68,10 +68,8 @@ public class MainView extends VBox {
     public GridPane displayGrid(Grid myGrid) {
 
         GridPane gridPane = new GridPane();
-        XMLReader reader = new XMLReader("media");
-        Game game = reader.getGame("data/segregation.xml");
-        this.rows = game.getMyRows();
-        this.cols = game.getMyCols();
+        this.rows = myGrid.getMyHeight();
+        this.cols = myGrid.getMyWidth();
         HashMap<Point, Cell> myMap = myGrid.getCellGrid();
         //System.out.println(myMap.size());
         gridPane.addColumn(cols);
@@ -91,42 +89,10 @@ public class MainView extends VBox {
         return gridPane;
     }
 
-
-    public void timer() {
-        this.lblTime = new Label("0 s");
-        this.timer = new AnimationTimer() {
-
-            private long lastTime = 0;
-            @Override
-            public void handle(long now) {
-                if (lastTime != 0) {
-                    if (now > lastTime + 1_000_000_000) {
-                        seconds++;
-                        lblTime.setText(Integer.toString(seconds) + " s");
-                        lastTime = now;
-                    }
-                } else {
-                    lastTime = now;
-                }
-            }
-            @Override
-            public void stop() {
-                super.stop();
-                lastTime = 0;
-                seconds = 0;
-            }
-        };
+    public void getOriginalGrid() {
+        this.getChildren().remove(theGrid);
+        displaygrid = originalGrid;
+        this.theGrid = displayGrid(displaygrid);
+        this.getChildren().add(theGrid);
     }
-    public AnimationTimer getTimer(){
-        return this.timer;
-    }
-
-    public Label getLbltime() {
-        return this.lblTime;
-    }
-
-
-//    public Simulation getSimulation() {
-//        return this.simulation;
-//    }
 }

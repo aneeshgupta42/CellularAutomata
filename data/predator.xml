@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<data media="sim">
+    <name>PredatorPrey</name>
+    <choice>3</choice>
+    <author>Aneesh</author>
+    <size>300</size>
+    <rows>4</rows>
+    <cols>4</cols>
+    <threshold>0.4</threshold>
+</data>

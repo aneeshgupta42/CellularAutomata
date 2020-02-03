@@ -55,7 +55,7 @@ public class PredatorPreyCell extends Cell {
       increaseBreedingState();
       if(vacantCells.size() > 0) {
         int tempState = state;
-        if(breedingState > MAX_BREEDING_TIME) {
+        if(breedingState >= MAX_BREEDING_TIME) {
           myNextState = FISH;
           breedingState = 0;
         }
@@ -79,6 +79,9 @@ public class PredatorPreyCell extends Cell {
         cellHashMap.get(targetPt).setMyNextState(tempState);
         fishCells.remove(0);
       }
+      else if(energyLevel <= 0) {
+          myNextState = VACANT;
+        }
       else if(vacantCells.size() > 0) {
         int tempState = state;
         myNextState = VACANT;
@@ -86,9 +89,7 @@ public class PredatorPreyCell extends Cell {
         cellHashMap.get(targetPt).setMyNextState(tempState);
         vacantCells.remove(0);
       }
-      if(energyLevel <= 0) {
-        myNextState = VACANT;
-      }
+
     }
     else if(state == VACANT){
       this.myNextState = state;
@@ -183,10 +184,10 @@ public class PredatorPreyCell extends Cell {
       cellColor = Color.WHITE;
     }
     else if(state == FISH) {
-      cellColor = Color.GRAY;
+      cellColor = Color.BLUE;
     }
     else {
-      cellColor = Color.BLUE;
+      cellColor = Color.GRAY;
     }
   }
 
