@@ -36,7 +36,6 @@ public class Toolbar extends ToolBar {
     private static final double MILLISECOND_DELAY = 10000/FRAMES_PER_SECOND;
 
     private int seconds;
-    private Object nameofGame = " ";
     private Grid currentGrid;
     private Timeline animation;
     private Grid myGrid;
@@ -65,10 +64,24 @@ public class Toolbar extends ToolBar {
         switchSimulation.setPromptText("Choose a Simulation");
         switchSimulation.setEditable(true);
 
-        switchSimulation.setOnAction(event -> nameofGame = switchSimulation.getValue());
+        switchSimulation.getSelectionModel().selectedItemProperty().addListener( (options, oldValue, newValue) -> {
+            GridCreator creator = new GridCreator();
+                    if (newValue == "Game of life") {
+                        currentGrid = creator.GridSelector(0);
+                    } else if (newValue == "Percolation") {
+                        currentGrid = creator.GridSelector(1);
+                    }else if (newValue == "Segregation") {
+                        currentGrid = creator.GridSelector(2);
+                    } else if (newValue == "Predator-Prey") {
+                        currentGrid = creator.GridSelector(3);
+                    } else if (newValue == "Fire") {
+                        currentGrid = creator.GridSelector(4);
+                    }
+                }
+        );
 
         GridCreator creator = new GridCreator();
-        currentGrid = creator.GridSelector(1);
+        currentGrid = creator.GridSelector(0);
 
         timer();
         animationFunctions();

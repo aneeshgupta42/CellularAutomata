@@ -70,7 +70,7 @@ public class Grid {
 //
 //        }
 //        else
-          tempCell = getSimulation(i, j, numChooser.nextInt(3), choice);
+          tempCell = getSimulation(i, j, numChooser.nextInt(2), choice);
 
         cellGrid.put(new Point(i, j), tempCell);
       }
