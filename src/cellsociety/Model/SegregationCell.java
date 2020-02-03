@@ -12,7 +12,6 @@ public class SegregationCell extends Cell {
   private int state;
   private int myNextState;
   private static final int VACANT = 0;
-  private boolean hasToMove;
   private static final int AGENT1 = 1;
   private static final int AGENT2 = 2;
   private double THRESHOLD;
@@ -24,52 +23,23 @@ public class SegregationCell extends Cell {
     this.state = state;
     this.myNextState = state;
     this.THRESHOLD = thresh;
-    hasToMove = false;
     this.setCellColor();
   }
 
 
 
-  @Override
-  public int updateCell() {
-    return 0;
-  }
 
-  @Override
-
-
-  /*
-  @Override
-  public void updateCell(HashMap<Point, Cell> cellHashMap, int row, int col) {
-
-  }
-
-   */
-
-
-//  public void updateCell(HashMap<Point, Cell> cellHashMap, int row, int col, int width, int height) {
-//    if(((double) getNeighborTypeCount(cellHashMap, row, col, cellHashMap.get(new Point(row, col)).getState())) / getNeighborCount(cellHashMap, row, col) < THRESHOLD) {
-//      cellHashMap.put(vacantCells.get(0), new SegregationCell(width, height, cellHashMap.get(new Point(row, col)).getState(), THRESHOLD));
-//      cellHashMap.remove(new Point(row, col));
-//      //should remove random index
-//      vacantCells.remove(0);
-//    }
-//;
-//  }
 
 //  @Override
-  public int updateCell(HashMap<Point, Cell> cellHashMap,  HashMap<Point, Cell> copycellHashMap, int row, int col, int width, int height) {
+  public int updateCell(HashMap<Point, Cell> cellHashMap,  int row, int col, int width, int height) {
     getVacantCells(cellHashMap, width, height);
     Collections.shuffle(vacantCells);
     double checkThreshold = ((double) getNeighborTypeCount(cellHashMap, row, col, cellHashMap.get(new Point(row, col)).getState())) / getNeighborCount(cellHashMap, row, col);
     if(checkThreshold < THRESHOLD && state!= VACANT) {
       int tempState = state;
       myNextState = VACANT;
-      hasToMove = true;
       Point targetPt = vacantCells.get(0);
-//      cellHashMap.put(targetPt, new SegregationCell(width, height, cellHashMap.get(new Point(row, col)).getState(), THRESHOLD));
       cellHashMap.get(targetPt).setMyNextState(tempState);
-      //should remove random index
       vacantCells.remove(0);
     }
     else if(checkThreshold >= THRESHOLD && state!=VACANT){
@@ -99,9 +69,6 @@ public class SegregationCell extends Cell {
     return this.myNextState;
   }
 
-  public void setState(int myState, ArrayList<Point> vacantCells){
-    this.state = myState;
-  }
 
   @Override
   public javafx.scene.paint.Color getCellColor() {
@@ -212,9 +179,4 @@ public class SegregationCell extends Cell {
 
   }
 
-  public enum SegregationStates {
-    RED,
-  BLUE,
-    WHITE
-  }
 }

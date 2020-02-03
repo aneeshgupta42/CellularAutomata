@@ -16,20 +16,14 @@ public class PercolationCell extends Cell {
     super(width, height, state);
     this.state = state;
     this.setCellColor();
-    //state = 0;
-    //currentState = ALIVE;
   }
 
-  @Override
-  public int updateCell() {
-    return 0;
-  }
+
 
   @Override
-  public int updateCell(HashMap<Point, Cell> cellHashMap, HashMap<Point, Cell> copyCellHashMap,
+  public int updateCell(HashMap<Point, Cell> cellHashMap,
       int row, int col, int width, int height) {
-//    System.out.println("reached");
-    if(getNeighborCount(cellHashMap, copyCellHashMap, row, col) >= 1 && cellHashMap.get(new Point(row, col)).getState() == OPEN) {
+    if(getNeighborCount(cellHashMap, row, col) >= 1 && cellHashMap.get(new Point(row, col)).getState() == OPEN) {
       return PERCOLATED;
     }
     else{
@@ -70,39 +64,39 @@ public class PercolationCell extends Cell {
     }
   }
 
-  private int getNeighborCount(HashMap<Point, Cell> cellHashMap, HashMap<Point, Cell> copyCellHashMap, int row, int col) {
+  private int getNeighborCount(HashMap<Point, Cell> cellHashMap, int row, int col) {
     int count = 0;
     int delta = 1;
     //top left diagonal
-    if(copyCellHashMap.containsKey(new Point(row - delta, col - delta)) && copyCellHashMap.get(new Point(row - delta, col - delta)).getState() == PERCOLATED) {
+    if(cellHashMap.containsKey(new Point(row - delta, col - delta)) && cellHashMap.get(new Point(row - delta, col - delta)).getState() == PERCOLATED) {
       count++;
     }
     //top
-    if(copyCellHashMap.containsKey(new Point(row - delta, col)) && copyCellHashMap.get(new Point(row - delta, col)).getState() == PERCOLATED) {
+    if(cellHashMap.containsKey(new Point(row - delta, col)) && cellHashMap.get(new Point(row - delta, col)).getState() == PERCOLATED) {
       count++;
     }
     //top right diagonal
-    if(copyCellHashMap.containsKey(new Point(row - delta, col + delta)) && copyCellHashMap.get(new Point(row - delta, col + delta)).getState() == PERCOLATED) {
+    if(cellHashMap.containsKey(new Point(row - delta, col + delta)) && cellHashMap.get(new Point(row - delta, col + delta)).getState() == PERCOLATED) {
       count++;
     }
     //left
-    if(copyCellHashMap.containsKey(new Point(row, col - delta)) && copyCellHashMap.get(new Point(row, col - delta)).getState() == PERCOLATED) {
+    if(cellHashMap.containsKey(new Point(row, col - delta)) && cellHashMap.get(new Point(row, col - delta)).getState() == PERCOLATED) {
       count++;
     }
     //right
-    if(copyCellHashMap.containsKey(new Point(row, col + delta)) && copyCellHashMap.get(new Point(row, col + delta)).getState() == PERCOLATED) {
+    if(cellHashMap.containsKey(new Point(row, col + delta)) && cellHashMap.get(new Point(row, col + delta)).getState() == PERCOLATED) {
       count++;
     }
     //bottom left diagonal
-    if(copyCellHashMap.containsKey(new Point(row + delta, col - delta)) && copyCellHashMap.get(new Point(row + delta, col - delta)).getState() == PERCOLATED) {
+    if(cellHashMap.containsKey(new Point(row + delta, col - delta)) && cellHashMap.get(new Point(row + delta, col - delta)).getState() == PERCOLATED) {
       count++;
     }
     //bottom
-    if(copyCellHashMap.containsKey(new Point(row + delta, col)) && copyCellHashMap.get(new Point(row + delta, col)).getState() == PERCOLATED) {
+    if(cellHashMap.containsKey(new Point(row + delta, col)) && cellHashMap.get(new Point(row + delta, col)).getState() == PERCOLATED) {
       count++;
     }
     //bottom right
-    if(copyCellHashMap.containsKey(new Point(row + delta, col + delta)) && copyCellHashMap.get(new Point(row + delta, col + delta)).getState() == PERCOLATED) {
+    if(cellHashMap.containsKey(new Point(row + delta, col + delta)) && cellHashMap.get(new Point(row + delta, col + delta)).getState() == PERCOLATED) {
       count++;
     }
     else {}

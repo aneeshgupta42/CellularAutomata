@@ -30,15 +30,12 @@ public abstract class Cell {
       return (int) gridPos.getY();
     }
 
-    public abstract int updateCell();
-    public abstract int updateCell(HashMap<Point, Cell> cellHashMap, HashMap<Point, Cell> copycellHashMap, int row, int col, int width, int height);
+    public abstract int updateCell(HashMap<Point, Cell> cellHashMap, int row, int col, int width, int height);
 
     public abstract int getState();
     public abstract javafx.scene.paint.Color getCellColor();
+  protected abstract void setCellColor();
 
-    public void setState(int state) {
-        this.state = state;
-    }
 
     public int getNextState(){
         return this.myNextState;
@@ -50,9 +47,13 @@ public abstract class Cell {
 
     //public abstract void applyRules(HashMap<Point, Cell> cellHashMap, int row, int col, int width, int height);
 
+  public void setState(int state) {
+    this.state = state;
+  }
+
    public Image getImage() {
         return displayImage;
    }
 
-  protected abstract void setCellColor();
+
 }
