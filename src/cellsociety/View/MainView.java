@@ -48,7 +48,9 @@ public class MainView extends VBox {
         theGrid.setLayoutX(0); theGrid.setLayoutY(100);
         this.getChildren().addAll(myToolbar, theGrid);
     }
-
+    public void setDisplaygrid(Grid dispGrid){
+        displaygrid = dispGrid;
+    }
     public void step() {
         //System.out.println("Update");
         displaygrid.updateGrid(rows, cols);
