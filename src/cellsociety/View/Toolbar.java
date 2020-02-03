@@ -67,29 +67,35 @@ public class Toolbar extends ToolBar {
 
         switchSimulation.getSelectionModel().selectedItemProperty().addListener( (options, oldValue, newValue) -> {
             GridCreator creator = new GridCreator();
+            animation.stop();
                     if (newValue == "Game of life") {
 
                         currentGrid = creator.GridSelector(0);
+                        mainView.setDisplaygrid(currentGrid);
                         GridPane newGrid = mainView.displayGrid(currentGrid);
                         myMainView.replaceGrid(newGrid);
                         resetTime();
                     } else if (newValue == "Percolation") {
                         currentGrid = creator.GridSelector(1);
+                        mainView.setDisplaygrid(currentGrid);
                         GridPane newGrid = mainView.displayGrid(currentGrid);
                         myMainView.replaceGrid(newGrid);
                         resetTime();
                     }else if (newValue == "Segregation") {
                         currentGrid = creator.GridSelector(2);
+                        mainView.setDisplaygrid(currentGrid);
                         GridPane newGrid = mainView.displayGrid(currentGrid);
                         myMainView.replaceGrid(newGrid);
                         resetTime();
                     } else if (newValue == "Predator-Prey") {
                         currentGrid = creator.GridSelector(3);
+                        mainView.setDisplaygrid(currentGrid);
                         GridPane newGrid = mainView.displayGrid(currentGrid);
                         myMainView.replaceGrid(newGrid);
                         resetTime();
                     } else if (newValue == "Fire") {
                         currentGrid = creator.GridSelector(4);
+                        mainView.setDisplaygrid(currentGrid);
                         GridPane newGrid = mainView.displayGrid(currentGrid);
                         myMainView.replaceGrid(newGrid);
                         resetTime();

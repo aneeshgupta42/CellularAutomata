@@ -93,6 +93,7 @@ public class FireCell extends Cell {
     }
   }
 
+
   private void changeToEmpty() {
     cellColor = Color.YELLOW;
   }

@@ -87,7 +87,6 @@ public class Grid {
     HashMap<Point, Cell> cellGridClone = copy(cellGrid);
     HashMap<Point, Integer> newStateMap = new HashMap<>();
     int tempInitInt = 100;
-    vacantCells = getVacantCells(cellGrid, width, height);
     /*** if choice not segregation or predator***/
     for(int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
@@ -106,17 +105,7 @@ public class Grid {
 
   }
 
-  public ArrayList<Point> getVacantCells(HashMap<Point, Cell> cellHashMap, int width, int height) {
-    ArrayList <Point> vacantCells = new ArrayList<>();
-    for(int i = 0; i < width; i++) {
-      for(int k = 0; k < height; k++) {
-        if(cellHashMap.get(new Point(i, k)).getState() == VACANT) {
-          vacantCells.add(new Point(i, k));
-        }
-      }
-    }
-    return vacantCells;
-  }
+
 
   public HashMap<Point, Cell> copy(HashMap<Point, Cell> original) {
     HashMap<Point, Cell> cellGridClone = new HashMap<Point, Cell>();
