@@ -67,7 +67,7 @@ public class Toolbar extends ToolBar {
         switchSimulation.setOnAction(event -> nameofGame = switchSimulation.getValue());
 
         XMLReader reader = new XMLReader("media");
-        Game game = reader.getGame("data/gameOfLife.xml");
+        Game game = reader.getGame("data/segregation.xml");
         currentGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice());
 
         timer();

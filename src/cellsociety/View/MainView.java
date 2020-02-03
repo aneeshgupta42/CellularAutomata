@@ -64,7 +64,7 @@ public class MainView extends VBox {
 
         GridPane gridPane = new GridPane();
         XMLReader reader = new XMLReader("media");
-        Game game = reader.getGame("data/gameOfLife.xml");
+        Game game = reader.getGame("data/segregation.xml");
         this.rows = game.getMyRows();
         this.cols = game.getMyCols();
         HashMap<Point, Cell> myMap = myGrid.getCellGrid();
