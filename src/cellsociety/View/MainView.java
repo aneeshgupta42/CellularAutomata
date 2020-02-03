@@ -37,6 +37,8 @@ public class MainView extends VBox {
     private int rows;
     private int cols;
     public Toolbar myToolbar;
+    private Grid originalGrid;
+    private GridPane theGrid;
 
     public MainView() {
 
@@ -44,9 +46,13 @@ public class MainView extends VBox {
 
         myToolbar = new Toolbar(this);
 
+
         displaygrid = myToolbar.getCurrentGrid();
+        originalGrid = myToolbar.getCurrentGrid();
+        originalGrid = displaygrid;
+
         this.infobar = new InfoBar();
-        GridPane theGrid = displayGrid(displaygrid);
+        this.theGrid = displayGrid(displaygrid);
         theGrid.setLayoutX(0); theGrid.setLayoutY(100);
         this.getChildren().addAll(myToolbar, theGrid);
     }
@@ -85,4 +91,9 @@ public class MainView extends VBox {
         return gridPane;
     }
 
+    public void getOriginalGrid() {
+        this.getChildren().remove(theGrid);
+        this.theGrid = displayGrid(originalGrid);
+        this.getChildren().addAll(theGrid);
+    }
 }

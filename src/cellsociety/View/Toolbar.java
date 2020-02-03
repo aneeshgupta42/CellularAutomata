@@ -36,7 +36,6 @@ public class Toolbar extends ToolBar {
     private static final double MILLISECOND_DELAY = 10000/FRAMES_PER_SECOND;
 
     private int seconds;
-    private Object nameofGame = " ";
     private Grid currentGrid;
     private Timeline animation;
     private Grid myGrid;
@@ -65,7 +64,21 @@ public class Toolbar extends ToolBar {
         switchSimulation.setPromptText("Choose a Simulation");
         switchSimulation.setEditable(true);
 
-        switchSimulation.setOnAction(event -> nameofGame = switchSimulation.getValue());
+        switchSimulation.getSelectionModel().selectedItemProperty().addListener( (options, oldValue, newValue) -> {
+            GridCreator creator = new GridCreator();
+                    if (newValue == "Game of life") {
+                        currentGrid = creator.GridSelector(0);
+                    } else if (newValue == "Percolation") {
+                        currentGrid = creator.GridSelector(1);
+                    }else if (newValue == "Segregation") {
+                        currentGrid = creator.GridSelector(2);
+                    } else if (newValue == "Predator-Prey") {
+                        currentGrid = creator.GridSelector(3);
+                    } else if (newValue == "Fire") {
+                        currentGrid = creator.GridSelector(4);
+                    }
+                }
+        );
 
         GridCreator creator = new GridCreator();
         currentGrid = creator.GridSelector(2);
@@ -113,10 +126,12 @@ public class Toolbar extends ToolBar {
  //       myMainView.displayGrid(myGrid);
         timer.stop();
         seconds = 0;
+        animation.pause();
+        myMainView.getOriginalGrid();
     }
 
     public void timer() {
-        this.lblTime = new Label("0 s");
+        this.lblTime = new Label("Elapsed time: 0 s");
         this.timer = new AnimationTimer() {
 
             private long lastTime = 0;
@@ -125,7 +140,7 @@ public class Toolbar extends ToolBar {
                 if (lastTime != 0) {
                     if (now > lastTime + 1_000_000_000) {
                         seconds++;
-                        lblTime.setText(Integer.toString(seconds) + " s");
+                        lblTime.setText("Elapsed time: "+ Integer.toString(seconds) + " s");
                         lastTime = now;
                     }
                 } else {
