@@ -5,6 +5,8 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -12,18 +14,19 @@ public class Display extends Application {
 
 
         private Scene myScene;
-        private static final int FRAMES_PER_SECOND = 60;
-        private static final double MILLISECOND_DELAY = 10000/FRAMES_PER_SECOND;
+        private MainView myMainview;
 
         @Override
         public void start(Stage stage) throws Exception {
 
-                MainView mainView = new MainView();
-                myScene = new Scene(mainView, 740, 600);
+                myMainview = new MainView();
+                myScene = new Scene(myMainview, 740, 600);
                 stage.setScene(myScene);
                 stage.setTitle("Simulation");
                 stage.show();
 
         }
+
+
         public static void main(String[] args) {launch();}
 }

@@ -20,6 +20,8 @@ import javafx.scene.control.*;
 import java.awt.Point;
 
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.util.Duration;
 
 import java.awt.event.ItemEvent;
@@ -43,9 +45,11 @@ public class Toolbar extends ToolBar {
     private Label lblTime;
     private AnimationTimer timer;
     private Slider slider;
+    private int myChoice;
 
     public Toolbar(MainView mainView) {
         myMainView = mainView;
+        myChoice = 0;
         Button play = new Button("Play");
         play.setOnAction(this::handlePlay);
 
@@ -66,34 +70,17 @@ public class Toolbar extends ToolBar {
         switchSimulation.setEditable(true);
 
         switchSimulation.getSelectionModel().selectedItemProperty().addListener( (options, oldValue, newValue) -> {
-            GridCreator creator = new GridCreator();
             animation.stop();
                     if (newValue == "Game of life") {
-
-                        currentGrid = creator.GridSelector(0);
-                        mainView.setDisplaygrid(currentGrid);
-                        GridPane newGrid = mainView.displayGrid(currentGrid);
-                        myMainView.replaceGrid(newGrid);
+                        choosingNewSim(0);
                     } else if (newValue == "Percolation") {
-                        currentGrid = creator.GridSelector(1);
-                        mainView.setDisplaygrid(currentGrid);
-                        GridPane newGrid = mainView.displayGrid(currentGrid);
-                        myMainView.replaceGrid(newGrid);
+                        choosingNewSim(1);
                     }else if (newValue == "Segregation") {
-                        currentGrid = creator.GridSelector(2);
-                        mainView.setDisplaygrid(currentGrid);
-                        GridPane newGrid = mainView.displayGrid(currentGrid);
-                        myMainView.replaceGrid(newGrid);
+                        choosingNewSim(2);
                     } else if (newValue == "Predator-Prey") {
-                        currentGrid = creator.GridSelector(3);
-                        mainView.setDisplaygrid(currentGrid);
-                        GridPane newGrid = mainView.displayGrid(currentGrid);
-                        myMainView.replaceGrid(newGrid);
+                       choosingNewSim(3);
                     } else if (newValue == "Fire") {
-                        currentGrid = creator.GridSelector(4);
-                        mainView.setDisplaygrid(currentGrid);
-                        GridPane newGrid = mainView.displayGrid(currentGrid);
-                        myMainView.replaceGrid(newGrid);
+                        choosingNewSim(4);
                     }
                 }
         );
@@ -141,11 +128,9 @@ public class Toolbar extends ToolBar {
         timer.stop();
     }
     private void handleReset(ActionEvent actionEvent) {
- //       myMainView.displayGrid(myGrid);
-        timer.stop();
-        seconds = 0;
+        choosingNewSim(myChoice);
         animation.pause();
-        myMainView.getOriginalGrid();
+//        myMainView.getOriginalGrid();
     }
 
     public void timer() {
@@ -191,4 +176,21 @@ public class Toolbar extends ToolBar {
             }
         });
     }
+
+    public void resetTime () {
+        timer.stop();
+        lblTime.setText("Elapsed time: " + 0 + " s");
+        seconds = 0;
+    }
+
+    public void choosingNewSim(int choice) {
+        GridCreator creator = new GridCreator();
+        currentGrid = creator.GridSelector(choice);
+        myMainView.setDisplaygrid(currentGrid);
+        GridPane newGrid = myMainView.displayGrid(currentGrid);
+        myMainView.replaceGrid(newGrid);
+        myChoice = choice;
+        resetTime();
+    }
+
 }

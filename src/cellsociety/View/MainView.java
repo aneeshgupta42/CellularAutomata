@@ -2,25 +2,14 @@ package cellsociety.View;
 
 import cellsociety.Model.*;
 import cellsociety.Model.Cell;
-import cellsociety.configuration.Game;
-import cellsociety.configuration.GridCreator;
-import cellsociety.configuration.XMLReader;
-import javafx.animation.AnimationTimer;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.transform.Affine;
-
+import javafx.scene.control.Label;
 import java.awt.*;
-
 import java.util.HashMap;
+
 
 public class MainView extends VBox {
 
@@ -52,7 +41,6 @@ public class MainView extends VBox {
         displaygrid = dispGrid;
     }
     public void step() {
-        //System.out.println("Update");
         displaygrid.updateGrid(rows, cols);
         GridPane newGrid = displayGrid(displaygrid);
         newGrid.setLayoutX(0); newGrid.setLayoutY(100);
@@ -67,7 +55,6 @@ public class MainView extends VBox {
         this.rows = myGrid.getMyHeight();
         this.cols = myGrid.getMyWidth();
         HashMap<Point, Cell> myMap = myGrid.getCellGrid();
-        //System.out.println(myMap.size());
         gridPane.addColumn(cols);
         gridPane.addRow(rows);
         gridPane.setHgap(1);
@@ -95,4 +82,7 @@ public class MainView extends VBox {
         this.getChildren().remove(1);
         this.getChildren().addAll(newgrid);
     }
+
+
+
 }
