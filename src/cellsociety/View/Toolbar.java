@@ -19,6 +19,7 @@ import javafx.scene.control.*;
 
 import java.awt.Point;
 
+import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
 
 import java.awt.event.ItemEvent;
@@ -36,7 +37,6 @@ public class Toolbar extends ToolBar {
     private static final double MILLISECOND_DELAY = 10000/FRAMES_PER_SECOND;
 
     private int seconds;
-    private Object nameofGame = " ";
     private Grid currentGrid;
     private Timeline animation;
     private Grid myGrid;
@@ -65,10 +65,35 @@ public class Toolbar extends ToolBar {
         switchSimulation.setPromptText("Choose a Simulation");
         switchSimulation.setEditable(true);
 
-        switchSimulation.setOnAction(event -> nameofGame = switchSimulation.getValue());
+        switchSimulation.getSelectionModel().selectedItemProperty().addListener( (options, oldValue, newValue) -> {
+            GridCreator creator = new GridCreator();
+                    if (newValue == "Game of life") {
+
+                        currentGrid = creator.GridSelector(0);
+                        GridPane newGrid = mainView.displayGrid(currentGrid);
+                        myMainView.replaceGrid(newGrid);
+                    } else if (newValue == "Percolation") {
+                        currentGrid = creator.GridSelector(1);
+                        GridPane newGrid = mainView.displayGrid(currentGrid);
+                        myMainView.replaceGrid(newGrid);
+                    }else if (newValue == "Segregation") {
+                        currentGrid = creator.GridSelector(2);
+                        GridPane newGrid = mainView.displayGrid(currentGrid);
+                        myMainView.replaceGrid(newGrid);
+                    } else if (newValue == "Predator-Prey") {
+                        currentGrid = creator.GridSelector(3);
+                        GridPane newGrid = mainView.displayGrid(currentGrid);
+                        myMainView.replaceGrid(newGrid);
+                    } else if (newValue == "Fire") {
+                        currentGrid = creator.GridSelector(4);
+                        GridPane newGrid = mainView.displayGrid(currentGrid);
+                        myMainView.replaceGrid(newGrid);
+                    }
+                }
+        );
 
         GridCreator creator = new GridCreator();
-        currentGrid = creator.GridSelector(3);
+        currentGrid = creator.GridSelector(0);
 
         timer();
         animationFunctions();
@@ -157,7 +182,6 @@ public class Toolbar extends ToolBar {
             public void changed(ObservableValue<? extends Number> ov,
                                 Number old_val, Number new_val) {
                 animation.setRate((Double) new_val);
-//                System.out.println(SPEED);
             }
         });
     }

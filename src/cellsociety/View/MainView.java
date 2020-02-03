@@ -24,14 +24,6 @@ import java.util.HashMap;
 
 public class MainView extends VBox {
 
-    private Button playbutton;
-    private Button btnStart;
-    private Button btnStop;
-    private ComboBox switchSimulation;
-    private Canvas canvas;
-    private Affine affine;
-    private int seconds;
-    private InfoBar infobar;
     private Grid gridmap;
     private Grid displaygrid;
     private int rows;
@@ -42,14 +34,16 @@ public class MainView extends VBox {
 
     public MainView() {
 
-        this.canvas = new Canvas(500,500);
+
 
         myToolbar = new Toolbar(this);
 
-        originalGrid = myToolbar.getCurrentGrid();
-        displaygrid = myToolbar.getCurrentGrid();
 
-        this.infobar = new InfoBar();
+        displaygrid = myToolbar.getCurrentGrid();
+        originalGrid = myToolbar.getCurrentGrid();
+        originalGrid = displaygrid;
+
+
         this.theGrid = displayGrid(displaygrid);
         theGrid.setLayoutX(0); theGrid.setLayoutY(100);
         this.getChildren().addAll(myToolbar, theGrid);
@@ -91,8 +85,12 @@ public class MainView extends VBox {
 
     public void getOriginalGrid() {
         this.getChildren().remove(theGrid);
-        displaygrid = originalGrid;
-        this.theGrid = displayGrid(displaygrid);
-        this.getChildren().add(theGrid);
+        this.theGrid = displayGrid(originalGrid);
+        this.getChildren().addAll(theGrid);
+    }
+
+    public void replaceGrid(GridPane newgrid) {
+        this.getChildren().remove(1);
+        this.getChildren().addAll(newgrid);
     }
 }
