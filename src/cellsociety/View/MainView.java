@@ -29,8 +29,6 @@ public class MainView extends VBox {
     private ComboBox switchSimulation;
     private Canvas canvas;
     private Affine affine;
-    private AnimationTimer timer;
-    private Label lblTime;
     private int seconds;
     private InfoBar infobar;
     private Grid gridmap;
@@ -42,17 +40,14 @@ public class MainView extends VBox {
     public MainView() {
 
         this.canvas = new Canvas(500,500);
-//        this.gridmap = new Grid();
-//        gridmap.populateGridCells(500,500,0);
 
-        timer();
         myToolbar = new Toolbar(this);
 
         displaygrid = myToolbar.getCurrentGrid();
         this.infobar = new InfoBar();
         GridPane theGrid = displayGrid(displaygrid);
         theGrid.setLayoutX(0); theGrid.setLayoutY(100);
-        this.getChildren().addAll(myToolbar, this.lblTime, theGrid);
+        this.getChildren().addAll(myToolbar, theGrid);
     }
 
     public void step() {
@@ -60,7 +55,7 @@ public class MainView extends VBox {
         displaygrid.updateGrid(rows, cols);
         GridPane newGrid = displayGrid(displaygrid);
         newGrid.setLayoutX(0); newGrid.setLayoutY(100);
-        this.getChildren().remove(2);
+        this.getChildren().remove(1);
         this.getChildren().addAll(newGrid);
     }
 
@@ -91,42 +86,4 @@ public class MainView extends VBox {
         return gridPane;
     }
 
-
-    public void timer() {
-        this.lblTime = new Label("0 s");
-        this.timer = new AnimationTimer() {
-
-            private long lastTime = 0;
-            @Override
-            public void handle(long now) {
-                if (lastTime != 0) {
-                    if (now > lastTime + 1_000_000_000) {
-                        seconds++;
-                        lblTime.setText(Integer.toString(seconds) + " s");
-                        lastTime = now;
-                    }
-                } else {
-                    lastTime = now;
-                }
-            }
-            @Override
-            public void stop() {
-                super.stop();
-                lastTime = 0;
-                seconds = 0;
-            }
-        };
-    }
-    public AnimationTimer getTimer(){
-        return this.timer;
-    }
-
-    public Label getLbltime() {
-        return this.lblTime;
-    }
-
-
-//    public Simulation getSimulation() {
-//        return this.simulation;
-//    }
 }
