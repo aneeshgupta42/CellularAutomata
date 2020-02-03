@@ -18,10 +18,7 @@ public class PercolationCell extends Cell {
     this.setCellColor();
   }
 
-  @Override
-  public int updateCell() {
-    return 0;
-  }
+
 
   @Override
   public int updateCell(HashMap<Point, Cell> cellHashMap,

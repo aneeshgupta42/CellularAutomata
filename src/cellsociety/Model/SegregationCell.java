@@ -12,7 +12,6 @@ public class SegregationCell extends Cell {
   private int state;
   private int myNextState;
   private static final int VACANT = 0;
-  private boolean hasToMove;
   private static final int AGENT1 = 1;
   private static final int AGENT2 = 2;
   private double THRESHOLD;
@@ -24,15 +23,11 @@ public class SegregationCell extends Cell {
     this.state = state;
     this.myNextState = state;
     this.THRESHOLD = thresh;
-    hasToMove = false;
     this.setCellColor();
   }
 
 
-  @Override
-  public int updateCell() {
-    return 0;
-  }
+
 
 
 //  @Override
@@ -43,7 +38,6 @@ public class SegregationCell extends Cell {
     if(checkThreshold < THRESHOLD && state!= VACANT) {
       int tempState = state;
       myNextState = VACANT;
-      hasToMove = true;
       Point targetPt = vacantCells.get(0);
       cellHashMap.get(targetPt).setMyNextState(tempState);
       vacantCells.remove(0);
@@ -75,9 +69,6 @@ public class SegregationCell extends Cell {
     return this.myNextState;
   }
 
-  public void setState(int myState, ArrayList<Point> vacantCells){
-    this.state = myState;
-  }
 
   @Override
   public javafx.scene.paint.Color getCellColor() {

@@ -32,10 +32,7 @@ public class PredatorPreyCell extends Cell {
     this.setCellColor();
   }
 
-  @Override
-  public int updateCell() {
-    return 0;
-  }
+
 
   private void increaseBreedingTime() {
     breedingTime++;

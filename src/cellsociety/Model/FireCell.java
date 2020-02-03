@@ -24,24 +24,21 @@ public class FireCell extends Cell {
 
 
   @Override
-  public int updateCell() {
-    return 0;
-  }
-
-  @Override
-  public int updateCell(HashMap<Point, Cell> cellHashMap,
-      int row, int col, int width, int height) {
-    if(cellHashMap.get(new Point(row, col)).getState() == BURNING) {
+  public int updateCell(HashMap<Point, Cell> cellHashMap, int row, int col, int width, int height) {
+    if(checkState(cellHashMap, row, col, BURNING)) {
       return EMPTY;
     }
-    else if(cellHashMap.get(new Point(row, col)).getState() == TREE && getNeighborCount(cellHashMap, row, col) >= 1) {
-      float chosen = numChooser.nextFloat();
-      if(chosen < this.probCatch) {
+    else if(checkState(cellHashMap, row, col, TREE) && getNeighborCount(cellHashMap, row, col) >= 1) {
+      if(numChooser.nextFloat() < this.probCatch) {
         return BURNING;
       }
     }
 
     return state;
+  }
+
+  private boolean checkState(HashMap<Point, Cell> cellHashMap, int row, int col, int currState) {
+    return cellHashMap.get(new Point(row, col)).getState() == currState;
   }
 
 
@@ -60,23 +57,19 @@ public class FireCell extends Cell {
     int count = 0;
     int delta = 1;
 
-    //top
-    if(cellHashMap.containsKey(new Point(row - delta, col)) && cellHashMap.get(new Point(row - delta, col)).getState() == BURNING) {
+    //increments count if top, left, right, or bottom neighbor is burning
+    if((mapContainsNeighbor(cellHashMap, col, row - delta) && checkState(cellHashMap, row - delta, col, BURNING))
+      || (mapContainsNeighbor(cellHashMap, col - delta, row) && checkState(cellHashMap, row,col - delta, BURNING))
+      || (mapContainsNeighbor(cellHashMap, col + delta, row) && checkState(cellHashMap, row,col + delta, BURNING))
+      || (mapContainsNeighbor(cellHashMap, col, row + delta) && checkState(cellHashMap, row + delta, col, BURNING))) {
       count++;
     }
-    //left
-    if(cellHashMap.containsKey(new Point(row, col - delta)) && cellHashMap.get(new Point(row, col - delta)).getState() == BURNING) {
-      count++;
-    }
-    //right
-    if(cellHashMap.containsKey(new Point(row, col + delta)) && cellHashMap.get(new Point(row, col + delta)).getState() == BURNING) {
-      count++;
-    }
-    //bottom
-    if(cellHashMap.containsKey(new Point(row + delta, col)) && cellHashMap.get(new Point(row + delta, col)).getState() == BURNING) {
-      count++;
-    }
+
     return count;
+  }
+
+  private boolean mapContainsNeighbor(HashMap<Point, Cell> cellHashMap, int colDelta, int rowDelta) {
+    return cellHashMap.containsKey(new Point(rowDelta, colDelta));
   }
 
   @Override
