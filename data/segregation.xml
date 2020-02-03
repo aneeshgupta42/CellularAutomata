@@ -4,7 +4,7 @@
     <choice>2</choice>
     <author>Aneesh</author>
     <size>300</size>
-    <rows>20</rows>
-    <cols>20</cols>
-    <threshold>0.5</threshold>
+    <rows>5</rows>
+    <cols>5</cols>
+    <threshold>0.4</threshold>
 </data>
