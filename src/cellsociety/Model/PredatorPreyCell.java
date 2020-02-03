@@ -1,5 +1,6 @@
 package cellsociety.Model;
 
+import java.sql.ShardingKey;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -59,6 +60,38 @@ public class PredatorPreyCell extends Cell {
           myNextState = FISH;
           breedingState = 0;
         }
+
+        else {
+          myNextState = VACANT;
+        }
+
+
+        Point targetPt = vacantCells.get(0);
+        cellHashMap.get(targetPt).setMyNextState(tempState);
+        vacantCells.remove(0);
+      }
+    }
+    else if(cellHashMap.get(new Point(row, col)).getState() == SHARK) {
+      increaseBreedingState();
+      getFishCells(cellHashMap, row, col);
+      Collections.shuffle(fishCells);
+
+      if(energyLevel <= 0) {
+        myNextState = VACANT;
+      }
+      else if(fishCells.size() > 0) {
+        increaseEnergyLevel();
+        myNextState = VACANT;
+        int tempState = state;
+        Point targetPt = fishCells.get(0);
+        cellHashMap.get(targetPt).setMyNextState(tempState);
+        fishCells.remove(0);
+      }
+      else if(vacantCells.size() > 0) {
+        int tempState = state;
+        if(breedingState >= MAX_BREEDING_TIME) {
+          myNextState = SHARK;
+        }
         else {
           myNextState = VACANT;
         }
@@ -66,30 +99,8 @@ public class PredatorPreyCell extends Cell {
         cellHashMap.get(targetPt).setMyNextState(tempState);
         vacantCells.remove(0);
       }
-    }
-    else if(cellHashMap.get(new Point(row, col)).getState() == SHARK) {
-      decreaseEnergyLevel();
-      getFishCells(cellHashMap, row, col);
-      Collections.shuffle(fishCells);
-      if(fishCells.size() > 0) {
-        increaseEnergyLevel();
-        int tempState = state;
-        myNextState = VACANT;
-        Point targetPt = fishCells.get(0);
-        cellHashMap.get(targetPt).setMyNextState(tempState);
-        fishCells.remove(0);
-      }
-      else if(energyLevel <= 0) {
-          myNextState = VACANT;
-        }
-      else if(vacantCells.size() > 0) {
-        int tempState = state;
-        myNextState = VACANT;
-        Point targetPt = vacantCells.get(0);
-        cellHashMap.get(targetPt).setMyNextState(tempState);
-        vacantCells.remove(0);
-      }
 
+      decreaseEnergyLevel();
     }
     else if(state == VACANT){
       this.myNextState = state;
@@ -101,19 +112,19 @@ public class PredatorPreyCell extends Cell {
     vacantCells  = new ArrayList<>();
     int delta = 1;
 
-    if(cellHashMap.containsKey(new Point(row - delta, col)) && cellHashMap.get(new Point(row - delta, col)).getState() == VACANT) {
+    if(cellHashMap.containsKey(new Point(row - delta, col)) && cellHashMap.get(new Point(row - delta, col)).getNextState() == VACANT) {
       vacantCells.add(new Point(row - delta, col));
     }
     //left
-    if(cellHashMap.containsKey(new Point(row, col - delta)) && cellHashMap.get(new Point(row, col - delta)).getState() == VACANT) {
+    if(cellHashMap.containsKey(new Point(row, col - delta)) && cellHashMap.get(new Point(row, col - delta)).getNextState() == VACANT) {
       vacantCells.add(new Point(row, col - delta));
     }
     //right
-    if(cellHashMap.containsKey(new Point(row, col + delta)) && cellHashMap.get(new Point(row, col + delta)).getState() == VACANT) {
+    if(cellHashMap.containsKey(new Point(row, col + delta)) && cellHashMap.get(new Point(row, col + delta)).getNextState() == VACANT) {
       vacantCells.add(new Point(row, col + delta));
     }
     //bottom
-    if(cellHashMap.containsKey(new Point(row + delta, col)) && cellHashMap.get(new Point(row + delta, col)).getState() == VACANT) {
+    if(cellHashMap.containsKey(new Point(row + delta, col)) && cellHashMap.get(new Point(row + delta, col)).getNextState() == VACANT) {
       vacantCells.add(new Point(row + delta, col));
     }
   }
@@ -143,14 +154,7 @@ public class PredatorPreyCell extends Cell {
     }
   }
 
-  /*
-    public int updateCell(HashMap<Point, Cell> cellHashMap, int row, int col, int width, int height) {
-      return 0;
 
-    }
-
-
-   */
 
   @Override
   public int getState() {
@@ -170,10 +174,6 @@ public class PredatorPreyCell extends Cell {
   @Override
   public int getNextState(){
     return this.myNextState;
-  }
-
-  public void setState(int myState, ArrayList<Point> vacantCells){
-    this.state = myState;
   }
 
   @Override

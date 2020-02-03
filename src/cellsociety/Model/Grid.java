@@ -61,7 +61,7 @@ public class Grid {
         if (choice == 0) {
           tempCell = makeGlider(i, j, choice);
         } else {
-          tempCell = getSimulation(i, j, numChooser.nextInt(3), choice);
+          tempCell = getSimulation(i, j, numChooser.nextInt(2), choice);
         }
         cellGrid.put(new Point(i, j), tempCell);
       }
