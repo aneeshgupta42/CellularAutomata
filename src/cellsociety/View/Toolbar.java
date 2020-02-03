@@ -68,7 +68,7 @@ public class Toolbar extends ToolBar {
         switchSimulation.setOnAction(event -> nameofGame = switchSimulation.getValue());
 
         GridCreator creator = new GridCreator();
-        currentGrid = creator.GridSelector(1);
+        currentGrid = creator.GridSelector(2);
 
         timer();
         animationFunctions();
