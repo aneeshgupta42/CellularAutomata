@@ -72,22 +72,27 @@ public class Toolbar extends ToolBar {
                         currentGrid = creator.GridSelector(0);
                         GridPane newGrid = mainView.displayGrid(currentGrid);
                         myMainView.replaceGrid(newGrid);
+                        resetTime();
                     } else if (newValue == "Percolation") {
                         currentGrid = creator.GridSelector(1);
                         GridPane newGrid = mainView.displayGrid(currentGrid);
                         myMainView.replaceGrid(newGrid);
+                        resetTime();
                     }else if (newValue == "Segregation") {
                         currentGrid = creator.GridSelector(2);
                         GridPane newGrid = mainView.displayGrid(currentGrid);
                         myMainView.replaceGrid(newGrid);
+                        resetTime();
                     } else if (newValue == "Predator-Prey") {
                         currentGrid = creator.GridSelector(3);
                         GridPane newGrid = mainView.displayGrid(currentGrid);
                         myMainView.replaceGrid(newGrid);
+                        resetTime();
                     } else if (newValue == "Fire") {
                         currentGrid = creator.GridSelector(4);
                         GridPane newGrid = mainView.displayGrid(currentGrid);
                         myMainView.replaceGrid(newGrid);
+                        resetTime();
                     }
                 }
         );
@@ -136,10 +141,9 @@ public class Toolbar extends ToolBar {
     }
     private void handleReset(ActionEvent actionEvent) {
  //       myMainView.displayGrid(myGrid);
-        timer.stop();
-        seconds = 0;
+        resetTime();
         animation.pause();
-        myMainView.getOriginalGrid();
+//        myMainView.getOriginalGrid();
     }
 
     public void timer() {
@@ -184,5 +188,11 @@ public class Toolbar extends ToolBar {
                 animation.setRate((Double) new_val);
             }
         });
+    }
+
+    public void resetTime () {
+        timer.stop();
+        lblTime.setText("Elapsed time: " + 0 + " s");
+        seconds = 0;
     }
 }
