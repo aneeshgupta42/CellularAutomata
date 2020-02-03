@@ -4,6 +4,7 @@ import cellsociety.Model.*;
 import cellsociety.View.MainView;
 import cellsociety.configuration.Game;
 import cellsociety.configuration.XMLReader;
+import cellsociety.configuration.GridCreator;
 import java.awt.event.MouseEvent;
 
 import javafx.animation.Animation;
@@ -66,9 +67,8 @@ public class Toolbar extends ToolBar {
 
         switchSimulation.setOnAction(event -> nameofGame = switchSimulation.getValue());
 
-        XMLReader reader = new XMLReader("media");
-        Game game = reader.getGame("data/segregation.xml");
-        currentGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice());
+        GridCreator creator = new GridCreator();
+        currentGrid = creator.GridSelector(1);
 
         timer();
         animationFunctions();

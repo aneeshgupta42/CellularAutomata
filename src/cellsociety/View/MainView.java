@@ -3,6 +3,7 @@ package cellsociety.View;
 import cellsociety.Model.*;
 import cellsociety.Model.Cell;
 import cellsociety.configuration.Game;
+import cellsociety.configuration.GridCreator;
 import cellsociety.configuration.XMLReader;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.Canvas;
@@ -63,10 +64,8 @@ public class MainView extends VBox {
     public GridPane displayGrid(Grid myGrid) {
 
         GridPane gridPane = new GridPane();
-        XMLReader reader = new XMLReader("media");
-        Game game = reader.getGame("data/segregation.xml");
-        this.rows = game.getMyRows();
-        this.cols = game.getMyCols();
+        this.rows = myGrid.getMyHeight();
+        this.cols = myGrid.getMyWidth();
         HashMap<Point, Cell> myMap = myGrid.getCellGrid();
         //System.out.println(myMap.size());
         gridPane.addColumn(cols);
