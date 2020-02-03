@@ -6,10 +6,11 @@ import java.awt.Point;
 import java.util.HashMap;
 
 public class PredatorPreyCell extends Cell {
+  private int state;
 
-  public PredatorPreyCell() {
-    super(0, 0 , 0);
-
+  public PredatorPreyCell(int row, int col, int myState) {
+    super(row, col , myState);
+    this.state = myState;
   }
 
   @Override

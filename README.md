@@ -3,20 +3,21 @@ simulation
 
 This project implements a cellular automata simulator.
 
-Names:
+Names: Chris Warren, Shruthi Kumar, Aneesh Gupta
 
 ### Timeline
 
-Start Date: 
+Start Date: 01-25-2020
 
-Finish Date: 
+Finish Date: 02-03-2020
 
-Hours Spent:
+Hours Spent: 
 
 ### Primary Roles
 
 
 ### Resources Used
+
 
 
 ### Running the Program

@@ -24,13 +24,15 @@ public class Grid {
   }
 
   public Grid(int width, int height, int choice, float prob){
-    this(width, height, choice);
+    cellGrid = new HashMap<Point, Cell>();
     myProb = prob;
+    populateGridCells(width, height, choice);
   }
 
   public Grid(int width, int height, int choice, double thresh){
-    this(width, height, choice);
+    cellGrid = new HashMap<Point, Cell>();
     myThreshold = thresh;
+    populateGridCells(width, height, choice);
   }
 
   public void populateGridCells(int width, int height, int choice) {
@@ -109,7 +111,7 @@ public class Grid {
       return new SegregationCell(row, col, state, myThreshold);
     }
     else if(choice == 3) {
-      return new PredatorPreyCell();
+      return new PredatorPreyCell(row, col, state);
     }
     else {
       return new FireCell(row, col, state, myProb);
