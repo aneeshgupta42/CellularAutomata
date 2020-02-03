@@ -24,13 +24,15 @@ public class Grid {
   }
 
   public Grid(int width, int height, int choice, float prob){
-    this(width, height, choice);
+    cellGrid = new HashMap<Point, Cell>();
     myProb = prob;
+    populateGridCells(width, height, choice);
   }
 
   public Grid(int width, int height, int choice, double thresh){
-    this(width, height, choice);
+    cellGrid = new HashMap<Point, Cell>();
     myThreshold = thresh;
+    populateGridCells(width, height, choice);
   }
 
   public void populateGridCells(int width, int height, int choice) {
