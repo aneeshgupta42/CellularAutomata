@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 public abstract class Cell {
     private int state;
-    private String nextState;
+    private int myNextState;
     private Image displayImage;
     Point gridPos;
     private Color color;
@@ -40,7 +40,15 @@ public abstract class Cell {
         this.state = state;
     }
 
-   //public abstract void applyRules(HashMap<Point, Cell> cellHashMap, int row, int col, int width, int height);
+    public int getNextState(){
+        return this.myNextState;
+    }
+
+    public void setMyNextState(int nextState){
+        this.myNextState = nextState;
+    }
+
+    //public abstract void applyRules(HashMap<Point, Cell> cellHashMap, int row, int col, int width, int height);
 
    public Image getImage() {
         return displayImage;

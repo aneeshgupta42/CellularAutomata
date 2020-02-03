@@ -7,6 +7,7 @@ import java.util.HashMap;
 
 public class PredatorPreyCell extends Cell {
   private int state;
+  private Color cellColor;
 
   public PredatorPreyCell(int row, int col, int myState) {
     super(row, col , myState);
@@ -32,12 +33,12 @@ public class PredatorPreyCell extends Cell {
 
   @Override
   public int getState() {
-    return 0;
+    return state;
   }
 
   @Override
   public Color getCellColor() {
-    return null;
+    return cellColor;
   }
 
 
