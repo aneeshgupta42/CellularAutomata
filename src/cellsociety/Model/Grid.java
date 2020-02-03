@@ -18,27 +18,38 @@ public class Grid {
   private HashMap<Point, Cell> cellGrid;
   private Random numChooser = new Random();
   private float myProb;
+  private int myWidth;
+  private int myHeight;
   private double myThreshold;
   private int myChoice;
   ArrayList <Point> vacantCells;
 
+  //Game, Percolation
   public Grid(int width, int height, int choice) {
     cellGrid = new HashMap<Point, Cell>();
     myChoice = choice;
+    myWidth = width;
+    myHeight = height;
     populateGridCells(width, height, choice);
   }
 
+  //fire
   public Grid(int width, int height, int choice, float prob){
     cellGrid = new HashMap<Point, Cell>();
     myProb = prob;
     myChoice = choice;
+    myWidth = width;
+    myHeight = height;
     populateGridCells(width, height, choice);
   }
 
+  //segregation
   public Grid(int width, int height, int choice, double thresh){
     cellGrid = new HashMap<Point, Cell>();
     myThreshold = thresh;
     myChoice = choice;
+    myWidth = width;
+    myHeight = height;
     populateGridCells(width, height, choice);
   }
 
@@ -121,6 +132,14 @@ public class Grid {
 
   public Cell[] getNeighbors() {
     return new Cell[0];
+  }
+
+  public int getMyHeight() {
+    return myHeight;
+  }
+
+  public int getMyWidth() {
+    return myWidth;
   }
 
   private Cell getSimulation(int row, int col, int state, int choice) {
