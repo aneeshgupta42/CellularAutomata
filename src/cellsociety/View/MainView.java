@@ -41,6 +41,7 @@ public class MainView extends VBox {
     public void step() {
         displayGrid.updateGrid(rows, cols);
         GridPane newGrid = displayGrid(displayGrid);
+        newGrid.setAlignment(Pos.CENTER);
         this.getChildren().remove(1);
         this.getChildren().addAll(newGrid);
     }
