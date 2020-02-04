@@ -6,7 +6,17 @@ import java.awt.Image;
 import java.awt.Point;
 import java.util.HashMap;
 
-
+/**
+ * GameCell class based on Game of Life simulation. Users can choose the Game simulation and then cells are created
+ * based on this type of simulation. Thus, GameCell is an subclass
+ * Purpose: This creates the game cells that will populate the grid. This class is now a subclass. We made this design decision because
+ *  not all simulations have the same rules. Having extended cells classes will allow the game cell to have its own rule set while
+ *  still implementing basic cell functions.
+ * Assumptions: The class will work assuming all dependencies are functioning.
+ * Dependencies: This class relies on the Grid class to instantiate it correctly and the Cell class to properly override its methods
+ * Example: Choose a simulation and then the program will correctly instantiate the game cells.
+ * @author Shruthi Kumar, Chris Warren, Aneesh Gupta
+ */
 public class GameCell extends Cell {
   private int state;
   private static final int DEAD = 0;
@@ -14,6 +24,12 @@ public class GameCell extends Cell {
 
   private Color cellColor;
 
+  /**
+   * Constructor for the FireCell object
+   * @param width: width of grid
+   * @param height: height of grid
+   * @param mystate: current state of the cell
+   */
   public GameCell(int width, int height, int mystate) {
     super(width, height, mystate);
     this.state = mystate;
@@ -21,6 +37,15 @@ public class GameCell extends Cell {
     this.setCellColor();
   }
 
+  /**
+   * Updates the cell based on the rules
+   * @param  cellHashMap: grid of cells
+   * @param  row: row the cell is in
+   * @param  col: column the cell is in
+   * @param  width: width of the grid
+   * @param  height : height of the grid
+   * @return int : the next state integer
+   */
   @Override
   public int updateCell(HashMap<Point, Cell> cellHashMap, int row, int col, int width, int height) {
     if((getNeighborCount(cellHashMap, row, col) > 3 || getNeighborCount(cellHashMap, row, col) < 2) && checkState(
@@ -41,19 +66,34 @@ public class GameCell extends Cell {
     }
   }
 
+  /**
+   * Returns the state of the cell
+   * @return state of the cell
+   */
   @Override
   public int getState() {
     return state;
   }
 
+  /**
+   * Sets the color of the cell
+   * @param state : state of the cell
+   */
   public void setState(int state) {
     this.state = state;
   }
 
+  /**
+   * Returns the color of the cell
+   * @return color of the cell
+   */
   public Color getCellColor() {
     return cellColor;
   }
 
+  /**
+   * Sets the color of the cell
+   */
   @Override
   public void setCellColor() {
     if(state == ALIVE) {
@@ -75,7 +115,8 @@ public class GameCell extends Cell {
 
     //checks if neighbor is alive in this order: top left diagonal, top, top right diagonal, left, right, bottom left diagonal, bottom, bottom right diagonal
     for(int i = 0; i < rowDelta.length; i++) {
-      if(mapContainsNeighbor(cellHashMap, row + rowDelta[i], col + colDelta[i]) && checkState(cellHashMap,row + rowDelta[i], col + colDelta[i], ALIVE)) {
+      if(mapContainsNeighbor(cellHashMap, row + rowDelta[i], col + colDelta[i])
+          && checkState(cellHashMap,row + rowDelta[i], col + colDelta[i], ALIVE)) {
         count++;
       }
     }

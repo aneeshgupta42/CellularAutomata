@@ -8,6 +8,17 @@ import javafx.scene.paint.Color;
 import java.awt.Point;
 import java.util.HashMap;
 
+/**
+ * PredatorPreyCell class based on Predator Prey WaTor simulation. Users can choose the predator-prey simulation and then cells are created
+ * based on this type of simulation. Thus, PredatorPreyCell is an subclass
+ * Purpose: This creates the predator-prey cells that will populate the grid. This class is now a subclass. We made this design decision because
+ *  not all simulations have the same rules. Having extended cells classes will allow the predator-prey cell to have its own rule set while
+ *  still implementing basic cell functions.
+ * Assumptions: The class will work assuming all dependencies are functioning.
+ * Dependencies: This class relies on the Grid class to instantiate it correctly and the Cell class to properly override its methods
+ * Example: Choose a simulation and then the program will correctly instantiate the predator-prey cells.
+ * @author Shruthi Kumar, Chris Warren, Aneesh Gupta
+ */
 public class PredatorPreyCell extends Cell {
   private int state;
   private Color cellColor;
@@ -22,6 +33,12 @@ public class PredatorPreyCell extends Cell {
   private List<Point> vacantCells;
   private List<Point> fishCells;
 
+  /**
+   * Constructor for the FireCell object
+   * @param row: row number cell is in
+   * @param col: column number cell is in
+   * @param myState: current state of the cell
+   */
   public PredatorPreyCell(int row, int col, int myState) {
     super(row, col , myState);
     this.state = myState;
@@ -32,6 +49,15 @@ public class PredatorPreyCell extends Cell {
     this.setCellColor();
   }
 
+  /**
+   * Updates the cell based on the rules
+   * @param  cellHashMap: grid of cells
+   * @param  row: row the cell is in
+   * @param  col: column the cell is in
+   * @param  width: width of the grid
+   * @param  height : height of the grid
+   * @return int : the next state integer
+   */
   @Override
   public int updateCell(HashMap<Point, Cell> cellHashMap, int row, int col, int width, int height) {
     getVacantCells(cellHashMap, row, col);
@@ -47,6 +73,68 @@ public class PredatorPreyCell extends Cell {
     }
 
     return myNextState;
+  }
+
+  /**
+   * Returns the state of the cell
+   * @return state of the cell
+   */
+  @Override
+  public int getState() {
+    return this.state;
+  }
+
+  /**
+   * Sets the color of the cell
+   * @param myState : state of the cell
+   */
+  @Override
+  public void setState(int myState){
+    state = myNextState;
+    myNextState = VACANT;
+  }
+
+  /**
+   * Sets the color of the cell
+   * @param nextState : next state of the cell
+   */
+  @Override
+  public void setMyNextState(int nextState){
+    this.myNextState = nextState;
+  }
+
+  /**
+   * Returns the next state of the cell
+   * @return next state of the cell
+   */
+  @Override
+  public int getNextState(){
+    return this.myNextState;
+  }
+
+  /**
+   * Returns the color of the cell
+   * @return color of the cell
+   */
+  @Override
+  public Color getCellColor() {
+    return cellColor;
+  }
+
+  /**
+   * Sets the color of the cell
+   */
+  @Override
+  public void setCellColor() {
+    if(state == VACANT) {
+      cellColor = Color.WHITE;
+    }
+    else if(state == FISH) {
+      cellColor = Color.BLUE;
+    }
+    else {
+      cellColor = Color.GRAY;
+    }
   }
 
   private void handleSharkState(HashMap<Point, Cell> cellHashMap) {
@@ -152,31 +240,6 @@ public class PredatorPreyCell extends Cell {
     energyLevel = energyLevel + 2;
   }
 
-  @Override
-  public int getState() {
-    return this.state;
-  }
-  @Override
-  public void setState(int myState){
-    state = myNextState;
-    myNextState = VACANT;
-  }
-
-  @Override
-  public void setMyNextState(int nextState){
-    this.myNextState = nextState;
-  }
-
-  @Override
-  public int getNextState(){
-    return this.myNextState;
-  }
-
-  @Override
-  public Color getCellColor() {
-    return cellColor;
-  }
-
   private void setEnergyLevel(int level) {
     energyLevel = level;
   }
@@ -193,17 +256,6 @@ public class PredatorPreyCell extends Cell {
     return breedingTime;
   }
 
-  @Override
-  public void setCellColor() {
-    if(state == VACANT) {
-      cellColor = Color.WHITE;
-    }
-    else if(state == FISH) {
-      cellColor = Color.BLUE;
-    }
-    else {
-      cellColor = Color.GRAY;
-    }
-  }
+
 
 }
