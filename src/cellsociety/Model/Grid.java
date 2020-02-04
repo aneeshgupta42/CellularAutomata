@@ -13,6 +13,7 @@ import java.util.Random;
  * Updating the grid by iterating over it in two passes
  * @author Shruti Kumar
  * @author Aneesh Gupta
+ * @author Chris Warren
  */
 public class Grid {
     private HashMap<Point, Cell> cellGrid;
