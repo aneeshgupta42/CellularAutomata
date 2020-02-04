@@ -24,7 +24,6 @@ public class MainView extends VBox {
 
     /**
      * Sets instance variables myToolbar, displayGrid, and the grid and adds myToolbar and theGrid to the mainView
-     * @author Chris Warren
      */
     public MainView() {
         myToolbar = new Toolbar(this);
@@ -36,7 +35,6 @@ public class MainView extends VBox {
 
     /**
      * Updates the grid and removes the old grid and adds the new one. This happens every time the step function is called
-     * @author Chris Warren
      */
     public void step() {
         displayGrid.updateGrid(rows, cols);
@@ -51,7 +49,6 @@ public class MainView extends VBox {
      * cell and gets the color of each cell depending on the state and represents the cell in a rectangle.
      * @param myGrid the grid being displayed in which was made in the grid class.
      * @return returns the GridPane to be displayed
-     * @author Chris Warren
      */
     public GridPane displayGrid(Grid myGrid) {
         GridPane gridPane = new GridPane();
@@ -78,7 +75,6 @@ public class MainView extends VBox {
     /**
      * Replaces the current grid with a new one
      * @param newgrid the new grid being displayed
-     * @author Chris Warren
      */
     public void replaceGrid(GridPane newgrid) {
         this.getChildren().remove(1);
@@ -88,7 +84,6 @@ public class MainView extends VBox {
     /**
      * chooses the grid to be displayed in the toolbar class
      * @param currentGrid current grid that needs to be displayed
-     * @author Chris Warren
      */
     public void setDisplayGrid(Grid currentGrid) {
         displayGrid = currentGrid;
