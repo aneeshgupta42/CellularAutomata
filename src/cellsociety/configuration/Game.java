@@ -52,12 +52,31 @@ public class Game {
         myDataValues = new HashMap<>();
     }
 
+    /***
+     * Overloaded version of constructor with param for fire probability
+     * @param simName: Name of Simulation
+     * @param authName: author of sim file
+     * @param choice: choice of sim
+     * @param size: size of grid (for future use)
+     * @param rows: rows in sim
+     * @param cols: cols in sim
+     * @param prob: probCatch
+     */
     //Fire - has probability
     public Game(String simName, String authName, int choice, int size, int rows, int cols, float prob){
         this(simName, authName, choice, size,rows,cols);
         this.myProb = prob;
     }
-
+    /***
+     * Overloaded version of constructor with param for fire probability
+     * @param simName
+     * @param authName
+     * @param choice
+     * @param size
+     * @param rows
+     * @param cols
+     * @param thresh
+     */
     //Segregation - has threshold
     public Game(String simName, String authName, int choice, int size, int rows, int cols, double thresh){
         this(simName, authName, choice, size,rows,cols);
@@ -79,22 +98,41 @@ public class Game {
         return author;
     }
 
+    /***
+     * returns the number of columns in the game grid
+     * @return myCols
+     */
     public int getMyCols() {
         return myCols;
     }
 
+    /***
+     * returns the number of rows in the game grid
+     * @return myRows
+     */
     public int getMyRows() {
         return myRows;
     }
 
+    /***
+     * returns the size of the grid (for future use)
+     * @return mySize
+     */
     public int getMySize() {
         return mySize;
     }
 
+    /***
+     * returns the choice of simulation
+     * @return
+     */
     public int getMyChoice() {
         return myChoice;
     }
 
+    /**
+     * returns the prob of catching fire for the fire simulation
+     */
     public float getMyProb() {
         return myProb;
     }

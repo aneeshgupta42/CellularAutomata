@@ -1,15 +1,17 @@
 package cellsociety.configuration;
 import cellsociety.Model.*;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
+
 
 public class GridCreator {
-    private String simulationName;
-    private int simulationChoice;
-
-    public GridCreator(){
-        XMLReader reader = new XMLReader("media");
-        Game game = reader.getGame("data/gameOfLife.xml");
-        Grid myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice());
-    }
+    /***
+     * Returns a Grid object based on a choice entered
+     * takes in an integer choice,
+     * and selects the corresponding simulation xml.
+     * @param choice
+     * @return  Grid object for corresponding simulation
+     */
     public Grid GridSelector(int choice){
         String[] choices = {"data/gameOfLife.xml", "data/percolation.xml", "data/segregation.xml", "data/predator.xml", "data/fire.xml"};
         XMLReader reader = new XMLReader("media");

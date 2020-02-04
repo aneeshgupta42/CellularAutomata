@@ -32,7 +32,6 @@ public class MainView extends VBox {
         originalGrid = myToolbar.getCurrentGrid();
         originalGrid = displaygrid;
 
-
         this.theGrid = displayGrid(displaygrid);
         theGrid.setLayoutX(0); theGrid.setLayoutY(100);
         this.getChildren().addAll(myToolbar, theGrid);
