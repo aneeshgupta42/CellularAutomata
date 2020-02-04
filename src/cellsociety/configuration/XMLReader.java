@@ -18,7 +18,7 @@ import org.xml.sax.SAXException;
  *
  * @author Rhondu Smithwick
  * @author Robert C. Duvall
- * extended by Aneesh Gupta
+ * extended by Aneesh Gupta, Shruthi Kumar, Chris Warren
  */
 
 public class XMLReader {

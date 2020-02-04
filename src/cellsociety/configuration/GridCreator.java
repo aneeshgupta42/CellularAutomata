@@ -8,6 +8,8 @@ import javafx.stage.FileChooser.ExtensionFilter;
  * Used in Display, and set up, to read in a grid
  * from an XML file
  * @author Aneesh Gupta
+ * @author Shruthi Kumar
+ * @author Chris Warren
  */
 public class GridCreator {
     /***
