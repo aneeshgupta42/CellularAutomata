@@ -1,21 +1,27 @@
 package cellsociety.View;
 
-import cellsociety.Controller.Main;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
+/**
+ * Display class which holds the stage and runs the program
+ * @author Chris Warren
+ */
 public class Display extends Application {
 
 
         private Scene myScene;
         private MainView myMainview;
 
+        /**
+         * This program sets up the stage and creates a new scene using the variable MainView, which is where all our
+         * content is held. The scene is then set in the stage and shown.
+         * @param stage stage where everything is set
+         * @throws Exception
+         * @author Chris Warren
+         */
         @Override
         public void start(Stage stage) throws Exception {
 
@@ -27,6 +33,10 @@ public class Display extends Application {
 
         }
 
-
+        /**
+         * Runs the program
+         * @param args runs the program
+         * @author Chris Warren
+         */
         public static void main(String[] args) {launch();}
 }

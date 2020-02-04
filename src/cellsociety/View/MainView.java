@@ -6,51 +6,51 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.control.Label;
 import java.awt.*;
 import java.util.HashMap;
 
-
+/**
+ * Mainview class which acts as a VBox where the grid and toolbar are held.
+ * @author Chris Warren
+ */
 public class MainView extends VBox {
 
-    private Grid gridmap;
-    private Grid displaygrid;
+    private Grid displayGrid;
     private int rows;
     private int cols;
     public Toolbar myToolbar;
-    private Grid originalGrid;
     private GridPane theGrid;
 
+    /**
+     * Sets instance variables myToolbar, displayGrid, and the grid and adds myToolbar and theGrid to the mainView
+     * @author Chris Warren
+     */
     public MainView() {
-
-
-
         myToolbar = new Toolbar(this);
-
-
-        displaygrid = myToolbar.getCurrentGrid();
-        originalGrid = myToolbar.getCurrentGrid();
-        originalGrid = displaygrid;
-
-
-        this.theGrid = displayGrid(displaygrid);
-        theGrid.setLayoutX(0); theGrid.setLayoutY(100);
+        displayGrid = myToolbar.getCurrentGrid();
+        this.theGrid = displayGrid(displayGrid);
         this.getChildren().addAll(myToolbar, theGrid);
     }
-    public void setDisplaygrid(Grid dispGrid){
-        displaygrid = dispGrid;
-    }
+
+    /**
+     * Updates the grid and removes the old grid and adds the new one. This happens every time the step function is called
+     * @author Chris Warren
+     */
     public void step() {
-        displaygrid.updateGrid(rows, cols);
-        GridPane newGrid = displayGrid(displaygrid);
-        newGrid.setLayoutX(0); newGrid.setLayoutY(100);
+        displayGrid.updateGrid(rows, cols);
+        GridPane newGrid = displayGrid(displayGrid);
         this.getChildren().remove(1);
         this.getChildren().addAll(newGrid);
     }
 
-
+    /**
+     * Creates the Gridpane in which the cells are held in. Sets the rows and columns as well as the gaps between each
+     * cell and gets the color of each cell depending on the state and represents the cell in a rectangle.
+     * @param myGrid the grid being displayed in which was made in the grid class.
+     * @return returns the GridPane to be displayed
+     * @author Chris Warren
+     */
     public GridPane displayGrid(Grid myGrid) {
-
         GridPane gridPane = new GridPane();
         this.rows = myGrid.getMyHeight();
         this.cols = myGrid.getMyWidth();
@@ -72,17 +72,22 @@ public class MainView extends VBox {
         return gridPane;
     }
 
-    public void getOriginalGrid() {
-        this.getChildren().remove(theGrid);
-        this.theGrid = displayGrid(originalGrid);
-        this.getChildren().addAll(theGrid);
-    }
-
+    /**
+     * Replaces the current grid with a new one
+     * @param newgrid the new grid being displayed
+     * @author Chris Warren
+     */
     public void replaceGrid(GridPane newgrid) {
         this.getChildren().remove(1);
         this.getChildren().addAll(newgrid);
     }
 
-
-
+    /**
+     * chooses the grid to be displayed in the toolbar class
+     * @param currentGrid current grid that needs to be displayed
+     * @author Chris Warren
+     */
+    public void setDisplayGrid(Grid currentGrid) {
+        displayGrid = currentGrid;
+    }
 }
