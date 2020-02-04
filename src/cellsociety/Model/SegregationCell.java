@@ -12,7 +12,6 @@ public class SegregationCell extends Cell {
   private int state;
   private int myNextState;
   private static final int VACANT = 0;
-  private boolean hasToMove;
   private static final int AGENT1 = 1;
   private static final int AGENT2 = 2;
   private double THRESHOLD;
@@ -24,7 +23,6 @@ public class SegregationCell extends Cell {
     this.state = state;
     this.myNextState = state;
     this.THRESHOLD = thresh;
-    hasToMove = false;
     this.setCellColor();
   }
 
@@ -36,7 +34,6 @@ public class SegregationCell extends Cell {
     if(checkThreshold < THRESHOLD && state!= VACANT) {
       int tempState = state;
       myNextState = VACANT;
-      hasToMove = true;
       Point targetPt = vacantCells.get(0);
       cellHashMap.get(targetPt).setMyNextState(tempState);
       vacantCells.remove(0);
@@ -91,11 +88,15 @@ public class SegregationCell extends Cell {
     for(int i = 0; i < width; i++) {
       for(int k = 0; k < height; k++) {
         if(checkState(cellHashMap, i, k, VACANT)
-            && cellHashMap.get(new Point(i, k)).getNextState() == VACANT) {
+            && checkNextState(cellHashMap, i, k, VACANT)) {
           vacantCells.add(new Point(i, k));
         }
       }
     }
+  }
+
+  private boolean checkNextState(HashMap<Point, Cell> cellHashMap, int row, int k, int nextState) {
+    return cellHashMap.get(new Point(row, k)).getNextState() == nextState;
   }
 
   private boolean checkState(HashMap<Point, Cell> cellHashMap, int i, int k, int vacant) {
@@ -105,86 +106,42 @@ public class SegregationCell extends Cell {
   public int getNeighborCount(HashMap<Point, Cell> cellHashMap, int row, int col) {
     int count = 0;
     int delta = 1;
-    //top left diagonal
-    if(cellHashMap.containsKey(new Point(row - delta, col - delta)) && cellHashMap.get(new Point(row - delta, col - delta)).getState() != VACANT) {
-      count++;
+
+    int[] rowDelta = {-1, -1, -1, 0, 0, 1, 1, 1};
+    int[] colDelta = {-1, 0, 1, -1, 1, -1, 0, 1};
+
+    for(int i = 0; i < rowDelta.length; i++) {
+      if(mapContainsNeighbor(cellHashMap, row + rowDelta[i], col + colDelta[i])
+          && checkNotVacant(cellHashMap, row + rowDelta[i], col + colDelta[i])) {
+        count++;
+      }
     }
-    //top
-    if(cellHashMap.containsKey(new Point(row - delta, col)) && cellHashMap.get(new Point(row - delta, col)).getState() != VACANT) {
-      count++;
-    }
-    //top right diagonal
-    if(cellHashMap.containsKey(new Point(row - delta, col + delta)) && cellHashMap.get(new Point(row - delta, col + delta)).getState() != VACANT) {
-      count++;
-    }
-    //left
-    if(cellHashMap.containsKey(new Point(row, col - delta)) && cellHashMap.get(new Point(row, col - delta)).getState() != VACANT) {
-      count++;
-    }
-    //right
-    if(cellHashMap.containsKey(new Point(row, col + delta)) && cellHashMap.get(new Point(row, col + delta)).getState() != VACANT) {
-      count++;
-    }
-    //bottom left diagonal
-    if(cellHashMap.containsKey(new Point(row + delta, col - delta)) && cellHashMap.get(new Point(row + delta, col - delta)).getState() != VACANT) {
-      count++;
-    }
-    //bottom
-    if(cellHashMap.containsKey(new Point(row + delta, col)) && cellHashMap.get(new Point(row + delta, col)).getState() != VACANT) {
-      count++;
-    }
-    //bottom right
-    if(cellHashMap.containsKey(new Point(row + delta, col + delta)) && cellHashMap.get(new Point(row + delta, col + delta)).getState() != VACANT) {
-      count++;
-    }
-    else {}
+
     return count;
+  }
+
+  private boolean mapContainsNeighbor(HashMap<Point, Cell> cellHashMap, int i, int i2) {
+    return cellHashMap.containsKey(new Point(i, i2));
+  }
+
+  private boolean checkNotVacant(HashMap<Point, Cell> cellHashMap, int row, int col) {
+    return cellHashMap.get(new Point(row, col)).getState() != VACANT;
   }
 
   public int getNeighborTypeCount(HashMap<Point, Cell> cellHashMap, int row, int col, int state) {
     int count = 0;
     int delta = 1;
-    //top left diagonal
-    if(cellHashMap.containsKey(new Point(row - delta, col - delta)) && checkState(cellHashMap,
-        row - delta, col - delta, state)) {
-      count++;
+
+    int[] rowDelta = {-1, -1, -1, 0, 0, 1, 1, 1};
+    int[] colDelta = {-1, 0, 1, -1, 1, -1, 0, 1};
+
+    for(int i = 0; i < rowDelta.length; i++) {
+      if(mapContainsNeighbor(cellHashMap, row + rowDelta[i], col + colDelta[i])
+          && checkState(cellHashMap,row + rowDelta[i], col + colDelta[i], state)) {
+        count++;
+      }
     }
-    //top
-    if(cellHashMap.containsKey(new Point(row - delta, col)) && checkState(cellHashMap, row - delta,
-        col, state)) {
-      count++;
-    }
-    //top right diagonal
-    if(cellHashMap.containsKey(new Point(row - delta, col + delta)) && checkState(cellHashMap,
-        row - delta, col + delta, state)) {
-      count++;
-    }
-    //left
-    if(cellHashMap.containsKey(new Point(row, col - delta)) && checkState(cellHashMap, row,
-        col - delta, state)) {
-      count++;
-    }
-    //right
-    if(cellHashMap.containsKey(new Point(row, col + delta)) && checkState(cellHashMap, row,
-        col + delta, state)) {
-      count++;
-    }
-    //bottom left diagonal
-    if(cellHashMap.containsKey(new Point(row + delta, col - delta)) && checkState(cellHashMap,
-        row + delta, col - delta, state)) {
-      count++;
-    }
-    //bottom
-    if(cellHashMap.containsKey(new Point(row + delta, col)) && checkState(cellHashMap, row + delta,
-        col, state)) {
-      count++;
-    }
-    //bottom right
-    if(cellHashMap.containsKey(new Point(row + delta, col + delta)) && checkState(cellHashMap,
-        row + delta, col + delta, state)) {
-      count++;
-    }
-    else {}
+
     return count;
 
   }
