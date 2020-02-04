@@ -12,7 +12,7 @@ import java.util.HashMap;
 
 /**
  * Mainview class which acts as a VBox where the grid and toolbar are held.
- * @author Chris Warren
+ * @author Chris Warren, Aneesh Gupta, Shruthi Kumar
  */
 public class MainView extends VBox {
 

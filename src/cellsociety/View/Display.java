@@ -7,7 +7,7 @@ import javafx.stage.Stage;
 
 /**
  * Display class which holds the stage and runs the program
- * @author Chris Warren
+ * @author Chris Warren, Aneesh Gupta, Shruthi Kumar
  */
 public class Display extends Application {
 

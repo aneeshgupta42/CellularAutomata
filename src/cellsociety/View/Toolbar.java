@@ -17,7 +17,7 @@ import javafx.util.Duration;
 
 /**
  * Toolbar class where all the functionality is held
- * @author Chris Warren
+ * @author Chris Warren, Aneesh Gupta, Shruthi Kumar
  */
 public class Toolbar extends ToolBar {
 
