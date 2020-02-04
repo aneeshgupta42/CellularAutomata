@@ -26,7 +26,7 @@ public class Display extends Application {
         public void start(Stage stage) throws Exception {
 
                 myMainview = new MainView();
-                myScene = new Scene(myMainview, 740, 600);
+                myScene = new Scene(myMainview, 740, 570);
                 stage.setScene(myScene);
                 stage.setTitle("Simulation");
                 stage.show();

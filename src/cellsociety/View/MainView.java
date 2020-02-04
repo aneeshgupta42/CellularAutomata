@@ -2,6 +2,7 @@ package cellsociety.View;
 
 import cellsociety.Model.*;
 import cellsociety.Model.Cell;
+import javafx.geometry.Pos;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -29,8 +30,7 @@ public class MainView extends VBox {
         myToolbar = new Toolbar(this);
         displayGrid = myToolbar.getCurrentGrid();
         this.theGrid = displayGrid(displayGrid);
-
-        theGrid.setLayoutX(0); theGrid.setLayoutY(100);
+        this.theGrid.setAlignment(Pos.CENTER);
         this.getChildren().addAll(myToolbar, theGrid);
     }
 
@@ -61,13 +61,13 @@ public class MainView extends VBox {
         gridPane.addRow(rows);
         gridPane.setHgap(1);
         gridPane.setVgap(1);
-        int size = 10;
+        int size = 500;
         for(int i = 0; i<rows; i++){
             for (int j = 0; j<cols; j++){
                 Point tempPt = new Point(i,j);
                 Color tempColor = myMap.get(tempPt).getCellColor();
                 System.out.println("");
-                Rectangle rect = new Rectangle(20,20, tempColor);
+                Rectangle rect = new Rectangle(size/rows,size/cols, tempColor);
                 gridPane.add(rect, j, i);
             }
         }

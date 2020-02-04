@@ -9,6 +9,7 @@ import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 
 import javafx.scene.layout.GridPane;
@@ -236,6 +237,7 @@ public class Toolbar extends ToolBar {
         myMainView.replaceGrid(newGrid);
         myChoice = choice;
         resetTime();
+        newGrid.setAlignment(Pos.CENTER);
     }
 
 }
