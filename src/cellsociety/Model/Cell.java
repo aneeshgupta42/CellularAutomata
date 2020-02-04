@@ -34,7 +34,7 @@ public abstract class Cell {
 
     public abstract int getState();
     public abstract javafx.scene.paint.Color getCellColor();
-  protected abstract void setCellColor();
+  public abstract void setCellColor();
 
 
     public int getNextState(){
