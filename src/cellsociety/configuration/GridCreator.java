@@ -3,7 +3,12 @@ import cellsociety.Model.*;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 
-
+/***
+ * Choosing a Grid object based on choice integer
+ * Used in Display, and set up, to read in a grid
+ * from an XML file
+ * @author Aneesh Gupta
+ */
 public class GridCreator {
     /***
      * Returns a Grid object based on a choice entered

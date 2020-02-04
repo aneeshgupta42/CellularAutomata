@@ -9,7 +9,7 @@ import javafx.stage.Window;
 import java.io.File;
 
 /**
- * Feel free to completely change this code or delete it entirely. 
+ * Testing out the XML reader
  */
 public class TestXMLReader {
     /**
