@@ -45,7 +45,7 @@ public class PercolationCell extends Cell {
   }
 
   @Override
-  protected void setCellColor() {
+  public void setCellColor() {
     if(state == BLOCKED) {
       cellColor = Color.BLACK;
     }

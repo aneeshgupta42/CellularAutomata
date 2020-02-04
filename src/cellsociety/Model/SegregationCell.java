@@ -71,7 +71,7 @@ public class SegregationCell extends Cell {
 
 
   @Override
-  protected void setCellColor() {
+  public void setCellColor() {
     if(state == 0) {
       cellColor = Color.WHITE;
     }
