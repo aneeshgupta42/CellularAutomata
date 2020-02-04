@@ -18,6 +18,7 @@ import org.xml.sax.SAXException;
  *
  * @author Rhondu Smithwick
  * @author Robert C. Duvall
+ * extended by Aneesh Gupta
  */
 
 public class XMLReader {
@@ -43,12 +44,9 @@ public class XMLReader {
     public Game getGame (String fname) {
         File dataFile = new File(fname);
         Element root = getRootElement(dataFile);
-        if (! isValidFile(root, Game.DATA_TYPE)) {
-            throw new XMLException(ERROR_MESSAGE, Game.DATA_TYPE);
-        }
+        if (! isValidFile(root, Game.DATA_TYPE)) throw new XMLException(ERROR_MESSAGE, Game.DATA_TYPE);
         // read data associated with the fields given by the object
         Map<String, String> results = new HashMap<>();
-
         String simulationName = getTextValue(root, "name");
         int choice = Integer.parseInt(getTextValue(root, "choice"));
         String author = getTextValue(root, "author");
