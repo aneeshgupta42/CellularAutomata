@@ -4,6 +4,17 @@ import javafx.scene.paint.Color;
 import java.awt.Point;
 import java.util.HashMap;
 
+/**
+ * PercolationCell class based on Percolation simulation. Users can choose the percolation simulation and then cells are created
+ * based on this type of simulation. Thus, PercolationCell is an subclass
+ * Purpose: This creates the percolation cells that will populate the grid. This class is now a subclass. We made this design decision because
+ *  not all simulations have the same rules. Having extended cells classes will allow the percolation cell to have its own rule set while
+ *  still implementing basic cell functions.
+ * Assumptions: The class will work assuming all dependencies are functioning.
+ * Dependencies: This class relies on the Grid class to instantiate it correctly and the Cell class to properly override its methods
+ * Example: Choose a simulation and then the program will correctly instantiate the percolation cells.
+ * @author Shruthi Kumar, Chris Warren, Aneesh Gupta
+ */
 public class PercolationCell extends Cell {
 
   private int state;
@@ -12,18 +23,32 @@ public class PercolationCell extends Cell {
   private static final int PERCOLATED = 2;
   private Color cellColor;
 
+
+  /**
+   * Constructor for the FireCell object
+   * @param width: width of grid
+   * @param height: height of grid
+   * @param state: current state of the cell
+  */
   public PercolationCell(int width, int height, int state) {
     super(width, height, state);
     this.state = state;
     this.setCellColor();
   }
 
-
-
+  /**
+   * Updates the cell based on the rules
+   * @param  cellHashMap: grid of cells
+   * @param  row: row the cell is in
+   * @param  col: column the cell is in
+   * @param  width: width of the grid
+   * @param  height : height of the grid
+   * @return int : the next state integer
+   */
   @Override
   public int updateCell(HashMap<Point, Cell> cellHashMap,
       int row, int col, int width, int height) {
-    if(getNeighborCount(cellHashMap, row, col) >= 1 && cellHashMap.get(new Point(row, col)).getState() == OPEN) {
+    if(getNeighborCount(cellHashMap, row, col) >= 1 && checkState(cellHashMap, row, col, OPEN)) {
       return PERCOLATED;
     }
     else{
@@ -31,24 +56,37 @@ public class PercolationCell extends Cell {
     }
   }
 
-
-
+  /**
+   * Returns the state of the cell
+   * @return state of the cell
+   */
   @Override
   public int getState() {
     return state;
   }
 
+  /**
+   * Returns the color of the cell
+   * @return color of the cell
+   */
   @Override
   public Color getCellColor() {
     return cellColor;
   }
 
+  /**
+   * Sets the color of the cell
+   * @param state : state of the cell
+   */
   public void setState(int state) {
     this.state = state;
   }
 
+  /**
+   * Sets the color of the cell
+   */
   @Override
-  protected void setCellColor() {
+  public void setCellColor() {
     if(state == BLOCKED) {
       cellColor = Color.BLACK;
     }
@@ -67,45 +105,24 @@ public class PercolationCell extends Cell {
   private int getNeighborCount(HashMap<Point, Cell> cellHashMap, int row, int col) {
     int count = 0;
     int delta = 1;
-    //top left diagonal
-    if(cellHashMap.containsKey(new Point(row - delta, col - delta)) && cellHashMap.get(new Point(row - delta, col - delta)).getState() == PERCOLATED) {
-      count++;
+
+    int[] rowDelta = {-1, -1, -1, 0, 0, 1, 1, 1};
+    int[] colDelta = {-1, 0, 1, -1, 1, -1, 0, 1};
+
+    for(int i = 0; i < rowDelta.length; i++) {
+      if(mapContainsNeighbor(cellHashMap, row + rowDelta[i], col + colDelta[i]) && checkState(cellHashMap, row + rowDelta[i], col + colDelta[i], PERCOLATED)) {
+        count++;
+      }
     }
-    //top
-    if(cellHashMap.containsKey(new Point(row - delta, col)) && cellHashMap.get(new Point(row - delta, col)).getState() == PERCOLATED) {
-      count++;
-    }
-    //top right diagonal
-    if(cellHashMap.containsKey(new Point(row - delta, col + delta)) && cellHashMap.get(new Point(row - delta, col + delta)).getState() == PERCOLATED) {
-      count++;
-    }
-    //left
-    if(cellHashMap.containsKey(new Point(row, col - delta)) && cellHashMap.get(new Point(row, col - delta)).getState() == PERCOLATED) {
-      count++;
-    }
-    //right
-    if(cellHashMap.containsKey(new Point(row, col + delta)) && cellHashMap.get(new Point(row, col + delta)).getState() == PERCOLATED) {
-      count++;
-    }
-    //bottom left diagonal
-    if(cellHashMap.containsKey(new Point(row + delta, col - delta)) && cellHashMap.get(new Point(row + delta, col - delta)).getState() == PERCOLATED) {
-      count++;
-    }
-    //bottom
-    if(cellHashMap.containsKey(new Point(row + delta, col)) && cellHashMap.get(new Point(row + delta, col)).getState() == PERCOLATED) {
-      count++;
-    }
-    //bottom right
-    if(cellHashMap.containsKey(new Point(row + delta, col + delta)) && cellHashMap.get(new Point(row + delta, col + delta)).getState() == PERCOLATED) {
-      count++;
-    }
-    else {}
     return count;
   }
 
-  public enum PercolationState {
-    BLOCKED,
-    OPEN,
-    PERCOLATED
+  private boolean mapContainsNeighbor(HashMap<Point, Cell> cellHashMap, int row, int col) {
+    return cellHashMap.containsKey(new Point(row, col));
   }
+
+  private boolean checkState(HashMap<Point, Cell> cellHashMap, int row, int col, int currState) {
+    return cellHashMap.get(new Point(row, col)).getState() == currState;
+  }
+
 }
