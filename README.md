@@ -22,7 +22,7 @@ Hours Spent:
 
 ### Running the Program
 
-Main class:
+Main class: `src/cellsociety/view/Display.java`
 
 Data files needed: 
 

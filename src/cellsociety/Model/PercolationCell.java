@@ -19,19 +19,16 @@ public class PercolationCell extends Cell {
   }
 
 
-
   @Override
   public int updateCell(HashMap<Point, Cell> cellHashMap,
       int row, int col, int width, int height) {
-    if(getNeighborCount(cellHashMap, row, col) >= 1 && cellHashMap.get(new Point(row, col)).getState() == OPEN) {
+    if(getNeighborCount(cellHashMap, row, col) >= 1 && checkState(cellHashMap, row, col, OPEN)) {
       return PERCOLATED;
     }
     else{
       return state;
     }
   }
-
-
 
   @Override
   public int getState() {
@@ -48,7 +45,7 @@ public class PercolationCell extends Cell {
   }
 
   @Override
-  protected void setCellColor() {
+  public void setCellColor() {
     if(state == BLOCKED) {
       cellColor = Color.BLACK;
     }
@@ -67,45 +64,24 @@ public class PercolationCell extends Cell {
   private int getNeighborCount(HashMap<Point, Cell> cellHashMap, int row, int col) {
     int count = 0;
     int delta = 1;
-    //top left diagonal
-    if(cellHashMap.containsKey(new Point(row - delta, col - delta)) && cellHashMap.get(new Point(row - delta, col - delta)).getState() == PERCOLATED) {
-      count++;
+
+    int[] rowDelta = {-1, -1, -1, 0, 0, 1, 1, 1};
+    int[] colDelta = {-1, 0, 1, -1, 1, -1, 0, 1};
+
+    for(int i = 0; i < rowDelta.length; i++) {
+      if(mapContainsNeighbor(cellHashMap, row + rowDelta[i], col + colDelta[i]) && checkState(cellHashMap, row + rowDelta[i], col + colDelta[i], PERCOLATED)) {
+        count++;
+      }
     }
-    //top
-    if(cellHashMap.containsKey(new Point(row - delta, col)) && cellHashMap.get(new Point(row - delta, col)).getState() == PERCOLATED) {
-      count++;
-    }
-    //top right diagonal
-    if(cellHashMap.containsKey(new Point(row - delta, col + delta)) && cellHashMap.get(new Point(row - delta, col + delta)).getState() == PERCOLATED) {
-      count++;
-    }
-    //left
-    if(cellHashMap.containsKey(new Point(row, col - delta)) && cellHashMap.get(new Point(row, col - delta)).getState() == PERCOLATED) {
-      count++;
-    }
-    //right
-    if(cellHashMap.containsKey(new Point(row, col + delta)) && cellHashMap.get(new Point(row, col + delta)).getState() == PERCOLATED) {
-      count++;
-    }
-    //bottom left diagonal
-    if(cellHashMap.containsKey(new Point(row + delta, col - delta)) && cellHashMap.get(new Point(row + delta, col - delta)).getState() == PERCOLATED) {
-      count++;
-    }
-    //bottom
-    if(cellHashMap.containsKey(new Point(row + delta, col)) && cellHashMap.get(new Point(row + delta, col)).getState() == PERCOLATED) {
-      count++;
-    }
-    //bottom right
-    if(cellHashMap.containsKey(new Point(row + delta, col + delta)) && cellHashMap.get(new Point(row + delta, col + delta)).getState() == PERCOLATED) {
-      count++;
-    }
-    else {}
     return count;
   }
 
-  public enum PercolationState {
-    BLOCKED,
-    OPEN,
-    PERCOLATED
+  private boolean mapContainsNeighbor(HashMap<Point, Cell> cellHashMap, int row, int col) {
+    return cellHashMap.containsKey(new Point(row, col));
   }
+
+  private boolean checkState(HashMap<Point, Cell> cellHashMap, int row, int col, int currState) {
+    return cellHashMap.get(new Point(row, col)).getState() == currState;
+  }
+
 }
