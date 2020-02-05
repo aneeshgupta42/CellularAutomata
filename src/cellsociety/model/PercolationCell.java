@@ -37,6 +37,7 @@ public class PercolationCell extends Cell {
     super(width, height, state);
     this.state = state;
     this.setCellColor();
+    neighbors.setAllNeighbors();
   }
 
   /**
@@ -106,37 +107,7 @@ public class PercolationCell extends Cell {
   }
 
   private int getNeighborCount(HashMap<Point, Cell> cellHashMap, int row, int col) {
-    int[] rowDelta = new int[0];
-    int[] colDelta = new int[0];
-
-    if(neighborhoodChoice == 0) {
-      rowDelta = new int[]{-1, -1, -1, 0, 0, 1, 1, 1};
-      colDelta = new int[]{-1, 0, 1, -1, 1, -1, 0, 1};
-    }
-    else if(neighborhoodChoice == 1) {
-
-    }
-    else {
-
-    }
-
-    return neighbors.getNeighborCount(cellHashMap, row, col, rowDelta, colDelta, PERCOLATED);
-
-    /*
-    int count = 0;
-    int delta = 1;
-
-    int[] rowDelta = {-1, -1, -1, 0, 0, 1, 1, 1};
-    int[] colDelta = {-1, 0, 1, -1, 1, -1, 0, 1};
-
-    for(int i = 0; i < rowDelta.length; i++) {
-      if(mapContainsNeighbor(cellHashMap, row + rowDelta[i], col + colDelta[i]) && checkState(cellHashMap, row + rowDelta[i], col + colDelta[i], PERCOLATED)) {
-        count++;
-      }
-    }
-    return count;
-
-     */
+    return neighbors.getNeighborCount(cellHashMap, row, col, PERCOLATED);
   }
 
   private boolean mapContainsNeighbor(HashMap<Point, Cell> cellHashMap, int row, int col) {

@@ -46,6 +46,7 @@ public class SegregationCell extends Cell {
     this.THRESHOLD = thresh;
     this.setCellColor();
     neighborhoodChoice = 0;
+    neighbors.setAllNeighbors();
   }
 
   /**
@@ -183,38 +184,7 @@ public class SegregationCell extends Cell {
   }
 
   private int getNeighborTypeCount(HashMap<Point, Cell> cellHashMap, int row, int col, int state) {
-    int[] rowDelta = new int[0];
-    int[] colDelta = new int[0];
-
-    if(neighborhoodChoice == 0) {
-      rowDelta = new int[]{-1, -1, -1, 0, 0, 1, 1, 1};
-      colDelta = new int[]{-1, 0, 1, -1, 1, -1, 0, 1};
-    }
-    else if(neighborhoodChoice == 1) {
-
-    }
-    else {
-
-    }
-
-    return neighbors.getNeighborCount(cellHashMap, row, col, rowDelta, colDelta, state);
-    /*
-    int count = 0;
-
-    int[] rowDelta = {-1, -1, -1, 0, 0, 1, 1, 1};
-    int[] colDelta = {-1, 0, 1, -1, 1, -1, 0, 1};
-
-    for(int i = 0; i < rowDelta.length; i++) {
-      if(mapContainsNeighbor(cellHashMap, row + rowDelta[i], col + colDelta[i])
-          && checkState(cellHashMap,row + rowDelta[i], col + colDelta[i], state)) {
-        count++;
-      }
-    }
-
-    return count;
-
-     */
-
+    return neighbors.getNeighborCount(cellHashMap, row, col, state);
   }
 
 }

@@ -25,6 +25,7 @@ public class GameCell extends Cell {
   private static final int HEXAGONAL = 2;
 
   private Neighbor neighbors = new SquareNeighbor();
+
   private int neighborhoodChoice;
 
 
@@ -40,7 +41,7 @@ public class GameCell extends Cell {
     super(width, height, mystate);
     neighborhoodChoice = 0;
     this.state = mystate;
-
+    neighbors.setAllNeighbors();
     this.setCellColor();
   }
 
@@ -115,35 +116,7 @@ public class GameCell extends Cell {
   }
 
   private int getNeighborCount(HashMap<Point, Cell> cellHashMap, int row, int col) {
-    int count = 0;
-    int[] rowDelta = new int[0];
-    int[] colDelta = new int[0];
-
-    if(neighborhoodChoice == 0) {
-      rowDelta = new int[]{-1, -1, -1, 0, 0, 1, 1, 1};
-      colDelta = new int[]{-1, 0, 1, -1, 1, -1, 0, 1};
-    }
-    else if(neighborhoodChoice == 1) {
-
-    }
-    else {
-
-    }
-
-    /*
-    //checks if neighbor is alive in this order: top left diagonal, top, top right diagonal, left, right, bottom left diagonal, bottom, bottom right diagonal
-    for(int i = 0; i < rowDelta.length; i++) {
-      if(mapContainsNeighbor(cellHashMap, row + rowDelta[i], col + colDelta[i])
-          && checkState(cellHashMap,row + rowDelta[i], col + colDelta[i], ALIVE)) {
-        count++;
-      }
-    }
-
-    return count;
-
-     */
-
-    return neighbors.getNeighborCount(cellHashMap, row, col, rowDelta, colDelta, ALIVE);
+    return neighbors.getNeighborCount(cellHashMap, row, col, ALIVE);
   }
 
 
