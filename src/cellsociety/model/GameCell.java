@@ -20,6 +20,13 @@ public class GameCell extends Cell {
   private int state;
   private static final int DEAD = 0;
   private static final int ALIVE = 1;
+  private static final int SQUARE = 0;
+  private static final int TRIANGLE = 1;
+  private static final int HEXAGONAL = 2;
+
+  private Neighbor neighbors = new SquareNeighbor();
+  private int neighborhoodChoice;
+
 
   private Color cellColor;
 
@@ -31,6 +38,7 @@ public class GameCell extends Cell {
    */
   public GameCell(int width, int height, int mystate) {
     super(width, height, mystate);
+    neighborhoodChoice = 0;
     this.state = mystate;
 
     this.setCellColor();
@@ -108,10 +116,21 @@ public class GameCell extends Cell {
 
   private int getNeighborCount(HashMap<Point, Cell> cellHashMap, int row, int col) {
     int count = 0;
+    int[] rowDelta = new int[0];
+    int[] colDelta = new int[0];
 
-    int[] rowDelta = {-1, -1, -1, 0, 0, 1, 1, 1};
-    int[] colDelta = {-1, 0, 1, -1, 1, -1, 0, 1};
+    if(neighborhoodChoice == 0) {
+      rowDelta = new int[]{-1, -1, -1, 0, 0, 1, 1, 1};
+      colDelta = new int[]{-1, 0, 1, -1, 1, -1, 0, 1};
+    }
+    else if(neighborhoodChoice == 1) {
 
+    }
+    else {
+
+    }
+
+    /*
     //checks if neighbor is alive in this order: top left diagonal, top, top right diagonal, left, right, bottom left diagonal, bottom, bottom right diagonal
     for(int i = 0; i < rowDelta.length; i++) {
       if(mapContainsNeighbor(cellHashMap, row + rowDelta[i], col + colDelta[i])
@@ -121,7 +140,13 @@ public class GameCell extends Cell {
     }
 
     return count;
+
+     */
+
+    return neighbors.getNeighborCount(cellHashMap, row, col, rowDelta, colDelta, ALIVE);
   }
+
+
 
   private boolean mapContainsNeighbor(HashMap<Point, Cell> cellHashMap, int rowDelta, int colDelta) {
     return cellHashMap.containsKey(new Point(rowDelta, colDelta));

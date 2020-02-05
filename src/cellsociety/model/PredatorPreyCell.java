@@ -33,6 +33,9 @@ public class PredatorPreyCell extends Cell {
   private List<Point> vacantCells;
   private List<Point> fishCells;
 
+  private Neighbor neighbors = new SquareNeighbor();
+  private int neighborhoodChoice;
+
   /**
    * Constructor for the FireCell object
    * @param row: row number cell is in
@@ -47,6 +50,8 @@ public class PredatorPreyCell extends Cell {
     this.energyLevel = 2;
     this.myNextState = state;
     this.setCellColor();
+
+    neighborhoodChoice = 0;
   }
 
   /**
@@ -188,7 +193,25 @@ public class PredatorPreyCell extends Cell {
   }
 
   private void getVacantCells(HashMap<Point, Cell> cellHashMap, int row, int col) {
-    vacantCells  = new ArrayList<>();
+
+    int[] rowDelta = new int[0];
+    int[] colDelta = new int[0];
+
+    if(neighborhoodChoice == 0) {
+      rowDelta = new int[]{-1, -1, -1, 0, 0, 1, 1, 1};
+      colDelta = new int[]{-1, 0, 1, -1, 1, -1, 0, 1};
+    }
+    else if(neighborhoodChoice == 1) {
+
+    }
+    else {
+
+    }
+
+    vacantCells  = neighbors.getVacantNeighbors(cellHashMap, row, col, rowDelta, colDelta, VACANT);
+/*
+
+
     int delta = 1;
 
     int[] rowDelta = {-1, 0, 0, 1};
@@ -201,11 +224,30 @@ public class PredatorPreyCell extends Cell {
         vacantCells.add(new Point(row + rowDelta[i], col + colDelta[i]));
       }
     }
+
+ */
   }
 
   private void getFishCells(HashMap<Point, Cell> cellHashMap, int row, int col) {
     fishCells  = new ArrayList<>();
     int delta = 1;
+
+    int[] rowDelta = new int[0];
+    int[] colDelta = new int[0];
+
+    if(neighborhoodChoice == 0) {
+      rowDelta = new int[]{-1, 0, 0, 1};
+      colDelta = new int[]{0, -1, 1, 0};
+    }
+    else if(neighborhoodChoice == 1) {
+
+    }
+    else {
+
+    }
+
+    fishCells = neighbors.getFishNeighbors(cellHashMap, row, col, rowDelta, colDelta, FISH);
+    /*
 
     int[] rowDelta = {-1, 0, 0, 1};
     int[] colDelta = {0, -1, 1, 0};
@@ -216,6 +258,8 @@ public class PredatorPreyCell extends Cell {
         fishCells.add(new Point(row + rowDelta[i], col + colDelta[i]));
       }
     }
+
+     */
   }
 
   private boolean checkNextState(HashMap<Point, Cell> cellHashMap, int row, int col, int nextState) {

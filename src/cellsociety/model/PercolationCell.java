@@ -23,6 +23,9 @@ public class PercolationCell extends Cell {
   private static final int PERCOLATED = 2;
   private Color cellColor;
 
+  private Neighbor neighbors = new SquareNeighbor();
+  private int neighborhoodChoice;
+
 
   /**
    * Constructor for the FireCell object
@@ -103,6 +106,23 @@ public class PercolationCell extends Cell {
   }
 
   private int getNeighborCount(HashMap<Point, Cell> cellHashMap, int row, int col) {
+    int[] rowDelta = new int[0];
+    int[] colDelta = new int[0];
+
+    if(neighborhoodChoice == 0) {
+      rowDelta = new int[]{-1, -1, -1, 0, 0, 1, 1, 1};
+      colDelta = new int[]{-1, 0, 1, -1, 1, -1, 0, 1};
+    }
+    else if(neighborhoodChoice == 1) {
+
+    }
+    else {
+
+    }
+
+    return neighbors.getNeighborCount(cellHashMap, row, col, rowDelta, colDelta, PERCOLATED);
+
+    /*
     int count = 0;
     int delta = 1;
 
@@ -115,6 +135,8 @@ public class PercolationCell extends Cell {
       }
     }
     return count;
+
+     */
   }
 
   private boolean mapContainsNeighbor(HashMap<Point, Cell> cellHashMap, int row, int col) {

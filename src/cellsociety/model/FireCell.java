@@ -26,6 +26,10 @@ public class FireCell extends Cell {
   private int state;
   private Random numChooser = new Random();
 
+  private Neighbor neighbors = new SquareNeighbor();
+  private int neighborhoodChoice;
+
+
   /**
    * Constructor for the FireCell object
    * @param row: row number cell is in
@@ -38,6 +42,8 @@ public class FireCell extends Cell {
     this.state = mystate;
     this.setCellColor();
     this.probCatch = prob;
+    neighborhoodChoice = 0;
+
   }
 
 
@@ -108,6 +114,37 @@ public class FireCell extends Cell {
 
 
   private int getNeighborCount(HashMap<Point, Cell> cellHashMap, int row, int col) {
+    int[] rowDelta = new int[0];
+    int[] colDelta = new int[0];
+
+    if(neighborhoodChoice == 0) {
+      rowDelta = new int[]{-1, 0, 0, 1};
+      colDelta = new int[]{0, -1, 1, 0};
+    }
+    else if(neighborhoodChoice == 1) {
+
+    }
+    else {
+
+    }
+
+    return neighbors.getNeighborCount(cellHashMap, row, col, rowDelta, colDelta, BURNING);
+
+    /*
+    //checks if neighbor is alive in this order: top left diagonal, top, top right diagonal, left, right, bottom left diagonal, bottom, bottom right diagonal
+    for(int i = 0; i < rowDelta.length; i++) {
+      if(mapContainsNeighbor(cellHashMap, row + rowDelta[i], col + colDelta[i])
+          && checkState(cellHashMap,row + rowDelta[i], col + colDelta[i], ALIVE)) {
+        count++;
+      }
+    }
+
+    return count;
+
+
+
+
+
     int count = 0;
     int[] rowDelta = {-1, 0, 0, 1};
     int[] colDelta = {0, -1, 1, 0};
@@ -120,6 +157,8 @@ public class FireCell extends Cell {
     }
 
     return count;
+
+     */
   }
 
   private boolean mapContainsNeighbor(HashMap<Point, Cell> cellHashMap, int colDelta, int rowDelta) {
