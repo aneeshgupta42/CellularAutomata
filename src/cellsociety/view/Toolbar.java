@@ -17,7 +17,7 @@ import javafx.util.Duration;
 
 /**
  * Toolbar class where all the functionality is held
- * @author Chris Warren
+ * @author Chris Warren, Aneesh Gupta, Shruthi Kumar
  */
 public class Toolbar extends ToolBar {
 
@@ -39,7 +39,6 @@ public class Toolbar extends ToolBar {
     /**
      * Creates the toolbar with all of the functionality buttons and sets it in the mainView.
      * @param mainView where the toolbar will be displayed
-     * @author Chris Warren
      */
     public Toolbar(MainView mainView) {
 
@@ -93,7 +92,6 @@ public class Toolbar extends ToolBar {
     /**
      * Method that sets up the animation, in which the myMainview step method is called every second which updates the
      * grid on the screen.
-     *  @author Chris Warren
      */
     public void animationFunctions() {
 
@@ -112,7 +110,6 @@ public class Toolbar extends ToolBar {
     /**
      * Getter method to return the current grid
      * @return returns the current grid
-     * @author Chris Warren
      */
     public Grid getCurrentGrid() {
         return currentGrid;
@@ -121,7 +118,6 @@ public class Toolbar extends ToolBar {
     /**
      * Starts the animation and timer
      * @param actionEvent The play button pressed
-     * @author Chris Warren
      */
     private void handlePlay(ActionEvent actionEvent) {
         animation.play();
@@ -131,7 +127,6 @@ public class Toolbar extends ToolBar {
     /**
      * Stops the animation and timer
      * @param actionEvent The stop button pressed
-     * @author Chris Warren
      */
     private void handleStop(ActionEvent actionEvent) {
         animation.stop();
@@ -141,7 +136,6 @@ public class Toolbar extends ToolBar {
     /**
      * Steps the function one iteration forward
      * @param actionEvent the step button is pressed
-     * @author Chris Warren
      */
     private void handleStep(ActionEvent actionEvent) {
         animation.pause();
@@ -152,7 +146,6 @@ public class Toolbar extends ToolBar {
     /**
      * Resets the grid to its original state
      * @param actionEvent the reset button is pressed
-     * @author Chris Warren
      */
     private void handleReset(ActionEvent actionEvent) {
         choosingNewSim(myChoice);
@@ -163,7 +156,6 @@ public class Toolbar extends ToolBar {
     /**
      * The timer is made and displayed in the toolbar. It runs and stops based on the button action events and updates
      * every second.
-     * @author Chris Warren
      */
     public void timer() {
         this.lblTime = new Label("Elapsed time: 0 s");
@@ -193,7 +185,6 @@ public class Toolbar extends ToolBar {
     /**
      * Makes the slider which dictates the speed that the simulation and grid is updating. Also changes the elapsed speed
      * timer to accurately display the elapsed time based on the relative speed.
-     * @author Chris Warren
      */
     public void makeSlider() {
         this.slider = new Slider();
@@ -215,7 +206,6 @@ public class Toolbar extends ToolBar {
 
     /**
      * Resets the timer
-     * @author Chris Warren
      */
     public void resetTime () {
         timer.stop();
@@ -227,7 +217,6 @@ public class Toolbar extends ToolBar {
      * Based on the Combobox where one selects the type of simulation being displayed, once the option is clicked it
      * switched simulations based on the appropriate choice.
      * @param choice int which determines the which simulation and sets the characteristics of each cell.
-     * @author Chris Warren
      */
     public void choosingNewSim(int choice) {
         GridCreator creator = new GridCreator();

@@ -10,6 +10,7 @@ import java.io.File;
 
 /**
  * Testing out the XML reader
+ * @author Aneesh Gupta, Shruthi Kumar, Chris Warren
  */
 public class TestXMLReader {
     /**

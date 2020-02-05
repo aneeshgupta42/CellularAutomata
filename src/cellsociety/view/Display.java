@@ -7,7 +7,7 @@ import javafx.stage.Stage;
 
 /**
  * Display class which holds the stage and runs the program
- * @author Chris Warren
+ * @author Chris Warren, Aneesh Gupta, Shruthi Kumar
  */
 public class Display extends Application {
 
@@ -20,7 +20,6 @@ public class Display extends Application {
          * content is held. The scene is then set in the stage and shown.
          * @param stage stage where everything is set
          * @throws Exception
-         * @author Chris Warren
          */
         @Override
         public void start(Stage stage) throws Exception {
@@ -36,7 +35,6 @@ public class Display extends Application {
         /**
          * Runs the program
          * @param args runs the program
-         * @author Chris Warren
          */
         public static void main(String[] args) {launch();}
 }
