@@ -1,7 +1,5 @@
 package cellsociety.configuration;
-import cellsociety.Model.*;
-import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
+import cellsociety.model.*;
 
 /***
  * Choosing a Grid object based on choice integer

@@ -1,7 +1,7 @@
-package cellsociety.View;
+package cellsociety.view;
 
-import cellsociety.Model.*;
-import cellsociety.Model.Cell;
+import cellsociety.model.*;
+import cellsociety.model.Cell;
 import javafx.geometry.Pos;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;

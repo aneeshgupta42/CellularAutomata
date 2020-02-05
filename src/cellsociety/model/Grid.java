@@ -1,4 +1,4 @@
-package cellsociety.Model;
+package cellsociety.model;
 
 import java.awt.Point;
 import java.util.HashMap;

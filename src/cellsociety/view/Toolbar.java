@@ -1,6 +1,6 @@
-package cellsociety.View;
+package cellsociety.view;
 
-import cellsociety.Model.*;
+import cellsociety.model.*;
 import cellsociety.configuration.GridCreator;
 
 import javafx.animation.AnimationTimer;

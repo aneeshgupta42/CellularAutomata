@@ -1,8 +1,7 @@
-package cellsociety.Model;
+package cellsociety.model;
 
 import javafx.scene.paint.Color;
 
-import java.awt.Image;
 import java.awt.Point;
 import java.util.HashMap;
 

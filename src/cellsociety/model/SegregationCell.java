@@ -1,4 +1,4 @@
-package cellsociety.Model;
+package cellsociety.model;
 
 import javafx.scene.paint.Color;
 import java.awt.Point;
