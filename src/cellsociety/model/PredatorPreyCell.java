@@ -197,7 +197,7 @@ public class PredatorPreyCell extends Cell {
   }
 
   private void getFishCells(HashMap<Point, Cell> cellHashMap, int row, int col) {
-    fishCells = neighbors.getFishNeighbors(cellHashMap, row, col,  FISH);
+    fishCells = neighbors.getTypeNeighbors(cellHashMap, row, col,  FISH);
   }
 
   private boolean checkNextState(HashMap<Point, Cell> cellHashMap, int row, int col, int nextState) {

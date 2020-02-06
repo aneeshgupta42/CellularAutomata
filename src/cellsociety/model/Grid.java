@@ -22,11 +22,15 @@ public class Grid {
     private int myWidth;
     private int myHeight;
     private double myThreshold;
+    private int myThresholdRPS;
     private int myChoice;
     private static final int GAMEOFLIFE = 0;
     private static final int PERCOLATION = 1;
     private static final int SEGREGATION = 2;
     private static final int PREDATORPREY = 3;
+    private static final int FIRE = 4;
+    private static final int RPS = 5;
+    private static final int SUGARSCAPE = 6;
     private static final int NUMSTATES = 3;
 
 
@@ -79,12 +83,31 @@ public class Grid {
         populateGridCells(width, height, choice);
     }
 
+    /***
+     * Overloaded constructor to get
+     * the Grid object for RPS simulation
+     * @param width: number of cols
+     * @param height: number of rows
+     * @param choice: choice of simulation
+     * @param thresh: "Satisfaction" threshold for Segregation simulation
+     */
+    public Grid(int width, int height, int choice, int thresh) {
+        cellGrid = new HashMap<Point, Cell>();
+        myThresholdRPS = thresh;
+        myChoice = choice;
+        myWidth = width;
+        myHeight = height;
+        populateGridCells(width, height, choice);
+    }
+
     private void populateGridCells(int width, int height, int choice) {
         Cell tempCell;
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
                 if (choice == GAMEOFLIFE) {
                     tempCell = makeGlider(i, j, choice);
+                } else if(choice == SUGARSCAPE) {
+                    tempCell = getSimulation(i, j, numChooser.nextInt(NUMSTATES - 1), choice);
                 } else {
                     tempCell = getSimulation(i, j, numChooser.nextInt(NUMSTATES), choice);
                 }
@@ -174,8 +197,14 @@ public class Grid {
             return new SegregationCell(row, col, state, myThreshold);
         } else if (choice == PREDATORPREY) {
             return new PredatorPreyCell(row, col, state);
-        } else { //FIRE
+        } else if(choice == FIRE) { //FIRE
             return new FireCell(row, col, state, myProb);
+        } else if(choice == RPS) {
+            return new RPSCell(row, col, state, myThresholdRPS);
+        }
+        else {
+            //change to sugar
+            return new GameCell(row, col, state);
         }
     }
 

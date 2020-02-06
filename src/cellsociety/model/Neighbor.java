@@ -24,6 +24,38 @@ public abstract class Neighbor {
     return count;
   }
 
+  public int getMaxNeighborCount(HashMap<Point, Cell> cellHashMap, int row, int col, int[] states) {
+    int max = 0;
+    int maxState = 0;
+    int comp = 0;
+    for(int temp : states) {
+      comp = getNeighborCount(cellHashMap, row, col, temp);
+      if(max < comp) {
+        max = comp;
+        maxState = temp;
+      }
+    }
+    return maxState;
+  }
+
+  public Point getMaxNeighborTypeCount(HashMap<Point, Cell> cellHashMap, int row, int col, int state) {
+    int maxSugarAmount = ((SugarScapeCell) cellHashMap.get(new Point(row, col))).getMySugarCount();
+    Point maxSugarPoint = new Point(row, col);
+    int compSugar = 0;
+
+    for(int i = 0; i < rowDelta.length; i++) {
+      if(mapContainsNeighbor(cellHashMap, row + rowDelta[i], col + colDelta[i]) && checkState(cellHashMap, row + rowDelta[i], col + colDelta[i], state)) {
+        compSugar = ((SugarScapeCell) cellHashMap.get(new Point(row + rowDelta[i], col + colDelta[i]))).getMySugarCount();
+        if(compSugar > maxSugarAmount) {
+          maxSugarAmount = compSugar;
+          maxSugarPoint = new Point(row + rowDelta[i], col + colDelta[i]);
+        }
+      }
+    }
+
+    return maxSugarPoint;
+  }
+
   public List<Point> getVacantNeighbors(HashMap<Point, Cell> cellHashMap, int row, int col, int state) {
     List<Point> vacantCells = new ArrayList<Point>();
 
@@ -35,10 +67,22 @@ public abstract class Neighbor {
       }
     }
     return vacantCells;
-
   }
 
-  public List<Point> getFishNeighbors(HashMap<Point, Cell> cellHashMap, int row, int col, int state) {
+  public List<Point> getVacantCells(HashMap<Point, Cell> cellHashMap, int width, int height, int state) {
+    List<Point> vacantCells  = new ArrayList<>();
+    for(int i = 0; i < width; i++) {
+      for(int k = 0; k < height; k++) {
+        if(checkState(cellHashMap, i, k, state)
+            && checkNextState(cellHashMap, i, k, state)) {
+          vacantCells.add(new Point(i, k));
+        }
+      }
+    }
+    return vacantCells;
+  }
+
+  public List<Point> getTypeNeighbors(HashMap<Point, Cell> cellHashMap, int row, int col, int state) {
     List<Point> fishCells = new ArrayList<Point>();
 
     for(int i = 0; i < rowDelta.length; i++) {
