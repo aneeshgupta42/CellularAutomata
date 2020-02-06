@@ -19,7 +19,7 @@ public class MainView extends VBox {
     private Grid displayGrid;
     private int rows;
     private int cols;
-    public Toolbar myToolbar;
+    private Toolbar myToolbar;
     private GridPane theGrid;
 
     /**

@@ -109,7 +109,7 @@ public abstract class Neighbor {
     this.colDelta = colDeltaNew;
   }
 
-  private boolean mapContainsNeighbor(HashMap<Point, Cell> cellHashMap, int row, int col) {
+  public boolean mapContainsNeighbor(HashMap<Point, Cell> cellHashMap, int row, int col) {
     return cellHashMap.containsKey(new Point(row, col));
   }
 

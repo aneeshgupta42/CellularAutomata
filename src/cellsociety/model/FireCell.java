@@ -26,7 +26,7 @@ public class FireCell extends Cell {
   private int state;
   private Random numChooser = new Random();
 
-  private Neighbor neighbors = new SquareNeighbor();
+  //private Neighbor neighbors = new SquareNeighbor();
   private int neighborhoodChoice;
 
 
@@ -43,7 +43,7 @@ public class FireCell extends Cell {
     this.setCellColor();
     this.probCatch = prob;
     neighborhoodChoice = 0;
-    neighbors.setDirectNeighbors();
+    this.getNeighbors().setDirectNeighbors();
 
   }
 
@@ -62,7 +62,7 @@ public class FireCell extends Cell {
     if(checkState(cellHashMap, row, col, BURNING)) {
       return EMPTY;
     }
-    else if(checkState(cellHashMap, row, col, TREE) && getNeighborCount(cellHashMap, row, col) >= 1) {
+    else if(checkState(cellHashMap, row, col, TREE) && getNeighborCount(cellHashMap, row, col, BURNING) >= 1) {
       if(numChooser.nextFloat() < this.probCatch) {
         return BURNING;
       }
@@ -113,17 +113,9 @@ public class FireCell extends Cell {
     this.state = state;
   }
 
-
-  private int getNeighborCount(HashMap<Point, Cell> cellHashMap, int row, int col) {
-      return neighbors.getNeighborCount(cellHashMap, row, col, BURNING);
-  }
-
   private boolean mapContainsNeighbor(HashMap<Point, Cell> cellHashMap, int colDelta, int rowDelta) {
     return cellHashMap.containsKey(new Point(rowDelta, colDelta));
   }
 
-  private boolean checkState(HashMap<Point, Cell> cellHashMap, int row, int col, int currState) {
-    return cellHashMap.get(new Point(row, col)).getState() == currState;
-  }
 
 }
