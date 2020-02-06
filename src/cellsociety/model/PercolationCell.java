@@ -1,8 +1,5 @@
 package cellsociety.model;
 
-import java.awt.Point;
-import java.util.HashMap;
-
 /**
  * PercolationCell class based on Percolation simulation. Users can choose the percolation simulation and then cells are created
  * based on this type of simulation. Thus, PercolationCell is an subclass
@@ -41,17 +38,17 @@ public class PercolationCell extends Cell {
 
   /**
    * Updates the cell based on the rules
-   * @param  cellHashMap: grid of cells
-   * @param  row: row the cell is in
-   * @param  col: column the cell is in
-   * @param  width: width of the grid
+   * @param  cellGrid : grid of cells
+   * @param  row : row the cell is in
+   * @param  col : column the cell is in
+   * @param  width : width of the grid
    * @param  height : height of the grid
    * @return int : the next state integer
    */
   @Override
-  public int updateCell(HashMap<Point, Cell> cellHashMap,
+  public int updateCell(Grid cellGrid,
       int row, int col, int width, int height) {
-    if(getNeighborCount(cellHashMap, row, col, PERCOLATED) >= 1 && checkState(cellHashMap, row, col, OPEN)) {
+    if(getNeighborCount(cellGrid, row, col, PERCOLATED) >= 1 && checkState(cellGrid, row, col, OPEN)) {
       return PERCOLATED;
     }
     else{

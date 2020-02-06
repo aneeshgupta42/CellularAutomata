@@ -1,8 +1,5 @@
 package cellsociety.model;
 
-import java.awt.Point;
-import java.util.HashMap;
-
 public class RPSCell extends Cell {
   private int state;
   private static final int ROCK = 0;
@@ -33,9 +30,9 @@ public class RPSCell extends Cell {
   }
 
   @Override
-  public int updateCell(HashMap<Point, Cell> cellHashMap, int row, int col, int width, int height) {
+  public int updateCell(Grid cellGrid, int row, int col, int width, int height) {
     int[] statesArr = {ROCK, PAPER, SCISSORS};
-    int maxNeighborCount = neighbors.getMaxNeighborCount(cellHashMap, row, col, statesArr);
+    int maxNeighborCount = neighbors.getMaxNeighborCount(cellGrid, row, col, statesArr);
 
     if(threshold < maxNeighborCount) {
       return maxNeighborCount;

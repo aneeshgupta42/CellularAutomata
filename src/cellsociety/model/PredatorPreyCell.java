@@ -54,25 +54,25 @@ public class PredatorPreyCell extends Cell {
 
   /**
    * Updates the cell based on the rules
-   * @param  cellHashMap: grid of cells
-   * @param  row: row the cell is in
-   * @param  col: column the cell is in
-   * @param  width: width of the grid
+   * @param  cellGrid : grid of cells
+   * @param  row : row the cell is in
+   * @param  col : column the cell is in
+   * @param  width : width of the grid
    * @param  height : height of the grid
    * @return int : the next state integer
    */
   @Override
-  public int updateCell(HashMap<Point, Cell> cellHashMap, int row, int col, int width, int height) {
-    getVacantCells(cellHashMap, row, col);
-    getFishCells(cellHashMap, row, col);
+  public int updateCell(Grid cellGrid, int row, int col, int width, int height) {
+    getVacantCells(cellGrid, row, col);
+    getFishCells(cellGrid, row, col);
     Collections.shuffle(vacantCells);
     Collections.shuffle(fishCells);
 
-    if(checkState(cellHashMap, row, col, FISH)) {
-      handleFishState(cellHashMap);
+    if(checkState(cellGrid, row, col, FISH)) {
+      handleFishState(cellGrid);
     }
-    else if(checkState(cellHashMap, row, col, SHARK)) {
-      handleSharkState(cellHashMap);
+    else if(checkState(cellGrid, row, col, SHARK)) {
+      handleSharkState(cellGrid);
     }
 
     return myNextState;
@@ -190,12 +190,12 @@ public class PredatorPreyCell extends Cell {
     cellList.remove(0);
   }
 
-  private void getVacantCells(HashMap<Point, Cell> cellHashMap, int row, int col) {
-    vacantCells  = neighbors.getVacantNeighbors(cellHashMap, row, col, VACANT);
+  private void getVacantCells(Grid grid, int row, int col) {
+    vacantCells  = neighbors.getVacantNeighbors(grid, row, col, VACANT);
   }
 
-  private void getFishCells(HashMap<Point, Cell> cellHashMap, int row, int col) {
-    fishCells = neighbors.getTypeNeighbors(cellHashMap, row, col,  FISH);
+  private void getFishCells(Grid grid, int row, int col) {
+    fishCells = neighbors.getTypeNeighbors(grid, row, col,  FISH);
   }
 
 

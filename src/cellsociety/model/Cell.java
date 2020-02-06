@@ -1,7 +1,6 @@
 package cellsociety.model;
 
 import java.awt.*;
-import java.util.HashMap;
 
 /**
  * Cell class based on multiple simulations that creates cells. Users can choose which simulation they want to run and then cells are created
@@ -35,14 +34,14 @@ public abstract class Cell {
 
   /**
    * Updates the cell based on the rules
-   * @param  cellHashMap: grid of cells
-   * @param  row: row the cell is in
-   * @param  col: column the cell is in
-   * @param  width: width of the grid
+   * @param  cellGrid : grid of cells
+   * @param  row : row the cell is in
+   * @param  col : column the cell is in
+   * @param  width : width of the grid
    * @param  height : height of the grid
    * @return int : the next state integer
    */
-    public abstract int updateCell(HashMap<Point, Cell> cellHashMap, int row, int col, int width, int height);
+    public abstract int updateCell(Grid cellGrid, int row, int col, int width, int height);
 
 
 
@@ -91,12 +90,12 @@ public abstract class Cell {
     this.state = state;
   }
 
-  public int getNeighborCount(HashMap<Point, Cell> cellHashMap, int row, int col, int state) {
-    return neighbors.getNeighborCount(cellHashMap, row, col, state);
+  public int getNeighborCount(Grid grid, int row, int col, int state) {
+    return neighbors.getNeighborCount(grid, row, col, state);
   }
 
-  public boolean checkState(HashMap<Point, Cell> cellHashMap, int row, int col, int currState) {
-    return cellHashMap.get(new Point(row, col)).getState() == currState;
+  public boolean checkState(Grid grid, int row, int col, int currState) {
+    return grid.getCell(row, col).getState() == currState;
   }
 
 

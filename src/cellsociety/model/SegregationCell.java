@@ -49,24 +49,26 @@ public class SegregationCell extends Cell {
 
   /**
    * Updates the cell based on the rules
-   * @param  cellHashMap: grid of cells
-   * @param  row: row the cell is in
-   * @param  col: column the cell is in
-   * @param  width: width of the grid
+   * @param  cellGrid : grid of cells
+   * @param  row : row the cell is in
+   * @param  col : column the cell is in
+   * @param  width : width of the grid
    * @param  height : height of the grid
    * @return int : the next state integer
    */
   @Override
-  public int updateCell(HashMap<Point, Cell> cellHashMap, int row, int col, int width, int height) {
-    getVacantCells(cellHashMap, width, height);
+  public int updateCell(Grid cellGrid, int row, int col, int width, int height) {
+    getVacantCells(cellGrid, width, height);
     Collections.shuffle(vacantCells);
-    double checkThreshold = ((double) neighbors.getNeighborCount(cellHashMap, row, col, cellHashMap.get(new Point(row, col)).getState())) / getNotVacantNeighborCount(cellHashMap, row, col);
+    double checkThreshold = ((double) neighbors.getNeighborCount(
+        cellGrid, row, col, cellGrid.get(new Point(row, col)).getState())) / getNotVacantNeighborCount(
+        cellGrid, row, col);
 
     if(checkThreshold < THRESHOLD && state!= VACANT) {
       int tempState = state;
       myNextState = VACANT;
       Point targetPt = vacantCells.get(0);
-      cellHashMap.get(targetPt).setMyNextState(tempState);
+      cellGrid.get(targetPt).setMyNextState(tempState);
       vacantCells.remove(0);
     }
     else if(checkThreshold >= THRESHOLD && state!=VACANT){
@@ -137,8 +139,8 @@ public class SegregationCell extends Cell {
     }
   }
 
-  private void getVacantCells(HashMap<Point, Cell> cellHashMap, int width, int height) {
-    vacantCells  = neighbors.getVacantCells(cellHashMap, width, height, VACANT); //new ArrayList<>();
+  private void getVacantCells(Grid grid, int width, int height) {
+    vacantCells  = neighbors.getVacantCells(grid, width, height, VACANT); //new ArrayList<>();
   }
 
   private boolean checkNextState(HashMap<Point, Cell> cellHashMap, int row, int k, int nextState) {
@@ -153,7 +155,7 @@ public class SegregationCell extends Cell {
     int[] colDelta = {-1, 0, 1, -1, 1, -1, 0, 1};
 
     for(int i = 0; i < rowDelta.length; i++) {
-      if(neighbors.mapContainsNeighbor(cellHashMap, row + rowDelta[i], col + colDelta[i])
+      if(neighbors.mapContainsNeighbor(grid, row + rowDelta[i], col + colDelta[i])
           && checkNotVacant(cellHashMap, row + rowDelta[i], col + colDelta[i])) {
         count++;
       }
