@@ -36,6 +36,15 @@ public class Toolbar extends ToolBar {
     private Slider slider;
     private int myChoice;
 
+    private final int GAMEOFLIFENUM = 0;
+    private final int PERCOLATIONNUM = 1;
+    private final int SEGREGATIONNUM = 2;
+    private final int PREDATORPREYNUM = 3;
+    private final int FIRENUM = 4;
+    private final int SLIDERMINNUM = 0;
+    private final int SLIDERMAXNUM = 10;
+    private final int SLIDERUNIT = 5;
+
     /**
      * Creates the toolbar with all of the functionality buttons and sets it in the mainView.
      * @param mainView where the toolbar will be displayed
@@ -67,15 +76,15 @@ public class Toolbar extends ToolBar {
         switchSimulation.getSelectionModel().selectedItemProperty().addListener( (options, oldValue, newValue) -> {
             animation.stop();
             if (newValue == "Game of life") {
-                choosingNewSim(0);
+                choosingNewSim(GAMEOFLIFENUM);
             } else if (newValue == "Percolation") {
-                choosingNewSim(1);
+                choosingNewSim(PERCOLATIONNUM);
             }else if (newValue == "Segregation") {
-                choosingNewSim(2);
+                choosingNewSim(SEGREGATIONNUM);
             } else if (newValue == "Predator-Prey") {
-                choosingNewSim(3);
+                choosingNewSim(PREDATORPREYNUM);
             } else if (newValue == "Fire") {
-                choosingNewSim(4);
+                choosingNewSim(FIRENUM);
             }
         });
 
@@ -188,13 +197,13 @@ public class Toolbar extends ToolBar {
      */
     public void makeSlider() {
         this.slider = new Slider();
-        slider.setMin(0);
-        slider.setMax(10);
+        slider.setMin(SLIDERMINNUM);
+        slider.setMax(SLIDERMAXNUM);
         slider.setValue(1);
         slider.setShowTickLabels(true);
         slider.setShowTickMarks(true);
-        slider.setMajorTickUnit(5);
-        slider.setBlockIncrement(5);
+        slider.setMajorTickUnit(SLIDERUNIT);
+        slider.setBlockIncrement(SLIDERUNIT);
 
         slider.valueProperty().addListener(new ChangeListener<Number>() {
             public void changed(ObservableValue<? extends Number> ov,

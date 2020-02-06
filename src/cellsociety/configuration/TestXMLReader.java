@@ -1,10 +1,9 @@
 package cellsociety.configuration;
 import javafx.application.Platform;
-import javafx.scene.control.Alert;
+
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 
 import java.io.File;
 

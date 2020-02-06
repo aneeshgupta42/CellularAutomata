@@ -22,6 +22,8 @@ public class MainView extends VBox {
     private Toolbar myToolbar;
     private GridPane theGrid;
 
+    private final int SIZEOFGRID = 500;
+
     /**
      * Sets instance variables myToolbar, displayGrid, and the grid and adds myToolbar and theGrid to the mainView
      */
@@ -59,13 +61,12 @@ public class MainView extends VBox {
         gridPane.addRow(rows);
         gridPane.setHgap(1);
         gridPane.setVgap(1);
-        int size = 500;
         for(int i = 0; i<rows; i++){
             for (int j = 0; j<cols; j++){
                 Point tempPt = new Point(i,j);
                 Color tempColor = myMap.get(tempPt).getCellColor();
                 System.out.println("");
-                Rectangle rect = new Rectangle(size/rows,size/cols, tempColor);
+                Rectangle rect = new Rectangle(SIZEOFGRID/rows,SIZEOFGRID/cols, tempColor);
                 gridPane.add(rect, j, i);
             }
         }

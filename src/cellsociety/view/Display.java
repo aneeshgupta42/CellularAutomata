@@ -26,6 +26,10 @@ public class Display extends Application {
         public final static FileChooser FILE_CHOOSER = makeChooser(DATA_FILE_EXTENSION);
 
 
+        private final int WIDTH = 740;
+        private final int HEIGHT = 570;
+
+
         /**
          * This program sets up the stage and creates a new scene using the variable MainView, which is where all our
          * content is held. The scene is then set in the stage and shown.
@@ -36,7 +40,7 @@ public class Display extends Application {
         public void start(Stage stage) throws Exception {
                 Stage newstage = new Stage();
                 myMainview = new MainView();
-                myScene = new Scene(myMainview, 740, 570);
+                myScene = new Scene(myMainview, WIDTH, HEIGHT);
                 stage.setScene(myScene);
                 stage.setTitle("Simulation");
                 stage.show();
