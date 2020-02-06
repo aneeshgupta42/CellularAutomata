@@ -163,7 +163,12 @@ public class Grid {
    */
   public HashMap<Point, Cell> getCellGrid() {
         return cellGrid;
-    }
+  }
+
+  public Cell getCell(int row, int col) {
+      return cellGrid.get(new Point(row, col));
+  }
+
 
   /***
    * Get Height of Grid
