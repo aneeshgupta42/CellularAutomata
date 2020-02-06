@@ -14,6 +14,8 @@ public class Display extends Application {
 
         private Scene myScene;
         private MainView myMainview;
+        private final int WIDTH = 740;
+        private final int HEIGHT = 570;
 
         /**
          * This program sets up the stage and creates a new scene using the variable MainView, which is where all our
@@ -25,7 +27,7 @@ public class Display extends Application {
         public void start(Stage stage) throws Exception {
 
                 myMainview = new MainView();
-                myScene = new Scene(myMainview, 740, 570);
+                myScene = new Scene(myMainview, WIDTH, HEIGHT);
                 stage.setScene(myScene);
                 stage.setTitle("Simulation");
                 stage.show();
