@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
-import javafx.scene.paint.Color;
+import javafx.scene.pint.Color;
 
 public class SugarScapeCell extends Cell {
     private int state;
