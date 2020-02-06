@@ -1,9 +1,7 @@
 package cellsociety.model;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import javafx.scene.paint.Color;
 
 import java.awt.Point;
 import java.util.HashMap;
@@ -21,7 +19,7 @@ import java.util.HashMap;
  */
 public class PredatorPreyCell extends Cell {
   private int state;
-  private Color cellColor;
+  private String cellColor;
   private int myNextState;
   private static final int VACANT = 0;
   private static final int FISH = 1;
@@ -122,7 +120,7 @@ public class PredatorPreyCell extends Cell {
    * @return color of the cell
    */
   @Override
-  public Color getCellColor() {
+  public String getCellColor() {
     return cellColor;
   }
 
@@ -132,13 +130,13 @@ public class PredatorPreyCell extends Cell {
   @Override
   public void setCellColor() {
     if(state == VACANT) {
-      cellColor = Color.WHITE;
+      cellColor = "white";
     }
     else if(state == FISH) {
-      cellColor = Color.BLUE;
+      cellColor = "blue";
     }
     else {
-      cellColor = Color.GRAY;
+      cellColor = "gray";
     }
   }
 
@@ -200,17 +198,6 @@ public class PredatorPreyCell extends Cell {
     fishCells = neighbors.getTypeNeighbors(cellHashMap, row, col,  FISH);
   }
 
-  private boolean checkNextState(HashMap<Point, Cell> cellHashMap, int row, int col, int nextState) {
-    return cellHashMap.get(new Point(row, col)).getNextState() == nextState;
-  }
-
-  private boolean checkState(HashMap<Point, Cell> cellHashMap, int row, int col, int currState) {
-    return cellHashMap.get(new Point(row, col)).getState() == currState;
-  }
-
-  private boolean mapContainsNeighbor(HashMap<Point, Cell> cellHashMap, int row, int col) {
-    return cellHashMap.containsKey(new Point(row, col));
-  }
 
   private void increaseBreedingTime() {
     breedingTime++;

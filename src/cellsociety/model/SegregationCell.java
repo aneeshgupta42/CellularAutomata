@@ -1,8 +1,6 @@
 package cellsociety.model;
 
-import javafx.scene.paint.Color;
 import java.awt.Point;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -26,7 +24,7 @@ public class SegregationCell extends Cell {
   private static final int AGENT1 = 1;
   private static final int AGENT2 = 2;
   private double THRESHOLD;
-  private Color cellColor;
+  private String cellColor;
   private List<Point> vacantCells;
 
   private Neighbor neighbors = new SquareNeighbor();
@@ -62,7 +60,8 @@ public class SegregationCell extends Cell {
   public int updateCell(HashMap<Point, Cell> cellHashMap, int row, int col, int width, int height) {
     getVacantCells(cellHashMap, width, height);
     Collections.shuffle(vacantCells);
-    double checkThreshold = ((double) getNeighborTypeCount(cellHashMap, row, col, cellHashMap.get(new Point(row, col)).getState())) / getNeighborCount(cellHashMap, row, col);
+    double checkThreshold = ((double) neighbors.getNeighborCount(cellHashMap, row, col, cellHashMap.get(new Point(row, col)).getState())) / getNotVacantNeighborCount(cellHashMap, row, col);
+
     if(checkThreshold < THRESHOLD && state!= VACANT) {
       int tempState = state;
       myNextState = VACANT;
@@ -118,7 +117,7 @@ public class SegregationCell extends Cell {
    * @return color of the cell
    */
   @Override
-  public javafx.scene.paint.Color getCellColor() {
+  public String getCellColor() {
     return cellColor;
   }
 
@@ -128,55 +127,39 @@ public class SegregationCell extends Cell {
   @Override
   public void setCellColor() {
     if(state == 0) {
-      cellColor = Color.WHITE;
+      cellColor = "white";
     }
     else if(state == 1) {
-      cellColor = Color.BLUE;
+      cellColor = "blue";
     }
     else {
-      cellColor = Color.RED;
+      cellColor = "red";
     }
   }
 
   private void getVacantCells(HashMap<Point, Cell> cellHashMap, int width, int height) {
-    vacantCells  = new ArrayList<>();
-    for(int i = 0; i < width; i++) {
-      for(int k = 0; k < height; k++) {
-        if(checkState(cellHashMap, i, k, VACANT)
-            && checkNextState(cellHashMap, i, k, VACANT)) {
-          vacantCells.add(new Point(i, k));
-        }
-      }
-    }
+    vacantCells  = neighbors.getVacantCells(cellHashMap, width, height, VACANT); //new ArrayList<>();
   }
 
   private boolean checkNextState(HashMap<Point, Cell> cellHashMap, int row, int k, int nextState) {
     return cellHashMap.get(new Point(row, k)).getNextState() == nextState;
   }
 
-  private boolean checkState(HashMap<Point, Cell> cellHashMap, int i, int k, int vacant) {
-    return cellHashMap.get(new Point(i, k)).getState() == vacant;
-  }
 
-  private int getNeighborCount(HashMap<Point, Cell> cellHashMap, int row, int col) {
+  private int getNotVacantNeighborCount(HashMap<Point, Cell> cellHashMap, int row, int col) {
     int count = 0;
-    int delta = 1;
 
     int[] rowDelta = {-1, -1, -1, 0, 0, 1, 1, 1};
     int[] colDelta = {-1, 0, 1, -1, 1, -1, 0, 1};
 
     for(int i = 0; i < rowDelta.length; i++) {
-      if(mapContainsNeighbor(cellHashMap, row + rowDelta[i], col + colDelta[i])
+      if(neighbors.mapContainsNeighbor(cellHashMap, row + rowDelta[i], col + colDelta[i])
           && checkNotVacant(cellHashMap, row + rowDelta[i], col + colDelta[i])) {
         count++;
       }
     }
 
     return count;
-  }
-
-  private boolean mapContainsNeighbor(HashMap<Point, Cell> cellHashMap, int i, int i2) {
-    return cellHashMap.containsKey(new Point(i, i2));
   }
 
   private boolean checkNotVacant(HashMap<Point, Cell> cellHashMap, int row, int col) {

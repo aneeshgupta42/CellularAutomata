@@ -163,7 +163,12 @@ public class Grid {
    */
   public HashMap<Point, Cell> getCellGrid() {
         return cellGrid;
-    }
+  }
+
+  public Cell getCell(int row, int col) {
+      return cellGrid.get(new Point(row, col));
+  }
+
 
   /***
    * Get Height of Grid
@@ -180,7 +185,6 @@ public class Grid {
   public int getMyWidth() {
         return myWidth;
     }
-
   /***
    * get the choice of simulation being run
    * @return myChoice
@@ -206,6 +210,9 @@ public class Grid {
             //change to sugar
             return new GameCell(row, col, state);
         }
+    }
+    public String getPointColor(int x, int y){
+      return cellGrid.get(new Point(x,y)).getCellColor();
     }
 
 }

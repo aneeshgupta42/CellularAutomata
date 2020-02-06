@@ -2,7 +2,6 @@ package cellsociety.model;
 
 import java.awt.Point;
 import java.util.HashMap;
-import javafx.scene.paint.Color;
 
 public class RPSCell extends Cell {
   private int state;
@@ -10,7 +9,7 @@ public class RPSCell extends Cell {
   private static final int PAPER = 1;
   private static final int SCISSORS = 0;
   private int THRESHOLD;
-  private Color cellColor;
+  private String cellColor;
 
   private Neighbor neighbors = new SquareNeighbor();
 
@@ -53,20 +52,20 @@ public class RPSCell extends Cell {
   }
 
   @Override
-  public Color getCellColor() {
+  public String getCellColor() {
     return cellColor;
   }
 
   @Override
   public void setCellColor() {
     if(state == ROCK) {
-      cellColor = Color.GRAY;
+      cellColor = "gray";
     }
     else if(state == PAPER) {
-      cellColor = Color.WHITE;
+      cellColor = "white";
     }
     else {
-      cellColor = Color.BLACK;
+      cellColor = "black";
     }
   }
 }

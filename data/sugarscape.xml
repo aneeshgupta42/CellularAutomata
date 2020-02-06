@@ -6,5 +6,5 @@
     <size>300</size>
     <rows>20</rows>
     <cols>20</cols>
-    <threshold>0.4</threshold>
+    <threshold>3</threshold>
 </data>
