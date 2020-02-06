@@ -20,6 +20,7 @@ public abstract class Cell {
     private Image displayImage;
     Point gridPos;
     private Color color;
+    private Neighbor neighbors = new SquareNeighbor();
 
   /**
    * Constructor for the Cell object
@@ -43,6 +44,8 @@ public abstract class Cell {
    */
     public abstract int updateCell(HashMap<Point, Cell> cellHashMap, int row, int col, int width, int height);
 
+
+
   /**
    * Returns the state of the cell
    * @return state of the cell
@@ -59,6 +62,10 @@ public abstract class Cell {
    * Sets the color of the cell
    */
     public abstract void setCellColor();
+
+    public Neighbor getNeighbors() {
+      return neighbors;
+    }
 
   /**
    * Returns the next state of the cell
@@ -84,6 +91,13 @@ public abstract class Cell {
     this.state = state;
   }
 
+  public int getNeighborCount(HashMap<Point, Cell> cellHashMap, int row, int col, int state) {
+    return neighbors.getNeighborCount(cellHashMap, row, col, state);
+  }
+
+  public boolean checkState(HashMap<Point, Cell> cellHashMap, int row, int col, int currState) {
+    return cellHashMap.get(new Point(row, col)).getState() == currState;
+  }
 
 
 }

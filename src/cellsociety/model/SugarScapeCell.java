@@ -156,10 +156,6 @@ public class SugarScapeCell extends Cell {
         }
     }
 
-    private boolean checkState(HashMap<Point, Cell> cellHashMap, int row, int col, int currState) {
-        return cellHashMap.get(new Point(row, col)).getState() == currState;
-    }
-
     private void setRegenerationTime(int time) {
         regenerationTime = time;
     }

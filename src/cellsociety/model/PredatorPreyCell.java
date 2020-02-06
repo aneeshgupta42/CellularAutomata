@@ -200,17 +200,6 @@ public class PredatorPreyCell extends Cell {
     fishCells = neighbors.getTypeNeighbors(cellHashMap, row, col,  FISH);
   }
 
-  private boolean checkNextState(HashMap<Point, Cell> cellHashMap, int row, int col, int nextState) {
-    return cellHashMap.get(new Point(row, col)).getNextState() == nextState;
-  }
-
-  private boolean checkState(HashMap<Point, Cell> cellHashMap, int row, int col, int currState) {
-    return cellHashMap.get(new Point(row, col)).getState() == currState;
-  }
-
-  private boolean mapContainsNeighbor(HashMap<Point, Cell> cellHashMap, int row, int col) {
-    return cellHashMap.containsKey(new Point(row, col));
-  }
 
   private void increaseBreedingTime() {
     breedingTime++;

@@ -23,7 +23,7 @@ public class PercolationCell extends Cell {
   private static final int PERCOLATED = 2;
   private Color cellColor;
 
-  private Neighbor neighbors = new SquareNeighbor();
+  //private Neighbor neighbors = new SquareNeighbor();
   private int neighborhoodChoice;
 
 
@@ -37,7 +37,7 @@ public class PercolationCell extends Cell {
     super(width, height, state);
     this.state = state;
     this.setCellColor();
-    neighbors.setAllNeighbors();
+    this.getNeighbors().setAllNeighbors();
   }
 
   /**
@@ -52,7 +52,7 @@ public class PercolationCell extends Cell {
   @Override
   public int updateCell(HashMap<Point, Cell> cellHashMap,
       int row, int col, int width, int height) {
-    if(getNeighborCount(cellHashMap, row, col) >= 1 && checkState(cellHashMap, row, col, OPEN)) {
+    if(getNeighborCount(cellHashMap, row, col, PERCOLATED) >= 1 && checkState(cellHashMap, row, col, OPEN)) {
       return PERCOLATED;
     }
     else{
@@ -106,16 +106,5 @@ public class PercolationCell extends Cell {
     }
   }
 
-  private int getNeighborCount(HashMap<Point, Cell> cellHashMap, int row, int col) {
-    return neighbors.getNeighborCount(cellHashMap, row, col, PERCOLATED);
-  }
-
-  private boolean mapContainsNeighbor(HashMap<Point, Cell> cellHashMap, int row, int col) {
-    return cellHashMap.containsKey(new Point(row, col));
-  }
-
-  private boolean checkState(HashMap<Point, Cell> cellHashMap, int row, int col, int currState) {
-    return cellHashMap.get(new Point(row, col)).getState() == currState;
-  }
 
 }
