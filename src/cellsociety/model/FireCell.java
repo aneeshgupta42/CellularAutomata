@@ -1,8 +1,6 @@
 package cellsociety.model;
 
 
-import java.awt.Point;
-import java.util.HashMap;
 import java.util.Random;
 
 /**
@@ -50,19 +48,19 @@ public class FireCell extends Cell {
 
   /**
    * Updates the cell based on the rules
-   * @param  cellHashMap: grid of cells
-   * @param  row: row the cell is in
-   * @param  col: column the cell is in
-   * @param  width: width of the grid
+   * @param  cellGrid : grid of cells
+   * @param  row : row the cell is in
+   * @param  col : column the cell is in
+   * @param  width : width of the grid
    * @param  height : height of the grid
    * @return int : the next state integer
    */
   @Override
-  public int updateCell(HashMap<Point, Cell> cellHashMap, int row, int col, int width, int height) {
-    if(checkState(cellHashMap, row, col, BURNING)) {
+  public int updateCell(Grid cellGrid, int row, int col, int width, int height) {
+    if(checkState(cellGrid, row, col, BURNING)) {
       return EMPTY;
     }
-    else if(checkState(cellHashMap, row, col, TREE) && getNeighborCount(cellHashMap, row, col, BURNING) >= 1) {
+    else if(checkState(cellGrid, row, col, TREE) && getNeighborCount(cellGrid, row, col, BURNING) >= 1) {
       if(numChooser.nextFloat() < this.probCatch) {
         return BURNING;
       }
@@ -113,9 +111,7 @@ public class FireCell extends Cell {
     this.state = state;
   }
 
-  private boolean mapContainsNeighbor(HashMap<Point, Cell> cellHashMap, int colDelta, int rowDelta) {
-    return cellHashMap.containsKey(new Point(rowDelta, colDelta));
-  }
+
 
 
 }

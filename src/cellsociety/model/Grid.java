@@ -144,7 +144,7 @@ public class Grid {
         for (int i = 0; i < height; i++) { // first pass: get the new states
             for (int j = 0; j < width; j++) {
                 newStateMap.put(new Point(i, j), tempInitInt);//initialize the key for new state
-                int newState = cellGrid.get(new Point(i, j)).updateCell(cellGrid, i, j, width, height);
+                int newState = cellGrid.get(new Point(i, j)).updateCell(this, i, j, width, height);
                 newStateMap.put(new Point(i, j), newState); //put new state for a point in
             }
         }
@@ -167,6 +167,10 @@ public class Grid {
 
   public Cell getCell(int row, int col) {
       return cellGrid.get(new Point(row, col));
+  }
+
+  public boolean gridContainsCell(int row, int col) {
+      return cellGrid.containsKey(new Point(row, col));
   }
 
 

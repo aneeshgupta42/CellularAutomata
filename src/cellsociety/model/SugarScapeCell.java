@@ -89,15 +89,15 @@ public class SugarScapeCell extends Cell {
 
 
     @Override
-    public int updateCell(HashMap<Point, Cell> cellHashMap, int row, int col, int width,
+    public int updateCell(Grid cellGrid, int row, int col, int width,
         int height) {
-        if(checkState(cellHashMap, row, col, SUGAR_PATCH)) {
+        if(checkState(cellGrid, row, col, SUGAR_PATCH)) {
             handleSugar();
         }
         else {
-            handleAgent(cellHashMap, row, col);
+            handleAgent(cellGrid, row, col);
         }
-        initializeNewAgent(cellHashMap, width, height);
+        initializeNewAgent(cellGrid, width, height);
         return myNextState;
     }
 

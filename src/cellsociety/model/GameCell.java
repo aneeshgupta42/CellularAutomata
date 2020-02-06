@@ -1,10 +1,5 @@
 package cellsociety.model;
 
-import javafx.scene.paint.Color;
-
-import java.awt.Point;
-import java.util.HashMap;
-
 /**
  * GameCell class based on Game of Life simulation. Users can choose the Game simulation and then cells are created
  * based on this type of simulation. Thus, GameCell is an subclass
@@ -47,24 +42,24 @@ public class GameCell extends Cell {
 
   /**
    * Updates the cell based on the rules
-   * @param  cellHashMap: grid of cells
-   * @param  row: row the cell is in
-   * @param  col: column the cell is in
-   * @param  width: width of the grid
+   * @param  cellGrid : grid of cells
+   * @param  row : row the cell is in
+   * @param  col : column the cell is in
+   * @param  width : width of the grid
    * @param  height : height of the grid
    * @return int : the next state integer
    */
   @Override
-  public int updateCell(HashMap<Point, Cell> cellHashMap, int row, int col, int width, int height) {
-    if((getNeighborCount(cellHashMap, row, col, ALIVE) > 3 || getNeighborCount(cellHashMap, row, col, ALIVE) < 2) && checkState(
-        cellHashMap, row, col, ALIVE)) {
+  public int updateCell(Grid cellGrid, int row, int col, int width, int height) {
+    if((getNeighborCount(cellGrid, row, col, ALIVE) > 3 || getNeighborCount(cellGrid, row, col, ALIVE) < 2) && checkState(
+        cellGrid, row, col, ALIVE)) {
       return DEAD;
     }
-    else if(getNeighborCount(cellHashMap, row, col, ALIVE) == 3 && checkState(cellHashMap, row, col, DEAD)) {
+    else if(getNeighborCount(cellGrid, row, col, ALIVE) == 3 && checkState(cellGrid, row, col, DEAD)) {
       return ALIVE;
 
     }
-    else if(getNeighborCount(cellHashMap, row, col, ALIVE) >= 2 && checkState(cellHashMap, row, col,
+    else if(getNeighborCount(cellGrid, row, col, ALIVE) >= 2 && checkState(cellGrid, row, col,
         ALIVE)) {
       return ALIVE;
 
