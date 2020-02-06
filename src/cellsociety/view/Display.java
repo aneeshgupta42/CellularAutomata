@@ -50,7 +50,7 @@ public class Display extends Application {
                 // nothing selected, so quit the application
 //                Platform.exit();
         }
-        
+
         private static FileChooser makeChooser (String extensionAccepted) {
                 FileChooser result = new FileChooser();
                 result.setTitle("Open Data File");

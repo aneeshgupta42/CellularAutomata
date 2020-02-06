@@ -29,7 +29,7 @@ public class GameCell extends Cell {
   private int neighborhoodChoice;
 
 
-  private Color cellColor;
+  private String cellColor;
 
   /**
    * Constructor for the FireCell object
@@ -95,7 +95,7 @@ public class GameCell extends Cell {
    * Returns the color of the cell
    * @return color of the cell
    */
-  public Color getCellColor() {
+  public String getCellColor() {
     return cellColor;
   }
 
@@ -105,13 +105,13 @@ public class GameCell extends Cell {
   @Override
   public void setCellColor() {
     if(state == ALIVE) {
-      cellColor = Color.BLUE;
+      cellColor = "blue";
     }
     else if(state == DEAD) {
-      cellColor = Color.BLACK;
+      cellColor = "black";
     }
     else {
-      cellColor = Color.RED;
+      cellColor = "red";
     }
   }
 

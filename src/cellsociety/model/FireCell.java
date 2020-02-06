@@ -1,6 +1,6 @@
 package cellsociety.model;
 
-import javafx.scene.paint.Color;
+
 import java.awt.Point;
 import java.util.HashMap;
 import java.util.Random;
@@ -22,7 +22,7 @@ public class FireCell extends Cell {
   private final static int EMPTY = 0;
   private final static int TREE = 1;
   private final static int BURNING = 2;
-  private Color cellColor;
+  private String cellColor;
   private int state;
   private Random numChooser = new Random();
 
@@ -85,7 +85,7 @@ public class FireCell extends Cell {
    * @return color of the cell
    */
   @Override
-  public Color getCellColor() {
+  public String getCellColor() {
     return cellColor;
   }
 
@@ -95,13 +95,13 @@ public class FireCell extends Cell {
   @Override
   public void setCellColor() {
     if(state == EMPTY) {
-      cellColor = Color.YELLOW;
+      cellColor = "yellow";
     }
     else if(state == TREE) {
-      cellColor = Color.GREEN;
+      cellColor = "green";
     }
     else {
-      cellColor = Color.RED;
+      cellColor = "red";
     }
   }
 

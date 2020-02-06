@@ -1,6 +1,5 @@
 package cellsociety.model;
 
-import javafx.scene.paint.Color;
 import java.awt.Point;
 import java.util.HashMap;
 
@@ -21,7 +20,7 @@ public class PercolationCell extends Cell {
   private static final int BLOCKED = 0;
   private static final int OPEN = 1;
   private static final int PERCOLATED = 2;
-  private Color cellColor;
+  private String cellColor;
 
   //private Neighbor neighbors = new SquareNeighbor();
   private int neighborhoodChoice;
@@ -74,7 +73,7 @@ public class PercolationCell extends Cell {
    * @return color of the cell
    */
   @Override
-  public Color getCellColor() {
+  public String getCellColor() {
     return cellColor;
   }
 
@@ -92,17 +91,17 @@ public class PercolationCell extends Cell {
   @Override
   public void setCellColor() {
     if(state == BLOCKED) {
-      cellColor = Color.BLACK;
+      cellColor = "black";
     }
     else if(state == OPEN) {
-      cellColor = Color.WHITE;
+      cellColor = "white";
     }
     else if(state == PERCOLATED) {
-      cellColor = Color.BLUE;
+      cellColor = "blue";
     }
     else {
       setState(OPEN);
-      cellColor = Color.WHITE;
+      cellColor = "white";
     }
   }
 

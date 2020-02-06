@@ -1,6 +1,5 @@
 package cellsociety.model;
 
-import javafx.scene.paint.Color;
 import java.awt.Point;
 import java.util.Collections;
 import java.util.HashMap;
@@ -25,7 +24,7 @@ public class SegregationCell extends Cell {
   private static final int AGENT1 = 1;
   private static final int AGENT2 = 2;
   private double THRESHOLD;
-  private Color cellColor;
+  private String cellColor;
   private List<Point> vacantCells;
 
   private Neighbor neighbors = new SquareNeighbor();
@@ -118,7 +117,7 @@ public class SegregationCell extends Cell {
    * @return color of the cell
    */
   @Override
-  public javafx.scene.paint.Color getCellColor() {
+  public String getCellColor() {
     return cellColor;
   }
 
@@ -128,13 +127,13 @@ public class SegregationCell extends Cell {
   @Override
   public void setCellColor() {
     if(state == 0) {
-      cellColor = Color.WHITE;
+      cellColor = "white";
     }
     else if(state == 1) {
-      cellColor = Color.BLUE;
+      cellColor = "blue";
     }
     else {
-      cellColor = Color.RED;
+      cellColor = "red";
     }
   }
 

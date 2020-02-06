@@ -19,7 +19,7 @@ public abstract class Cell {
     private int myNextState;
     private Image displayImage;
     Point gridPos;
-    private Color color;
+    private String color;
     private Neighbor neighbors = new SquareNeighbor();
 
   /**
@@ -56,7 +56,7 @@ public abstract class Cell {
    * Returns the color of the cell
    * @return color of the cell
    */
-    public abstract javafx.scene.paint.Color getCellColor();
+    public abstract String getCellColor();
 
   /**
    * Sets the color of the cell

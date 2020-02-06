@@ -1,9 +1,7 @@
 package cellsociety.model;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import javafx.scene.paint.Color;
 
 import java.awt.Point;
 import java.util.HashMap;
@@ -21,7 +19,7 @@ import java.util.HashMap;
  */
 public class PredatorPreyCell extends Cell {
   private int state;
-  private Color cellColor;
+  private String cellColor;
   private int myNextState;
   private static final int VACANT = 0;
   private static final int FISH = 1;
@@ -122,7 +120,7 @@ public class PredatorPreyCell extends Cell {
    * @return color of the cell
    */
   @Override
-  public Color getCellColor() {
+  public String getCellColor() {
     return cellColor;
   }
 
@@ -132,13 +130,13 @@ public class PredatorPreyCell extends Cell {
   @Override
   public void setCellColor() {
     if(state == VACANT) {
-      cellColor = Color.WHITE;
+      cellColor = "white";
     }
     else if(state == FISH) {
-      cellColor = Color.BLUE;
+      cellColor = "blue";
     }
     else {
-      cellColor = Color.GRAY;
+      cellColor = "gray";
     }
   }
 

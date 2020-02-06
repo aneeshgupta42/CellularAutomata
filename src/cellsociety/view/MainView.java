@@ -63,7 +63,8 @@ public class MainView extends VBox {
         for(int i = 0; i<rows; i++){
             for (int j = 0; j<cols; j++){
                 Point tempPt = new Point(i,j);
-                Color tempColor = myMap.get(tempPt).getCellColor();
+                Color tempColor = Color.web(myMap.get(tempPt).getCellColor());
+
                 System.out.println("");
                 Rectangle rect = new Rectangle(size/rows,size/cols, tempColor);
                 gridPane.add(rect, j, i);

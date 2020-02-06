@@ -5,11 +5,10 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
-import javafx.scene.paint.Color;
 
 public class SugarScapeCell extends Cell {
     private int state;
-    private Color cellColor;
+    private String cellColor;
     private int myNextState;
     private static final int SUGAR_PATCH = 0;
     private static final int AGENT = 1;
@@ -137,7 +136,7 @@ public class SugarScapeCell extends Cell {
     }
 
     @Override
-    public Color getCellColor() {
+    public String getCellColor() {
         return cellColor;
     }
 
@@ -149,10 +148,10 @@ public class SugarScapeCell extends Cell {
     @Override
     public void setCellColor() {
         if(state == SUGAR_PATCH) {
-            cellColor = Color.WHITE;
+            cellColor = "white";
         }
         else {
-            cellColor = Color.BLACK;
+            cellColor = "black";
         }
     }
 
