@@ -29,6 +29,9 @@ public class SegregationCell extends Cell {
   private Color cellColor;
   private List<Point> vacantCells;
 
+  private Neighbor neighbors = new SquareNeighbor();
+  private int neighborhoodChoice;
+
   /**
    * Constructor for the FireCell object
    * @param width: width of grid
@@ -42,6 +45,8 @@ public class SegregationCell extends Cell {
     this.myNextState = state;
     this.THRESHOLD = thresh;
     this.setCellColor();
+    neighborhoodChoice = 0;
+    neighbors.setAllNeighbors();
   }
 
   /**
@@ -179,20 +184,7 @@ public class SegregationCell extends Cell {
   }
 
   private int getNeighborTypeCount(HashMap<Point, Cell> cellHashMap, int row, int col, int state) {
-    int count = 0;
-
-    int[] rowDelta = {-1, -1, -1, 0, 0, 1, 1, 1};
-    int[] colDelta = {-1, 0, 1, -1, 1, -1, 0, 1};
-
-    for(int i = 0; i < rowDelta.length; i++) {
-      if(mapContainsNeighbor(cellHashMap, row + rowDelta[i], col + colDelta[i])
-          && checkState(cellHashMap,row + rowDelta[i], col + colDelta[i], state)) {
-        count++;
-      }
-    }
-
-    return count;
-
+    return neighbors.getNeighborCount(cellHashMap, row, col, state);
   }
 
 }

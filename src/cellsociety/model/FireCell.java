@@ -26,6 +26,10 @@ public class FireCell extends Cell {
   private int state;
   private Random numChooser = new Random();
 
+  private Neighbor neighbors = new SquareNeighbor();
+  private int neighborhoodChoice;
+
+
   /**
    * Constructor for the FireCell object
    * @param row: row number cell is in
@@ -38,6 +42,9 @@ public class FireCell extends Cell {
     this.state = mystate;
     this.setCellColor();
     this.probCatch = prob;
+    neighborhoodChoice = 0;
+    neighbors.setDirectNeighbors();
+
   }
 
 
@@ -108,18 +115,7 @@ public class FireCell extends Cell {
 
 
   private int getNeighborCount(HashMap<Point, Cell> cellHashMap, int row, int col) {
-    int count = 0;
-    int[] rowDelta = {-1, 0, 0, 1};
-    int[] colDelta = {0, -1, 1, 0};
-
-    //increments count if top, left, right, or bottom neighbor is burning
-    for(int i = 0; i < rowDelta.length; i++) {
-      if(mapContainsNeighbor(cellHashMap, col + colDelta[i], row + rowDelta[i]) && checkState(cellHashMap, row + rowDelta[i], col + colDelta[i], BURNING)) {
-        count++;
-      }
-    }
-
-    return count;
+      return neighbors.getNeighborCount(cellHashMap, row, col, BURNING);
   }
 
   private boolean mapContainsNeighbor(HashMap<Point, Cell> cellHashMap, int colDelta, int rowDelta) {

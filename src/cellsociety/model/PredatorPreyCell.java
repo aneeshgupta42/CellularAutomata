@@ -33,6 +33,9 @@ public class PredatorPreyCell extends Cell {
   private List<Point> vacantCells;
   private List<Point> fishCells;
 
+  private Neighbor neighbors = new SquareNeighbor();
+  private int neighborhoodChoice;
+
   /**
    * Constructor for the FireCell object
    * @param row: row number cell is in
@@ -47,6 +50,8 @@ public class PredatorPreyCell extends Cell {
     this.energyLevel = 2;
     this.myNextState = state;
     this.setCellColor();
+    neighbors.setDirectNeighbors();
+    neighborhoodChoice = 0;
   }
 
   /**
@@ -188,34 +193,11 @@ public class PredatorPreyCell extends Cell {
   }
 
   private void getVacantCells(HashMap<Point, Cell> cellHashMap, int row, int col) {
-    vacantCells  = new ArrayList<>();
-    int delta = 1;
-
-    int[] rowDelta = {-1, 0, 0, 1};
-    int[] colDelta = {0, -1, 1, 0};
-
-    for(int i = 0; i < rowDelta.length; i++) {
-      if(mapContainsNeighbor(cellHashMap, row + rowDelta[i], col + colDelta[i])
-          && checkState(cellHashMap, row + rowDelta[i], col + colDelta[i], VACANT)
-          && checkNextState(cellHashMap, row + rowDelta[i], col + colDelta[i], VACANT)) {
-        vacantCells.add(new Point(row + rowDelta[i], col + colDelta[i]));
-      }
-    }
+    vacantCells  = neighbors.getVacantNeighbors(cellHashMap, row, col, VACANT);
   }
 
   private void getFishCells(HashMap<Point, Cell> cellHashMap, int row, int col) {
-    fishCells  = new ArrayList<>();
-    int delta = 1;
-
-    int[] rowDelta = {-1, 0, 0, 1};
-    int[] colDelta = {0, -1, 1, 0};
-
-    for(int i = 0; i < rowDelta.length; i++) {
-      if(mapContainsNeighbor(cellHashMap, row + rowDelta[i], col + colDelta[i])
-          && checkNextState(cellHashMap, row + rowDelta[i], col + colDelta[i], FISH)) {
-        fishCells.add(new Point(row + rowDelta[i], col + colDelta[i]));
-      }
-    }
+    fishCells = neighbors.getTypeNeighbors(cellHashMap, row, col,  FISH);
   }
 
   private boolean checkNextState(HashMap<Point, Cell> cellHashMap, int row, int col, int nextState) {
