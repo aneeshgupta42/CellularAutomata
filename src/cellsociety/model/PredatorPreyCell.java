@@ -1,9 +1,7 @@
 package cellsociety.model;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import javafx.scene.paint.Color;
 
 import java.awt.Point;
 import java.util.HashMap;
@@ -21,7 +19,7 @@ import java.util.HashMap;
  */
 public class PredatorPreyCell extends Cell {
   private int state;
-  private Color cellColor;
+  private String cellColor;
   private int myNextState;
   private static final int VACANT = 0;
   private static final int FISH = 1;
@@ -33,7 +31,7 @@ public class PredatorPreyCell extends Cell {
   private List<Point> vacantCells;
   private List<Point> fishCells;
 
-  private Neighbor neighbors = new SquareNeighbor();
+  //private Neighbor neighbors = new SquareNeighbor();
   private int neighborhoodChoice;
 
   /**
@@ -50,31 +48,31 @@ public class PredatorPreyCell extends Cell {
     this.energyLevel = 2;
     this.myNextState = state;
     this.setCellColor();
-    neighbors.setDirectNeighbors();
+    this.getNeighbors().setDirectNeighbors();
     neighborhoodChoice = 0;
   }
 
   /**
    * Updates the cell based on the rules
-   * @param  cellHashMap: grid of cells
-   * @param  row: row the cell is in
-   * @param  col: column the cell is in
-   * @param  width: width of the grid
+   * @param  cellGrid : grid of cells
+   * @param  row : row the cell is in
+   * @param  col : column the cell is in
+   * @param  width : width of the grid
    * @param  height : height of the grid
    * @return int : the next state integer
    */
   @Override
-  public int updateCell(HashMap<Point, Cell> cellHashMap, int row, int col, int width, int height) {
-    getVacantCells(cellHashMap, row, col);
-    getFishCells(cellHashMap, row, col);
+  public int updateCell(Grid cellGrid, int row, int col, int width, int height) {
+    getVacantCells(cellGrid, row, col);
+    getFishCells(cellGrid, row, col);
     Collections.shuffle(vacantCells);
     Collections.shuffle(fishCells);
 
-    if(checkState(cellHashMap, row, col, FISH)) {
-      handleFishState(cellHashMap);
+    if(checkState(cellGrid, row, col, FISH)) {
+      handleFishState(cellGrid);
     }
-    else if(checkState(cellHashMap, row, col, SHARK)) {
-      handleSharkState(cellHashMap);
+    else if(checkState(cellGrid, row, col, SHARK)) {
+      handleSharkState(cellGrid);
     }
 
     return myNextState;
@@ -122,7 +120,7 @@ public class PredatorPreyCell extends Cell {
    * @return color of the cell
    */
   @Override
-  public Color getCellColor() {
+  public String getCellColor() {
     return cellColor;
   }
 
@@ -132,17 +130,17 @@ public class PredatorPreyCell extends Cell {
   @Override
   public void setCellColor() {
     if(state == VACANT) {
-      cellColor = Color.WHITE;
+      cellColor = "white";
     }
     else if(state == FISH) {
-      cellColor = Color.BLUE;
+      cellColor = "blue";
     }
     else {
-      cellColor = Color.GRAY;
+      cellColor = "gray";
     }
   }
 
-  private void handleSharkState(HashMap<Point, Cell> cellHashMap) {
+  private void handleSharkState(Grid cellGrid) {
     increaseBreedingTime();
     decreaseEnergyLevel();
     int tempState = state;
@@ -151,66 +149,56 @@ public class PredatorPreyCell extends Cell {
       setEnergyLevel(MAX_ENERGY_LEVEL);
     }
     else if(breedingTime > MAX_BREEDING_TIME && vacantCells.size() > 0) {
-      handleNextAction(cellHashMap, tempState, state, 0, vacantCells);
+      handleNextAction(cellGrid, tempState, state, 0, vacantCells);
     }
     else if(fishCells.size() > 0) {
       increaseEnergyLevel();
       Point targetPt = fishCells.get(0);
-      handleNextAction(cellHashMap, tempState, SHARK, getBreedingTime(), fishCells);
-      ((PredatorPreyCell) cellHashMap.get(targetPt)).setEnergyLevel(getEnergyLevel());
+      handleNextAction(cellGrid, tempState, SHARK, getBreedingTime(), fishCells);
+      ((PredatorPreyCell) cellGrid.getCell((int) targetPt.getX(), (int) targetPt.getY())).setEnergyLevel(getEnergyLevel());
     }
     else if(vacantCells.size() > 0) {
       Point targetPt = vacantCells.get(0);
-      handleNextAction(cellHashMap, tempState, VACANT, getBreedingTime(), vacantCells);
-      ((PredatorPreyCell) cellHashMap.get(targetPt)).setEnergyLevel(getEnergyLevel());
+      handleNextAction(cellGrid, tempState, VACANT, getBreedingTime(), vacantCells);
+      ((PredatorPreyCell) cellGrid.getCell((int) targetPt.getX(), (int) targetPt.getY())).setEnergyLevel(getEnergyLevel());
     }
     else {
       this.myNextState = SHARK;
     }
   }
 
-  private void handleFishState(HashMap<Point, Cell> cellHashMap) {
+  private void handleFishState(Grid cellGrid) {
     increaseBreedingTime();
     int tempState = state;
     if(breedingTime > MAX_BREEDING_TIME && vacantCells.size() > 0) {
-      handleNextAction(cellHashMap, tempState, state, 0, vacantCells);
+      handleNextAction(cellGrid, tempState, state, 0, vacantCells);
     }
     else if(vacantCells.size() > 0) {
-      handleNextAction(cellHashMap, tempState, VACANT, getBreedingTime(), vacantCells);
+      handleNextAction(cellGrid, tempState, VACANT, getBreedingTime(), vacantCells);
     }
     else {
       this.myNextState = FISH;
     }
   }
 
-  private void handleNextAction(HashMap<Point, Cell> cellHashMap, int tempState, int nextState, int newBreedingTime, List<Point> cellList) {
+  private void handleNextAction(Grid cellGrid, int tempState, int nextState, int newBreedingTime, List<Point> cellList) {
     myNextState = nextState;
     Point targetPt = cellList.get(0);
-    cellHashMap.get(targetPt).setMyNextState(tempState);
-    ((PredatorPreyCell) cellHashMap.get(targetPt)).setBreedingTime(newBreedingTime);
+    cellGrid.getCell((int) targetPt.getX(), (int) targetPt.getY()).setMyNextState(tempState);
+//    cellHashMap.get(targetPt).setMyNextState(tempState);
+    ((PredatorPreyCell) cellGrid.getCell((int) targetPt.getX(), (int) targetPt.getY())).setBreedingTime(newBreedingTime);
     setBreedingTime(0);
     cellList.remove(0);
   }
 
-  private void getVacantCells(HashMap<Point, Cell> cellHashMap, int row, int col) {
-    vacantCells  = neighbors.getVacantNeighbors(cellHashMap, row, col, VACANT);
+  private void getVacantCells(Grid grid, int row, int col) {
+    vacantCells  =     this.getNeighbors().getVacantNeighbors(grid, row, col, VACANT);
   }
 
-  private void getFishCells(HashMap<Point, Cell> cellHashMap, int row, int col) {
-    fishCells = neighbors.getTypeNeighbors(cellHashMap, row, col,  FISH);
+  private void getFishCells(Grid grid, int row, int col) {
+    fishCells =     this.getNeighbors().getTypeNeighbors(grid, row, col,  FISH);
   }
 
-  private boolean checkNextState(HashMap<Point, Cell> cellHashMap, int row, int col, int nextState) {
-    return cellHashMap.get(new Point(row, col)).getNextState() == nextState;
-  }
-
-  private boolean checkState(HashMap<Point, Cell> cellHashMap, int row, int col, int currState) {
-    return cellHashMap.get(new Point(row, col)).getState() == currState;
-  }
-
-  private boolean mapContainsNeighbor(HashMap<Point, Cell> cellHashMap, int row, int col) {
-    return cellHashMap.containsKey(new Point(row, col));
-  }
 
   private void increaseBreedingTime() {
     breedingTime++;

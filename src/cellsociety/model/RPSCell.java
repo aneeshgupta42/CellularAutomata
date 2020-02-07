@@ -1,18 +1,14 @@
 package cellsociety.model;
 
-import java.awt.Point;
-import java.util.HashMap;
-import javafx.scene.paint.Color;
-
 public class RPSCell extends Cell {
   private int state;
   private static final int ROCK = 0;
   private static final int PAPER = 1;
   private static final int SCISSORS = 0;
   private int THRESHOLD;
-  private Color cellColor;
+  private String cellColor;
 
-  private Neighbor neighbors = new SquareNeighbor();
+  //private Neighbor neighbors = new SquareNeighbor();
 
   private int neighborhoodChoice;
   private int threshold;
@@ -30,13 +26,13 @@ public class RPSCell extends Cell {
     this.state = mystate;
     this.setCellColor();
     this.THRESHOLD = threshold;
-    neighbors.setAllNeighbors();
+    this.getNeighbors().setAllNeighbors();
   }
 
   @Override
-  public int updateCell(HashMap<Point, Cell> cellHashMap, int row, int col, int width, int height) {
+  public int updateCell(Grid cellGrid, int row, int col, int width, int height) {
     int[] statesArr = {ROCK, PAPER, SCISSORS};
-    int maxNeighborCount = neighbors.getMaxNeighborCount(cellHashMap, row, col, statesArr);
+    int maxNeighborCount = this.getNeighbors().getMaxNeighborCount(cellGrid, row, col, statesArr);
 
     if(threshold < maxNeighborCount) {
       return maxNeighborCount;
@@ -53,20 +49,20 @@ public class RPSCell extends Cell {
   }
 
   @Override
-  public Color getCellColor() {
+  public String getCellColor() {
     return cellColor;
   }
 
   @Override
   public void setCellColor() {
     if(state == ROCK) {
-      cellColor = Color.GRAY;
+      cellColor = "gray";
     }
     else if(state == PAPER) {
-      cellColor = Color.WHITE;
+      cellColor = "white";
     }
     else {
-      cellColor = Color.BLACK;
+      cellColor = "black";
     }
   }
 }

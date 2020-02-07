@@ -1,8 +1,6 @@
 package cellsociety.model;
 
-import javafx.scene.paint.Color;
-import java.awt.Point;
-import java.util.HashMap;
+
 import java.util.Random;
 
 /**
@@ -22,11 +20,11 @@ public class FireCell extends Cell {
   private final static int EMPTY = 0;
   private final static int TREE = 1;
   private final static int BURNING = 2;
-  private Color cellColor;
+  private String cellColor;
   private int state;
   private Random numChooser = new Random();
 
-  private Neighbor neighbors = new SquareNeighbor();
+  //private Neighbor neighbors = new SquareNeighbor();
   private int neighborhoodChoice;
 
 
@@ -43,26 +41,26 @@ public class FireCell extends Cell {
     this.setCellColor();
     this.probCatch = prob;
     neighborhoodChoice = 0;
-    neighbors.setDirectNeighbors();
+    this.getNeighbors().setDirectNeighbors();
 
   }
 
 
   /**
    * Updates the cell based on the rules
-   * @param  cellHashMap: grid of cells
-   * @param  row: row the cell is in
-   * @param  col: column the cell is in
-   * @param  width: width of the grid
+   * @param  cellGrid : grid of cells
+   * @param  row : row the cell is in
+   * @param  col : column the cell is in
+   * @param  width : width of the grid
    * @param  height : height of the grid
    * @return int : the next state integer
    */
   @Override
-  public int updateCell(HashMap<Point, Cell> cellHashMap, int row, int col, int width, int height) {
-    if(checkState(cellHashMap, row, col, BURNING)) {
+  public int updateCell(Grid cellGrid, int row, int col, int width, int height) {
+    if(checkState(cellGrid, row, col, BURNING)) {
       return EMPTY;
     }
-    else if(checkState(cellHashMap, row, col, TREE) && getNeighborCount(cellHashMap, row, col) >= 1) {
+    else if(checkState(cellGrid, row, col, TREE) && getNeighborCount(cellGrid, row, col, BURNING) >= 1) {
       if(numChooser.nextFloat() < this.probCatch) {
         return BURNING;
       }
@@ -85,7 +83,7 @@ public class FireCell extends Cell {
    * @return color of the cell
    */
   @Override
-  public Color getCellColor() {
+  public String getCellColor() {
     return cellColor;
   }
 
@@ -95,13 +93,13 @@ public class FireCell extends Cell {
   @Override
   public void setCellColor() {
     if(state == EMPTY) {
-      cellColor = Color.YELLOW;
+      cellColor = "yellow";
     }
     else if(state == TREE) {
-      cellColor = Color.GREEN;
+      cellColor = "green";
     }
     else {
-      cellColor = Color.RED;
+      cellColor = "red";
     }
   }
 
@@ -114,16 +112,6 @@ public class FireCell extends Cell {
   }
 
 
-  private int getNeighborCount(HashMap<Point, Cell> cellHashMap, int row, int col) {
-      return neighbors.getNeighborCount(cellHashMap, row, col, BURNING);
-  }
 
-  private boolean mapContainsNeighbor(HashMap<Point, Cell> cellHashMap, int colDelta, int rowDelta) {
-    return cellHashMap.containsKey(new Point(rowDelta, colDelta));
-  }
-
-  private boolean checkState(HashMap<Point, Cell> cellHashMap, int row, int col, int currState) {
-    return cellHashMap.get(new Point(row, col)).getState() == currState;
-  }
 
 }

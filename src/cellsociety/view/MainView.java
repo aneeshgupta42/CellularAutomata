@@ -1,14 +1,11 @@
 package cellsociety.view;
 
 import cellsociety.model.*;
-import cellsociety.model.Cell;
 import javafx.geometry.Pos;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import java.awt.*;
-import java.util.HashMap;
 
 /**
  * Mainview class which acts as a VBox where the grid and toolbar are held.
@@ -19,8 +16,10 @@ public class MainView extends VBox {
     private Grid displayGrid;
     private int rows;
     private int cols;
-    public Toolbar myToolbar;
+    private Toolbar myToolbar;
     private GridPane theGrid;
+
+    private final int SIZEOFGRID = 500;
 
     /**
      * Sets instance variables myToolbar, displayGrid, and the grid and adds myToolbar and theGrid to the mainView
@@ -54,18 +53,15 @@ public class MainView extends VBox {
         GridPane gridPane = new GridPane();
         this.rows = myGrid.getMyHeight();
         this.cols = myGrid.getMyWidth();
-        HashMap<Point, Cell> myMap = myGrid.getCellGrid();
         gridPane.addColumn(cols);
         gridPane.addRow(rows);
         gridPane.setHgap(1);
         gridPane.setVgap(1);
-        int size = 500;
         for(int i = 0; i<rows; i++){
             for (int j = 0; j<cols; j++){
-                Point tempPt = new Point(i,j);
-                Color tempColor = myMap.get(tempPt).getCellColor();
+                Color tempColor = Color.web(myGrid.getPointColor(i,j));
                 System.out.println("");
-                Rectangle rect = new Rectangle(size/rows,size/cols, tempColor);
+                Rectangle rect = new Rectangle(SIZEOFGRID/rows,SIZEOFGRID/cols, tempColor);
                 gridPane.add(rect, j, i);
             }
         }

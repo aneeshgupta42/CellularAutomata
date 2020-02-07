@@ -1,7 +1,6 @@
 package cellsociety.model;
 
 import java.awt.*;
-import java.util.HashMap;
 
 /**
  * Cell class based on multiple simulations that creates cells. Users can choose which simulation they want to run and then cells are created
@@ -19,7 +18,8 @@ public abstract class Cell {
     private int myNextState;
     private Image displayImage;
     Point gridPos;
-    private Color color;
+    private String color;
+    private Neighbor neighbors = new SquareNeighbor();
 
   /**
    * Constructor for the Cell object
@@ -34,14 +34,16 @@ public abstract class Cell {
 
   /**
    * Updates the cell based on the rules
-   * @param  cellHashMap: grid of cells
-   * @param  row: row the cell is in
-   * @param  col: column the cell is in
-   * @param  width: width of the grid
+   * @param  cellGrid : grid of cells
+   * @param  row : row the cell is in
+   * @param  col : column the cell is in
+   * @param  width : width of the grid
    * @param  height : height of the grid
    * @return int : the next state integer
    */
-    public abstract int updateCell(HashMap<Point, Cell> cellHashMap, int row, int col, int width, int height);
+    public abstract int updateCell(Grid cellGrid, int row, int col, int width, int height);
+
+
 
   /**
    * Returns the state of the cell
@@ -53,12 +55,16 @@ public abstract class Cell {
    * Returns the color of the cell
    * @return color of the cell
    */
-    public abstract javafx.scene.paint.Color getCellColor();
+    public abstract String getCellColor();
 
   /**
    * Sets the color of the cell
    */
     public abstract void setCellColor();
+
+    public Neighbor getNeighbors() {
+      return neighbors;
+    }
 
   /**
    * Returns the next state of the cell
@@ -84,6 +90,13 @@ public abstract class Cell {
     this.state = state;
   }
 
+  public int getNeighborCount(Grid grid, int row, int col, int state) {
+    return neighbors.getNeighborCount(grid, row, col, state);
+  }
+
+  public boolean checkState(Grid grid, int row, int col, int currState) {
+    return grid.getCell(row, col).getState() == currState;
+  }
 
 
 }
