@@ -29,7 +29,7 @@ public class SugarScapeCell extends Cell {
     private static final int MAXIMUM_AGE = 100;
     private Random numChooser = new Random();
 
-    private Neighbor neighbors = new SquareNeighbor();
+    //private Neighbor neighbors = new SquareNeighbor();
     private int neighborhoodChoice;
 
     /**
@@ -47,7 +47,7 @@ public class SugarScapeCell extends Cell {
         neighborhoodChoice = 0;
         regenerationTime = 0;
         ticks = 0;
-        neighbors.setAllNeighbors();
+        this.getNeighbors().setAllNeighbors();
         setStateVariables(mystate);
     }
 
@@ -71,16 +71,16 @@ public class SugarScapeCell extends Cell {
         regenerationTime = 0;
     }
 
-    private void initializeNewAgent(HashMap<Point, Cell> cellHashMap, int width, int heigtht) {
-        List<Point> vacantCells = neighbors.getVacantCells(cellHashMap, width, heigtht, SUGAR_PATCH);
+    private void initializeNewAgent(Grid cellGrid, int width, int heigtht) {
+        List<Point> vacantCells =     this.getNeighbors().getVacantCells(cellGrid, width, heigtht, SUGAR_PATCH);
         Collections.shuffle(vacantCells);
 
         if(deathCount >= 1) {
             int tempState = state;
             myNextState = AGENT;
             Point targetPt = vacantCells.get(0);
-            cellHashMap.get(targetPt).setMyNextState(tempState);
-            ((SugarScapeCell) cellHashMap.get(targetPt)).initializeAgent();
+            cellGrid.getCell((int) targetPt.getX(), (int) targetPt.getY()).setMyNextState(tempState);
+            ((SugarScapeCell) cellGrid.getCell((int) targetPt.getX(), (int) targetPt.getY())).initializeAgent();
             vacantCells.remove(0);
         }
 
@@ -101,26 +101,27 @@ public class SugarScapeCell extends Cell {
         return myNextState;
     }
 
-    private void handleAgent(HashMap<Point, Cell> cellHashMap, int row, int col) {
+    private void handleAgent(Grid cellGrid, int row, int col) {
         int tempState = state;
         metabolizeAgent();
-        Point targetPt = neighbors.getMaxNeighborTypeCount(cellHashMap, row, col, SUGAR_PATCH);
-        if(cellHashMap.get(targetPt).getState() == AGENT) {
-            if(((SugarScapeCell) cellHashMap.get(targetPt)).getMySugarCount() <= 0
+        Point targetPt = this.getNeighbors().getMaxNeighborTypeCount(cellGrid, row, col, SUGAR_PATCH);
+        if(cellGrid.getCell((int) targetPt.getX(), (int) targetPt.getY()).getState() == AGENT) {
+            if(((SugarScapeCell) cellGrid.getCell((int) targetPt.getX(), (int) targetPt.getY())).getMySugarCount() <= 0
                 || myAge > MAXIMUM_AGE) {
                 deathCount++;
-                handleNextAction(cellHashMap, tempState, SUGAR_PATCH, targetPt);
+                handleNextAction(cellGrid, tempState, SUGAR_PATCH, targetPt);
             }
         }
         else {
-            handleNextAction(cellHashMap, tempState, SUGAR_PATCH, targetPt);
+            handleNextAction(cellGrid, tempState, SUGAR_PATCH, targetPt);
         }
     }
 
-    private void handleNextAction(HashMap<Point, Cell> cellHashMap, int tempState, int nextState, Point targetPt) {
+    private void handleNextAction(Grid cellGrid, int tempState, int nextState, Point targetPt) {
         myNextState = nextState;
-        cellHashMap.get(targetPt).setMyNextState(tempState);
-        SugarScapeCell nextCellType = (SugarScapeCell) cellHashMap.get(targetPt);
+        cellGrid.getCell((int) targetPt.getX(), (int) targetPt.getY()).setMyNextState(tempState);
+//        cellHashMap.get(targetPt).setMyNextState(tempState);
+        SugarScapeCell nextCellType = (SugarScapeCell) cellGrid.getCell((int) targetPt.getX(), (int) targetPt.getY());
         nextCellType.setStateVariables(nextState);
     }
 

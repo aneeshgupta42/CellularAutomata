@@ -8,7 +8,7 @@ public class RPSCell extends Cell {
   private int THRESHOLD;
   private String cellColor;
 
-  private Neighbor neighbors = new SquareNeighbor();
+  //private Neighbor neighbors = new SquareNeighbor();
 
   private int neighborhoodChoice;
   private int threshold;
@@ -26,13 +26,13 @@ public class RPSCell extends Cell {
     this.state = mystate;
     this.setCellColor();
     this.THRESHOLD = threshold;
-    neighbors.setAllNeighbors();
+    this.getNeighbors().setAllNeighbors();
   }
 
   @Override
   public int updateCell(Grid cellGrid, int row, int col, int width, int height) {
     int[] statesArr = {ROCK, PAPER, SCISSORS};
-    int maxNeighborCount = neighbors.getMaxNeighborCount(cellGrid, row, col, statesArr);
+    int maxNeighborCount = this.getNeighbors().getMaxNeighborCount(cellGrid, row, col, statesArr);
 
     if(threshold < maxNeighborCount) {
       return maxNeighborCount;
