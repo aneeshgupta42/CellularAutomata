@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
+
 public class SugarScapeCell extends Cell {
     private int state;
     private String cellColor;
