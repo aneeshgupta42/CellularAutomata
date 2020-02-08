@@ -44,7 +44,10 @@ public class XMLReader {
     public Game getGame (String fname) {
         File dataFile = new File(fname);
         Element root = getRootElement(dataFile);
-        if (! isValidFile(root, Game.DATA_TYPE)) throw new XMLException(ERROR_MESSAGE, Game.DATA_TYPE);
+        if (! isValidFile(root, Game.DATA_TYPE)) {
+            System.out.println("Going here");
+            throw new XMLException(ERROR_MESSAGE, Game.DATA_TYPE);
+        }
         // read data associated with the fields given by the object
         Map<String, String> results = new HashMap<>();
         String simulationName = getTextValue(root, "name");

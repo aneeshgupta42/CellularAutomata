@@ -13,6 +13,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 /**
@@ -66,6 +67,9 @@ public class Toolbar extends ToolBar {
         Button reset = new Button("Reset");
         reset.setOnAction(this::handleReset);
 
+        Button simUpload = new Button("Upload Sim");
+        simUpload.setOnAction(this:: uploadNewSim);
+
         ComboBox switchSimulation = new ComboBox();
         switchSimulation.getItems().addAll("Game of life", "Percolation", "Segregation", "Predator-Prey",
                 "Fire");
@@ -94,8 +98,7 @@ public class Toolbar extends ToolBar {
         timer();
         animationFunctions();
         makeSlider();
-        this.getItems().addAll(play, stop, step, reset, switchSimulation, lblTime, slider);
-
+        this.getItems().addAll(play, stop, step, reset, switchSimulation, lblTime, slider, simUpload);
     }
 
     /**
@@ -159,7 +162,6 @@ public class Toolbar extends ToolBar {
     private void handleReset(ActionEvent actionEvent) {
         choosingNewSim(myChoice);
         animation.pause();
-
     }
 
     /**
@@ -222,6 +224,11 @@ public class Toolbar extends ToolBar {
         seconds = 0;
     }
 
+    public void uploadNewSim(ActionEvent actionEvent){
+        Display tempDisp = new Display();
+        currentGrid = tempDisp.uploadNewFile();
+        choosingNewSim(currentGrid.getChoice());
+    }
     /**
      * Based on the Combobox where one selects the type of simulation being displayed, once the option is clicked it
      * switched simulations based on the appropriate choice.
