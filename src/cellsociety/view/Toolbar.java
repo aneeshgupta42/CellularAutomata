@@ -53,11 +53,9 @@ public class Toolbar extends ToolBar {
      * @param mainView where the toolbar will be displayed
      */
     public Toolbar(MainView mainView) {
-
         myMainView = mainView;
         myGame = myMainView.getMyGame();
         currentGrid = myMainView.getDisplayGrid();
-//        choosingNewSim(0);
         copyGrid = currentGrid;
         Button play = new Button("Play");
         play.setOnAction(this::handlePlay);
@@ -151,6 +149,7 @@ public class Toolbar extends ToolBar {
         myChoice = currentGrid.getChoice();
         resetTime();
         animation.pause();
+        myPanel.removeData();
     }
 
     /**
