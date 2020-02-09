@@ -64,7 +64,12 @@ public class Configpanel extends VBox {
         submit.setAlignment(Pos.TOP_LEFT);
     }
 
-//    public Configpanel getPanel() {
-//        return this.
-//    }
+
+    public int getNewRows() {
+        return numofRows;
+    }
+
+    public int getNewCols() {
+        return numofCols;
+    }
 }

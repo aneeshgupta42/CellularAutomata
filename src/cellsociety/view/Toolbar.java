@@ -243,7 +243,4 @@ public class Toolbar extends ToolBar {
         });
     }
 
-    public void makeButtons() {
-
-    }
 }
