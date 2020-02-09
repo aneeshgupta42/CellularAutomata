@@ -36,10 +36,7 @@ public class MainView extends BorderPane {
         this.setTop(myToolbar);
         this.setCenter(theGrid);
         this.setLeft(null);
-        Button play = new Button("Play");
-        this.setAlignment(play,Pos.CENTER);
         this.setRight(myPanel);
-
     }
 
     /**
@@ -50,6 +47,7 @@ public class MainView extends BorderPane {
         GridPane newGrid = displayGrid(displayGrid);
         this.getChildren().remove(1);
         this.setCenter(newGrid);
+        this.setRight(myPanel);
     }
 
     /**
@@ -84,6 +82,7 @@ public class MainView extends BorderPane {
     public void replaceGrid(GridPane newgrid) {
         this.getChildren().remove(1);
         this.setCenter(newgrid);
+        this.setRight(myPanel);
     }
 
     /**

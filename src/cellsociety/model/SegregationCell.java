@@ -61,14 +61,14 @@ public class SegregationCell extends Cell {
     getVacantCells(cellGrid, width, height);
     Collections.shuffle(vacantCells);
     double checkThreshold = ((double) neighbors.getNeighborCount(
-        cellGrid, row, col, cellGrid.get(new Point(row, col)).getState())) / getNotVacantNeighborCount(
-        cellGrid, row, col);
+            cellGrid, row, col, cellGrid.getCell(row, col).getState())) / getNotVacantNeighborCount(
+            cellGrid, row, col);
 
     if(checkThreshold < THRESHOLD && state!= VACANT) {
       int tempState = state;
       myNextState = VACANT;
       Point targetPt = vacantCells.get(0);
-      cellGrid.get(targetPt).setMyNextState(tempState);
+      cellGrid.getCell(targetPt.x, targetPt.y).setMyNextState(tempState);
       vacantCells.remove(0);
     }
     else if(checkThreshold >= THRESHOLD && state!=VACANT){
@@ -148,15 +148,15 @@ public class SegregationCell extends Cell {
   }
 
 
-  private int getNotVacantNeighborCount(HashMap<Point, Cell> cellHashMap, int row, int col) {
+  private int getNotVacantNeighborCount(Grid cellGrid, int row, int col) {
     int count = 0;
 
     int[] rowDelta = {-1, -1, -1, 0, 0, 1, 1, 1};
     int[] colDelta = {-1, 0, 1, -1, 1, -1, 0, 1};
 
     for(int i = 0; i < rowDelta.length; i++) {
-      if(neighbors.mapContainsNeighbor(grid, row + rowDelta[i], col + colDelta[i])
-          && checkNotVacant(cellHashMap, row + rowDelta[i], col + colDelta[i])) {
+      if(neighbors.mapContainsNeighbor(cellGrid, row + rowDelta[i], col + colDelta[i])
+              && checkNotVacant(cellGrid, row + rowDelta[i], col + colDelta[i])) {
         count++;
       }
     }
@@ -164,12 +164,11 @@ public class SegregationCell extends Cell {
     return count;
   }
 
-  private boolean checkNotVacant(HashMap<Point, Cell> cellHashMap, int row, int col) {
-    return cellHashMap.get(new Point(row, col)).getState() != VACANT;
+  private boolean checkNotVacant(Grid cellGrid, int row, int col) {
+    return cellGrid.getCell(row, col).getState() != VACANT;
   }
 
-  private int getNeighborTypeCount(HashMap<Point, Cell> cellHashMap, int row, int col, int state) {
-    return neighbors.getNeighborCount(cellHashMap, row, col, state);
+  private int getNeighborTypeCount(Grid cellGrid, int row, int col, int state) {
+    return neighbors.getNeighborCount(cellGrid, row, col, state);
   }
-
 }

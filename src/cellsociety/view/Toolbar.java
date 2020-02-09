@@ -36,6 +36,7 @@ public class Toolbar extends ToolBar {
     private Slider slider;
     private int myChoice;
     private ComboBox switchSimulation;
+    private Configpanel myPanel;
 
     private final int GAMEOFLIFENUM = 0;
     private final int PERCOLATIONNUM = 1;
@@ -211,6 +212,7 @@ public class Toolbar extends ToolBar {
         GridCreator creator = new GridCreator();
         currentGrid = creator.GridSelector(choice);
         myMainView.setDisplayGrid(currentGrid);
+        myMainView.setRight(myPanel);
         GridPane newGrid = myMainView.displayGrid(currentGrid);
         myMainView.replaceGrid(newGrid);
         myChoice = choice;
