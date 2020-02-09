@@ -38,7 +38,7 @@ public class Grid {
     private static final int FIRE = 4;
     private static final int RPS = 5;
     private static final int SUGARSCAPE = 6;
-    private static final int NUMSTATES = 3;
+    private static int numStates = 0;
 
 
     /***
@@ -148,11 +148,14 @@ public class Grid {
                 if (choice == GAMEOFLIFE) {
                     tempCell = makeGlider(i, j, choice);
                 } else if (choice == RPS) {
-                    tempCell = getSimulation(i, j, numChooser.nextInt(NUMSTATES), choice);
+                    numStates = 3;
+                    tempCell = getSimulation(i, j, numChooser.nextInt(numStates), choice);
                 } else if (choice == SUGARSCAPE) {
-                    tempCell = getSimulation(i, j, numChooser.nextInt(2), choice);
+                    numStates = 2;
+                    tempCell = getSimulation(i, j, numChooser.nextInt(numStates), choice);
                 } else {
-                    tempCell = getSimulation(i, j, numChooser.nextInt(NUMSTATES), choice);
+                    numStates = 3;
+                    tempCell = getSimulation(i, j, numChooser.nextInt(numStates), choice);
                 }
                 cellGrid.put(new Point(i, j), tempCell);
             }
