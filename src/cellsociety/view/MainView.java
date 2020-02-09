@@ -54,6 +54,7 @@ public class MainView extends BorderPane {
         this.getChildren().remove(1);
         this.setCenter(newGrid);
         this.setRight(myPanel);
+        myPanel.addDataToGraph(myToolbar.getTimeElapsed());
     }
 
     /**
