@@ -22,8 +22,9 @@ public class GridCreator {
 
     private Configpanel configpanel;
     private MainView myMainview;
+    private Game myGame;
 
-    public Grid GridSelector(int choice){
+    public Grid defaultGridSelector(int choice){
         String[] choices = {"data/gameOfLife.xml", "data/percolation.xml", "data/segregation.xml", "data/predator.xml", "data/fire.xml", "data/rps.xml", "data/sugarScape.xml"};
         XMLReader reader = new XMLReader("media");
         Game game = reader.getGame(choices[choice]);
@@ -34,6 +35,9 @@ public class GridCreator {
         }
         else if(choice == 2){
             myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice(), game.getMyThreshold(), game.getMyLayout());
+        }
+        else if(choice == 5){
+            myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice(), (int) game.getMyThreshold(), game.getMyLayout());
         }
         else{
             myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice(), game.getMyLayout());

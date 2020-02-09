@@ -43,30 +43,30 @@ public class XMLWriter {
 
             // firstname element
             Element name = document.createElement("name");
-            name.appendChild(document.createTextNode("James"));
+            name.appendChild(document.createTextNode("Example Sim"));
             root.appendChild(name);
 
             // lastname element
             Element choice = document.createElement("choice");
-            choice.appendChild(document.createTextNode("Harley"));
+            choice.appendChild(document.createTextNode("1"));
             root.appendChild(choice);
 
             // email element
             Element author = document.createElement("author");
-            author.appendChild(document.createTextNode("james@example.org"));
+            author.appendChild(document.createTextNode("Aneesh Gupta"));
             root.appendChild(author);
 
             // department elements
             Element size = document.createElement("size");
-            size.appendChild(document.createTextNode("Human Resources"));
+            size.appendChild(document.createTextNode("300"));
             root.appendChild(size);
 
             Element rows = document.createElement("rows");
-            rows.appendChild(document.createTextNode("Human Resources"));
+            rows.appendChild(document.createTextNode("15"));
             root.appendChild(rows);
 
             Element cols = document.createElement("cols");
-            cols.appendChild(document.createTextNode("Human Resources"));
+            cols.appendChild(document.createTextNode("15"));
             root.appendChild(cols);
 
             Element threshold = document.createElement("threshold");
