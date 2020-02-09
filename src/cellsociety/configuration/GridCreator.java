@@ -47,7 +47,7 @@ public class GridCreator {
 
     public Grid newGridSelector (Game game){
         myGame = game;
-        int choice = game.getMyChoice();
+        int choice = myGame.getMyChoice();
         Grid myGrid;
         if(choice == 4){
             myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice(), game.getMyProb(), game.getMyLayout());

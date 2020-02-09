@@ -41,10 +41,10 @@ public class Display extends Application {
         @Override
         public void start(Stage stage) throws Exception {
 //                Stage fileBrowser = new Stage();
-                FileLoader fileLoader = new FileLoader();
 
-                displayGrid = fileLoader.uploadNewFile(myGame);
+                displayGrid = uploadNewFile();
 //                fileBrowser.close();
+
                 myMainview = new MainView(this);
                 myScene = new Scene(myMainview, WIDTH, HEIGHT);
                 stage.setScene(myScene);
