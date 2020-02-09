@@ -1,4 +1,11 @@
 package cellsociety.configuration;
+import javafx.application.Platform;
+
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.stage.Stage;
+
+import java.io.File;
 
 /**
  * Testing out the XML reader
@@ -19,6 +26,6 @@ public class TestXMLReader {
         System.out.println("Rows: "+ game.getMyRows());
         System.out.println("Layout: "+ game.getMyLayout());
         System.out.println("Cols: "+ game.getMyCols());
-        System.out.println("isLayout: "+ game.getIsLayout());
+        System.out.println("Size: "+ game.getMySize());
     }
 }
