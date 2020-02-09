@@ -17,10 +17,12 @@ public class GridCreator {
      * @param choice
      * @return  Grid object for corresponding simulation
      */
-    public Grid GridSelector(int choice){
+    private Game myGame;
+    public Grid defaultGridSelector(int choice){
         String[] choices = {"data/gameOfLife.xml", "data/percolation.xml", "data/segregation.xml", "data/predator.xml", "data/fire.xml"};
         XMLReader reader = new XMLReader("media");
         Game game = reader.getGame(choices[choice]);
+        myGame = game;
         Grid myGrid;
         if(choice == 4){
             myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice(), game.getMyProb());
@@ -32,5 +34,25 @@ public class GridCreator {
             myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice());
         }
         return myGrid;
+    }
+
+    public Grid newGridSelector (Game game){
+        myGame = game;
+        int choice = game.getMyChoice();
+        Grid myGrid;
+        if(choice == 4){
+            myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice(), game.getMyProb());
+        }
+        else if(choice == 2){
+            myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice(), game.getMyThreshold());
+        }
+        else{
+            myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice());
+        }
+        return myGrid;
+    }
+
+    public Game getMyGame() {
+        return myGame;
     }
 }

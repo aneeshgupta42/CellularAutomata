@@ -1,5 +1,6 @@
 package cellsociety.view;
 
+import cellsociety.configuration.Game;
 import cellsociety.model.*;
 import cellsociety.configuration.GridCreator;
 
@@ -9,11 +10,9 @@ import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
-import javafx.geometry.Pos;
 import javafx.scene.control.*;
 
 import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 /**
@@ -31,6 +30,9 @@ public class Toolbar extends ToolBar {
 
     private int seconds;
     private Grid currentGrid;
+    private Grid copyGrid;
+    private Boolean isDefaultGrid;
+    private Game myGame;
     private Timeline animation;
     private Label lblTime;
     private AnimationTimer timer;
@@ -55,7 +57,9 @@ public class Toolbar extends ToolBar {
     public Toolbar(MainView mainView) {
 
         myMainView = mainView;
-
+        currentGrid = myMainView.getDisplayGrid();
+        copyGrid = currentGrid;
+        myGame = myMainView.getMyGame();
         Button play = new Button("Play");
         play.setOnAction(this::handlePlay);
 
@@ -70,9 +74,6 @@ public class Toolbar extends ToolBar {
 
         Button simUpload = new Button("Upload Sim");
         simUpload.setOnAction(this:: uploadNewSim);
-
-        GridCreator creator = new GridCreator();
-        currentGrid = creator.GridSelector(myChoice);
 
         timer();
         animationFunctions();
@@ -141,7 +142,14 @@ public class Toolbar extends ToolBar {
      * @param actionEvent the reset button is pressed
      */
     private void handleReset(ActionEvent actionEvent) {
-        choosingNewSim(myChoice);
+        GridCreator creator = new GridCreator();
+        currentGrid = creator.newGridSelector(myGame);
+        myMainView.setDisplayGrid(currentGrid);
+        myMainView.setRight(myPanel);
+        GridPane newGrid = myMainView.displayGrid(currentGrid);
+        myMainView.replaceGrid(newGrid);
+        myChoice = currentGrid.getChoice();
+        resetTime();
         animation.pause();
     }
 
@@ -209,7 +217,13 @@ public class Toolbar extends ToolBar {
         animation.stop();
         Display tempDisp = new Display();
         currentGrid = tempDisp.uploadNewFile();
-        choosingNewSim(currentGrid.getChoice());
+        myGame = tempDisp.getMyGame();
+        myMainView.setDisplayGrid(currentGrid);
+        myMainView.setRight(myPanel);
+        GridPane newGrid = myMainView.displayGrid(currentGrid);
+        myMainView.replaceGrid(newGrid);
+        myChoice = currentGrid.getChoice();
+        resetTime();
     }
 
     /**
@@ -219,7 +233,8 @@ public class Toolbar extends ToolBar {
      */
     public void choosingNewSim(int choice) {
         GridCreator creator = new GridCreator();
-        currentGrid = creator.GridSelector(choice);
+        currentGrid = creator.defaultGridSelector(choice);
+        myGame = creator.getMyGame();
         myMainView.setDisplayGrid(currentGrid);
         myMainView.setRight(myPanel);
         GridPane newGrid = myMainView.displayGrid(currentGrid);
