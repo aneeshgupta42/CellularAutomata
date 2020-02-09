@@ -145,6 +145,13 @@ public class SugarScapeCell extends Cell {
         return mySugarCount;
     }
 
+    /**
+     * Sets the color of the cell
+     * @param state : state of the cell
+     */
+    public void setState(int state) {
+        this.state = state;
+    }
 
     @Override
     public void setCellColor() {

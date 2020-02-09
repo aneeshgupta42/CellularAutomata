@@ -24,10 +24,6 @@ public class FireCell extends Cell {
   private int state;
   private Random numChooser = new Random();
 
-  //private Neighbor neighbors = new SquareNeighbor();
-  private int neighborhoodChoice;
-
-
   /**
    * Constructor for the FireCell object
    * @param row: row number cell is in
@@ -40,11 +36,8 @@ public class FireCell extends Cell {
     this.state = mystate;
     this.setCellColor();
     this.probCatch = prob;
-    neighborhoodChoice = 0;
     this.getNeighbors().setDirectNeighbors();
-
   }
-
 
   /**
    * Updates the cell based on the rules
