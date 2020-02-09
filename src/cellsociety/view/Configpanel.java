@@ -1,5 +1,6 @@
 package cellsociety.view;
 
+import cellsociety.model.Grid;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -28,10 +29,12 @@ public class Configpanel extends VBox {
     private LineChart<Number,Number> myLinechart;
     private static String cursorPosFormat = "Cursor (%d, %d)";
     private XYChart.Series<Number, Number> myseries;
+    private Grid currentGrid;
 
     public Configpanel(MainView mainView) {
 
         myMainView = mainView;
+        currentGrid = myMainView.getDisplayGrid();
 
         Label Rows = new Label("Rows:");
         this.inputRows= new TextField();
@@ -104,10 +107,16 @@ public class Configpanel extends VBox {
         myLinechart.setTitle("Cell Populations");
         myLinechart.setAnimated(false); // disable animations
 
-        myseries= new XYChart.Series<>();
-        myseries.setName("Data Series");
-        myLinechart.getData().add(myseries);
+//        myseries= new XYChart.Series<>();
+//        myseries.setName("Data Series");
+//        myLinechart.getData().add(myseries);
         // add series to chart
+        // System.out.println(myMainView.getStates());
+//        for (int i = 0; i < currentGrid.getNumStates(); i++) {
+//            XYChart.Series series = new XYChart.Series();
+//            series.setName(Integer.toString(i));
+//            myLinechart.getData().add(series);
+//        }
     }
 
     public void addDataToGraph(int timernumber) {
