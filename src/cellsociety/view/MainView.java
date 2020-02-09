@@ -24,7 +24,7 @@ public class MainView extends BorderPane {
     private Configpanel myPanel;
     private MainView myMainview;
 
-    private final int SIZEOFGRID = 500;
+    private static final int SIZEOFGRID = 500;
 
     /**
      * Sets instance variables myToolbar, displayGrid, and the grid and adds myToolbar and theGrid to the mainView

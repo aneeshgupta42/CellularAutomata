@@ -26,8 +26,8 @@ public class Configpanel extends VBox {
     private boolean submitbuttonstatus = false;
     private Toolbar toolBar;
     private LineChart<String,Number> myLinechart;
-
     private static String cursorPosFormat = "Cursor (%d, %d)";
+    private XYChart.Series<String, Number> myseries;
 
     public Configpanel(MainView mainView) {
 
@@ -101,7 +101,7 @@ public class Configpanel extends VBox {
 
         //creating the line chart with two axis created above
         this.myLinechart = new LineChart<>(xAxis, yAxis);
-        myLinechart.setTitle("Realtime JavaFX Charts");
+        myLinechart.setTitle("Cell Populations");
         myLinechart.setAnimated(false); // disable animations
 
         XYChart.Series<String, Number> series = new XYChart.Series<>();
@@ -110,5 +110,11 @@ public class Configpanel extends VBox {
         // add series to chart
         myLinechart.getData().add(series);
         series.getData().add(new XYChart.Data<>("hello",1));
+    }
+
+    public void addDataToGraph() {
+        myseries = new XYChart.Series<>();
+        myLinechart.getData().add(myseries);
+        myseries.getData().add(new XYChart.Data<>("hello",1));
     }
 }
