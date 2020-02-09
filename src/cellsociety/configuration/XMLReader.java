@@ -5,7 +5,8 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
-
+import java.util.HashMap;
+import java.util.Map;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -30,7 +31,7 @@ public class XMLReader {
     // keep only one documentBuilder because it is expensive to make and can reset it before parsing
     private final DocumentBuilder DOCUMENT_BUILDER;
 
-    private int choice, isLayout, myRows, myCols;
+    private int choice, mySize, myRows, myCols;
     private String simulationName, author, myLayout;
     private float myProb;
     private double myThreshold;
@@ -58,17 +59,17 @@ public class XMLReader {
         readBasic(root);
         if(choice == 4){//Fire
             myProb = Float.parseFloat(getTextValue(root, "prob"));
-            return new Game(simulationName, author, choice, isLayout, myRows, myCols, myProb, myLayout);
+            return new Game(simulationName, author, choice, mySize, myRows, myCols, myProb, myLayout);
         }
         if(choice == 2){//Segregation
             myThreshold = Double.parseDouble(getTextValue(root, "threshold"));
-            return new Game(simulationName, author, choice, isLayout, myRows, myCols, myThreshold, myLayout);
+            return new Game(simulationName, author, choice, mySize, myRows, myCols, myThreshold, myLayout);
         }
         if(choice == 5) {
             int myThreshold = (int) Double.parseDouble(getTextValue(root, "threshold"));
-            return new Game(simulationName, author, choice, isLayout, myRows, myCols, myThreshold, myLayout);
+            return new Game(simulationName, author, choice, mySize, myRows, myCols, myThreshold, myLayout);
         }
-        return new Game(simulationName, author, choice, isLayout, myRows, myCols, myLayout);
+        return new Game(simulationName, author, choice, mySize, myRows, myCols, myLayout);
     }
 
     private void readBasic(Element root) throws XMLException{
@@ -76,7 +77,7 @@ public class XMLReader {
             simulationName = getTextValue(root, "name");
             choice = Integer.parseInt(getTextValue(root, "choice"));
             author = getTextValue(root, "author");
-            isLayout = Integer.parseInt(getTextValue(root, "islayout"));
+            mySize = Integer.parseInt(getTextValue(root, "size"));
             myRows = Integer.parseInt(getTextValue(root, "rows"));
             myCols = Integer.parseInt(getTextValue(root, "cols"));
             myLayout = getTextValue(root, "layout");
