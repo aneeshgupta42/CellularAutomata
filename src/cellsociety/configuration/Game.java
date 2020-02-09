@@ -74,7 +74,7 @@ public class Game {
         this.myProb = prob;
     }
     /***
-     * Overloaded version of constructor with param for fire probability
+     * Overloaded version of constructor with param for segregation threshold
      * @param simName: Name of Simulation
      * @param authName: author of sim file
      * @param choice: choice of sim
@@ -90,7 +90,7 @@ public class Game {
     }
 
     /***
-     * Overloaded version of constructor with param for fire probability
+     * Overloaded version of constructor with param for rps threshold
      * @param simName: Name of Simulation
      * @param authName: author of sim file
      * @param choice: choice of sim
@@ -100,8 +100,8 @@ public class Game {
      * @param thresh: threshold for rps rounds
      */
     //RPS - has threshold
-    public Game(String simName, String authName, int choice, int size, int rows, int cols, int thresh){
-        this(simName, authName, choice, size,rows,cols);
+    public Game(String simName, String authName, int choice, int size, int rows, int cols, int thresh, String layout){
+        this(simName, authName, choice, size,rows,cols, layout);
         this.myThreshold = thresh;
     }
 
