@@ -127,6 +127,10 @@ public class MainView extends BorderPane {
     public Game getMyGame() {
         return myGame;
     }
+    
+    public void setMyGame(Game myGame) {
+        this.myGame = myGame;
+    }
 
     public void setMyGame(Game myGame) {
         this.myGame = myGame;

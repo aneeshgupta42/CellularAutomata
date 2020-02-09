@@ -38,7 +38,9 @@ public class Grid {
     private static final int FIRE = 4;
     private static final int RPS = 5;
     private static final int SUGARSCAPE = 6;
+    private static int numStates = 2;
     private static final int NUMSTATES = 3;
+
 
 
     /***
@@ -261,6 +263,10 @@ public class Grid {
 
     public String getPointColor(int x, int y) {
         return cellGrid.get(new Point(x, y)).getCellColor();
+    }
+
+    public int getNumStates() {
+        return numStates;
     }
 
 }
