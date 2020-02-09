@@ -9,11 +9,13 @@ import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
-import javafx.geometry.Pos;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 
 import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 /**
@@ -38,6 +40,7 @@ public class Toolbar extends ToolBar {
     private int myChoice;
     private ComboBox switchSimulation;
     private Configpanel myPanel;
+    private boolean submitbuttonstatus;
 
     private final int GAMEOFLIFENUM = 0;
     private final int PERCOLATIONNUM = 1;
@@ -47,6 +50,8 @@ public class Toolbar extends ToolBar {
     private final int SLIDERMINNUM = 0;
     private final int SLIDERMAXNUM = 10;
     private final int SLIDERUNIT = 5;
+
+
 
     /**
      * Creates the toolbar with all of the functionality buttons and sets it in the mainView.
@@ -78,6 +83,7 @@ public class Toolbar extends ToolBar {
         animationFunctions();
         makeSlider();
         switchingSimulation();
+
         this.getItems().addAll(play, stop, step, reset, switchSimulation, lblTime, slider, simUpload);
 
     }
@@ -226,6 +232,7 @@ public class Toolbar extends ToolBar {
         myMainView.replaceGrid(newGrid);
         myChoice = choice;
         resetTime();
+
     }
 
     public void switchingSimulation() {
@@ -252,4 +259,16 @@ public class Toolbar extends ToolBar {
         });
     }
 
+    public int getMyChoice() {
+        return myChoice;
+    }
+
+    public boolean getsumbitbutton() {
+        return submitbuttonstatus;
+    }
+
+    public int getTimeElapsed() {
+        return seconds;
+    }
 }
+

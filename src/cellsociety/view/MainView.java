@@ -1,7 +1,10 @@
 package cellsociety.view;
 
 import cellsociety.model.*;
+import javafx.event.EventHandler;
+import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -19,6 +22,7 @@ public class MainView extends BorderPane {
     private Toolbar myToolbar;
     private GridPane theGrid;
     private Configpanel myPanel;
+    private MainView myMainview;
 
     private final int SIZEOFGRID = 500;
 
@@ -28,16 +32,18 @@ public class MainView extends BorderPane {
     public MainView(Display display) {
         myToolbar = new Toolbar(this);
         myPanel = new Configpanel(this);
-//        displayGrid = myToolbar.getCurrentGrid();
-////        displayGrid = myToolbar.getCurrentGrid();
         displayGrid = display.getDisplayGrid();
         this.theGrid = displayGrid(displayGrid);
-        this.theGrid.setAlignment(Pos.CENTER_LEFT);
+        this.theGrid.setAlignment(Pos.TOP_LEFT);
         this.setTop(myToolbar);
         this.setCenter(theGrid);
         this.setLeft(null);
+        this.myPanel.setAlignment(Pos.TOP_LEFT);
         this.setRight(myPanel);
+
     }
+
+
 
     /**
      * Updates the grid and removes the old grid and adds the new one. This happens every time the step function is called
@@ -69,9 +75,25 @@ public class MainView extends BorderPane {
                 Color tempColor = Color.web(myGrid.getPointColor(i,j));
                 System.out.println("");
                 Rectangle rect = new Rectangle(SIZEOFGRID/rows,SIZEOFGRID/cols, tempColor);
+                int finalI = i;
+                int finalJ = j;
+//                rect.setOnMouseClicked(new EventHandler<MouseEvent>()
+//                {
+//                    @Override
+//                    public void handle(MouseEvent t) {
+//                        System.out.println(finalI + "" + finalJ);
+//
+//                        displayGrid.updateGrid(finalI,finalJ);
+//                        GridPane newGrid = displayGrid(displayGrid);
+//                        this.getChildren().remove(1);
+//                        this.setCenter(newGrid);
+//                        this.setRight(myPanel);
+//                    }
+//                });
                 gridPane.add(rect, j, i);
             }
         }
+
         return gridPane;
     }
 
@@ -92,4 +114,5 @@ public class MainView extends BorderPane {
     public void setDisplayGrid(Grid currentGrid) {
         displayGrid = currentGrid;
     }
+
 }
