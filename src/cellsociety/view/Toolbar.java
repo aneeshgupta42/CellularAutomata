@@ -78,7 +78,7 @@ public class Toolbar extends ToolBar {
         animationFunctions();
         makeSlider();
         switchingSimulation();
-        this.getItems().addAll(play, stop, step, reset, switchSimulation, lblTime, slider);
+        this.getItems().addAll(play, stop, step, reset, switchSimulation, lblTime, slider, simUpload);
 
     }
 
