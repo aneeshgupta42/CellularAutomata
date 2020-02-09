@@ -24,8 +24,7 @@ public class GridCreator {
     private MainView myMainview;
 
     public Grid GridSelector(int choice){
-//        this.configpanel = new Configpanel(myMainview);
-        String[] choices = {"data/gameOfLife.xml", "data/percolation.xml", "data/segregation.xml", "data/predator.xml", "data/fire.xml"};
+        String[] choices = {"data/gameOfLife.xml", "data/percolation.xml", "data/segregation.xml", "data/predator.xml", "data/fire.xml", "data/rps.xml", "data/sugarScape.xml"};
         XMLReader reader = new XMLReader("media");
         Game game = reader.getGame(choices[choice]);
         Grid myGrid;
@@ -40,6 +39,9 @@ public class GridCreator {
 //            if (configpanel.getsubmitstatus() == true) {
 //                myGrid = new Grid(configpanel.getNewRows(), configpanel.getNewCols(), game.getMyChoice(), game.getMyThreshold());
 //            }
+        }
+        else if(choice == 5) {
+            myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice(), (int) game.getMyThreshold());
         }
         else{
             myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice());

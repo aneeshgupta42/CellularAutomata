@@ -27,7 +27,7 @@ public class SegregationCell extends Cell {
   private String cellColor;
   private List<Point> vacantCells;
 
-  private Neighbor neighbors = new SquareNeighbor();
+  //private Neighbor neighbors = new SquareNeighbor();
   private int neighborhoodChoice;
 
   /**
@@ -44,7 +44,7 @@ public class SegregationCell extends Cell {
     this.THRESHOLD = thresh;
     this.setCellColor();
     neighborhoodChoice = 0;
-    neighbors.setAllNeighbors();
+    this.getNeighbors().setAllNeighbors();
   }
 
   /**
@@ -60,14 +60,14 @@ public class SegregationCell extends Cell {
   public int updateCell(Grid cellGrid, int row, int col, int width, int height) {
     getVacantCells(cellGrid, width, height);
     Collections.shuffle(vacantCells);
-    double checkThreshold = ((double) neighbors.getNeighborCount(
-        cellGrid, row, col, cellGrid.getCell(row, col).getState())) / getNotVacantNeighborCount(cellGrid, row, col);
+    double checkThreshold = ((double) getNeighborCount(cellGrid, row, col, cellGrid.getCell(row, col).getState())) / getNotVacantNeighborCount(
+        cellGrid, row, col);
 
     if(checkThreshold < THRESHOLD && state!= VACANT) {
       int tempState = state;
       myNextState = VACANT;
       Point targetPt = vacantCells.get(0);
-      cellGrid.getCell(targetPt.x, targetPt.y).setMyNextState(tempState);
+      cellGrid.getCell((int) targetPt.getX(), (int) targetPt.getY()).setMyNextState(tempState);
       vacantCells.remove(0);
     }
     else if(checkThreshold >= THRESHOLD && state!=VACANT){
@@ -139,7 +139,7 @@ public class SegregationCell extends Cell {
   }
 
   private void getVacantCells(Grid grid, int width, int height) {
-    vacantCells  = neighbors.getVacantCells(grid, width, height, VACANT); //new ArrayList<>();
+    vacantCells  = this.getNeighbors().getVacantCells(grid, width, height, VACANT); //new ArrayList<>();
   }
 
   private boolean checkNextState(HashMap<Point, Cell> cellHashMap, int row, int k, int nextState) {
@@ -154,8 +154,8 @@ public class SegregationCell extends Cell {
     int[] colDelta = {-1, 0, 1, -1, 1, -1, 0, 1};
 
     for(int i = 0; i < rowDelta.length; i++) {
-      if(neighbors.mapContainsNeighbor(cellGrid, row + rowDelta[i], col + colDelta[i])
-              && checkNotVacant(cellGrid, row + rowDelta[i], col + colDelta[i])) {
+      if(cellGrid.gridContainsCell(row + rowDelta[i], col + colDelta[i])
+          && checkNotVacant(cellGrid, row + rowDelta[i], col + colDelta[i])) {
         count++;
       }
     }
@@ -168,6 +168,6 @@ public class SegregationCell extends Cell {
   }
 
   private int getNeighborTypeCount(Grid cellGrid, int row, int col, int state) {
-    return neighbors.getNeighborCount(cellGrid, row, col, state);
+    return getNeighborCount(cellGrid, row, col, state);
   }
 }

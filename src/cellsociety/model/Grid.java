@@ -89,7 +89,7 @@ public class Grid {
      * @param width: number of cols
      * @param height: number of rows
      * @param choice: choice of simulation
-     * @param thresh: "Satisfaction" threshold for Segregation simulation
+     * @param thresh: Threshold for RPS simulation
      */
     public Grid(int width, int height, int choice, int thresh) {
         cellGrid = new HashMap<Point, Cell>();
@@ -106,8 +106,10 @@ public class Grid {
             for (int j = 0; j < width; j++) {
                 if (choice == GAMEOFLIFE) {
                     tempCell = makeGlider(i, j, choice);
+                } else if(choice == RPS) {
+                    tempCell = getSimulation(i, j, numChooser.nextInt(NUMSTATES), choice);
                 } else if(choice == SUGARSCAPE) {
-                    tempCell = getSimulation(i, j, numChooser.nextInt(NUMSTATES - 1), choice);
+                    tempCell = getSimulation(i, j, numChooser.nextInt(2), choice);
                 } else {
                     tempCell = getSimulation(i, j, numChooser.nextInt(NUMSTATES), choice);
                 }
@@ -211,8 +213,7 @@ public class Grid {
             return new RPSCell(row, col, state, myThresholdRPS);
         }
         else {
-            //change to sugar
-            return new GameCell(row, col, state);
+            return new SugarScapeCell(row, col, state);
         }
     }
     public String getPointColor(int x, int y){

@@ -65,6 +65,10 @@ public class XMLReader {
             double myThreshold = Double.parseDouble(getTextValue(root, "threshold"));
             return new Game(simulationName, author, choice, mySize, myRows, myCols, myThreshold);
         }
+        if(choice == 5) {
+            int myThreshold = (int) Double.parseDouble(getTextValue(root, "threshold"));
+            return new Game(simulationName, author, choice, mySize, myRows, myCols, myThreshold);
+        }
         return new Game(simulationName, author, choice, mySize, myRows, myCols);
     }
 
