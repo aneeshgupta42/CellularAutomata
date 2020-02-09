@@ -30,6 +30,7 @@ public class Grid {
     private int myChoice;
     private int isLayout;
     private String myLayout;
+    private int myNeighborhoodChoice;
     private static final String ROWCOLSDONTMATCH = "Dimensions of layout and specifications don't match";
     private static final int GAMEOFLIFE = 0;
     private static final int PERCOLATION = 1;
@@ -48,14 +49,15 @@ public class Grid {
      * @param height: number of rows
      * @param choice: choice of simulations
      */
-    public Grid(int width, int height, int choice, String layout, int islayout) {
+    public Grid(int width, int height, int choice, String layout, int islayout, int neighborhoodChoice) {
         cellGrid = new HashMap<Point, Cell>();
         myChoice = choice;
         myWidth = width;
         myHeight = height;
         myLayout = layout;
         isLayout = islayout;
-        populateGridCells(width, height, choice);
+        myNeighborhoodChoice = neighborhoodChoice;
+        populateGridCells(width, height, choice, myNeighborhoodChoice);
     }
 
     /***
@@ -66,7 +68,7 @@ public class Grid {
      * @param choice: choice of simulations
      * @param prob: ProbCatch for fire
      */
-    public Grid(int width, int height, int choice, float prob, String layout, int islayout) {
+    public Grid(int width, int height, int choice, float prob, String layout, int islayout, int neighborhoodChoice) {
         cellGrid = new HashMap<Point, Cell>();
         myProb = prob;
         myChoice = choice;
@@ -74,7 +76,8 @@ public class Grid {
         myHeight = height;
         myLayout = layout;
         isLayout = islayout;
-        populateGridCells(width, height, choice);
+        myNeighborhoodChoice = neighborhoodChoice;
+        populateGridCells(width, height, choice, myNeighborhoodChoice);
     }
 
     /***
@@ -85,7 +88,7 @@ public class Grid {
      * @param choice: choice of simulation
      * @param thresh: "Satisfaction" threshold for Segregation simulation
      */
-    public Grid(int width, int height, int choice, double thresh, String layout, int islayout) {
+    public Grid(int width, int height, int choice, double thresh, String layout, int islayout, int neighborhoodChoice) {
         cellGrid = new HashMap<Point, Cell>();
         myThreshold = thresh;
         myChoice = choice;
@@ -93,7 +96,8 @@ public class Grid {
         myHeight = height;
         myLayout = layout;
         isLayout = islayout;
-        populateGridCells(width, height, choice);
+        myNeighborhoodChoice = neighborhoodChoice;
+        populateGridCells(width, height, choice, myNeighborhoodChoice);
     }
 
     /***
@@ -104,7 +108,7 @@ public class Grid {
      * @param choice: choice of simulation
      * @param thresh: Threshold for RPS simulation
      */
-    public Grid(int width, int height, int choice, int thresh, String layout, int islayout) {
+    public Grid(int width, int height, int choice, int thresh, String layout, int islayout, int neighborhoodChoice) {
         cellGrid = new HashMap<Point, Cell>();
         myThresholdRPS = thresh;
         myChoice = choice;
@@ -112,17 +116,18 @@ public class Grid {
         myHeight = height;
         myLayout = layout;
         isLayout = islayout;
-        populateGridCells(width, height, choice);
+        myNeighborhoodChoice = neighborhoodChoice;
+        populateGridCells(width, height, choice, myNeighborhoodChoice);
     }
 
-    private void populateGridCells(int width, int height, int choice) {
+    private void populateGridCells(int width, int height, int choice, int neighborhoodChoice) {
         if (isLayout == 1) {
-            populateFromLayout(width, height, choice, myLayout);
+            populateFromLayout(width, height, choice, myLayout, neighborhoodChoice);
         } else {
-            defaultPopulateCells(width, height, choice);
+            defaultPopulateCells(width, height, choice, myNeighborhoodChoice);
         }
     }
-    private void populateFromLayout(int width, int height, int choice, String layout) {
+    private void populateFromLayout(int width, int height, int choice, String layout, int neighborhoodChoice) {
 //        System.out.println(layout);
         String[] rows = layout.split("\n");
 //        System.out.println(rows.length);
@@ -134,14 +139,14 @@ public class Grid {
         for (int i = 0; i < height; i++) {
             String[] row = rows[i].trim().split(" ");
             for (int j = 0; j < width; j++) {
-                tempCell = getSimulation(i, j, Integer.parseInt(row[j]), choice);
+                tempCell = getSimulation(i, j, Integer.parseInt(row[j]), choice, myNeighborhoodChoice);
                 cellGrid.put(new Point(i, j), tempCell);
             }
 
         }
     }
 
-    private void defaultPopulateCells(int width, int height, int choice) {
+    private void defaultPopulateCells(int width, int height, int choice, int neighborhoodChoice) {
         Cell tempCell;
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
@@ -149,13 +154,13 @@ public class Grid {
                     tempCell = makeGlider(i, j, choice);
                 } else if (choice == RPS) {
                     numStates = 3;
-                    tempCell = getSimulation(i, j, numChooser.nextInt(numStates), choice);
+                    tempCell = getSimulation(i, j, numChooser.nextInt(numStates), choice, myNeighborhoodChoice);
                 } else if (choice == SUGARSCAPE) {
                     numStates = 2;
-                    tempCell = getSimulation(i, j, numChooser.nextInt(numStates), choice);
+                    tempCell = getSimulation(i, j, numChooser.nextInt(numStates), choice, myNeighborhoodChoice);
                 } else {
                     numStates = 3;
-                    tempCell = getSimulation(i, j, numChooser.nextInt(numStates), choice);
+                    tempCell = getSimulation(i, j, numChooser.nextInt(numStates), choice, myNeighborhoodChoice);
                 }
                 cellGrid.put(new Point(i, j), tempCell);
             }
@@ -165,12 +170,12 @@ public class Grid {
     private Cell makeGlider(int i, int j, int choice) {
         Cell tempCell;
         if (i == 2 && j == 3) {
-            tempCell = getSimulation(i, j, 1, choice);
+            tempCell = getSimulation(i, j, 1, choice, myNeighborhoodChoice);
         } else if (i == 3 && j == 4) {
-            tempCell = getSimulation(i, j, 1, choice);
+            tempCell = getSimulation(i, j, 1, choice, myNeighborhoodChoice);
         } else if (i == 4 && (j == 2 || j == 3 || j == 4)) {
-            tempCell = getSimulation(i, j, 1, choice);
-        } else tempCell = getSimulation(i, j, 0, choice);
+            tempCell = getSimulation(i, j, 1, choice, myNeighborhoodChoice);
+        } else tempCell = getSimulation(i, j, 0, choice, myNeighborhoodChoice);
         return tempCell;
     }
 
@@ -244,7 +249,7 @@ public class Grid {
         return this.myChoice;
     }
 
-    private Cell getSimulation(int row, int col, int state, int choice) {
+    private Cell getSimulation(int row, int col, int state, int choice, int neighborhoodChoice) {
         if (choice == GAMEOFLIFE) {
             return new GameCell(row, col, state);
         } else if (choice == PERCOLATION) {
