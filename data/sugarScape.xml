@@ -3,6 +3,7 @@
   <name>SugarScape</name>
   <choice>6</choice>
   <author>Shruthi</author>
+<<<<<<< HEAD
   <size>300</size>
   <rows>5</rows>
   <cols>5</cols>
@@ -11,4 +12,9 @@
     1 0 1 0 1
     0 1 0 1 0
     1 1 0 1 1</layout>
+=======
+  <islayout>0</islayout>
+  <rows>20</rows>
+  <cols>20</cols>
+>>>>>>> d11ef40ce186fe6f0e4d42630e7d7672036180ce
 </data>

@@ -3,7 +3,7 @@
     <name>PredatorPrey</name>
     <choice>3</choice>
     <author>Aneesh</author>
-    <size>300</size>
+    <islayout>0</islayout>
     <rows>20</rows>
     <cols>20</cols>
     <threshold>0.4</threshold>

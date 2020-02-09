@@ -1,14 +1,19 @@
 <?xml version="1.0" ?>
 <data media="sim">
-    <name>GameOfLife</name>
-    <choice>0</choice>
+    <name>Percolation</name>
+    <choice>1</choice>
     <author>Aneesh</author>
-    <size>300</size>
-    <rows>5</rows>
-    <cols>5</cols>
-    <layout>1 0 1 0 1
-0 1 0 1 0
-1 0 1 0 1
-0 1 0 1 0
-1 1 0 1 1</layout>
+    <islayout>1</islayout>
+    <rows>10</rows>
+    <cols>10</cols>
+    <layout>0 0 1 0 0 0 0 0 0 0
+0 0 1 1 0 0 0 0 0 0
+1 0 0 1 1 0 0 0 0 0
+0 1 1 1 0 0 0 0 0 0
+1 1 0 1 0 0 0 0 0 0
+0 1 0 1 1 0 0 0 0 0
+1 1 0 1 1 0 0 0 0 0
+0 1 0 0 1 0 0 0 0 0
+1 1 0 0 1 0 0 0 0 0
+0 0 0 0 1 0 0 0 0 0</layout>
 </data>
