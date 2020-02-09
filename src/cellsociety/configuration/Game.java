@@ -14,12 +14,13 @@ import java.util.Map;
 public class Game {
     // name in data file that will indicate it represents data for this type of object
     public static final String DATA_TYPE = "sim";
+    private final String NEGATIVE_VALUES = "Some values are Negative and out of bounds!!";
     // field names expected to appear in data file holding values for this object
     // NOTE: simple way to create an immutable list
     public static final List<String> DATA_FIELDS = List.of(
         "name",
         "author",
-        "size",
+        "islayout",
         "rows",
         "cols"
     );
@@ -29,7 +30,7 @@ public class Game {
     private String author;
     private String myLayout;
     private int myChoice;
-    private int mySize;
+    private int isLayout;
     private int myRows;
     private int myCols;
     private float myProb;
@@ -42,15 +43,18 @@ public class Game {
     /**
      * Create game data from given data.
      */
-    public Game(String simName, String authName, int choice, int size, int rows, int cols, String layout) {
+    public Game(String simName, String authName, int choice, int islayout, int rows, int cols, String layout) {
         simulationName = simName;
         author = authName;
         myChoice = choice;
-        if(choice>6){
+        if(choice>6 || choice <0){
             myChoice = 0;
             simulationName = "GameOfLife";
         }
-        mySize = size;
+        if(rows<=0||cols<=0){
+            throw new XMLException(NEGATIVE_VALUES, Game.DATA_TYPE);
+        }
+        isLayout = islayout;
         myRows = rows;
         myCols = cols;
         myLayout = layout;
@@ -63,14 +67,14 @@ public class Game {
      * @param simName: Name of Simulation
      * @param authName: author of sim file
      * @param choice: choice of sim
-     * @param size: size of grid (for future use)
+     * @param islayout: random vs given layout
      * @param rows: rows in sim
      * @param cols: cols in sim
      * @param prob: probCatch for Fire
      */
     //Fire - has probability
-    public Game(String simName, String authName, int choice, int size, int rows, int cols, float prob, String layout){
-        this(simName, authName, choice, size,rows,cols, layout);
+    public Game(String simName, String authName, int choice, int islayout, int rows, int cols, float prob, String layout){
+        this(simName, authName, choice, islayout,rows,cols, layout);
         this.myProb = prob;
     }
     /***
@@ -78,14 +82,14 @@ public class Game {
      * @param simName: Name of Simulation
      * @param authName: author of sim file
      * @param choice: choice of sim
-     * @param size: size of grid (for future use)
+     * @param islayout: random vs given layout
      * @param rows: rows in sim
      * @param cols: cols in sim
      * @param thresh: "Happiness" threshold for segregation
      */
     //Segregation - has threshold
-    public Game(String simName, String authName, int choice, int size, int rows, int cols, double thresh, String layout){
-        this(simName, authName, choice, size,rows,cols, layout);
+    public Game(String simName, String authName, int choice, int islayout, int rows, int cols, double thresh, String layout){
+        this(simName, authName, choice, islayout,rows,cols, layout);
         this.myThreshold = thresh;
     }
 
@@ -94,14 +98,14 @@ public class Game {
      * @param simName: Name of Simulation
      * @param authName: author of sim file
      * @param choice: choice of sim
-     * @param size: size of grid (for future use)
+     * @param islayout: random vs given layout
      * @param rows: rows in sim
      * @param cols: cols in sim
      * @param thresh: threshold for rps rounds
      */
     //RPS - has threshold
-    public Game(String simName, String authName, int choice, int size, int rows, int cols, int thresh, String layout){
-        this(simName, authName, choice, size,rows,cols, layout);
+    public Game(String simName, String authName, int choice, int islayout, int rows, int cols, int thresh, String layout){
+        this(simName, authName, choice, islayout,rows,cols, layout);
         this.myThreshold = thresh;
     }
 
@@ -148,8 +152,8 @@ public class Game {
      * returns the size of the grid (for future use)
      * @return mySize
      */
-    public int getMySize() {
-        return mySize;
+    public int getIsLayout() {
+        return isLayout;
     }
 
     /***

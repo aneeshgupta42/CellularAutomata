@@ -3,8 +3,9 @@
     <name></name>
     <choice></choice>
     <author></author>
-    <size></size>
+    <islayout></islayout>
     <rows></rows>
     <cols></cols>
     <threshold></threshold>
+    <layout></layout>
 </data>
