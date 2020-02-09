@@ -3,7 +3,7 @@
     <name>GameOfLife</name>
     <choice>0</choice>
     <author>Aneesh</author>
-    <islayout>0</islayout>
+    <size>300</size>
     <rows>15</rows>
     <cols>15</cols>
     <layout>1 0 1 0 1

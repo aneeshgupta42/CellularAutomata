@@ -53,12 +53,10 @@ public class Toolbar extends ToolBar {
      * @param mainView where the toolbar will be displayed
      */
     public Toolbar(MainView mainView) {
-
         myMainView = mainView;
-        myGame = myMainView.getMyGame();
         currentGrid = myMainView.getDisplayGrid();
-//        choosingNewSim(0);
         copyGrid = currentGrid;
+        myGame = myMainView.getMyGame();
         Button play = new Button("Play");
         play.setOnAction(this::handlePlay);
 
@@ -143,7 +141,7 @@ public class Toolbar extends ToolBar {
      */
     private void handleReset(ActionEvent actionEvent) {
         GridCreator creator = new GridCreator();
-        currentGrid = creator.newGridSelector(myMainView.getMyGame());
+        currentGrid = creator.newGridSelector(myGame);
         myMainView.setDisplayGrid(currentGrid);
         myMainView.setRight(myPanel);
         GridPane newGrid = myMainView.displayGrid(currentGrid);
@@ -151,6 +149,7 @@ public class Toolbar extends ToolBar {
         myChoice = currentGrid.getChoice();
         resetTime();
         animation.pause();
+        myPanel.removeData();
     }
 
     /**
@@ -221,7 +220,6 @@ public class Toolbar extends ToolBar {
         myGame = tempDisp.getMyGame();
         myMainView.setDisplayGrid(currentGrid);
         myMainView.setRight(myPanel);
-        myMainView.setMyGame(myGame);
         GridPane newGrid = myMainView.displayGrid(currentGrid);
         myMainView.replaceGrid(newGrid);
         myChoice = currentGrid.getChoice();
@@ -237,7 +235,6 @@ public class Toolbar extends ToolBar {
         GridCreator creator = new GridCreator();
         currentGrid = creator.defaultGridSelector(choice);
         myGame = creator.getMyGame();
-        myMainView.setMyGame(myGame);
         myMainView.setDisplayGrid(currentGrid);
         myMainView.setRight(myPanel);
         GridPane newGrid = myMainView.displayGrid(currentGrid);
