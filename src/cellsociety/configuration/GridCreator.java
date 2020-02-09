@@ -18,7 +18,7 @@ public class GridCreator {
      * @return  Grid object for corresponding simulation
      */
     public Grid GridSelector(int choice){
-        String[] choices = {"data/gameOfLife.xml", "data/percolation.xml", "data/segregation.xml", "data/predator.xml", "data/fire.xml"};
+        String[] choices = {"data/gameOfLife.xml", "data/percolation.xml", "data/segregation.xml", "data/predator.xml", "data/fire.xml", "data/rps.xml", "data/sugarScape.xml"};
         XMLReader reader = new XMLReader("media");
         Game game = reader.getGame(choices[choice]);
         Grid myGrid;
@@ -27,6 +27,9 @@ public class GridCreator {
         }
         else if(choice == 2){
             myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice(), game.getMyThreshold());
+        }
+        else if(choice == 5) {
+            myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice(), (int) game.getMyThreshold());
         }
         else{
             myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice());

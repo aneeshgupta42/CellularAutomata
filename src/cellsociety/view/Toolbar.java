@@ -41,6 +41,8 @@ public class Toolbar extends ToolBar {
     private final int SEGREGATIONNUM = 2;
     private final int PREDATORPREYNUM = 3;
     private final int FIRENUM = 4;
+    private final int RPSNUM = 5;
+    private final int SUGARSCAPENUM = 6;
     private final int SLIDERMINNUM = 0;
     private final int SLIDERMAXNUM = 10;
     private final int SLIDERUNIT = 5;
@@ -68,7 +70,7 @@ public class Toolbar extends ToolBar {
 
         ComboBox switchSimulation = new ComboBox();
         switchSimulation.getItems().addAll("Game of life", "Percolation", "Segregation", "Predator-Prey",
-                "Fire");
+                "Fire", "RPS", "Sugarscape");
 
         switchSimulation.setPromptText("Choose a Simulation");
         switchSimulation.setEditable(true);
@@ -85,6 +87,10 @@ public class Toolbar extends ToolBar {
                 choosingNewSim(PREDATORPREYNUM);
             } else if (newValue == "Fire") {
                 choosingNewSim(FIRENUM);
+            } else if (newValue == "RPS") {
+                choosingNewSim(RPSNUM);
+            } else {
+                choosingNewSim(SUGARSCAPENUM);
             }
         });
 

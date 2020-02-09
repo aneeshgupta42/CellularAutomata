@@ -4,14 +4,11 @@ public class RPSCell extends Cell {
   private int state;
   private static final int ROCK = 0;
   private static final int PAPER = 1;
-  private static final int SCISSORS = 0;
+  private static final int SCISSORS = 2;
   private int THRESHOLD;
   private String cellColor;
 
-  private Neighbor neighbors = new SquareNeighbor();
-
   private int neighborhoodChoice;
-  private int threshold;
 
   /**
    * Constructor for the Cell object
@@ -26,20 +23,30 @@ public class RPSCell extends Cell {
     this.state = mystate;
     this.setCellColor();
     this.THRESHOLD = threshold;
-    neighbors.setAllNeighbors();
+    this.getNeighbors().setAllNeighbors();
   }
 
   @Override
   public int updateCell(Grid cellGrid, int row, int col, int width, int height) {
     int[] statesArr = {ROCK, PAPER, SCISSORS};
-    int maxNeighborCount = neighbors.getMaxNeighborCount(cellGrid, row, col, statesArr);
+    int maxNeighborCount = this.getNeighbors().getMaxNeighborCount(cellGrid, row, col, statesArr);
+    int compState = this.getNeighbors().getMaxNeighborState();
+    int currState = cellGrid.getCell(row, col).getState();
 
-    if(threshold < maxNeighborCount) {
-      return maxNeighborCount;
+    if(THRESHOLD < maxNeighborCount && stateWinChecks(compState, currState)) {
+      return this.getNeighbors().getMaxNeighborState();
     }
     else {
       return state;
     }
+  }
+
+  /**
+   * Sets the color of the cell
+   * @param state : state of the cell
+   */
+  public void setState(int state) {
+    this.state = state;
   }
 
 
@@ -65,4 +72,12 @@ public class RPSCell extends Cell {
       cellColor = "black";
     }
   }
+
+
+  //fix booleans
+  public boolean stateWinChecks(int state1, int state2) {
+    return true;
+  }
+
+
 }

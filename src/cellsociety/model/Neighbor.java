@@ -7,6 +7,7 @@ import java.util.List;
 public abstract class Neighbor {
   private int[] rowDelta;
   private int[] colDelta;
+  private int maxState = 0;
 
   public Neighbor() {
   }
@@ -25,7 +26,6 @@ public abstract class Neighbor {
 
   public int getMaxNeighborCount(Grid grid, int row, int col, int[] states) {
     int max = 0;
-    int maxState = 0;
     int comp = 0;
     for(int temp : states) {
       comp = getNeighborCount(grid, row, col, temp);
@@ -34,6 +34,10 @@ public abstract class Neighbor {
         maxState = temp;
       }
     }
+    return max;
+  }
+
+  public int getMaxNeighborState() {
     return maxState;
   }
 
