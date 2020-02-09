@@ -55,10 +55,10 @@ public class Toolbar extends ToolBar {
     public Toolbar(MainView mainView) {
 
         myMainView = mainView;
+        myGame = myMainView.getMyGame();
         currentGrid = myMainView.getDisplayGrid();
 //        choosingNewSim(0);
         copyGrid = currentGrid;
-        myGame = myMainView.getMyGame();
         Button play = new Button("Play");
         play.setOnAction(this::handlePlay);
 
@@ -143,7 +143,7 @@ public class Toolbar extends ToolBar {
      */
     private void handleReset(ActionEvent actionEvent) {
         GridCreator creator = new GridCreator();
-        currentGrid = creator.newGridSelector(myGame);
+        currentGrid = creator.newGridSelector(myMainView.getMyGame());
         myMainView.setDisplayGrid(currentGrid);
         myMainView.setRight(myPanel);
         GridPane newGrid = myMainView.displayGrid(currentGrid);

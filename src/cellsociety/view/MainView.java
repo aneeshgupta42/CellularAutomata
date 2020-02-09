@@ -32,6 +32,7 @@ public class MainView extends BorderPane {
      * Sets instance variables myToolbar, displayGrid, and the grid and adds myToolbar and theGrid to the mainView
      */
     public MainView(Display display) {
+
         myGame = display.getMyGame();
         myToolbar = new Toolbar(this);
         myPanel = new Configpanel(this);
