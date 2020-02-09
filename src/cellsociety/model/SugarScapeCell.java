@@ -41,8 +41,8 @@ public class SugarScapeCell extends Cell {
      */
     public SugarScapeCell(int row, int col, int mystate) {
         super(row, col, mystate);
-        this.setCellColor();
         this.state = mystate;
+        this.setCellColor();
         this.myNextState = state;
         neighborhoodChoice = 0;
         regenerationTime = 0;
