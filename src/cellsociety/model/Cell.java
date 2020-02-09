@@ -97,12 +97,8 @@ public abstract class Cell {
   }
 
   public boolean checkState(Grid grid, int row, int col, int currState) {
-      int state = this.state;
     return grid.getCell(row, col).getState() == currState;
   }
 
-  public boolean checkNextState(Grid grid, int row, int col, int nextState) {
-    return grid.getCell(row, col).getNextState() == nextState;
-  }
 
 }

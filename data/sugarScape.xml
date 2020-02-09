@@ -4,11 +4,6 @@
   <choice>6</choice>
   <author>Shruthi</author>
   <islayout>0</islayout>
-  <rows>5</rows>
-  <cols>5</cols>
-  <layout>1 0 1 0 1
-    0 1 0 1 0
-    1 0 1 0 1
-    0 1 0 1 0
-    1 1 0 1 1</layout>
+  <rows>20</rows>
+  <cols>20</cols>
 </data>

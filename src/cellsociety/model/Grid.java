@@ -39,7 +39,9 @@ public class Grid {
     private static final int FIRE = 4;
     private static final int RPS = 5;
     private static final int SUGARSCAPE = 6;
-    private static int numStates = 0;
+    private static int numStates = 2;
+    private static final int NUMSTATES = 3;
+
 
 
     /***
@@ -153,6 +155,7 @@ public class Grid {
                 if (choice == GAMEOFLIFE) {
                     tempCell = makeGlider(i, j, choice);
                 } else if (choice == RPS) {
+<<<<<<< HEAD
                     numStates = 3;
                     tempCell = getSimulation(i, j, numChooser.nextInt(numStates), choice, myNeighborhoodChoice);
                 } else if (choice == SUGARSCAPE) {
@@ -161,6 +164,13 @@ public class Grid {
                 } else {
                     numStates = 3;
                     tempCell = getSimulation(i, j, numChooser.nextInt(numStates), choice, myNeighborhoodChoice);
+=======
+                    tempCell = getSimulation(i, j, numChooser.nextInt(NUMSTATES), choice);
+                } else if (choice == SUGARSCAPE) {
+                    tempCell = getSimulation(i, j, numChooser.nextInt(2), choice);
+                } else {
+                    tempCell = getSimulation(i, j, numChooser.nextInt(NUMSTATES), choice);
+>>>>>>> fe9f1cd3a4f0bf138b811ffe8076a7361641726d
                 }
                 cellGrid.put(new Point(i, j), tempCell);
             }
@@ -269,6 +279,10 @@ public class Grid {
 
     public String getPointColor(int x, int y) {
         return cellGrid.get(new Point(x, y)).getCellColor();
+    }
+
+    public int getNumStates() {
+        return numStates;
     }
 
 }

@@ -3,7 +3,7 @@
     <name>Percolation</name>
     <choice>1</choice>
     <author>Aneesh</author>
-    <islayout>1</islayout>
+    <islayout>0</islayout>
     <rows>20</rows>
     <cols>20</cols>
     <layout>0 0 2 0 0
