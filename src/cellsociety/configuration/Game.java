@@ -100,8 +100,8 @@ public class Game {
      * @param thresh: threshold for rps rounds
      */
     //RPS - has threshold
-    public Game(String simName, String authName, int choice, int size, int rows, int cols, int thresh){
-        this(simName, authName, choice, size,rows,cols);
+    public Game(String simName, String authName, int choice, int size, int rows, int cols, int thresh, String layout){
+        this(simName, authName, choice, size,rows,cols, layout);
         this.myThreshold = thresh;
     }
 

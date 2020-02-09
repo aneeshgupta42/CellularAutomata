@@ -22,8 +22,9 @@ public class GridCreator {
 
     private Configpanel configpanel;
     private MainView myMainview;
+    private Game myGame;
 
-    public Grid GridSelector(int choice){
+    public Grid defaultGridSelector(int choice){
         String[] choices = {"data/gameOfLife.xml", "data/percolation.xml", "data/segregation.xml", "data/predator.xml", "data/fire.xml", "data/rps.xml", "data/sugarScape.xml"};
         XMLReader reader = new XMLReader("media");
         Game game = reader.getGame(choices[choice]);
