@@ -13,6 +13,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 /**
@@ -66,6 +67,30 @@ public class Toolbar extends ToolBar {
         Button reset = new Button("Reset");
         reset.setOnAction(this::handleReset);
 
+        Button simUpload = new Button("Upload Sim");
+        simUpload.setOnAction(this:: uploadNewSim);
+
+        ComboBox switchSimulation = new ComboBox();
+        switchSimulation.getItems().addAll("Game of life", "Percolation", "Segregation", "Predator-Prey",
+                "Fire");
+
+        switchSimulation.setPromptText("Choose a Simulation");
+        switchSimulation.setEditable(true);
+
+        switchSimulation.getSelectionModel().selectedItemProperty().addListener( (options, oldValue, newValue) -> {
+            animation.stop();
+            if (newValue == "Game of life") {
+                choosingNewSim(GAMEOFLIFENUM);
+            } else if (newValue == "Percolation") {
+                choosingNewSim(PERCOLATIONNUM);
+            }else if (newValue == "Segregation") {
+                choosingNewSim(SEGREGATIONNUM);
+            } else if (newValue == "Predator-Prey") {
+                choosingNewSim(PREDATORPREYNUM);
+            } else if (newValue == "Fire") {
+                choosingNewSim(FIRENUM);
+            }
+        });
 
         GridCreator creator = new GridCreator();
         currentGrid = creator.GridSelector(myChoice);
@@ -76,6 +101,7 @@ public class Toolbar extends ToolBar {
         switchingSimulation();
         this.getItems().addAll(play, stop, step, reset, switchSimulation, lblTime, slider);
 
+        this.getItems().addAll(play, stop, step, reset, switchSimulation, lblTime, slider, simUpload);
     }
 
     /**
@@ -139,7 +165,6 @@ public class Toolbar extends ToolBar {
     private void handleReset(ActionEvent actionEvent) {
         choosingNewSim(myChoice);
         animation.pause();
-
     }
 
     /**
@@ -202,6 +227,11 @@ public class Toolbar extends ToolBar {
         seconds = 0;
     }
 
+    public void uploadNewSim(ActionEvent actionEvent){
+        Display tempDisp = new Display();
+        currentGrid = tempDisp.uploadNewFile();
+        choosingNewSim(currentGrid.getChoice());
+    }
     /**
      * Based on the Combobox where one selects the type of simulation being displayed, once the option is clicked it
      * switched simulations based on the appropriate choice.
