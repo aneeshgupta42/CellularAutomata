@@ -107,9 +107,9 @@ public class Configpanel extends VBox {
         myLinechart.setTitle("Cell Populations");
         myLinechart.setAnimated(false); // disable animations
 
-//        myseries= new XYChart.Series<>();
-//        myseries.setName("Data Series");
-//        myLinechart.getData().add(myseries);
+        myseries= new XYChart.Series<>();
+        myseries.setName("Data Series");
+
         // add series to chart
         // System.out.println(myMainView.getStates());
 //        for (int i = 0; i < currentGrid.getNumStates(); i++) {
@@ -120,17 +120,8 @@ public class Configpanel extends VBox {
     }
 
     public void addDataToGraph(int timernumber) {
-        myLinechart.setAnimated(true);
         myseries.getData().add(new XYChart.Data<>(timernumber,1));
-    }
+        myLinechart.getData().add(myseries);
 
-    public void removeData() {
-        myLinechart.getData().clear();
-        myseries.getData().clear();
-        myLinechart.setAnimated(false);
-    }
-
-    public Configpanel getConfigpanel() {
-        return this;
     }
 }

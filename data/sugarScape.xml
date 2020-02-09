@@ -3,7 +3,7 @@
   <name>SugarScape</name>
   <choice>6</choice>
   <author>Shruthi</author>
-  <size>300</size>
+  <islayout>0</islayout>
   <rows>20</rows>
   <cols>20</cols>
 </data>

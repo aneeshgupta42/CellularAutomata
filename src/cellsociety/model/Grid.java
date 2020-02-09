@@ -28,6 +28,7 @@ public class Grid {
     private double myThreshold;
     private int myThresholdRPS;
     private int myChoice;
+    private int isLayout;
     private String myLayout;
     private static final String ROWCOLSDONTMATCH = "Dimensions of layout and specifications don't match";
     private static final int GAMEOFLIFE = 0;
@@ -49,12 +50,13 @@ public class Grid {
      * @param height: number of rows
      * @param choice: choice of simulations
      */
-    public Grid(int width, int height, int choice, String layout) {
+    public Grid(int width, int height, int choice, String layout, int islayout) {
         cellGrid = new HashMap<Point, Cell>();
         myChoice = choice;
         myWidth = width;
         myHeight = height;
         myLayout = layout;
+        isLayout = islayout;
         populateGridCells(width, height, choice);
     }
 
@@ -66,13 +68,14 @@ public class Grid {
      * @param choice: choice of simulations
      * @param prob: ProbCatch for fire
      */
-    public Grid(int width, int height, int choice, float prob, String layout) {
+    public Grid(int width, int height, int choice, float prob, String layout, int islayout) {
         cellGrid = new HashMap<Point, Cell>();
         myProb = prob;
         myChoice = choice;
         myWidth = width;
         myHeight = height;
         myLayout = layout;
+        isLayout = islayout;
         populateGridCells(width, height, choice);
     }
 
@@ -84,13 +87,14 @@ public class Grid {
      * @param choice: choice of simulation
      * @param thresh: "Satisfaction" threshold for Segregation simulation
      */
-    public Grid(int width, int height, int choice, double thresh, String layout) {
+    public Grid(int width, int height, int choice, double thresh, String layout, int islayout) {
         cellGrid = new HashMap<Point, Cell>();
         myThreshold = thresh;
         myChoice = choice;
         myWidth = width;
         myHeight = height;
         myLayout = layout;
+        isLayout = islayout;
         populateGridCells(width, height, choice);
     }
 
@@ -102,31 +106,52 @@ public class Grid {
      * @param choice: choice of simulation
      * @param thresh: Threshold for RPS simulation
      */
-    public Grid(int width, int height, int choice, int thresh, String layout) {
+    public Grid(int width, int height, int choice, int thresh, String layout, int islayout) {
         cellGrid = new HashMap<Point, Cell>();
         myThresholdRPS = thresh;
         myChoice = choice;
         myWidth = width;
         myHeight = height;
         myLayout = layout;
+        isLayout = islayout;
         populateGridCells(width, height, choice);
     }
-    private void populateFromLayout(int width, int height, int choice, String layout){
-        String[] rows = layout.split("\n");
-        if(rows.length != height || rows[0].split(" ").length != width){
-            throw new XMLException(ROWCOLSDONTMATCH, Game.DATA_TYPE);
+
+    private void populateGridCells(int width, int height, int choice) {
+        if (isLayout == 1) {
+            populateFromLayout(width, height, choice, myLayout);
+        } else {
+            defaultPopulateCells(width, height, choice);
         }
     }
-    private void populateGridCells(int width, int height, int choice) {
-//        populateFromLayout(width, height, choice, myLayout);
+    private void populateFromLayout(int width, int height, int choice, String layout) {
+//        System.out.println(layout);
+        String[] rows = layout.split("\n");
+//        System.out.println(rows.length);
+//        System.out.println(rows[0].trim().split(" ").length);
+        if (rows.length != height || rows[0].split(" ").length != width) {
+            throw new XMLException(ROWCOLSDONTMATCH, Game.DATA_TYPE);
+        }
+        Cell tempCell;
+        for (int i = 0; i < height; i++) {
+            String[] row = rows[i].trim().split(" ");
+            for (int j = 0; j < width; j++) {
+                tempCell = getSimulation(i, j, Integer.parseInt(row[j]), choice);
+                cellGrid.put(new Point(i, j), tempCell);
+            }
+
+        }
+    }
+
+    private void defaultPopulateCells(int width, int height, int choice) {
         Cell tempCell;
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
                 if (choice == GAMEOFLIFE) {
                     tempCell = makeGlider(i, j, choice);
-                } else if(choice == RPS) {
+                } else if (choice == RPS) {
                     tempCell = getSimulation(i, j, numChooser.nextInt(NUMSTATES), choice);
-                } else if(choice == SUGARSCAPE) {
+                } else if (choice == SUGARSCAPE) {
                     tempCell = getSimulation(i, j, numChooser.nextInt(2), choice);
                 } else {
                     tempCell = getSimulation(i, j, numChooser.nextInt(NUMSTATES), choice);
@@ -176,46 +201,48 @@ public class Grid {
         }
     }
 
-  /***
-   * Get the data struct holding the Grid
-   * Point : Cell  mapping
-   * @return cellGrid
-   */
-  public HashMap<Point, Cell> getCellGrid() {
+    /***
+     * Get the data struct holding the Grid
+     * Point : Cell  mapping
+     * @return cellGrid
+     */
+    public HashMap<Point, Cell> getCellGrid() {
         return cellGrid;
-  }
+    }
 
-  public Cell getCell(int row, int col) {
-      return cellGrid.get(new Point(row, col));
-  }
+    public Cell getCell(int row, int col) {
+        return cellGrid.get(new Point(row, col));
+    }
 
-  public boolean gridContainsCell(int row, int col) {
-      return cellGrid.containsKey(new Point(row, col));
-  }
+    public boolean gridContainsCell(int row, int col) {
+        return cellGrid.containsKey(new Point(row, col));
+    }
 
 
-  /***
-   * Get Height of Grid
-   * @return myHeight
-   */
-  public int getMyHeight() {
+    /***
+     * Get Height of Grid
+     * @return myHeight
+     */
+    public int getMyHeight() {
         return myHeight;
     }
 
-  /***
-   * get width of Grid
-   * @return myWidth
-   */
-  public int getMyWidth() {
+    /***
+     * get width of Grid
+     * @return myWidth
+     */
+    public int getMyWidth() {
         return myWidth;
     }
-  /***
-   * get the choice of simulation being run
-   * @return myChoice
-   */
-  public int getChoice() {
-    return this.myChoice;
-  }
+
+    /***
+     * get the choice of simulation being run
+     * @return myChoice
+     */
+    public int getChoice() {
+        return this.myChoice;
+    }
+
     private Cell getSimulation(int row, int col, int state, int choice) {
         if (choice == GAMEOFLIFE) {
             return new GameCell(row, col, state);
@@ -225,17 +252,17 @@ public class Grid {
             return new SegregationCell(row, col, state, myThreshold);
         } else if (choice == PREDATORPREY) {
             return new PredatorPreyCell(row, col, state);
-        } else if(choice == FIRE) { //FIRE
+        } else if (choice == FIRE) { //FIRE
             return new FireCell(row, col, state, myProb);
-        } else if(choice == RPS) {
+        } else if (choice == RPS) {
             return new RPSCell(row, col, state, myThresholdRPS);
-        }
-        else {
+        } else {
             return new SugarScapeCell(row, col, state);
         }
     }
-    public String getPointColor(int x, int y){
-      return cellGrid.get(new Point(x,y)).getCellColor();
+
+    public String getPointColor(int x, int y) {
+        return cellGrid.get(new Point(x, y)).getCellColor();
     }
 
     public int getNumStates() {
