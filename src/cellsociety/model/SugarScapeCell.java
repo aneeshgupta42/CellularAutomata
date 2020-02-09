@@ -19,11 +19,10 @@ public class SugarScapeCell extends Cell {
     private int myAge;
     private int deathCount = 0;
 
-    private int mySugarCount; //for agent
     private int mySugarAmount; //for sugar cell
     private int regenerationTime; //amount of time to wait before replenishing sugar
     private static final int MAX_REGENERATION_TIME = 4;
-    private static final int MAX_SUGAR_AMOUNT = 17;
+    private static final int MAX_SUGAR_AMOUNT = 10;
     private static final int METABOLISM_RATE = 3; //at every tick, the agents consumes this much sugar
     private static final int MINIMUM_AGE = 60;
     private static final int MAXIMUM_AGE = 100;
@@ -61,7 +60,7 @@ public class SugarScapeCell extends Cell {
     }
 
     private void initializeAgent() {
-        mySugarAmount = 0;
+        mySugarAmount = 4;
         visionDist = 1;
         myAge = MINIMUM_AGE + numChooser.nextInt(40);
     }
@@ -76,7 +75,7 @@ public class SugarScapeCell extends Cell {
         Collections.shuffle(vacantCells);
 
         if(deathCount >= 1) {
-            int tempState = state;
+            int tempState = AGENT;
             myNextState = AGENT;
             Point targetPt = vacantCells.get(0);
             cellGrid.getCell((int) targetPt.getX(), (int) targetPt.getY()).setMyNextState(tempState);
@@ -87,17 +86,18 @@ public class SugarScapeCell extends Cell {
         deathCount = 0;
     }
 
-
     @Override
     public int updateCell(Grid cellGrid, int row, int col, int width,
                           int height) {
-        if(checkState(cellGrid, row, col, SUGAR_PATCH)) {
+        if(checkState(cellGrid, row, col, SUGAR_PATCH) && checkNextState(cellGrid, row, col, SUGAR_PATCH)) {
             handleSugar();
         }
         else {
             handleAgent(cellGrid, row, col);
         }
-        initializeNewAgent(cellGrid, width, height);
+        if(deathCount >= 1) {
+            initializeNewAgent(cellGrid, width, height);
+        }
         return myNextState;
     }
 
@@ -105,13 +105,16 @@ public class SugarScapeCell extends Cell {
         int tempState = state;
         metabolizeAgent();
         Point targetPt = this.getNeighbors().getMaxNeighborTypeCount(cellGrid, row, col, SUGAR_PATCH);
-        if(cellGrid.getCell((int) targetPt.getX(), (int) targetPt.getY()).getState() == AGENT) {
-            if(((SugarScapeCell) cellGrid.getCell((int) targetPt.getX(), (int) targetPt.getY())).getMySugarCount() <= 0
-                || myAge > MAXIMUM_AGE) {
+        SugarScapeCell temp = (SugarScapeCell) cellGrid.getCell((int) targetPt.getX(), (int) targetPt.getY());
+        ((SugarScapeCell) cellGrid.getCell(row, col)).setMySugarCount(temp.getMySugarCount());
+
+        if((((SugarScapeCell) cellGrid.getCell((int) targetPt.getX(), (int) targetPt.getY()))
+            .getMySugarCount() <= 0)
+            || (myAge > MAXIMUM_AGE)) {
                 deathCount++;
                 handleNextAction(cellGrid, tempState, SUGAR_PATCH, targetPt);
             }
-        }
+
         else {
             handleNextAction(cellGrid, tempState, SUGAR_PATCH, targetPt);
         }
@@ -122,7 +125,7 @@ public class SugarScapeCell extends Cell {
         cellGrid.getCell((int) targetPt.getX(), (int) targetPt.getY()).setMyNextState(tempState);
 //        cellHashMap.get(targetPt).setMyNextState(tempState);
         SugarScapeCell nextCellType = (SugarScapeCell) cellGrid.getCell((int) targetPt.getX(), (int) targetPt.getY());
-        nextCellType.setStateVariables(nextState);
+        nextCellType.setStateVariables(tempState);
     }
 
     private void handleSugar() {
@@ -133,7 +136,7 @@ public class SugarScapeCell extends Cell {
 
     @Override
     public int getState() {
-        return 0;
+        return this.state;
     }
 
     @Override
@@ -141,8 +144,12 @@ public class SugarScapeCell extends Cell {
         return cellColor;
     }
 
+    public void setMySugarCount(int addedSugar) {
+        mySugarAmount += addedSugar;
+    }
+
     public int getMySugarCount() {
-        return mySugarCount;
+        return mySugarAmount;
     }
 
     /**
@@ -173,7 +180,16 @@ public class SugarScapeCell extends Cell {
 
 
     private void metabolizeAgent() {
-        mySugarCount -= METABOLISM_RATE;
+        mySugarAmount -= METABOLISM_RATE;
+    }
+
+    /**
+     * Sets the color of the cell
+     * @param nextState : next state of the cell
+     */
+    @Override
+    public void setMyNextState(int nextState){
+        this.myNextState = nextState;
     }
 
 }
