@@ -2,7 +2,10 @@ package cellsociety.view;
 
 import cellsociety.configuration.Game;
 import cellsociety.model.*;
+import javafx.event.EventHandler;
+import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -21,6 +24,7 @@ public class MainView extends BorderPane {
     private Toolbar myToolbar;
     private GridPane theGrid;
     private Configpanel myPanel;
+    private MainView myMainview;
 
     private static final int SIZEOFGRID = 500;
 
@@ -28,6 +32,7 @@ public class MainView extends BorderPane {
      * Sets instance variables myToolbar, displayGrid, and the grid and adds myToolbar and theGrid to the mainView
      */
     public MainView(Display display) {
+
         myGame = display.getMyGame();
         myToolbar = new Toolbar(this);
         myPanel = new Configpanel(this);
@@ -123,4 +128,7 @@ public class MainView extends BorderPane {
         return myGame;
     }
 
+    public void setMyGame(Game myGame) {
+        this.myGame = myGame;
+    }
 }

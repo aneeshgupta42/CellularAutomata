@@ -106,22 +106,13 @@ public class Configpanel extends VBox {
 
         myseries= new XYChart.Series<>();
         myseries.setName("Data Series");
-        myLinechart.getData().add(myseries);
+
         // add series to chart
     }
 
     public void addDataToGraph(int timernumber) {
-        myLinechart.setAnimated(true);
         myseries.getData().add(new XYChart.Data<>(timernumber,1));
-    }
+        myLinechart.getData().add(myseries);
 
-    public void removeData() {
-        myLinechart.getData().clear();
-        myseries.getData().clear();
-        myLinechart.setAnimated(false);
-    }
-
-    public Configpanel getConfigpanel() {
-        return this;
     }
 }

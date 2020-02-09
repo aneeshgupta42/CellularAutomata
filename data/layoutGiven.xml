@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<data media="sim">
+    <name>Percolation</name>
+    <choice>1</choice>
+    <author>Aneesh</author>
+    <islayout>1</islayout>
+    <rows>10</rows>
+    <cols>10</cols>
+    <layout>0 0 2 0 0 0 0 0 0 0
+        0 0 1 1 0 0 0 0 0 0
+        1 0 0 1 1 0 0 0 0 0
+        0 1 1 1 0 0 0 0 0 0
+        1 1 0 1 0 0 0 0 0 0
+        0 1 0 1 1 0 0 0 0 0
+        1 1 0 1 1 0 0 0 0 0
+        0 1 0 0 1 0 0 0 0 0
+        1 1 0 0 1 0 0 0 0 0
+        0 0 0 0 1 0 0 0 0 0</layout>
+</data>
