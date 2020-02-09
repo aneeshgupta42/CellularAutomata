@@ -61,8 +61,7 @@ public class SegregationCell extends Cell {
     getVacantCells(cellGrid, width, height);
     Collections.shuffle(vacantCells);
     double checkThreshold = ((double) neighbors.getNeighborCount(
-            cellGrid, row, col, cellGrid.getCell(row, col).getState())) / getNotVacantNeighborCount(
-            cellGrid, row, col);
+        cellGrid, row, col, cellGrid.getCell(row, col).getState())) / getNotVacantNeighborCount(cellGrid, row, col);
 
     if(checkThreshold < THRESHOLD && state!= VACANT) {
       int tempState = state;

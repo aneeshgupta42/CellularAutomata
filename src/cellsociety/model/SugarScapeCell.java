@@ -106,8 +106,7 @@ public class SugarScapeCell extends Cell {
         metabolizeAgent();
         Point targetPt = neighbors.getMaxNeighborTypeCount(cellGrid, row, col, SUGAR_PATCH);
         if(cellGrid.getCell(targetPt.x, targetPt.y).getState() == AGENT) {
-            if(((SugarScapeCell) cellGrid.getCell(targetPt.x, targetPt.y)).getMySugarCount() <= 0
-                    || myAge > MAXIMUM_AGE) {
+            if(((SugarScapeCell) cellGrid.getCell(targetPt.x, targetPt.y)).getMySugarCount() <= 0 || myAge > MAXIMUM_AGE) {
                 deathCount++;
                 handleNextAction(cellGrid, tempState, SUGAR_PATCH, targetPt);
             }

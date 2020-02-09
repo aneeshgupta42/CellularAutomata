@@ -24,6 +24,7 @@ import org.xml.sax.SAXException;
 public class XMLReader {
     // Readable error message that can be displayed by the GUI
     public static final String ERROR_MESSAGE = "XML file does not represent %s";
+    public static final String CORRUPTED_FIELD = "XML file has corrupted/missing fields";
     // name of root attribute that notes the type of file expecting to parse
     private final String TYPE_ATTRIBUTE;
     // keep only one documentBuilder because it is expensive to make and can reset it before parsing
@@ -44,7 +45,10 @@ public class XMLReader {
     public Game getGame (String fname) {
         File dataFile = new File(fname);
         Element root = getRootElement(dataFile);
-        if (! isValidFile(root, Game.DATA_TYPE)) throw new XMLException(ERROR_MESSAGE, Game.DATA_TYPE);
+        if (! isValidFile(root, Game.DATA_TYPE)) {
+            System.out.println("Going here");
+            throw new XMLException(ERROR_MESSAGE, Game.DATA_TYPE);
+        }
         // read data associated with the fields given by the object
         Map<String, String> results = new HashMap<>();
         String simulationName = getTextValue(root, "name");
@@ -86,15 +90,16 @@ public class XMLReader {
         return e.getAttribute(attributeName);
     }
 
+//    private boolean missingFields(Element root,)
+
     // get value of Element's text
     private String getTextValue (Element e, String tagName) {
         NodeList nodeList = e.getElementsByTagName(tagName);
-        if (nodeList != null && nodeList.getLength() > 0) {
+        if (nodeList != null && nodeList.getLength() > 0 && nodeList.item(0).getTextContent()!="") {
             return nodeList.item(0).getTextContent();
         }
         else {
-            // FIXME: empty string or exception? In some cases it may be an error to not find any text
-            return "";
+            throw new XMLException(CORRUPTED_FIELD + ": " + tagName, Game.DATA_TYPE);
         }
     }
 

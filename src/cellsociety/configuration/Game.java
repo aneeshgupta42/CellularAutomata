@@ -144,18 +144,4 @@ public class Game {
     public double getMyThreshold() {
         return myThreshold;
     }
-
-    /**
-     * @see Object#toString()
-     */
-    @Override
-    public String toString () {
-        StringBuilder result = new StringBuilder();
-        result.append(DATA_TYPE + " = [\n");
-        for (Map.Entry<String, String> e : myDataValues.entrySet()) {
-            result.append("  ").append(e.getKey()).append(" = '").append(e.getValue()).append("',\n");
-        }
-        result.append("]\n");
-        return result.toString();
-    }
 }

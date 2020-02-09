@@ -25,10 +25,12 @@ public class MainView extends BorderPane {
     /**
      * Sets instance variables myToolbar, displayGrid, and the grid and adds myToolbar and theGrid to the mainView
      */
-    public MainView() {
+    public MainView(Display display) {
         myToolbar = new Toolbar(this);
         myPanel = new Configpanel(this);
-        displayGrid = myToolbar.getCurrentGrid();
+//        displayGrid = myToolbar.getCurrentGrid();
+////        displayGrid = myToolbar.getCurrentGrid();
+        displayGrid = display.getDisplayGrid();
         this.theGrid = displayGrid(displayGrid);
         this.theGrid.setAlignment(Pos.CENTER_LEFT);
         this.setTop(myToolbar);

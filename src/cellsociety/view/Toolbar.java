@@ -13,6 +13,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 /**
@@ -67,6 +68,8 @@ public class Toolbar extends ToolBar {
         Button reset = new Button("Reset");
         reset.setOnAction(this::handleReset);
 
+        Button simUpload = new Button("Upload Sim");
+        simUpload.setOnAction(this:: uploadNewSim);
 
         GridCreator creator = new GridCreator();
         currentGrid = creator.GridSelector(myChoice);
@@ -140,7 +143,6 @@ public class Toolbar extends ToolBar {
     private void handleReset(ActionEvent actionEvent) {
         choosingNewSim(myChoice);
         animation.pause();
-
     }
 
     /**
@@ -201,6 +203,13 @@ public class Toolbar extends ToolBar {
         timer.stop();
         lblTime.setText("Elapsed time: " + 0 + " s");
         seconds = 0;
+    }
+
+    public void uploadNewSim(ActionEvent actionEvent){
+        animation.stop();
+        Display tempDisp = new Display();
+        currentGrid = tempDisp.uploadNewFile();
+        choosingNewSim(currentGrid.getChoice());
     }
 
     /**

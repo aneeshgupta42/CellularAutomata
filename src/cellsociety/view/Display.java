@@ -2,8 +2,13 @@ package cellsociety.view;
 
 
 import cellsociety.configuration.Game;
+import cellsociety.configuration.GridCreator;
+import cellsociety.configuration.XMLException;
 import cellsociety.configuration.XMLReader;
+import cellsociety.model.Grid;
 import javafx.application.Application;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.FileChooser;
@@ -21,6 +26,7 @@ public class Display extends Application {
         private Scene myScene;
         private MainView myMainview;
         private Game game;
+        private Grid displayGrid;
         public static final String DATA_FILE_EXTENSION = "*.xml";
         // NOTE: generally accepted behavior that the chooser remembers where user left it last
         public final static FileChooser FILE_CHOOSER = makeChooser(DATA_FILE_EXTENSION);
@@ -38,21 +44,42 @@ public class Display extends Application {
          */
         @Override
         public void start(Stage stage) throws Exception {
-                Stage newstage = new Stage();
-                myMainview = new MainView();
+//                Stage fileBrowser = new Stage();
+                displayGrid = uploadNewFile();
+//                fileBrowser.close();
+                myMainview = new MainView(this);
                 myScene = new Scene(myMainview, WIDTH, HEIGHT);
                 stage.setScene(myScene);
                 stage.setTitle("Simulation");
                 stage.show();
-                readFileSimulation(newstage);
-                newstage.show();
         }
-        public void readFileSimulation (Stage primaryStage){
+
+        public Grid uploadNewFile(){
+                Grid uploadedGrid = readFileSimulation(new Stage());
+                return uploadedGrid;
+        }
+
+        public Grid readFileSimulation (Stage primaryStage){
                 File dataFile = FILE_CHOOSER.showOpenDialog(primaryStage);
-                XMLReader reader = new XMLReader("media");
-                game = reader.getGame(dataFile.getPath());
-                // nothing selected, so quit the application
-//                Platform.exit();
+                while(dataFile != null){
+                        try{
+                                XMLReader reader = new XMLReader("media");
+                                Game myGame = reader.getGame(dataFile.getPath());
+                                GridCreator creator = new GridCreator();
+                                Grid uploadedGrid = creator.GridSelector(myGame.getMyChoice());
+                                primaryStage.close();
+                                return uploadedGrid;
+                        }
+                        catch (XMLException e){
+                                showMessage(AlertType.ERROR, e.getMessage());
+                        }
+                        dataFile = FILE_CHOOSER.showOpenDialog(primaryStage);
+                }
+                return null; //wont ever hit this
+        }
+
+        private void showMessage (AlertType type, String message) {
+                new Alert(type, message).showAndWait();
         }
 
         private static FileChooser makeChooser (String extensionAccepted) {
@@ -62,6 +89,10 @@ public class Display extends Application {
                 result.setInitialDirectory(new File(System.getProperty("user.dir")));
                 result.getExtensionFilters().setAll(new FileChooser.ExtensionFilter("Text Files", extensionAccepted));
                 return result;
+        }
+
+        public Grid getDisplayGrid() {
+                return displayGrid;
         }
 
         /**
