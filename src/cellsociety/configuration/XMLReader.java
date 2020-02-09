@@ -24,6 +24,7 @@ import org.xml.sax.SAXException;
 public class XMLReader {
     // Readable error message that can be displayed by the GUI
     public static final String ERROR_MESSAGE = "XML file does not represent %s";
+    public static final String CORRUPTED_FIELD = "XML file has corrupted/missing fields";
     // name of root attribute that notes the type of file expecting to parse
     private final String TYPE_ATTRIBUTE;
     // keep only one documentBuilder because it is expensive to make and can reset it before parsing
@@ -89,15 +90,16 @@ public class XMLReader {
         return e.getAttribute(attributeName);
     }
 
+//    private boolean missingFields(Element root,)
+
     // get value of Element's text
     private String getTextValue (Element e, String tagName) {
         NodeList nodeList = e.getElementsByTagName(tagName);
-        if (nodeList != null && nodeList.getLength() > 0) {
+        if (nodeList != null && nodeList.getLength() > 0 && nodeList.item(0).getTextContent()!="") {
             return nodeList.item(0).getTextContent();
         }
         else {
-            // FIXME: empty string or exception? In some cases it may be an error to not find any text
-            return "";
+            throw new XMLException(CORRUPTED_FIELD + ": " + tagName, Game.DATA_TYPE);
         }
     }
 
