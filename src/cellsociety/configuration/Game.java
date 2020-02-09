@@ -89,6 +89,22 @@ public class Game {
         this.myThreshold = thresh;
     }
 
+    /***
+     * Overloaded version of constructor with param for fire probability
+     * @param simName: Name of Simulation
+     * @param authName: author of sim file
+     * @param choice: choice of sim
+     * @param size: size of grid (for future use)
+     * @param rows: rows in sim
+     * @param cols: cols in sim
+     * @param thresh: threshold for rps rounds
+     */
+    //RPS - has threshold
+    public Game(String simName, String authName, int choice, int size, int rows, int cols, int thresh){
+        this(simName, authName, choice, size,rows,cols);
+        this.myThreshold = thresh;
+    }
+
     // NOTE: provides getters, but not setters
     /**
      * Returns title of this game.

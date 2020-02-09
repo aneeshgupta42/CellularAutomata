@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <data media="sim">
-    <name>Sugarscape</name>
-    <choice>2</choice>
+    <name>Rock-Paper-Scissors</name>
+    <choice>5</choice>
     <author>Aneesh</author>
     <size>300</size>
     <rows>20</rows>

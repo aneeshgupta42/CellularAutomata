@@ -28,8 +28,8 @@ public class Display extends Application {
         public final static FileChooser FILE_CHOOSER = makeChooser(DATA_FILE_EXTENSION);
 
 
-        private final int WIDTH = 740;
-        private final int HEIGHT = 570;
+        private static final int WIDTH = 1020;
+        private static final int HEIGHT = 570;
 
 
         /**

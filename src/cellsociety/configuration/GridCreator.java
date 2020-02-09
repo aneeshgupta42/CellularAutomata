@@ -1,5 +1,7 @@
 package cellsociety.configuration;
 import cellsociety.model.*;
+import cellsociety.view.Configpanel;
+import cellsociety.view.MainView;
 
 /***
  * Choosing a Grid object based on choice integer
@@ -17,9 +19,12 @@ public class GridCreator {
      * @param choice
      * @return  Grid object for corresponding simulation
      */
-    private Game myGame;
-    public Grid defaultGridSelector(int choice){
-        String[] choices = {"data/gameOfLife.xml", "data/percolation.xml", "data/segregation.xml", "data/predator.xml", "data/fire.xml"};
+
+    private Configpanel configpanel;
+    private MainView myMainview;
+
+    public Grid GridSelector(int choice){
+        String[] choices = {"data/gameOfLife.xml", "data/percolation.xml", "data/segregation.xml", "data/predator.xml", "data/fire.xml", "data/rps.xml", "data/sugarScape.xml"};
         XMLReader reader = new XMLReader("media");
         Game game = reader.getGame(choices[choice]);
         myGame = game;
