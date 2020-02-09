@@ -30,8 +30,8 @@ public class MainView extends BorderPane {
     public MainView(Display display) {
         myToolbar = new Toolbar(this);
         myPanel = new Configpanel(this);
-        displayGrid = myToolbar.getCurrentGrid();
 //        displayGrid = myToolbar.getCurrentGrid();
+////        displayGrid = myToolbar.getCurrentGrid();
         displayGrid = display.getDisplayGrid();
         this.theGrid = displayGrid(displayGrid);
         this.theGrid.setAlignment(Pos.CENTER_LEFT);
@@ -41,7 +41,6 @@ public class MainView extends BorderPane {
         Button play = new Button("Play");
         this.setAlignment(play,Pos.CENTER);
         this.setRight(myPanel);
-
     }
 
     /**
