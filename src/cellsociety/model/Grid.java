@@ -1,5 +1,9 @@
 package cellsociety.model;
 
+import cellsociety.configuration.Game;
+import cellsociety.configuration.XMLException;
+
+import javax.sql.rowset.RowSetWarning;
 import java.awt.Point;
 import java.util.HashMap;
 import java.util.Random;
@@ -25,6 +29,7 @@ public class Grid {
     private int myThresholdRPS;
     private int myChoice;
     private String myLayout;
+    private static final String ROWCOLSDONTMATCH = "Dimensions of layout and specifications don't match";
     private static final int GAMEOFLIFE = 0;
     private static final int PERCOLATION = 1;
     private static final int SEGREGATION = 2;
@@ -106,7 +111,9 @@ public class Grid {
     }
     private void populateFromLayout(int width, int height, int choice, String layout){
         String[] rows = layout.split("\n");
-
+        if(rows.length != height || rows[0].split(" ").length != width){
+            throw new XMLException(ROWCOLSDONTMATCH, Game.DATA_TYPE);
+        }
     }
     private void populateGridCells(int width, int height, int choice) {
 //        populateFromLayout(width, height, choice, myLayout);

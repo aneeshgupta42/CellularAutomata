@@ -36,6 +36,9 @@ public class GridCreator {
         else if(choice == 2){
             myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice(), game.getMyThreshold(), game.getMyLayout());
         }
+        else if(choice == 5){
+            myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice(), (int) game.getMyThreshold(), game.getMyLayout());
+        }
         else{
             myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice(), game.getMyLayout());
         }
@@ -44,7 +47,7 @@ public class GridCreator {
 
     public Grid newGridSelector (Game game){
         myGame = game;
-        int choice = game.getMyChoice();
+        int choice = myGame.getMyChoice();
         Grid myGrid;
         if(choice == 4){
             myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice(), game.getMyProb(), game.getMyLayout());
