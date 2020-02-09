@@ -33,7 +33,7 @@ public class RPSCell extends Cell {
     int compState = this.getNeighbors().getMaxNeighborState();
     int currState = cellGrid.getCell(row, col).getState();
 
-    if(THRESHOLD < maxNeighborCount && stateWinChecks(compState, currState) == 1) {
+    if(THRESHOLD < maxNeighborCount && stateWinChecks(compState, currState)) {
       return this.getNeighbors().getMaxNeighborState();
     }
     else {
@@ -74,15 +74,9 @@ public class RPSCell extends Cell {
   }
 
 
-  public int stateWinChecks(int state1, int state2) {
-    if(state1 == ROCK && state2 == PAPER
-        || state1 == SCISSORS && state2 == ROCK
-        || state1 == PAPER && state2 == SCISSORS) {
-        return 0;
-    }
-    else {
-      return 1;
-    }
+  //fix booleans
+  public boolean stateWinChecks(int state1, int state2) {
+    return true;
   }
 
 
