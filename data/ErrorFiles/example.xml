@@ -1,6 +1,7 @@
 <?xml version="1.0" ?>
-<data media="sim">
-    <name>GameOfLife</name>
+<data>
+    <name>ErrorSimulation</name>
+    <choice>5</choice>
     <author>Aneesh</author>
     <size>300</size>
     <rows>10</rows>

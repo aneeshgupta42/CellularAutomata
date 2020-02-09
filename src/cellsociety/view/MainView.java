@@ -1,9 +1,13 @@
 package cellsociety.view;
 
+import cellsociety.configuration.Game;
 import cellsociety.model.*;
+import javafx.event.EventHandler;
+import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -11,26 +15,38 @@ import javafx.scene.shape.Rectangle;
  * Mainview class which acts as a VBox where the grid and toolbar are held.
  * @author Chris Warren, Aneesh Gupta, Shruthi Kumar
  */
-public class MainView extends VBox {
+public class MainView extends BorderPane {
 
     private Grid displayGrid;
+    private Game myGame;
     private int rows;
     private int cols;
     private Toolbar myToolbar;
     private GridPane theGrid;
+    private Configpanel myPanel;
+    private MainView myMainview;
 
-    private final int SIZEOFGRID = 500;
+    private static final int SIZEOFGRID = 500;
 
     /**
      * Sets instance variables myToolbar, displayGrid, and the grid and adds myToolbar and theGrid to the mainView
      */
-    public MainView() {
+    public MainView(Display display) {
+        myGame = display.getMyGame();
         myToolbar = new Toolbar(this);
-        displayGrid = myToolbar.getCurrentGrid();
+        myPanel = new Configpanel(this);
+        displayGrid = display.getDisplayGrid();
         this.theGrid = displayGrid(displayGrid);
-        this.theGrid.setAlignment(Pos.CENTER);
-        this.getChildren().addAll(myToolbar, theGrid);
+        this.theGrid.setAlignment(Pos.TOP_LEFT);
+        this.setTop(myToolbar);
+        this.setCenter(theGrid);
+        this.setLeft(null);
+        this.myPanel.setAlignment(Pos.TOP_LEFT);
+        this.setRight(myPanel);
+
     }
+
+
 
     /**
      * Updates the grid and removes the old grid and adds the new one. This happens every time the step function is called
@@ -38,9 +54,9 @@ public class MainView extends VBox {
     public void step() {
         displayGrid.updateGrid(rows, cols);
         GridPane newGrid = displayGrid(displayGrid);
-        newGrid.setAlignment(Pos.CENTER);
         this.getChildren().remove(1);
-        this.getChildren().addAll(newGrid);
+        this.setCenter(newGrid);
+        this.setRight(myPanel);
     }
 
     /**
@@ -62,9 +78,25 @@ public class MainView extends VBox {
                 Color tempColor = Color.web(myGrid.getPointColor(i,j));
                 System.out.println("");
                 Rectangle rect = new Rectangle(SIZEOFGRID/rows,SIZEOFGRID/cols, tempColor);
+                int finalI = i;
+                int finalJ = j;
+//                rect.setOnMouseClicked(new EventHandler<MouseEvent>()
+//                {
+//                    @Override
+//                    public void handle(MouseEvent t) {
+//                        System.out.println(finalI + "" + finalJ);
+//
+//                        displayGrid.updateGrid(finalI,finalJ);
+//                        GridPane newGrid = displayGrid(displayGrid);
+//                        this.getChildren().remove(1);
+//                        this.setCenter(newGrid);
+//                        this.setRight(myPanel);
+//                    }
+//                });
                 gridPane.add(rect, j, i);
             }
         }
+
         return gridPane;
     }
 
@@ -74,7 +106,8 @@ public class MainView extends VBox {
      */
     public void replaceGrid(GridPane newgrid) {
         this.getChildren().remove(1);
-        this.getChildren().addAll(newgrid);
+        this.setCenter(newgrid);
+        this.setRight(myPanel);
     }
 
     /**
@@ -84,4 +117,13 @@ public class MainView extends VBox {
     public void setDisplayGrid(Grid currentGrid) {
         displayGrid = currentGrid;
     }
+
+    public Grid getDisplayGrid() {
+        return displayGrid;
+    }
+
+    public Game getMyGame() {
+        return myGame;
+    }
+
 }

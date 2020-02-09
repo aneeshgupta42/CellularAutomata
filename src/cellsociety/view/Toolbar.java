@@ -1,17 +1,15 @@
 package cellsociety.view;
 
+import cellsociety.configuration.Game;
 import cellsociety.model.*;
 import cellsociety.configuration.GridCreator;
-
 import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
-import javafx.geometry.Pos;
 import javafx.scene.control.*;
-
 import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
 
@@ -23,29 +21,29 @@ public class Toolbar extends ToolBar {
 
 
     private MainView myMainView;
-
-
     private static final int FRAMES_PER_SECOND = 60;
     private static final double MILLISECOND_DELAY = 10000/FRAMES_PER_SECOND;
-
     private int seconds;
     private Grid currentGrid;
+    private Grid copyGrid;
+    private Boolean isDefaultGrid;
+    private Game myGame;
     private Timeline animation;
     private Label lblTime;
     private AnimationTimer timer;
     private Slider slider;
     private int myChoice;
-
-    private final int GAMEOFLIFENUM = 0;
-    private final int PERCOLATIONNUM = 1;
-    private final int SEGREGATIONNUM = 2;
-    private final int PREDATORPREYNUM = 3;
-    private final int FIRENUM = 4;
-    private final int RPSNUM = 5;
-    private final int SUGARSCAPENUM = 6;
-    private final int SLIDERMINNUM = 0;
-    private final int SLIDERMAXNUM = 10;
-    private final int SLIDERUNIT = 5;
+    private ComboBox switchSimulation;
+    private Configpanel myPanel;
+    private boolean submitbuttonstatus;
+    private static final int GAMEOFLIFENUM = 0;
+    private static final int PERCOLATIONNUM = 1;
+    private static final int SEGREGATIONNUM = 2;
+    private static final int PREDATORPREYNUM = 3;
+    private static final int FIRENUM = 4;
+    private static final int SLIDERMINNUM = 0;
+    private static final int SLIDERMAXNUM = 10;
+    private static final int SLIDERUNIT = 5;
 
     /**
      * Creates the toolbar with all of the functionality buttons and sets it in the mainView.
@@ -54,8 +52,10 @@ public class Toolbar extends ToolBar {
     public Toolbar(MainView mainView) {
 
         myMainView = mainView;
-        myChoice = 0;
-
+        currentGrid = myMainView.getDisplayGrid();
+//        choosingNewSim(0);
+        copyGrid = currentGrid;
+        myGame = myMainView.getMyGame();
         Button play = new Button("Play");
         play.setOnAction(this::handlePlay);
 
@@ -68,39 +68,15 @@ public class Toolbar extends ToolBar {
         Button reset = new Button("Reset");
         reset.setOnAction(this::handleReset);
 
-        ComboBox switchSimulation = new ComboBox();
-        switchSimulation.getItems().addAll("Game of life", "Percolation", "Segregation", "Predator-Prey",
-                "Fire", "RPS", "Sugarscape");
-
-        switchSimulation.setPromptText("Choose a Simulation");
-        switchSimulation.setEditable(true);
-
-        switchSimulation.getSelectionModel().selectedItemProperty().addListener( (options, oldValue, newValue) -> {
-            animation.stop();
-            if (newValue == "Game of life") {
-                choosingNewSim(GAMEOFLIFENUM);
-            } else if (newValue == "Percolation") {
-                choosingNewSim(PERCOLATIONNUM);
-            }else if (newValue == "Segregation") {
-                choosingNewSim(SEGREGATIONNUM);
-            } else if (newValue == "Predator-Prey") {
-                choosingNewSim(PREDATORPREYNUM);
-            } else if (newValue == "Fire") {
-                choosingNewSim(FIRENUM);
-            } else if (newValue == "RPS") {
-                choosingNewSim(RPSNUM);
-            } else {
-                choosingNewSim(SUGARSCAPENUM);
-            }
-        });
-
-        GridCreator creator = new GridCreator();
-        currentGrid = creator.GridSelector(0);
+        Button simUpload = new Button("Upload Sim");
+        simUpload.setOnAction(this:: uploadNewSim);
 
         timer();
         animationFunctions();
         makeSlider();
-        this.getItems().addAll(play, stop, step, reset, switchSimulation, lblTime, slider);
+        switchingSimulation();
+
+        this.getItems().addAll(play, stop, step, reset, switchSimulation, lblTime, slider, simUpload);
 
     }
 
@@ -163,9 +139,15 @@ public class Toolbar extends ToolBar {
      * @param actionEvent the reset button is pressed
      */
     private void handleReset(ActionEvent actionEvent) {
-        choosingNewSim(myChoice);
+        GridCreator creator = new GridCreator();
+        currentGrid = creator.newGridSelector(myGame);
+        myMainView.setDisplayGrid(currentGrid);
+        myMainView.setRight(myPanel);
+        GridPane newGrid = myMainView.displayGrid(currentGrid);
+        myMainView.replaceGrid(newGrid);
+        myChoice = currentGrid.getChoice();
+        resetTime();
         animation.pause();
-
     }
 
     /**
@@ -228,6 +210,19 @@ public class Toolbar extends ToolBar {
         seconds = 0;
     }
 
+    public void uploadNewSim(ActionEvent actionEvent){
+        animation.stop();
+        Display tempDisp = new Display();
+        currentGrid = tempDisp.uploadNewFile();
+        myGame = tempDisp.getMyGame();
+        myMainView.setDisplayGrid(currentGrid);
+        myMainView.setRight(myPanel);
+        GridPane newGrid = myMainView.displayGrid(currentGrid);
+        myMainView.replaceGrid(newGrid);
+        myChoice = currentGrid.getChoice();
+        resetTime();
+    }
+
     /**
      * Based on the Combobox where one selects the type of simulation being displayed, once the option is clicked it
      * switched simulations based on the appropriate choice.
@@ -235,13 +230,51 @@ public class Toolbar extends ToolBar {
      */
     public void choosingNewSim(int choice) {
         GridCreator creator = new GridCreator();
-        currentGrid = creator.GridSelector(choice);
+        currentGrid = creator.defaultGridSelector(choice);
+        myGame = creator.getMyGame();
         myMainView.setDisplayGrid(currentGrid);
+        myMainView.setRight(myPanel);
         GridPane newGrid = myMainView.displayGrid(currentGrid);
         myMainView.replaceGrid(newGrid);
         myChoice = choice;
         resetTime();
-        newGrid.setAlignment(Pos.CENTER);
+
     }
 
+    public void switchingSimulation() {
+        this.switchSimulation = new ComboBox();
+        switchSimulation.getItems().addAll("Game of life", "Percolation", "Segregation", "Predator-Prey",
+                "Fire");
+
+        switchSimulation.setPromptText("Choose a Simulation");
+        switchSimulation.setEditable(true);
+
+        switchSimulation.getSelectionModel().selectedItemProperty().addListener( (options, oldValue, newValue) -> {
+            animation.stop();
+            if (newValue == "Game of life") {
+                choosingNewSim(GAMEOFLIFENUM);
+            } else if (newValue == "Percolation") {
+                choosingNewSim(PERCOLATIONNUM);
+            }else if (newValue == "Segregation") {
+                choosingNewSim(SEGREGATIONNUM);
+            } else if (newValue == "Predator-Prey") {
+                choosingNewSim(PREDATORPREYNUM);
+            } else if (newValue == "Fire") {
+                choosingNewSim(FIRENUM);
+            }
+        });
+    }
+
+    public int getMyChoice() {
+        return myChoice;
+    }
+
+    public boolean getsumbitbutton() {
+        return submitbuttonstatus;
+    }
+
+    public int getTimeElapsed() {
+        return seconds;
+    }
 }
+

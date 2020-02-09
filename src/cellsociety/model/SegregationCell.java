@@ -170,5 +170,4 @@ public class SegregationCell extends Cell {
   private int getNeighborTypeCount(Grid cellGrid, int row, int col, int state) {
     return getNeighborCount(cellGrid, row, col, state);
   }
-
 }

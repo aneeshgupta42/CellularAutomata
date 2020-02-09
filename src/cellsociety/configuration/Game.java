@@ -27,6 +27,7 @@ public class Game {
     // specific data values for this instance
     private String simulationName;
     private String author;
+    private String myLayout;
     private int myChoice;
     private int mySize;
     private int myRows;
@@ -41,13 +42,18 @@ public class Game {
     /**
      * Create game data from given data.
      */
-    public Game(String simName, String authName, int choice, int size, int rows, int cols) {
+    public Game(String simName, String authName, int choice, int size, int rows, int cols, String layout) {
         simulationName = simName;
         author = authName;
         myChoice = choice;
+        if(choice>6){
+            myChoice = 0;
+            simulationName = "GameOfLife";
+        }
         mySize = size;
         myRows = rows;
         myCols = cols;
+        myLayout = layout;
         // NOTE: this is useful so our code does not fail due to a NullPointerException
         myDataValues = new HashMap<>();
     }
@@ -63,8 +69,8 @@ public class Game {
      * @param prob: probCatch for Fire
      */
     //Fire - has probability
-    public Game(String simName, String authName, int choice, int size, int rows, int cols, float prob){
-        this(simName, authName, choice, size,rows,cols);
+    public Game(String simName, String authName, int choice, int size, int rows, int cols, float prob, String layout){
+        this(simName, authName, choice, size,rows,cols, layout);
         this.myProb = prob;
     }
     /***
@@ -78,8 +84,8 @@ public class Game {
      * @param thresh: "Happiness" threshold for segregation
      */
     //Segregation - has threshold
-    public Game(String simName, String authName, int choice, int size, int rows, int cols, double thresh){
-        this(simName, authName, choice, size,rows,cols);
+    public Game(String simName, String authName, int choice, int size, int rows, int cols, double thresh, String layout){
+        this(simName, authName, choice, size,rows,cols, layout);
         this.myThreshold = thresh;
     }
 
@@ -105,6 +111,14 @@ public class Game {
      */
     public String getSimulationName() {
         return simulationName;
+    }
+
+    /***
+     * returns initial layout of cell states in the grid
+     * @return
+     */
+    public String getMyLayout() {
+        return myLayout;
     }
 
     /**
@@ -159,19 +173,5 @@ public class Game {
      */
     public double getMyThreshold() {
         return myThreshold;
-    }
-
-    /**
-     * @see Object#toString()
-     */
-    @Override
-    public String toString () {
-        StringBuilder result = new StringBuilder();
-        result.append(DATA_TYPE + " = [\n");
-        for (Map.Entry<String, String> e : myDataValues.entrySet()) {
-            result.append("  ").append(e.getKey()).append(" = '").append(e.getValue()).append("',\n");
-        }
-        result.append("]\n");
-        return result.toString();
     }
 }
