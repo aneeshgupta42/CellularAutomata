@@ -3,7 +3,7 @@
     <name>Fire</name>
     <choice>4</choice>
     <author>Aneesh</author>
-    <size>300</size>
+    <islayout>0</islayout>
     <rows>20</rows>
     <cols>20</cols>
     <prob>0.4</prob>

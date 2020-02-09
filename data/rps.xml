@@ -3,7 +3,7 @@
     <name>Rock-Paper-Scissors</name>
     <choice>5</choice>
     <author>Aneesh</author>
-    <size>300</size>
+    <islayout>0</islayout>
     <rows>20</rows>
     <cols>20</cols>
     <threshold>3</threshold>
