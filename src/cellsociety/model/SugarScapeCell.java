@@ -70,8 +70,8 @@ public class SugarScapeCell extends Cell {
         regenerationTime = 0;
     }
 
-    private void initializeNewAgent(Grid cellGrid, int width, int heigtht) {
-        List<Point> vacantCells =     this.getNeighbors().getVacantCells(cellGrid, width, heigtht, SUGAR_PATCH);
+    private void initializeNewAgent(Grid cellGrid, int width, int height) {
+        List<Point> vacantCells =     this.getNeighbors().getVacantCells(cellGrid, width, height, SUGAR_PATCH);
         Collections.shuffle(vacantCells);
 
         if(deathCount >= 1) {
@@ -104,6 +104,7 @@ public class SugarScapeCell extends Cell {
     private void handleAgent(Grid cellGrid, int row, int col) {
         int tempState = state;
         metabolizeAgent();
+        myAge++;
         Point targetPt = this.getNeighbors().getMaxNeighborTypeCount(cellGrid, row, col, SUGAR_PATCH);
         SugarScapeCell temp = (SugarScapeCell) cellGrid.getCell((int) targetPt.getX(), (int) targetPt.getY());
         ((SugarScapeCell) cellGrid.getCell(row, col)).setMySugarCount(temp.getMySugarCount());
