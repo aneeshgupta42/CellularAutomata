@@ -90,7 +90,7 @@ public class SugarScapeCell extends Cell {
 
     @Override
     public int updateCell(Grid cellGrid, int row, int col, int width,
-        int height) {
+                          int height) {
         if(checkState(cellGrid, row, col, SUGAR_PATCH)) {
             handleSugar();
         }
