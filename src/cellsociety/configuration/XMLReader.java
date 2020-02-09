@@ -25,10 +25,16 @@ public class XMLReader {
     // Readable error message that can be displayed by the GUI
     public static final String ERROR_MESSAGE = "XML file does not represent %s";
     public static final String CORRUPTED_FIELD = "XML file has corrupted/missing fields";
+    public static final String INCORRECT_DATATYPE = "XML file has incorrect data type";
     // name of root attribute that notes the type of file expecting to parse
     private final String TYPE_ATTRIBUTE;
     // keep only one documentBuilder because it is expensive to make and can reset it before parsing
     private final DocumentBuilder DOCUMENT_BUILDER;
+
+    private int choice, mySize, myRows, myCols;
+    private String simulationName, author, myLayout;
+    private float myProb;
+    private double myThreshold;
 
 
     /**
@@ -42,7 +48,7 @@ public class XMLReader {
     /**
      * Get data contained in this XML file as an object
      */
-    public Game getGame (String fname) {
+    public Game getGame (String fname) throws XMLException{
         File dataFile = new File(fname);
         Element root = getRootElement(dataFile);
         if (! isValidFile(root, Game.DATA_TYPE)) {
@@ -50,22 +56,31 @@ public class XMLReader {
             throw new XMLException(ERROR_MESSAGE, Game.DATA_TYPE);
         }
         // read data associated with the fields given by the object
-        Map<String, String> results = new HashMap<>();
-        String simulationName = getTextValue(root, "name");
-        int choice = Integer.parseInt(getTextValue(root, "choice"));
-        String author = getTextValue(root, "author");
-        int mySize = Integer.parseInt(getTextValue(root, "size"));
-        int myRows = Integer.parseInt(getTextValue(root, "rows"));
-        int myCols = Integer.parseInt(getTextValue(root, "cols"));
+        readBasic(root);
         if(choice == 4){//Fire
-            float myProb = Float.parseFloat(getTextValue(root, "prob"));
-            return new Game(simulationName, author, choice, mySize, myRows, myCols, myProb);
+            myProb = Float.parseFloat(getTextValue(root, "prob"));
+            return new Game(simulationName, author, choice, mySize, myRows, myCols, myProb, myLayout);
         }
         if(choice == 2){//Segregation
-            double myThreshold = Double.parseDouble(getTextValue(root, "threshold"));
-            return new Game(simulationName, author, choice, mySize, myRows, myCols, myThreshold);
+            myThreshold = Double.parseDouble(getTextValue(root, "threshold"));
+            return new Game(simulationName, author, choice, mySize, myRows, myCols, myThreshold, myLayout);
         }
-        return new Game(simulationName, author, choice, mySize, myRows, myCols);
+        return new Game(simulationName, author, choice, mySize, myRows, myCols, myLayout);
+    }
+
+    private void readBasic(Element root) throws XMLException{
+        try{
+            simulationName = getTextValue(root, "name");
+            choice = Integer.parseInt(getTextValue(root, "choice"));
+            author = getTextValue(root, "author");
+            mySize = Integer.parseInt(getTextValue(root, "size"));
+            myRows = Integer.parseInt(getTextValue(root, "rows"));
+            myCols = Integer.parseInt(getTextValue(root, "cols"));
+            myLayout = getTextValue(root, "layout");
+        }
+        catch (NumberFormatException e){
+            throw new XMLException(INCORRECT_DATATYPE, Game.DATA_TYPE);
+        }
     }
 
     // get root element of an XML file

@@ -25,13 +25,13 @@ public class GridCreator {
         myGame = game;
         Grid myGrid;
         if(choice == 4){
-            myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice(), game.getMyProb());
+            myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice(), game.getMyProb(), game.getMyLayout());
         }
         else if(choice == 2){
-            myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice(), game.getMyThreshold());
+            myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice(), game.getMyThreshold(), game.getMyLayout());
         }
         else{
-            myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice());
+            myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice(), game.getMyLayout());
         }
         return myGrid;
     }
@@ -41,13 +41,13 @@ public class GridCreator {
         int choice = game.getMyChoice();
         Grid myGrid;
         if(choice == 4){
-            myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice(), game.getMyProb());
+            myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice(), game.getMyProb(), game.getMyLayout());
         }
         else if(choice == 2){
-            myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice(), game.getMyThreshold());
+            myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice(), game.getMyThreshold(), game.getMyLayout());
         }
         else{
-            myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice());
+            myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice(), game.getMyLayout());
         }
         return myGrid;
     }

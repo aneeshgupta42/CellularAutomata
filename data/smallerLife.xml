@@ -6,4 +6,9 @@
     <size>300</size>
     <rows>15</rows>
     <cols>15</cols>
+    <layout>1 0 1 0 1
+        0 1 0 1 0
+        1 0 1 0 1
+        0 1 0 1 0
+        1 1 0 1 1</layout>
 </data>

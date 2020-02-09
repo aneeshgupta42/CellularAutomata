@@ -58,6 +58,7 @@ public class Toolbar extends ToolBar {
 
         myMainView = mainView;
         currentGrid = myMainView.getDisplayGrid();
+//        choosingNewSim(0);
         copyGrid = currentGrid;
         myGame = myMainView.getMyGame();
         Button play = new Button("Play");

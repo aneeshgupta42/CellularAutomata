@@ -1,10 +1,7 @@
 package cellsociety.view;
 
 
-import cellsociety.configuration.Game;
-import cellsociety.configuration.GridCreator;
-import cellsociety.configuration.XMLException;
-import cellsociety.configuration.XMLReader;
+import cellsociety.configuration.*;
 import cellsociety.model.Grid;
 import javafx.application.Application;
 import javafx.scene.control.Alert;
@@ -44,7 +41,9 @@ public class Display extends Application {
         @Override
         public void start(Stage stage) throws Exception {
 //                Stage fileBrowser = new Stage();
-                displayGrid = uploadNewFile();
+                FileLoader fileLoader = new FileLoader();
+
+                displayGrid = fileLoader.uploadNewFile(myGame);
 //                fileBrowser.close();
                 myMainview = new MainView(this);
                 myScene = new Scene(myMainview, WIDTH, HEIGHT);
@@ -74,6 +73,7 @@ public class Display extends Application {
                         }
                         dataFile = FILE_CHOOSER.showOpenDialog(primaryStage);
                 }
+                primaryStage.close();
                 return null; //wont ever hit this
         }
 
