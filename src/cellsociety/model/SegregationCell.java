@@ -61,8 +61,7 @@ public class SegregationCell extends Cell {
     getVacantCells(cellGrid, width, height);
     Collections.shuffle(vacantCells);
     double checkThreshold = ((double) neighbors.getNeighborCount(
-        cellGrid, row, col, cellGrid.getCell(row, col).getState())) / getNotVacantNeighborCount(
-        cellGrid, row, col);
+        cellGrid, row, col, cellGrid.getCell(row, col).getState())) / getNotVacantNeighborCount(cellGrid, row, col);
 
     if(checkThreshold < THRESHOLD && state!= VACANT) {
       int tempState = state;
@@ -156,7 +155,7 @@ public class SegregationCell extends Cell {
 
     for(int i = 0; i < rowDelta.length; i++) {
       if(neighbors.mapContainsNeighbor(cellGrid, row + rowDelta[i], col + colDelta[i])
-          && checkNotVacant(cellGrid, row + rowDelta[i], col + colDelta[i])) {
+              && checkNotVacant(cellGrid, row + rowDelta[i], col + colDelta[i])) {
         count++;
       }
     }
@@ -171,5 +170,4 @@ public class SegregationCell extends Cell {
   private int getNeighborTypeCount(Grid cellGrid, int row, int col, int state) {
     return neighbors.getNeighborCount(cellGrid, row, col, state);
   }
-
 }

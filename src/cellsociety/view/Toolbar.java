@@ -36,6 +36,8 @@ public class Toolbar extends ToolBar {
     private AnimationTimer timer;
     private Slider slider;
     private int myChoice;
+    private ComboBox switchSimulation;
+    private Configpanel myPanel;
 
     private final int GAMEOFLIFENUM = 0;
     private final int PERCOLATIONNUM = 1;
@@ -53,7 +55,6 @@ public class Toolbar extends ToolBar {
     public Toolbar(MainView mainView) {
 
         myMainView = mainView;
-        myChoice = 0;
 
         Button play = new Button("Play");
         play.setOnAction(this::handlePlay);
@@ -70,35 +71,15 @@ public class Toolbar extends ToolBar {
         Button simUpload = new Button("Upload Sim");
         simUpload.setOnAction(this:: uploadNewSim);
 
-        ComboBox switchSimulation = new ComboBox();
-        switchSimulation.getItems().addAll("Game of life", "Percolation", "Segregation", "Predator-Prey",
-                "Fire");
-
-        switchSimulation.setPromptText("Choose a Simulation");
-        switchSimulation.setEditable(true);
-
-        switchSimulation.getSelectionModel().selectedItemProperty().addListener( (options, oldValue, newValue) -> {
-            animation.stop();
-            if (newValue == "Game of life") {
-                choosingNewSim(GAMEOFLIFENUM);
-            } else if (newValue == "Percolation") {
-                choosingNewSim(PERCOLATIONNUM);
-            }else if (newValue == "Segregation") {
-                choosingNewSim(SEGREGATIONNUM);
-            } else if (newValue == "Predator-Prey") {
-                choosingNewSim(PREDATORPREYNUM);
-            } else if (newValue == "Fire") {
-                choosingNewSim(FIRENUM);
-            }
-        });
-
         GridCreator creator = new GridCreator();
-        currentGrid = creator.GridSelector(0);
+        currentGrid = creator.GridSelector(myChoice);
 
         timer();
         animationFunctions();
         makeSlider();
+        switchingSimulation();
         this.getItems().addAll(play, stop, step, reset, switchSimulation, lblTime, slider, simUpload);
+
     }
 
     /**
@@ -230,6 +211,7 @@ public class Toolbar extends ToolBar {
         currentGrid = tempDisp.uploadNewFile();
         choosingNewSim(currentGrid.getChoice());
     }
+
     /**
      * Based on the Combobox where one selects the type of simulation being displayed, once the option is clicked it
      * switched simulations based on the appropriate choice.
@@ -239,11 +221,35 @@ public class Toolbar extends ToolBar {
         GridCreator creator = new GridCreator();
         currentGrid = creator.GridSelector(choice);
         myMainView.setDisplayGrid(currentGrid);
+        myMainView.setRight(myPanel);
         GridPane newGrid = myMainView.displayGrid(currentGrid);
         myMainView.replaceGrid(newGrid);
         myChoice = choice;
         resetTime();
-        newGrid.setAlignment(Pos.CENTER);
+    }
+
+    public void switchingSimulation() {
+        this.switchSimulation = new ComboBox();
+        switchSimulation.getItems().addAll("Game of life", "Percolation", "Segregation", "Predator-Prey",
+                "Fire");
+
+        switchSimulation.setPromptText("Choose a Simulation");
+        switchSimulation.setEditable(true);
+
+        switchSimulation.getSelectionModel().selectedItemProperty().addListener( (options, oldValue, newValue) -> {
+            animation.stop();
+            if (newValue == "Game of life") {
+                choosingNewSim(GAMEOFLIFENUM);
+            } else if (newValue == "Percolation") {
+                choosingNewSim(PERCOLATIONNUM);
+            }else if (newValue == "Segregation") {
+                choosingNewSim(SEGREGATIONNUM);
+            } else if (newValue == "Predator-Prey") {
+                choosingNewSim(PREDATORPREYNUM);
+            } else if (newValue == "Fire") {
+                choosingNewSim(FIRENUM);
+            }
+        });
     }
 
 }

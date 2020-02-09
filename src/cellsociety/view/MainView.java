@@ -2,8 +2,8 @@ package cellsociety.view;
 
 import cellsociety.model.*;
 import javafx.geometry.Pos;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -11,13 +11,14 @@ import javafx.scene.shape.Rectangle;
  * Mainview class which acts as a VBox where the grid and toolbar are held.
  * @author Chris Warren, Aneesh Gupta, Shruthi Kumar
  */
-public class MainView extends VBox {
+public class MainView extends BorderPane {
 
     private Grid displayGrid;
     private int rows;
     private int cols;
     private Toolbar myToolbar;
     private GridPane theGrid;
+    private Configpanel myPanel;
 
     private final int SIZEOFGRID = 500;
 
@@ -26,11 +27,16 @@ public class MainView extends VBox {
      */
     public MainView(Display display) {
         myToolbar = new Toolbar(this);
+        myPanel = new Configpanel(this);
 //        displayGrid = myToolbar.getCurrentGrid();
+////        displayGrid = myToolbar.getCurrentGrid();
         displayGrid = display.getDisplayGrid();
         this.theGrid = displayGrid(displayGrid);
-        this.theGrid.setAlignment(Pos.CENTER);
-        this.getChildren().addAll(myToolbar, theGrid);
+        this.theGrid.setAlignment(Pos.CENTER_LEFT);
+        this.setTop(myToolbar);
+        this.setCenter(theGrid);
+        this.setLeft(null);
+        this.setRight(myPanel);
     }
 
     /**
@@ -39,9 +45,9 @@ public class MainView extends VBox {
     public void step() {
         displayGrid.updateGrid(rows, cols);
         GridPane newGrid = displayGrid(displayGrid);
-        newGrid.setAlignment(Pos.CENTER);
         this.getChildren().remove(1);
-        this.getChildren().addAll(newGrid);
+        this.setCenter(newGrid);
+        this.setRight(myPanel);
     }
 
     /**
@@ -75,7 +81,8 @@ public class MainView extends VBox {
      */
     public void replaceGrid(GridPane newgrid) {
         this.getChildren().remove(1);
-        this.getChildren().addAll(newgrid);
+        this.setCenter(newgrid);
+        this.setRight(myPanel);
     }
 
     /**
