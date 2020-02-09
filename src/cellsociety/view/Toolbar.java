@@ -221,6 +221,7 @@ public class Toolbar extends ToolBar {
         myGame = tempDisp.getMyGame();
         myMainView.setDisplayGrid(currentGrid);
         myMainView.setRight(myPanel);
+        myMainView.setMyGame(myGame);
         GridPane newGrid = myMainView.displayGrid(currentGrid);
         myMainView.replaceGrid(newGrid);
         myChoice = currentGrid.getChoice();
@@ -236,6 +237,7 @@ public class Toolbar extends ToolBar {
         GridCreator creator = new GridCreator();
         currentGrid = creator.defaultGridSelector(choice);
         myGame = creator.getMyGame();
+        myMainView.setMyGame(myGame);
         myMainView.setDisplayGrid(currentGrid);
         myMainView.setRight(myPanel);
         GridPane newGrid = myMainView.displayGrid(currentGrid);
