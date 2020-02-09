@@ -7,4 +7,9 @@
     <rows>20</rows>
     <cols>20</cols>
     <prob>0.4</prob>
+    <layout>1 0 1 0 1
+        0 1 0 1 0
+        1 0 1 0 1
+        0 1 0 1 0
+        1 1 0 1 1</layout>
 </data>

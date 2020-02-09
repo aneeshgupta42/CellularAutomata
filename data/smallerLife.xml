@@ -4,8 +4,8 @@
     <choice>0</choice>
     <author>Aneesh</author>
     <size>300</size>
-    <rows>20</rows>
-    <cols>20</cols>
+    <rows>15</rows>
+    <cols>15</cols>
     <layout>1 0 1 0 1
         0 1 0 1 0
         1 0 1 0 1

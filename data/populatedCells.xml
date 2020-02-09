@@ -4,11 +4,11 @@
     <choice>0</choice>
     <author>Aneesh</author>
     <size>300</size>
-    <rows>20</rows>
-    <cols>20</cols>
+    <rows>5</rows>
+    <cols>5</cols>
     <layout>1 0 1 0 1
-        0 1 0 1 0
-        1 0 1 0 1
-        0 1 0 1 0
-        1 1 0 1 1</layout>
+0 1 0 1 0
+1 0 1 0 1
+0 1 0 1 0
+1 1 0 1 1</layout>
 </data>

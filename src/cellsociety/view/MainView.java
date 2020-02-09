@@ -1,5 +1,6 @@
 package cellsociety.view;
 
+import cellsociety.configuration.Game;
 import cellsociety.model.*;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
@@ -17,6 +18,7 @@ import javafx.scene.shape.Rectangle;
 public class MainView extends BorderPane {
 
     private Grid displayGrid;
+    private Game myGame;
     private int rows;
     private int cols;
     private Toolbar myToolbar;
@@ -30,6 +32,7 @@ public class MainView extends BorderPane {
      * Sets instance variables myToolbar, displayGrid, and the grid and adds myToolbar and theGrid to the mainView
      */
     public MainView(Display display) {
+        myGame = display.getMyGame();
         myToolbar = new Toolbar(this);
         myPanel = new Configpanel(this);
         displayGrid = display.getDisplayGrid();
@@ -113,6 +116,14 @@ public class MainView extends BorderPane {
      */
     public void setDisplayGrid(Grid currentGrid) {
         displayGrid = currentGrid;
+    }
+
+    public Grid getDisplayGrid() {
+        return displayGrid;
+    }
+
+    public Game getMyGame() {
+        return myGame;
     }
 
 }

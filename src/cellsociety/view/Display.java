@@ -1,15 +1,11 @@
 package cellsociety.view;
 
 
-import cellsociety.configuration.Game;
-import cellsociety.configuration.GridCreator;
-import cellsociety.configuration.XMLException;
-import cellsociety.configuration.XMLReader;
+import cellsociety.configuration.*;
 import cellsociety.model.Grid;
 import javafx.application.Application;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -25,7 +21,7 @@ public class Display extends Application {
 
         private Scene myScene;
         private MainView myMainview;
-        private Game game;
+        private Game myGame;
         private Grid displayGrid;
         public static final String DATA_FILE_EXTENSION = "*.xml";
         // NOTE: generally accepted behavior that the chooser remembers where user left it last
@@ -45,7 +41,9 @@ public class Display extends Application {
         @Override
         public void start(Stage stage) throws Exception {
 //                Stage fileBrowser = new Stage();
-                displayGrid = uploadNewFile();
+                FileLoader fileLoader = new FileLoader();
+
+                displayGrid = fileLoader.uploadNewFile(myGame);
 //                fileBrowser.close();
                 myMainview = new MainView(this);
                 myScene = new Scene(myMainview, WIDTH, HEIGHT);
@@ -64,9 +62,9 @@ public class Display extends Application {
                 while(dataFile != null){
                         try{
                                 XMLReader reader = new XMLReader("media");
-                                Game myGame = reader.getGame(dataFile.getPath());
+                                myGame = reader.getGame(dataFile.getPath());
                                 GridCreator creator = new GridCreator();
-                                Grid uploadedGrid = creator.GridSelector(myGame.getMyChoice());
+                                Grid uploadedGrid = creator.newGridSelector(myGame);
                                 primaryStage.close();
                                 return uploadedGrid;
                         }
@@ -75,6 +73,7 @@ public class Display extends Application {
                         }
                         dataFile = FILE_CHOOSER.showOpenDialog(primaryStage);
                 }
+                primaryStage.close();
                 return null; //wont ever hit this
         }
 
@@ -93,6 +92,10 @@ public class Display extends Application {
 
         public Grid getDisplayGrid() {
                 return displayGrid;
+        }
+
+        public Game getMyGame() {
+                return myGame;
         }
 
         /**
