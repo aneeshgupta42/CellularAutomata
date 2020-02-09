@@ -41,9 +41,12 @@ public class Toolbar extends ToolBar {
     private static final int SEGREGATIONNUM = 2;
     private static final int PREDATORPREYNUM = 3;
     private static final int FIRENUM = 4;
+    private static final int RPSNUM = 5;
+    private static final int SURGARNUM = 6;
     private static final int SLIDERMINNUM = 0;
     private static final int SLIDERMAXNUM = 10;
     private static final int SLIDERUNIT = 5;
+    private int timernumber;
 
     /**
      * Creates the toolbar with all of the functionality buttons and sets it in the mainView.
@@ -164,6 +167,7 @@ public class Toolbar extends ToolBar {
                 if (lastTime != 0) {
                     if (now > lastTime + 1_000_000_000) {
                         seconds++;
+                        timernumber = (int) (seconds * animation.getRate());
                         lblTime.setText("Elapsed time: "+ Integer.toString((int) (seconds * animation.getRate())) + " s");
                         lastTime = now;
                     }
@@ -244,7 +248,7 @@ public class Toolbar extends ToolBar {
     public void switchingSimulation() {
         this.switchSimulation = new ComboBox();
         switchSimulation.getItems().addAll("Game of life", "Percolation", "Segregation", "Predator-Prey",
-                "Fire");
+                "Fire", "RPS", "Sugar Scape");
 
         switchSimulation.setPromptText("Choose a Simulation");
         switchSimulation.setEditable(true);
@@ -261,6 +265,10 @@ public class Toolbar extends ToolBar {
                 choosingNewSim(PREDATORPREYNUM);
             } else if (newValue == "Fire") {
                 choosingNewSim(FIRENUM);
+            } else if (newValue == "RPS") {
+                choosingNewSim(RPSNUM);
+            } else if (newValue == "Sugar Scape") {
+                choosingNewSim(SURGARNUM);
             }
         });
     }
@@ -274,7 +282,7 @@ public class Toolbar extends ToolBar {
     }
 
     public int getTimeElapsed() {
-        return seconds;
+        return timernumber;
     }
 }
 

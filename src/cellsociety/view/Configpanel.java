@@ -25,9 +25,9 @@ public class Configpanel extends VBox {
     private Button submit;
     private boolean submitbuttonstatus = false;
     private Toolbar toolBar;
-    private LineChart<String,Number> myLinechart;
+    private LineChart<Number,Number> myLinechart;
     private static String cursorPosFormat = "Cursor (%d, %d)";
-    private XYChart.Series<String, Number> myseries;
+    private XYChart.Series<Number, Number> myseries;
 
     public Configpanel(MainView mainView) {
 
@@ -92,7 +92,7 @@ public class Configpanel extends VBox {
     }
 
     public void makeNewGraph() {
-        final CategoryAxis xAxis = new CategoryAxis();
+        final NumberAxis xAxis = new NumberAxis();
         final NumberAxis yAxis = new NumberAxis();
         xAxis.setLabel("Time/s");
         xAxis.setAnimated(false);
@@ -100,21 +100,19 @@ public class Configpanel extends VBox {
         yAxis.setAnimated(false);
 
         //creating the line chart with two axis created above
-        this.myLinechart = new LineChart<>(xAxis, yAxis);
+        this.myLinechart = new LineChart<Number, Number>(xAxis, yAxis);
         myLinechart.setTitle("Cell Populations");
         myLinechart.setAnimated(false); // disable animations
 
-        XYChart.Series<String, Number> series = new XYChart.Series<>();
-        series.setName("Data Series");
+        myseries= new XYChart.Series<>();
+        myseries.setName("Data Series");
 
         // add series to chart
-        myLinechart.getData().add(series);
-        series.getData().add(new XYChart.Data<>("hello",1));
     }
 
-    public void addDataToGraph() {
-        myseries = new XYChart.Series<>();
+    public void addDataToGraph(int timernumber) {
+        myseries.getData().add(new XYChart.Data<>(timernumber,1));
         myLinechart.getData().add(myseries);
-        myseries.getData().add(new XYChart.Data<>("hello",1));
+
     }
 }
