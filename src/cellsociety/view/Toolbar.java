@@ -225,6 +225,7 @@ public class Toolbar extends ToolBar {
     }
 
     public void uploadNewSim(ActionEvent actionEvent){
+        animation.stop();
         Display tempDisp = new Display();
         currentGrid = tempDisp.uploadNewFile();
         choosingNewSim(currentGrid.getChoice());
