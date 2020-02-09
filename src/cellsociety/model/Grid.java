@@ -24,6 +24,7 @@ public class Grid {
     private double myThreshold;
     private int myThresholdRPS;
     private int myChoice;
+    private String myLayout;
     private static final int GAMEOFLIFE = 0;
     private static final int PERCOLATION = 1;
     private static final int SEGREGATION = 2;
@@ -41,11 +42,12 @@ public class Grid {
      * @param height: number of rows
      * @param choice: choice of simulations
      */
-    public Grid(int width, int height, int choice) {
+    public Grid(int width, int height, int choice, String layout) {
         cellGrid = new HashMap<Point, Cell>();
         myChoice = choice;
         myWidth = width;
         myHeight = height;
+        myLayout = layout;
         populateGridCells(width, height, choice);
     }
 
@@ -57,12 +59,13 @@ public class Grid {
      * @param choice: choice of simulations
      * @param prob: ProbCatch for fire
      */
-    public Grid(int width, int height, int choice, float prob) {
+    public Grid(int width, int height, int choice, float prob, String layout) {
         cellGrid = new HashMap<Point, Cell>();
         myProb = prob;
         myChoice = choice;
         myWidth = width;
         myHeight = height;
+        myLayout = layout;
         populateGridCells(width, height, choice);
     }
 
@@ -74,12 +77,13 @@ public class Grid {
      * @param choice: choice of simulation
      * @param thresh: "Satisfaction" threshold for Segregation simulation
      */
-    public Grid(int width, int height, int choice, double thresh) {
+    public Grid(int width, int height, int choice, double thresh, String layout) {
         cellGrid = new HashMap<Point, Cell>();
         myThreshold = thresh;
         myChoice = choice;
         myWidth = width;
         myHeight = height;
+        myLayout = layout;
         populateGridCells(width, height, choice);
     }
 
@@ -91,16 +95,21 @@ public class Grid {
      * @param choice: choice of simulation
      * @param thresh: Threshold for RPS simulation
      */
-    public Grid(int width, int height, int choice, int thresh) {
+    public Grid(int width, int height, int choice, int thresh, String layout) {
         cellGrid = new HashMap<Point, Cell>();
         myThresholdRPS = thresh;
         myChoice = choice;
         myWidth = width;
         myHeight = height;
+        myLayout = layout;
         populateGridCells(width, height, choice);
     }
+    private void populateFromLayout(int width, int height, int choice, String layout){
+        String[] rows = layout.split("\n");
 
+    }
     private void populateGridCells(int width, int height, int choice) {
+//        populateFromLayout(width, height, choice, myLayout);
         Cell tempCell;
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
