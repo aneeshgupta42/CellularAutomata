@@ -39,8 +39,6 @@ public class SugarScapeCell extends Cell {
     private static final String BLACK = "black";
 
     private static final int ONE = 1;
-
-
     private Random numChooser = new Random();
 
 
@@ -214,9 +212,7 @@ public class SugarScapeCell extends Cell {
         }
     }
 
-
-
-    public void setMySugarCount(int addedSugar) {
+    private void setMySugarCount(int addedSugar) {
         mySugarAmount += addedSugar;
     }
 

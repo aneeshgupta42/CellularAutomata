@@ -71,9 +71,11 @@ public class SegregationCell extends Cell {
     if(checkThreshold < THRESHOLD && state!= VACANT) {
       int tempState = state;
       myNextState = VACANT;
-      Point targetPt = vacantCells.get(ZERO);
-      cellGrid.getCell((int) targetPt.getX(), (int) targetPt.getY()).setMyNextState(tempState);
-      vacantCells.remove(ZERO);
+      if (vacantCells.size() > 0) {
+        Point targetPt = vacantCells.get(ZERO);
+        cellGrid.getCell((int) targetPt.getX(), (int) targetPt.getY()).setMyNextState(tempState);
+        vacantCells.remove(ZERO);
+      }
     }
     else if(checkThreshold >= THRESHOLD && state!=VACANT){
       this.myNextState = state;

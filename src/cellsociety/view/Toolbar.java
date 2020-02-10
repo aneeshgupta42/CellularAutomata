@@ -12,6 +12,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
 
@@ -153,7 +154,7 @@ public class Toolbar extends ToolBar {
         currentGrid = creator.newGridSelector(myMainView.getMyGame());
         myMainView.setDisplayGrid(currentGrid);
         myMainView.setRight(myPanel);
-        GridPane newGrid = myMainView.displayGrid(currentGrid);
+        AnchorPane newGrid = myMainView.displayGrid(currentGrid);
         myMainView.replaceGrid(newGrid);
         myChoice = currentGrid.getChoice();
         resetTime();
@@ -234,7 +235,7 @@ public class Toolbar extends ToolBar {
         myMainView.setDisplayGrid(currentGrid);
         myMainView.setRight(myPanel);
         myMainView.setMyGame(myGame);
-        GridPane newGrid = myMainView.displayGrid(currentGrid);
+        AnchorPane newGrid = myMainView.displayGrid(currentGrid);
         myMainView.replaceGrid(newGrid);
         myChoice = currentGrid.getChoice();
         resetTime();
@@ -268,7 +269,7 @@ public class Toolbar extends ToolBar {
         myMainView.setMyGame(myGame);
         myMainView.setDisplayGrid(currentGrid);
         myMainView.setRight(myPanel);
-        GridPane newGrid = myMainView.displayGrid(currentGrid);
+        AnchorPane newGrid = myMainView.displayGrid(currentGrid);
         myMainView.replaceGrid(newGrid);
         myChoice = choice;
         resetTime();

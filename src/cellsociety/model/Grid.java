@@ -135,6 +135,136 @@ public class Grid {
         populateGridCells(width, height, choice, myNeighborhoodChoice);
     }
 
+
+    /***
+     * Carries out Grid updates,
+     * updating the state of the cell according
+     * to the simulation rule. A cell's next state is determined by
+     * it's current state, and it's neighbours' states
+     * We do this in two passes: first to read in the current states
+     * And then to set the next states
+     * @param width: number of cols in the grid to be updated
+     * @param height: number of rows "  "   "
+     */
+    public void updateGrid(int width, int height) {
+        HashMap<Point, Integer> newStateMap = new HashMap<>();
+        int tempInitInt = 100; //garbage value
+        for (int i = 0; i < height; i++) { // first pass: get the new states
+            for (int j = 0; j < width; j++) {
+                newStateMap.put(new Point(i, j), tempInitInt); //initialize the key for new state
+                int newState = cellGrid.get(new Point(i, j)).updateCell(this, i, j, width, height);
+                newStateMap.put(new Point(i, j), newState); //put new state for a point in
+            }
+        }
+        for (int i = 0; i < height; i++) { //change state from old to new
+            for (int j = 0; j < width; j++) {
+                cellGrid.get(new Point(i, j)).setState(newStateMap.get(new Point(i, j)));
+                cellGrid.get(new Point(i, j)).setCellColor();
+            }
+        }
+    }
+
+    /***
+     * Get the data struct holding the Grid
+     * Point : Cell  mapping
+     * @return cellGrid
+     */
+    public HashMap<Point, Cell> getCellGrid() {
+        return cellGrid;
+    }
+
+    /***
+     * returns a cell, without having to expose data structure
+     * @param row: x coord
+     * @param col: y coord
+     * @return cell: cell object at that coordinate
+     */
+    public Cell getCell(int row, int col) {
+        return cellGrid.get(new Point(row, col));
+    }
+
+    /***
+     * Does a cell exist at given coordinates?
+     * @param row: x coord
+     * @param col: y coord
+     * @return: Booleanvalue: yes or no
+     */
+    public boolean gridContainsCell(int row, int col) {
+        return cellGrid.containsKey(new Point(row, col));
+    }
+
+    /***
+     * Gets neighborhood shape choice
+     * @return myNeighborhoodChoice : neighborhood shape choice
+     */
+    public int getMyNeighborhoodChoice() {
+        return myNeighborhoodChoice;
+    }
+
+    /***
+     * Get Height of Grid
+     * @return myHeight
+     */
+    public int getMyHeight() {
+        return myHeight;
+    }
+
+    /***
+     * get width of Grid
+     * @return myWidth
+     */
+    public int getMyWidth() {
+        return myWidth;
+    }
+
+    /***
+     * get the choice of simulation being run
+     * @return myChoice
+     */
+    public int getChoice() {
+        return this.myChoice;
+    }
+
+
+
+    /***
+     * Get string color at the cell
+     * Doesn't expose the data structure
+     * and we dont have to insert javafx stuff in model
+     * @param x: coord
+     * @param y: coord
+     * @return color: String
+     */
+    public String getPointColor(int x, int y) {
+        return cellGrid.get(new Point(x, y)).getCellColor();
+    }
+
+    /***
+     * Number of possible states the current simulation has
+     * @return num states
+     */
+    public int getNumStates() {
+        return numStates;
+    }
+
+    private Cell getSimulation(int row, int col, int state, int choice, int neighborhoodChoice) {
+        if (choice == GAMEOFLIFE) {
+            return new GameCell(row, col, state, neighborhoodChoice);
+        } else if (choice == PERCOLATION) {
+            return new PercolationCell(row, col, state, neighborhoodChoice);
+        } else if (choice == SEGREGATION) {
+            return new SegregationCell(row, col, state, myThreshold, neighborhoodChoice);
+        } else if (choice == PREDATORPREY) {
+            return new PredatorPreyCell(row, col, state, neighborhoodChoice);
+        } else if (choice == FIRE) { //FIRE
+            return new FireCell(row, col, state, myProb, neighborhoodChoice);
+        } else if (choice == RPS) {
+            return new RPSCell(row, col, state, myThresholdRPS, neighborhoodChoice);
+        } else {
+            return new SugarScapeCell(row, col, state, neighborhoodChoice);
+        }
+    }
+
     private void populateGridCells(int width, int height, int choice, int neighborhoodChoice) {
         if (isLayout == 1) {
             populateFromLayout(width, height, choice, myLayout);
@@ -193,124 +323,5 @@ public class Grid {
         return tempCell;
     }
 
-    /***
-     * Carries out Grid updates,
-     * updating the state of the cell according
-     * to the simulation rule. A cell's next state is determined by
-     * it's current state, and it's neighbours' states
-     * We do this in two passes: first to read in the current states
-     * And then to set the next states
-     * @param width: number of cols in the grid to be updated
-     * @param height: number of rows "  "   "
-     */
-    public void updateGrid(int width, int height) {
-        HashMap<Point, Integer> newStateMap = new HashMap<>();
-        int tempInitInt = 100; //garbage value
-        for (int i = 0; i < height; i++) { // first pass: get the new states
-            for (int j = 0; j < width; j++) {
-                newStateMap.put(new Point(i, j), tempInitInt);//initialize the key for new state
-                int newState = cellGrid.get(new Point(i, j)).updateCell(this, i, j, width, height);
-                newStateMap.put(new Point(i, j), newState); //put new state for a point in
-            }
-        }
-        for (int i = 0; i < height; i++) { //change state from old to new
-            for (int j = 0; j < width; j++) {
-                cellGrid.get(new Point(i, j)).setState(newStateMap.get(new Point(i, j)));
-                cellGrid.get(new Point(i, j)).setCellColor();
-            }
-        }
-    }
-
-    /***
-     * Get the data struct holding the Grid
-     * Point : Cell  mapping
-     * @return cellGrid
-     */
-    public HashMap<Point, Cell> getCellGrid() {
-        return cellGrid;
-    }
-
-    /***
-     * returns a cell, without having to expose data structure
-     * @param row: x coord
-     * @param col: y coord
-     * @return cell: cell object at that coordinate
-     */
-    public Cell getCell(int row, int col) {
-        return cellGrid.get(new Point(row, col));
-    }
-
-    /***
-     * Does a cell exist at given coordinates?
-     * @param row: x coord
-     * @param col: y coord
-     * @return: Booleanvalue: yes or no
-     */
-    public boolean gridContainsCell(int row, int col) {
-        return cellGrid.containsKey(new Point(row, col));
-    }
-
-
-    /***
-     * Get Height of Grid
-     * @return myHeight
-     */
-    public int getMyHeight() {
-        return myHeight;
-    }
-
-    /***
-     * get width of Grid
-     * @return myWidth
-     */
-    public int getMyWidth() {
-        return myWidth;
-    }
-
-    /***
-     * get the choice of simulation being run
-     * @return myChoice
-     */
-    public int getChoice() {
-        return this.myChoice;
-    }
-
-    private Cell getSimulation(int row, int col, int state, int choice, int neighborhoodChoice) {
-        if (choice == GAMEOFLIFE) {
-            return new GameCell(row, col, state, neighborhoodChoice);
-        } else if (choice == PERCOLATION) {
-            return new PercolationCell(row, col, state, neighborhoodChoice);
-        } else if (choice == SEGREGATION) {
-            return new SegregationCell(row, col, state, myThreshold, neighborhoodChoice);
-        } else if (choice == PREDATORPREY) {
-            return new PredatorPreyCell(row, col, state, neighborhoodChoice);
-        } else if (choice == FIRE) { //FIRE
-            return new FireCell(row, col, state, myProb, neighborhoodChoice);
-        } else if (choice == RPS) {
-            return new RPSCell(row, col, state, myThresholdRPS, neighborhoodChoice);
-        } else {
-            return new SugarScapeCell(row, col, state, neighborhoodChoice);
-        }
-    }
-
-    /***
-     * Get string color at the cell
-     * Doesn't expose the data structure
-     * and we dont have to insert javafx stuff in model
-     * @param x: coord
-     * @param y: coord
-     * @return color: String
-     */
-    public String getPointColor(int x, int y) {
-        return cellGrid.get(new Point(x, y)).getCellColor();
-    }
-
-    /***
-     * Number of possible states the current simulation has
-     * @return num states
-     */
-    public int getNumStates() {
-        return numStates;
-    }
 
 }
