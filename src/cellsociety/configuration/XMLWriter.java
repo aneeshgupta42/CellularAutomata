@@ -54,16 +54,16 @@ public class XMLWriter {
         try{
             myProb = game.getMyProb();
         }
-        catch(Exception e){
+        catch(XMLException e){
             myProb = (float) BASE_VALUE;
-            throw new Exception("Not a fire type simulation");
+            throw new XMLException("Not a fire type simulation");
         }
         try{
             myThreshold = game.getMyThreshold();
         }
-        catch(Exception e){
+        catch(XMLException e){
             myThreshold = BASE_VALUE;
-            throw new Exception("Not a segregation or threshold type");
+            throw new XMLException("Not a segregation or threshold type");
         }
         getLayout();
     }
@@ -137,7 +137,7 @@ public class XMLWriter {
             System.out.println("Done creating XML File");
         }
         catch (TransformerException tfe) {
-            tfe.printStackTrace();
+            throw new XMLException("Transformation fault");
         }
     }
 

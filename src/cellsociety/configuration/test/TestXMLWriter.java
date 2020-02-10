@@ -1,5 +1,9 @@
-package cellsociety.configuration;
+package cellsociety.configuration.test;
 
+import cellsociety.configuration.Game;
+import cellsociety.configuration.GridCreator;
+import cellsociety.configuration.XMLReader;
+import cellsociety.configuration.XMLWriter;
 import cellsociety.model.Grid;
 
 /**
