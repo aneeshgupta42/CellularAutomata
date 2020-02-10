@@ -56,8 +56,8 @@ public class XMLWriter {
 
     private void getLayout(){
         layout = "";
-        for(int i = 0; i<myGrid.getMyHeight(); i++){
-            for(int j = 0; j<myGrid.getMyWidth(); j++){
+        for(int i = 0; i<myGame.getMyRows(); i++){
+            for(int j = 0; j<myGame.getMyCols(); j++){
                 layout += Integer.toString(myGrid.getCell(i,j).getState());
                 layout += " ";
             }

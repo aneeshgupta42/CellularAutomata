@@ -14,7 +14,7 @@ public class TestXMLWriter {
     public static void main (String[] args) throws Exception {
         System.out.println("Testing out XML writing");
         XMLReader reader = new XMLReader("media");
-        Game game = reader.getGame("data/gameOfLife.xml");
+        Game game = reader.getGame("data/percolationLayout.xml");
         GridCreator creator = new GridCreator();
         Grid myGrid = creator.newGridSelector(game);
         XMLWriter writer = new XMLWriter(myGrid,game);

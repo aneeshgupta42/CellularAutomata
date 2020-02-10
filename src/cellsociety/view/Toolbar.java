@@ -1,6 +1,7 @@
 package cellsociety.view;
 
 import cellsociety.configuration.Game;
+import cellsociety.configuration.XMLWriter;
 import cellsociety.model.*;
 import cellsociety.configuration.GridCreator;
 import javafx.animation.AnimationTimer;
@@ -12,6 +13,8 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
+
+import javax.xml.parsers.ParserConfigurationException;
 
 /**
  * Toolbar class where all the functionality is held
@@ -71,12 +74,15 @@ public class Toolbar extends ToolBar {
         Button simUpload = new Button("Upload Sim");
         simUpload.setOnAction(this:: uploadNewSim);
 
+        Button writeSim = new Button ("Write out Sim");
+        writeSim.setOnAction(this:: writeOutSim);
+
         timer();
         animationFunctions();
         makeSlider();
         switchingSimulation();
 
-        this.getItems().addAll(play, stop, step, reset, switchSimulation, lblTime, slider, simUpload);
+        this.getItems().addAll(play, stop, step, reset, switchSimulation, lblTime, slider, simUpload, writeSim);
 
     }
 
@@ -225,6 +231,18 @@ public class Toolbar extends ToolBar {
         resetTime();
     }
 
+    private void writeOutSim(ActionEvent actionEvent) {
+        try{
+            animation.stop();
+            timer.stop();
+            XMLWriter writer = new XMLWriter(myMainView.getDisplayGrid(), myGame);
+            writer.outputFile();
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     /**
      * Based on the Combobox where one selects the type of simulation being displayed, once the option is clicked it
      * switched simulations based on the appropriate choice.
