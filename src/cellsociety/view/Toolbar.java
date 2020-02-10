@@ -15,6 +15,7 @@ import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
 
 import javax.xml.parsers.ParserConfigurationException;
+import java.util.ResourceBundle;
 
 /**
  * Toolbar class where all the functionality is held
@@ -49,6 +50,7 @@ public class Toolbar extends ToolBar {
     private static final int SLIDERUNIT = 5;
     private int timernumber;
 
+    private ResourceBundle toolbarBundle;
     /**
      * Creates the toolbar with all of the functionality buttons and sets it in the mainView.
      * @param mainView where the toolbar will be displayed
@@ -58,23 +60,25 @@ public class Toolbar extends ToolBar {
         myMainView = mainView;
         myGame = myMainView.getMyGame();
         currentGrid = myMainView.getDisplayGrid();
-//        choosingNewSim(0);
-        Button play = new Button("Play");
+
+        toolbarBundle = ResourceBundle.getBundle("cellsociety/resources/Toolbartext");
+
+        Button play = new Button(toolbarBundle.getString("PlayButton"));
         play.setOnAction(this::handlePlay);
 
-        Button stop = new Button("Stop");
+        Button stop = new Button(toolbarBundle.getString("StopButton"));
         stop.setOnAction(this::handleStop);
 
-        Button step = new Button("Step");
+        Button step = new Button(toolbarBundle.getString("StepButton"));
         step.setOnAction(this::handleStep);
 
-        Button reset = new Button("Reset");
+        Button reset = new Button(toolbarBundle.getString("ResetButton"));
         reset.setOnAction(this::handleReset);
 
-        Button simUpload = new Button("Upload Sim");
+        Button simUpload = new Button(toolbarBundle.getString("UploadSim"));
         simUpload.setOnAction(this:: uploadNewSim);
 
-        Button writeSim = new Button ("Download Sim");
+        Button writeSim = new Button (toolbarBundle.getString("Downloadsim"));
         writeSim.setOnAction(this:: writeOutSim);
 
         timer();
@@ -161,7 +165,7 @@ public class Toolbar extends ToolBar {
      * every second.
      */
     public void timer() {
-        this.lblTime = new Label("Elapsed time: 0 s");
+        this.lblTime = new Label(toolbarBundle.getString("InitialTime"));
 
         this.timer = new AnimationTimer() {
             private long lastTime = 0;
@@ -171,7 +175,8 @@ public class Toolbar extends ToolBar {
                     if (now > lastTime + 1_000_000_000) {
                         seconds++;
                         timernumber = (int) (seconds * animation.getRate());
-                        lblTime.setText("Elapsed time: "+ Integer.toString((int) (seconds * animation.getRate())) + " s");
+                        lblTime.setText(toolbarBundle.getString("Elapsedtime") + Integer.toString((int) (seconds * animation.getRate())) + " " +
+                                toolbarBundle.getString("Seconds"));
                         lastTime = now;
                     }
                 } else {
@@ -213,7 +218,7 @@ public class Toolbar extends ToolBar {
      */
     public void resetTime () {
         timer.stop();
-        lblTime.setText("Elapsed time: " + 0 + " s");
+        lblTime.setText(toolbarBundle.getString("Elapsedtime") + " "+ 0 + " "+toolbarBundle.getString("Seconds"));
         seconds = 0;
     }
 
@@ -264,27 +269,28 @@ public class Toolbar extends ToolBar {
 
     public void switchingSimulation() {
         this.switchSimulation = new ComboBox();
-        switchSimulation.getItems().addAll("Game of life", "Percolation", "Segregation", "Predator-Prey",
-                "Fire", "RPS", "Sugar Scape");
+        switchSimulation.getItems().addAll(toolbarBundle.getString("GameofLifeSim"), toolbarBundle.getString("PercolationSim"), toolbarBundle.getString("SegregationSim"),
+                toolbarBundle.getString("PredatorPreySim"), toolbarBundle.getString("FireSim"), toolbarBundle.getString("RPSSim"),
+                toolbarBundle.getString("SugarscapeSim"));
 
-        switchSimulation.setPromptText("Choose a Simulation");
+        switchSimulation.setPromptText(toolbarBundle.getString("ChooseSim"));
         switchSimulation.setEditable(true);
 
         switchSimulation.getSelectionModel().selectedItemProperty().addListener( (options, oldValue, newValue) -> {
             animation.stop();
-            if (newValue == "Game of life") {
+            if (newValue == toolbarBundle.getString("GameofLifeSim")) {
                 choosingNewSim(GAMEOFLIFENUM);
-            } else if (newValue == "Percolation") {
+            } else if (newValue == toolbarBundle.getString("PercolationSim")) {
                 choosingNewSim(PERCOLATIONNUM);
-            }else if (newValue == "Segregation") {
+            }else if (newValue == toolbarBundle.getString("SegregationSim")){
                 choosingNewSim(SEGREGATIONNUM);
-            } else if (newValue == "Predator-Prey") {
+            } else if (newValue == toolbarBundle.getString("PredatorPreySim")) {
                 choosingNewSim(PREDATORPREYNUM);
-            } else if (newValue == "Fire") {
+            } else if (newValue == toolbarBundle.getString("FireSim")) {
                 choosingNewSim(FIRENUM);
-            } else if (newValue == "RPS") {
+            } else if (newValue == toolbarBundle.getString("RPSSim")) {
                 choosingNewSim(RPSNUM);
-            } else if (newValue == "Sugar Scape") {
+            } else if (newValue == toolbarBundle.getString("SugarscapeSim")) {
                 choosingNewSim(SURGARNUM);
             }
         });

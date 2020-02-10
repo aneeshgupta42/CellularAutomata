@@ -16,6 +16,8 @@ import javafx.scene.control.ToolBar;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+import java.util.ResourceBundle;
+
 public class Configpanel extends VBox {
 
     private MainView myMainView;
@@ -29,6 +31,7 @@ public class Configpanel extends VBox {
     private LineChart<Number,Number> myLinechart;
     private XYChart.Series<Number, Number> myseries;
     private Grid currentGrid;
+    private ResourceBundle configBundle;
 
     private static final int WIDTH = 50;
     private static final int SPACING = 10;
@@ -37,19 +40,20 @@ public class Configpanel extends VBox {
 
         myMainView = mainView;
         currentGrid = myMainView.getDisplayGrid();
+        configBundle = ResourceBundle.getBundle("cellsociety/resources/Configtext");
 
-        Label Rows = new Label("Rows:");
+        Label Rows = new Label(configBundle.getString("Rowbutton"));
         this.inputRows= new TextField();
         HBox rowBox = new HBox();
-        inputRows.setPromptText("Enter # of rows");
+        inputRows.setPromptText(configBundle.getString("Entertextrow"));
         inputRows.setPrefWidth(WIDTH);
         rowBox.getChildren().addAll(Rows, inputRows);
         rowBox.setSpacing(SPACING);
 
-        Label Cols = new Label("Columns:");
+        Label Cols = new Label(configBundle.getString("Columnbutton"));
         this.inputCols= new TextField();
         HBox colbox = new HBox();
-        inputCols.setPromptText("Enter # of Columns");
+        inputCols.setPromptText(configBundle.getString("Entertextcol"));
         inputCols.setPrefWidth(WIDTH);
         colbox.getChildren().addAll(Cols, inputCols);
         colbox.setSpacing(SPACING);
@@ -62,7 +66,7 @@ public class Configpanel extends VBox {
 
     public void submission() {
         toolBar = new Toolbar(myMainView);
-        this.submit = new Button("Submit");
+        this.submit = new Button(configBundle.getString("Submitbutton"));
         submit.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
@@ -99,19 +103,18 @@ public class Configpanel extends VBox {
     public void makeNewGraph() {
         final NumberAxis xAxis = new NumberAxis();
         final NumberAxis yAxis = new NumberAxis();
-        xAxis.setLabel("Time/s");
+        xAxis.setLabel(configBundle.getString("Time"));
         xAxis.setAnimated(false);
-        yAxis.setLabel("Value");
+        yAxis.setLabel(configBundle.getString("Yaxis"));
         yAxis.setAnimated(false);
 
         this.myLinechart = new LineChart<Number, Number>(xAxis, yAxis);
-        myLinechart.setTitle("Cell Populations");
+        myLinechart.setTitle(configBundle.getString("GraphTitle"));
         myLinechart.setAnimated(false); // disable animations
 
         myseries= new XYChart.Series<>();
-        myseries.setName("Data Series");
+        myseries.setName(configBundle.getString("Alive"));
         myLinechart.getData().add(myseries);
-
     }
 
     public void addDataToGraph(int timernumber) {

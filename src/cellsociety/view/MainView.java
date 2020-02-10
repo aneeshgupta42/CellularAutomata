@@ -9,6 +9,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 
 /**
@@ -85,6 +86,7 @@ public class MainView extends BorderPane {
             }
         }
 
+
         return gridPane;
     }
 
@@ -117,4 +119,18 @@ public class MainView extends BorderPane {
     public void setMyGame(Game myGame) {
         this.myGame = myGame;
     }
+
+//    private void upTriangle(Polygon triangle, int row, int col) {
+//        double xTip = ((cols+1)*(WIDTH / 2) + (cols+1)*getSpacing());
+//        double yTip = rows*HEIGHT + (row+1)*getSpacing();
+//        double xLeft = cols*(WIDTH / 2) + (cols+1)*getSpacing();
+//        double yLeft = (rows+1)*HEIGHT + (rows+1)*getSpacing();
+//        double xRight = (cols+2)*(WIDTH / 2) + (cols+1)*getSpacing();
+//        double yRight = (rows+1)*HEIGHT + (rows+1)*getSpacing();
+//        triangle.getPoints().addAll(new Double[] {
+//                xTip, yTip,
+//                xLeft, yLeft,
+//                xRight, yRight,
+//        });
+//    }
 }
