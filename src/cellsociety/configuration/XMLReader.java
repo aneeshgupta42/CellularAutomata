@@ -30,7 +30,7 @@ public class XMLReader {
     // keep only one documentBuilder because it is expensive to make and can reset it before parsing
     private final DocumentBuilder DOCUMENT_BUILDER;
 
-    private int choice, isLayout, myRows, myCols;
+    private int choice, isLayout, myRows, myCols, myShape;
     private String simulationName, author, myLayout;
     private float myProb;
     private double myThreshold;
@@ -58,17 +58,17 @@ public class XMLReader {
         readBasic(root);
         if(choice == 4){//Fire
             myProb = Float.parseFloat(getTextValue(root, "prob"));
-            return new Game(simulationName, author, choice, isLayout, myRows, myCols, myProb, myLayout);
+            return new Game(simulationName, author, choice, isLayout, myRows, myCols, myProb, myLayout, myShape);
         }
         if(choice == 2){//Segregation
             myThreshold = Double.parseDouble(getTextValue(root, "threshold"));
-            return new Game(simulationName, author, choice, isLayout, myRows, myCols, myThreshold, myLayout);
+            return new Game(simulationName, author, choice, isLayout, myRows, myCols, myThreshold, myLayout, myShape);
         }
         if(choice == 5) {
             int myThreshold = (int) Double.parseDouble(getTextValue(root, "threshold"));
-            return new Game(simulationName, author, choice, isLayout, myRows, myCols, myThreshold, myLayout);
+            return new Game(simulationName, author, choice, isLayout, myRows, myCols, myThreshold, myLayout, myShape);
         }
-        return new Game(simulationName, author, choice, isLayout, myRows, myCols, myLayout);
+        return new Game(simulationName, author, choice, isLayout, myRows, myCols, myLayout, myShape);
     }
 
     private void readBasic(Element root) throws XMLException{
@@ -80,6 +80,7 @@ public class XMLReader {
             myRows = Integer.parseInt(getTextValue(root, "rows"));
             myCols = Integer.parseInt(getTextValue(root, "cols"));
             myLayout = getTextValue(root, "layout");
+            myShape = Integer.parseInt(getTextValue(root, "shape"));
         }
         catch (NumberFormatException e){
             throw new XMLException(INCORRECT_DATATYPE, Game.DATA_TYPE);

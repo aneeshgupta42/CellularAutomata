@@ -6,6 +6,7 @@
     <islayout>0</islayout>
     <rows>15</rows>
     <cols>15</cols>
+    <shape>0</shape>
     <layout>1 0 1 0 1
         0 1 0 1 0
         1 0 1 0 1
