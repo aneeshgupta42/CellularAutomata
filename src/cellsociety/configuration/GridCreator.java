@@ -19,9 +19,9 @@ public class GridCreator {
      * @param choice
      * @return  Grid object for corresponding simulation
      */
-
-    private Configpanel configpanel;
-    private MainView myMainview;
+    private static final int FIRE = 4;
+    private static final int SEGREGATION = 2;
+    private static final int RPS = 5;
     private Game myGame;
 
     public Grid defaultGridSelector(int choice){
@@ -30,13 +30,13 @@ public class GridCreator {
         Game game = reader.getGame(choices[choice]);
         myGame = game;
         Grid myGrid;
-        if(choice == 4){
+        if(choice == FIRE){
             myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice(), game.getMyProb(), game.getMyLayout(), game.getIsLayout(), game.getMyShape());
         }
-        else if(choice == 2){
+        else if(choice == SEGREGATION){
             myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice(), game.getMyThreshold(), game.getMyLayout(), game.getIsLayout(), game.getMyShape());
         }
-        else if(choice == 5){
+        else if(choice == RPS){
             myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice(), (int) game.getMyThreshold(), game.getMyLayout(), game.getIsLayout(), game.getMyShape());
         }
         else{
@@ -49,13 +49,13 @@ public class GridCreator {
         myGame = game;
         int choice = myGame.getMyChoice();
         Grid myGrid;
-        if(choice == 4){
+        if(choice == FIRE){
             myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice(), game.getMyProb(), game.getMyLayout(), game.getIsLayout(), game.getMyShape());
         }
-        else if(choice == 2){
+        else if(choice == SEGREGATION){
             myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice(), game.getMyThreshold(), game.getMyLayout(), game.getIsLayout(), game.getMyShape());
         }
-        else if(choice == 5){
+        else if(choice == RPS){
             myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice(), (int) game.getMyThreshold(), game.getMyLayout(), game.getIsLayout(), game.getMyShape());
         }
         else{

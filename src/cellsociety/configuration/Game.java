@@ -14,33 +14,17 @@ import java.util.Map;
 public class Game {
     // name in data file that will indicate it represents data for this type of object
     public static final String DATA_TYPE = "sim";
-    private final String NEGATIVE_VALUES = "Some values are Negative and out of bounds!!";
-    // field names expected to appear in data file holding values for this object
-    // NOTE: simple way to create an immutable list
-    public static final List<String> DATA_FIELDS = List.of(
-        "name",
-        "author",
-        "islayout",
-        "rows",
-        "cols",
-        "shape"
-    );
+    private static final int DEFAULT_VALUE = 0;
+    private static final int MAX_CHOICES = 6;
+    private static final int MAX_SHAPES = 2;
+    private static final String NEGATIVE_VALUES = "Some values are Negative and out of bounds!!";
 
     // specific data values for this instance
-    private String simulationName;
-    private String author;
-    private String myLayout;
-    private int myChoice;
-    private int isLayout;
-    private int myRows;
-    private int myShape;
-    private int myCols;
+    private String simulationName, author, myLayout;
+    private int myChoice,isLayout, myRows, myShape, myCols;
     private float myProb;
     private double myThreshold;
-
-    // NOTE: keep just as an example for converting toString(), otherwise not used
     private Map<String, String> myDataValues;
-
 
     /**
      * Create game data from given data.
@@ -49,11 +33,12 @@ public class Game {
         simulationName = simName;
         author = authName;
         myChoice = choice;
-        if(choice>6 || choice <0){
-            myChoice = 0;
+        if(choice>MAX_CHOICES || choice <0){
+            myChoice = DEFAULT_VALUE;
             simulationName = "GameOfLife";
         }
-        if(rows<=0||cols<=0){
+        if(shape>MAX_SHAPES) shape = DEFAULT_VALUE;
+        if(rows<=0||cols<=0||shape<0||islayout<0){
             throw new XMLException(NEGATIVE_VALUES, Game.DATA_TYPE);
         }
         isLayout = islayout;

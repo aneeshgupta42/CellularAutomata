@@ -27,6 +27,9 @@ public class XMLReader {
     public static final String INCORRECT_DATATYPE = "XML file has incorrect data type";
     // name of root attribute that notes the type of file expecting to parse
     private final String TYPE_ATTRIBUTE;
+    private static final int FIRE = 4;
+    private static final int SEGREGATION = 2;
+    private static final int RPS = 5;
     // keep only one documentBuilder because it is expensive to make and can reset it before parsing
     private final DocumentBuilder DOCUMENT_BUILDER;
 
@@ -56,15 +59,15 @@ public class XMLReader {
         }
         // read data associated with the fields given by the object
         readBasic(root);
-        if(choice == 4){//Fire
+        if(choice == FIRE){//Fire
             myProb = Float.parseFloat(getTextValue(root, "prob"));
             return new Game(simulationName, author, choice, isLayout, myRows, myCols, myProb, myLayout, myShape);
         }
-        if(choice == 2){//Segregation
+        if(choice == SEGREGATION){//Segregation
             myThreshold = Double.parseDouble(getTextValue(root, "threshold"));
             return new Game(simulationName, author, choice, isLayout, myRows, myCols, myThreshold, myLayout, myShape);
         }
-        if(choice == 5) {
+        if(choice == RPS) {
             int myThreshold = (int) Double.parseDouble(getTextValue(root, "threshold"));
             return new Game(simulationName, author, choice, isLayout, myRows, myCols, myThreshold, myLayout, myShape);
         }

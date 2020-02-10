@@ -19,6 +19,7 @@ import org.w3c.dom.Element;
 public class XMLWriter {
 
     public static final String xmlFilePath = "data/savedfiles/saved.xml";
+    private static final double BASE_VALUE = 0.0;
     private String simName, authName, layout;
     private int choice, rows, cols, isLayout, shape;
     private float prob;
@@ -41,14 +42,14 @@ public class XMLWriter {
             prob = game.getMyProb();
         }
         catch(Exception e){
-            prob = (float) 0.0;
+            prob = (float) BASE_VALUE;
             throw new Exception("Not a fire type simulation");
         }
         try{
             threshold = game.getMyThreshold();
         }
         catch(Exception e){
-            threshold = 0.0;
+            threshold = BASE_VALUE;
             throw new Exception("Not a segregation or threshold type");
         }
         getLayout();
