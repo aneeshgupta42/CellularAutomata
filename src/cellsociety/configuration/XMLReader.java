@@ -117,7 +117,7 @@ public class XMLReader {
     // get value of Element's text
     private String getTextValue (Element e, String tagName) {
         NodeList nodeList = e.getElementsByTagName(tagName);
-        if (nodeList != null && nodeList.getLength() > 0 && nodeList.item(0).getTextContent()!="") {
+        if (nodeList != null && nodeList.getLength() > 0 && !nodeList.item(0).getTextContent().equals("")) {
             return nodeList.item(0).getTextContent();
         }
         else {
