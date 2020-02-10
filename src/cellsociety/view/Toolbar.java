@@ -74,7 +74,7 @@ public class Toolbar extends ToolBar {
         Button simUpload = new Button("Upload Sim");
         simUpload.setOnAction(this:: uploadNewSim);
 
-        Button writeSim = new Button ("Write out Sim");
+        Button writeSim = new Button ("Download Sim");
         writeSim.setOnAction(this:: writeOutSim);
 
         timer();
