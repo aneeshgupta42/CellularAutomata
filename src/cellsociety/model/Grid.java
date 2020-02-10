@@ -162,6 +162,8 @@ public class Grid {
                     tempCell = makeGlider(i, j, choice);
                 } else if (choice == RPS) {
                     numStates = NUMSTATES;
+                    numStates = 3;
+
                     tempCell = getSimulation(i, j, numChooser.nextInt(numStates), choice, myNeighborhoodChoice);
                 } else if (choice == SUGARSCAPE) {
                     numStates = NUMSTATES - 1;
