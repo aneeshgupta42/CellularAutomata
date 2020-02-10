@@ -72,7 +72,7 @@ Assumptions or Simplifications:
 - Once a file is desired to be uploaded, you should not close the file browsing window.
 - Cell shapes are inputs through XML files.
 - For a simulation to run correctly, clean, and correct XML files must be passed in.
-
+- We just created mix-and-match shape and simulation pairings to show that we can diversify this, and create all possible combinations.
 
 Interesting data files: 
 - `simulation_team03/data/gameOfLifeLayout.xml`: Represents a preset states and layout file
