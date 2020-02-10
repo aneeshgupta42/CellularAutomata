@@ -32,10 +32,13 @@ public class Configpanel extends VBox {
     private XYChart.Series<Number, Number> myseries;
     private Grid currentGrid;
     private ResourceBundle configBundle;
-
     private static final int WIDTH = 50;
     private static final int SPACING = 10;
 
+    /**
+     * The Configuration Panel Displayed in Mainview and some inital settings
+     * @param mainView the borderpane that this will be put in
+     */
     public Configpanel(MainView mainView) {
 
         myMainView = mainView;
@@ -64,6 +67,9 @@ public class Configpanel extends VBox {
         this.getChildren().addAll(rowBox,colbox,submit, myLinechart);
     }
 
+    /**
+     * Configures the submit button to read the numbers input in all the buttons in the Config Panel
+     */
     public void submission() {
         toolBar = new Toolbar(myMainView);
         this.submit = new Button(configBundle.getString("Submitbutton"));
@@ -87,19 +93,33 @@ public class Configpanel extends VBox {
         submit.setAlignment(Pos.TOP_LEFT);
     }
 
-
+    /**
+     * Get Rows
+     * @return int representing number of rows
+     */
     public int getNewRows() {
         return numofRows;
     }
 
+    /**
+     * Get Columns
+     * @return int representing number of columns
+     */
     public int getNewCols() {
         return numofCols;
     }
 
+    /**
+     * Get the submission status
+     * @return boolean representing if the submit button worked
+     */
     public boolean getsubmitstatus() {
         return submitbuttonstatus;
     }
 
+    /**
+     * Makes the graph being displayed in the OCnfiguration Panel
+     */
     public void makeNewGraph() {
         final NumberAxis xAxis = new NumberAxis();
         final NumberAxis yAxis = new NumberAxis();
@@ -117,6 +137,10 @@ public class Configpanel extends VBox {
         myLinechart.getData().add(myseries);
     }
 
+    /**
+     * Adds data to graph
+     * @param timernumber int representing time elapsed for the x-axis
+     */
     public void addDataToGraph(int timernumber) {
         myseries.getData().add(new XYChart.Data<>(timernumber,1));
     }

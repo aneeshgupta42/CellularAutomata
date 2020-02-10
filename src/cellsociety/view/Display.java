@@ -52,11 +52,20 @@ public class Display extends Application {
                 stage.show();
         }
 
+        /**
+         * Uploads a new grid from a file
+         * @return new Grid from the file
+         */
         public Grid uploadNewFile(){
                 Grid uploadedGrid = readFileSimulation(new Stage());
                 return uploadedGrid;
         }
 
+        /**
+         * Reads the file that was input
+         * @param primaryStage the Stage where everything is shown
+         * @return new grid
+         */
         public Grid readFileSimulation (Stage primaryStage){
                 File dataFile = FILE_CHOOSER.showOpenDialog(primaryStage);
                 while(dataFile != null){
@@ -77,6 +86,11 @@ public class Display extends Application {
                 return null; //wont ever hit this
         }
 
+        /**
+         * Show alert message if a proper file isn't uploaded
+         * @param type what type of message is it
+         * @param message alert message
+         */
         private void showMessage (AlertType type, String message) {
                 new Alert(type, message).showAndWait();
         }
@@ -90,15 +104,26 @@ public class Display extends Application {
                 return result;
         }
 
+        /**
+         * Getter method to return the Grid being displayed
+         * @return Grid being displayed
+         */
         public Grid getDisplayGrid() {
                 return displayGrid;
         }
 
+        /**
+         * Getter method to get the game
+         * @return Game being run
+         */
         public Game getMyGame() {
                 return myGame;
         }
 
-
+        /**
+         * Runs the program
+         * @param args runs it
+         */
         public static void main(String[] args) {launch();}
         /**
          * Runs the program
