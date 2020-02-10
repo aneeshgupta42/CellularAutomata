@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <data media="sim">
-    <name>Percolation</name>
-    <choice>1</choice>
+    <name>GameOfLife</name>
+    <choice>0</choice>
     <author>Aneesh</author>
     <islayout>1</islayout>
     <rows>10</rows>
