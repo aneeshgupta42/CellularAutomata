@@ -77,8 +77,14 @@ public class Grid {
      * @param prob: ProbCatch for fire
      */
     public Grid(int width, int height, int choice, float prob, String layout, int islayout, int neighborhoodChoice) {
-        this(width, height, choice, layout, islayout, neighborhoodChoice);
+        cellGrid = new HashMap<Point, Cell>();
         myProb = prob;
+        myChoice = choice;
+        myWidth = width;
+        myHeight = height;
+        myLayout = layout;
+        isLayout = islayout;
+        myNeighborhoodChoice = neighborhoodChoice;
         populateGridCells(width, height, choice, myNeighborhoodChoice);
     }
 
@@ -91,8 +97,14 @@ public class Grid {
      * @param thresh: "Satisfaction" threshold for Segregation simulation
      */
     public Grid(int width, int height, int choice, double thresh, String layout, int islayout, int neighborhoodChoice) {
-        this(width, height, choice, layout, islayout, neighborhoodChoice);
+        cellGrid = new HashMap<Point, Cell>();
         myThreshold = thresh;
+        myChoice = choice;
+        myWidth = width;
+        myHeight = height;
+        myLayout = layout;
+        isLayout = islayout;
+        myNeighborhoodChoice = neighborhoodChoice;
         populateGridCells(width, height, choice, myNeighborhoodChoice);
     }
 
@@ -105,8 +117,14 @@ public class Grid {
      * @param thresh: Threshold for RPS simulation
      */
     public Grid(int width, int height, int choice, int thresh, String layout, int islayout, int neighborhoodChoice) {
-        this(width, height, choice, layout, islayout, neighborhoodChoice);
+        cellGrid = new HashMap<Point, Cell>();
         myThresholdRPS = thresh;
+        myChoice = choice;
+        myWidth = width;
+        myHeight = height;
+        myLayout = layout;
+        isLayout = islayout;
+        myNeighborhoodChoice = neighborhoodChoice;
         populateGridCells(width, height, choice, myNeighborhoodChoice);
     }
 
@@ -157,12 +175,12 @@ public class Grid {
     private Cell makeGlider(int i, int j, int choice) {
         Cell tempCell;
         if (i == TWO && j == THREE) {
-            tempCell = new GameCell(i, j, ALIVE, myNeighborhoodChoice);
+            tempCell = getSimulation(i, j, ALIVE, choice, myNeighborhoodChoice);
         } else if (i == THREE && j == FOUR) {
-            tempCell = new GameCell(i, j, ALIVE, myNeighborhoodChoice);
+            tempCell = getSimulation(i, j, ALIVE, choice, myNeighborhoodChoice);
         } else if (i == FOUR && (j == TWO || j == THREE || j == FOUR)) {
-            tempCell = new GameCell(i, j, ALIVE, myNeighborhoodChoice);
-        } else tempCell = new GameCell(i, j, DEAD, myNeighborhoodChoice);
+            tempCell = getSimulation(i, j, ALIVE, choice, myNeighborhoodChoice);
+        } else tempCell = getSimulation(i, j, DEAD, choice, myNeighborhoodChoice);
         return tempCell;
     }
 
