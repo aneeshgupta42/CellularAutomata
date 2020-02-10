@@ -31,16 +31,16 @@ public class GridCreator {
         myGame = game;
         Grid myGrid;
         if(choice == 4){
-            myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice(), game.getMyProb(), game.getMyLayout(), game.getIsLayout());
+            myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice(), game.getMyProb(), game.getMyLayout(), game.getIsLayout(), game.getMyShape());
         }
         else if(choice == 2){
-            myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice(), game.getMyThreshold(), game.getMyLayout(), game.getIsLayout());
+            myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice(), game.getMyThreshold(), game.getMyLayout(), game.getIsLayout(), game.getMyShape());
         }
         else if(choice == 5){
-            myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice(), (int) game.getMyThreshold(), game.getMyLayout(), game.getIsLayout());
+            myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice(), (int) game.getMyThreshold(), game.getMyLayout(), game.getIsLayout(), game.getMyShape());
         }
         else{
-            myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice(), game.getMyLayout(), game.getIsLayout());
+            myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice(), game.getMyLayout(), game.getIsLayout(), game.getMyShape());
         }
         return myGrid;
     }
@@ -50,16 +50,16 @@ public class GridCreator {
         int choice = myGame.getMyChoice();
         Grid myGrid;
         if(choice == 4){
-            myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice(), game.getMyProb(), game.getMyLayout(), game.getIsLayout());
+            myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice(), game.getMyProb(), game.getMyLayout(), game.getIsLayout(), game.getMyShape());
         }
         else if(choice == 2){
-            myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice(), game.getMyThreshold(), game.getMyLayout(), game.getIsLayout());
+            myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice(), game.getMyThreshold(), game.getMyLayout(), game.getIsLayout(), game.getMyShape());
         }
         else if(choice == 5){
-            myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice(), (int) game.getMyThreshold(), game.getMyLayout(), game.getIsLayout());
+            myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice(), (int) game.getMyThreshold(), game.getMyLayout(), game.getIsLayout(), game.getMyShape());
         }
         else{
-            myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice(), game.getMyLayout(), game.getIsLayout());
+            myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice(), game.getMyLayout(), game.getIsLayout(), game.getMyShape());
         }
         return myGrid;
     }

@@ -181,4 +181,8 @@ public class Game {
     public double getMyThreshold() {
         return myThreshold;
     }
+
+    public int getMyShape() {
+        return myShape;
+    }
 }
