@@ -1,7 +1,7 @@
 package cellsociety.configuration;
 
 /**
- * Testing out the XML reader
+ * Testing out the XML reader, by passsing in a file.
  * @author Aneesh Gupta, Shruthi Kumar, Chris Warren
  */
 public class TestXMLReader {

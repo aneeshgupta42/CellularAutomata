@@ -17,6 +17,11 @@ public class PercolationCell extends Cell {
   private static final int BLOCKED = 0;
   private static final int OPEN = 1;
   private static final int PERCOLATED = 2;
+  private static final int ONE = 1;
+  private static final String BLACK = "black";
+  private static final String WHITE = "white";
+  private static final String BLUE = "blue";
+
   private String cellColor;
 
   /**
@@ -44,7 +49,7 @@ public class PercolationCell extends Cell {
   @Override
   public int updateCell(Grid cellGrid,
       int row, int col, int width, int height) {
-    if(getNeighborCount(cellGrid, row, col, PERCOLATED) >= 1 && checkState(cellGrid, row, col, OPEN)) {
+    if(getNeighborCount(cellGrid, row, col, PERCOLATED) >= ONE && checkState(cellGrid, row, col, OPEN)) {
       return PERCOLATED;
     }
     else{
@@ -84,17 +89,17 @@ public class PercolationCell extends Cell {
   @Override
   public void setCellColor() {
     if(state == BLOCKED) {
-      cellColor = "black";
+      cellColor = BLACK;
     }
     else if(state == OPEN) {
-      cellColor = "white";
+      cellColor = WHITE;
     }
     else if(state == PERCOLATED) {
-      cellColor = "blue";
+      cellColor = BLUE;
     }
     else {
       setState(OPEN);
-      cellColor = "white";
+      cellColor = WHITE;
     }
   }
 
