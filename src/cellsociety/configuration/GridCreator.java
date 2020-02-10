@@ -1,5 +1,6 @@
 package cellsociety.configuration;
-import cellsociety.model.*;
+
+import cellsociety.model.Grid;
 
 /***
  * Choosing a Grid object based on choice integer
