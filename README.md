@@ -18,7 +18,7 @@ Hours Spent: 20+ hours per person.
 ### Primary Roles
 1. Aneesh Gupta: Writing _Configuration_ part and package, reading in things from XML files, creating Grid objects and populating them based on this. Also helped with some visualization components like uploading new simulations, downloading current state, resetting them, and two-pass update for the Grid class.
 
-2. Shruthi Kumar:
+2. Shruthi Kumar: Backend side writing the complete implementations for all the Cell classes/subclasses, wrote the grid class, wrote the Neighbor class and corresponding subclasses, worked on setting up the UI anchorpane to hold different cell shapes
 
 3. Chris Warren:
 
@@ -26,7 +26,7 @@ Hours Spent: 20+ hours per person.
 1. Class and Lab code: [Spike Simulation](https://coursework.cs.duke.edu/compsci308_2020spring/spike_simulation)
 2. StackOverflow and Oracle Java documentation
 3. XMLWrite [example](https://examples.javacodegeeks.com/core-java/xml/parsers/documentbuilderfactory/create-xml-file-in-java-using-dom-parser-example/)
-
+4. 
 
 
 ### Running the Program
@@ -61,7 +61,21 @@ XML Files housed in `simulation_team03/data`: These house the simulations, the e
      4. States of specific cells.
      
 - Model:
-
+    1. Grid class 
+        1. initializes the grid that holds and displays the cells and their states
+        2. Uses a two pass feature in the updateCell method to update new states without overwriting old states
+        3. Uses overloaded constructors to cater to multiple simulations
+        4. Initializes cell states in grid based on layout or randomly
+    2. Cell Classes
+        1. Uses inheritance and polymorphism to create a grid of cells
+        2. All cells are able to do things like get their neighbors and check their current/next states
+        3. Extendable cell subclassses implement their own set of rules
+        4. Implements the basic simulations (Game of Life, Segregation, Percolation, WaTor, Fire)
+        5. Added extra simulations (RPS and SugarScape)
+    3. Neighbor classes
+        1. Allows users to change shapes of the cells (square, triangle, hexagon)
+        2. Uses inheritance and abstract neighbor superclass to hold abstract methods
+        3. Each subclass has its own way of checking for neighbors based on how many they have
 - Visualization:
 
 
@@ -86,7 +100,7 @@ Interesting data files:
 
 Known Bugs:
 - Not a bug, but closing the file explorer once it is opened can cause program to shut down. Therefore, you must always choose a file if you have opened the file explorer.
-- SugarScape simulation not completely robust when it comes to update logic.
+- SugarScape simulation not completely robust when it comes to update logic (the rules seem to be wrong as the agents just die off and don't maintain their population count)
 
 Extra credit:
 - Writing to XML file the current state of the program.
@@ -94,10 +108,10 @@ Extra credit:
 - Error and exception handling.
 - Implement and update grid states according to rules of simulation.
 - Many different types of Simulations and rules: _Game of Life, Percolation, Fire, Predator-Prey, Segregation, Rock-Paper-Scissors_ and _SugarScape_.
-- Different types of cell shaps: Square, Triangle, and Neighbours.
+- Different types of cell shapes: Square, Triangle, and Neighbours.
 - UI Features to show time, reset, stop, upload new, step through, etc.
 - Architecture in place to interact with CA through custom UI inputs, clicks etc.
-- Can easily add more UI elements, such as graph to monitor progress of CA simulation.
+- Can easily add more UI elements, such as graph to monitor progress of CA simulation. Basic graph implementation is there, but it doesn't update the number of cells
 
 ### Impressions
 - Assignment had many different moving parts.
