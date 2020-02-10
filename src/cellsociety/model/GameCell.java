@@ -15,6 +15,12 @@ public class GameCell extends Cell {
   private int state;
   private static final int DEAD = 0;
   private static final int ALIVE = 1;
+  private static final String RED = "red";
+  private static final String BLACK = "black";
+  private static final String BLUE = "blue";
+  private static final int TWO = 2;
+  private static final int THREE = 3;
+
 
   private String cellColor;
 
@@ -42,15 +48,15 @@ public class GameCell extends Cell {
    */
   @Override
   public int updateCell(Grid cellGrid, int row, int col, int width, int height) {
-    if((getNeighborCount(cellGrid, row, col, ALIVE) > 3 || getNeighborCount(cellGrid, row, col, ALIVE) < 2) && checkState(
+    if((getNeighborCount(cellGrid, row, col, ALIVE) > THREE || getNeighborCount(cellGrid, row, col, ALIVE) < TWO) && checkState(
         cellGrid, row, col, ALIVE)) {
       return DEAD;
     }
-    else if(getNeighborCount(cellGrid, row, col, ALIVE) == 3 && checkState(cellGrid, row, col, DEAD)) {
+    else if(getNeighborCount(cellGrid, row, col, ALIVE) == THREE && checkState(cellGrid, row, col, DEAD)) {
       return ALIVE;
 
     }
-    else if(getNeighborCount(cellGrid, row, col, ALIVE) >= 2 && checkState(cellGrid, row, col,
+    else if(getNeighborCount(cellGrid, row, col, ALIVE) >= TWO && checkState(cellGrid, row, col,
         ALIVE)) {
       return ALIVE;
 
@@ -91,13 +97,13 @@ public class GameCell extends Cell {
   @Override
   public void setCellColor() {
     if(state == ALIVE) {
-      cellColor = "blue";
+      cellColor = BLUE;
     }
     else if(state == DEAD) {
-      cellColor = "black";
+      cellColor = BLACK;
     }
     else {
-      cellColor = "red";
+      cellColor = RED;
     }
   }
 
