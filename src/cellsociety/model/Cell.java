@@ -20,6 +20,7 @@ public abstract class Cell {
     Point gridPos;
     private String color;
     private Neighbor neighbors = new SquareNeighbor();
+    private int myNeighborhoodChoice;
 
   /**
    * Constructor for the Cell object
@@ -27,9 +28,10 @@ public abstract class Cell {
    * @param col: column number cell is in
    * @param mystate: current state of the cell
    */
-    public Cell(int row, int col, int mystate) {
+    public Cell(int row, int col, int mystate, int neighborhoodChoice) {
       Point gridPos = new  Point(row, col);
       this.state = mystate;
+      this.myNeighborhoodChoice = neighborhoodChoice;
     }
 
   /**
