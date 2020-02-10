@@ -5,8 +5,6 @@ This project implements a cellular automata simulator.
 
 Language: Java. Frameworks: OpenJFX
 
-Lines of Code: 
-
 Names: Chris Warren, Shruthi Kumar, Aneesh Gupta
 
 ### Timeline
