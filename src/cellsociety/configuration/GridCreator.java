@@ -1,5 +1,6 @@
 package cellsociety.configuration;
 import cellsociety.model.*;
+
 /***
  * Choosing a Grid object based on choice integer
  * Used in Display, and set up, to read in a grid
@@ -33,6 +34,12 @@ public class GridCreator {
         return gridChooser(game, choice);
     }
 
+    /***
+     * Pass in a custom game to receive the grid for it
+     * As opposed to taking in one from the default easy options
+     * @param game
+     * @return
+     */
     public Grid newGridSelector (Game game){
         myGame = game;
         int choice = myGame.getMyChoice();
@@ -54,6 +61,10 @@ public class GridCreator {
         }
     }
 
+    /***
+     * get the game selected/passed on
+     * @return
+     */
     public Game getMyGame() {
         return myGame;
     }

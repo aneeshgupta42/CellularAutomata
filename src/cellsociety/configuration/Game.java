@@ -1,13 +1,12 @@
 package cellsociety.configuration;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 
 /**
  * Simple immutable value object representing simulation data.
- *
+ * Holds the data for simulation to help create the Grid.
  * @author Robert C. Duvall
  * extended by Aneesh Gupta, Shruthi Kumar, Chris Warren
  */
@@ -24,7 +23,6 @@ public class Game {
     private int myChoice,isLayout, myRows, myShape, myCols;
     private float myProb;
     private double myThreshold;
-    private Map<String, String> myDataValues;
 
     /**
      * Create game data from given data.
@@ -46,8 +44,6 @@ public class Game {
         myShape = shape;
         myCols = cols;
         myLayout = layout;
-        // NOTE: this is useful so our code does not fail due to a NullPointerException
-        myDataValues = new HashMap<>();
     }
 
     /***
@@ -107,7 +103,7 @@ public class Game {
 
     /***
      * returns initial layout of cell states in the grid
-     * @return
+     * @return Layout: Returns the string layout
      */
     public String getMyLayout() {
         return myLayout;
@@ -167,6 +163,11 @@ public class Game {
         return myThreshold;
     }
 
+    /***
+     * get what shape (square, triangle, or hexagon)
+     * is in plane rn, represented by code
+     * @return myshape: code
+     */
     public int getMyShape() {
         return myShape;
     }
