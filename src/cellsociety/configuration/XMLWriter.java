@@ -18,10 +18,49 @@ import org.w3c.dom.Element;
 public class XMLWriter {
 
     public static final String xmlFilePath = "data/savedfiles/saved.xml";
-    public XMLWriter(Grid grid, Game game){
+    private String simName, authName, layout;
+    private int choice, rows, cols, isLayout, shape;
+    private float prob;
+    private double threshold;
+    Grid myGrid;
+    Game myGame;
 
-
+    public XMLWriter(Grid grid, Game game) throws Exception {
+        myGrid = grid;
+        myGame = game;
+        simName = game.getSimulationName(); authName = game.getAuthor();
+        choice = game.getMyChoice();
+        rows = game.getMyRows(); cols = game.getMyCols();
+        shape = game.getMyShape();
+        isLayout = game.getIsLayout();
+        try{
+            prob = game.getMyProb();
+        }
+        catch(Exception e){
+            prob = (float) 0.0;
+            throw new Exception("Not a fire type simulation");
+        }
+        try{
+            threshold = game.getMyThreshold();
+        }
+        catch(Exception e){
+            threshold = 0.0;
+            throw new Exception("Not a segregation or threshold type");
+        }
+        getLayout();
     }
+
+    private void getLayout(){
+        layout = "";
+        for(int i = 0; i<myGrid.getMyHeight(); i++){
+            for(int j = 0; j<myGrid.getMyWidth(); j++){
+                layout += Integer.toString(myGrid.getCell(i,j).getState());
+                layout += " ";
+            }
+            layout += "\n";
+        }
+    }
+
     public static void main(String argv[]) {
         try {
 
@@ -55,9 +94,9 @@ public class XMLWriter {
             root.appendChild(author);
 
             // department elements
-            Element size = document.createElement("islayout");
-            size.appendChild(document.createTextNode("0"));
-            root.appendChild(size);
+            Element isLayout = document.createElement("islayout");
+            isLayout.appendChild(document.createTextNode("0"));
+            root.appendChild(isLayout);
 
             Element rows = document.createElement("rows");
             rows.appendChild(document.createTextNode("15"));
@@ -68,12 +107,16 @@ public class XMLWriter {
             root.appendChild(cols);
 
             Element threshold = document.createElement("threshold");
-            threshold.appendChild(document.createTextNode("Human Resources"));
+            threshold.appendChild(document.createTextNode("Thresh"));
             root.appendChild(threshold);
 
             Element prob = document.createElement("prob");
-            prob.appendChild(document.createTextNode("Human Resources"));
+            prob.appendChild(document.createTextNode("Probability"));
             root.appendChild(prob);
+
+            Element layout = document.createElement("layout");
+            layout.appendChild(document.createTextNode("Layout"));
+            root.appendChild(layout);
 
 
             // create the xml file
