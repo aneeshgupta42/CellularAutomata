@@ -1,9 +1,5 @@
 package cellsociety.configuration;
 
-import java.util.HashMap;
-import java.util.Map;
-
-
 /**
  * Simple immutable value object representing simulation data.
  * Holds the data for simulation to help create the Grid.
@@ -35,7 +31,9 @@ public class Game {
             myChoice = DEFAULT_VALUE;
             simulationName = "GameOfLife";
         }
-        if(shape>MAX_SHAPES) shape = DEFAULT_VALUE;
+        if(shape>MAX_SHAPES) {
+            shape = DEFAULT_VALUE;
+        }
         if(rows<=0||cols<=0||shape<0||islayout<0){
             throw new XMLException(NEGATIVE_VALUES, Game.DATA_TYPE);
         }

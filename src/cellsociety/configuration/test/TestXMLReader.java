@@ -1,4 +1,7 @@
-package cellsociety.configuration;
+package cellsociety.configuration.test;
+
+import cellsociety.configuration.Game;
+import cellsociety.configuration.XMLReader;
 
 /**
  * Testing out the XML reader, by passsing in a file.

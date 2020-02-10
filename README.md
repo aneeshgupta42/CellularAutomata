@@ -3,6 +3,10 @@ simulation
 
 This project implements a cellular automata simulator.
 
+Language: Java. Frameworks: OpenJFX
+
+Lines of Code: 
+
 Names: Chris Warren, Shruthi Kumar, Aneesh Gupta
 
 ### Timeline
@@ -37,6 +41,27 @@ XML Files housed in `simulation_team03/data`: These house the simulations, the e
 
 #### Features implemented:
 - Configuration:
+  1. Reads in XML files. There are two options: either you select easy-access, default files, or open up your file explorer and upload one of your own choice.
+  2. Catches errors and exceptions in XML files, and does not let bad XML files to be fed in (for egs. go to `data/ErrorFiles`):
+     1. Empty/Missing fields: `allEmpty.xml`
+     2. Incorrect datatype: `invalidDataType.xml`
+     3. Negative values/values out of bounds: `negativeValues.xml`
+     4. Out of bounds: Sets default values.
+  3. Allow simulation's initial configuration to be set by:
+     1. A list of specific locations and states specified in file.
+     2. Completely randomly based on a total number of locations to occupy
+     3. You can load in saved simulations.
+  4. Allow users to save the simulation's current state in an XML file by clicking a button.
+     1. These files are saved under `data/savedFiles`.
+     2. Contain parameters such as name, author, size, shape.
+     3. Also contain an exact map of the saved simulation's cells states.
+     4. You can load in these to save and later resume a simulation.
+  5. You can specify characteristics of the simulation through such files, eg.:
+     1. Size of grid.
+     2. Shape of cells to be used.
+     3. Type of simulation to be run.
+     4. States of specific cells.
+     
 
 
 - Model:
@@ -65,9 +90,12 @@ Interesting data files:
 
 Known Bugs:
 - Not a bug, but closing the file explorer once it is opened can cause program to shut down. Therefore, you must always choose a file if you have opened the file explorer.
-
+- SugarScape simulation not completely robust when it comes to update logic.
 
 Extra credit:
+- Writing to XML file the current state of the program.
+- Being able to load in specific states and locations for cells through configuration.
+- Error and exception handling.
 
 
 ### Impressions

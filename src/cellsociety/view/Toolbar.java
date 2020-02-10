@@ -1,6 +1,7 @@
 package cellsociety.view;
 
 import cellsociety.configuration.Game;
+import cellsociety.configuration.XMLException;
 import cellsociety.configuration.XMLWriter;
 import cellsociety.model.*;
 import cellsociety.configuration.GridCreator;
@@ -242,10 +243,10 @@ public class Toolbar extends ToolBar {
             timer.stop();
             XMLWriter writer = new XMLWriter(myMainView.getDisplayGrid(), myGame);
             writer.outputFile();
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
+        } catch (XMLException | ParserConfigurationException e) {
+            throw new XMLException("Couldn't parse");
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new XMLException("Couldn't write file");
         }
     }
     /**
