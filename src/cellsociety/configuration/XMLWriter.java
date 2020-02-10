@@ -47,23 +47,25 @@ public class XMLWriter {
     public XMLWriter(Grid grid, Game game) throws Exception {
         myGrid = grid;
         myGame = game;
-        simName = game.getSimulationName(); authName = game.getAuthor();
+        simName = game.getSimulationName();
+        authName = game.getAuthor();
         choice = game.getMyChoice();
-        myRows = game.getMyRows(); myCols = game.getMyCols();
+        myRows = game.getMyRows();
+        myCols = game.getMyCols();
         myShape = game.getMyShape();
         try{
             myProb = game.getMyProb();
         }
-        catch(XMLException e){
+        catch(Exception e){
             myProb = (float) BASE_VALUE;
-            throw new XMLException("Not a fire type simulation");
+            throw new Exception("Not a fire type simulation");
         }
         try{
             myThreshold = game.getMyThreshold();
         }
-        catch(XMLException e){
+        catch(Exception e){
             myThreshold = BASE_VALUE;
-            throw new XMLException("Not a segregation or threshold type");
+            throw new Exception("Not a segregation or threshold type");
         }
         getLayout();
     }
@@ -79,7 +81,7 @@ public class XMLWriter {
         }
     }
 
-    private void addElements() throws ParserConfigurationException {
+    private void addElements(){
         Element root = document.createElement("data");
         document.appendChild(root);
         Attr attr = document.createAttribute("media");
