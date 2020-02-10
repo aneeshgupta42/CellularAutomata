@@ -22,12 +22,20 @@ public class PredatorPreyCell extends Cell {
   private String cellColor;
   private int myNextState;
   private static final int VACANT = 0;
+  private static final int ZERO = 0;
   private static final int FISH = 1;
   private static final int SHARK = 2;
+  private static final String WHITE = "white";
+  private static final String BLUE = "blue";
+  private static final String GRAY = "gray";
+
   private int energyLevel;
   private int breedingTime;
+
   private static final int MAX_BREEDING_TIME = 4;
   private static final int MAX_ENERGY_LEVEL = 7;
+  private static final int MIN_ENERGY_LEVEL = 0;
+  private static final int STARTING_ENERGY_LEVEL = 2;
   private List<Point> vacantCells;
   private List<Point> fishCells;
 
@@ -41,8 +49,8 @@ public class PredatorPreyCell extends Cell {
     super(row, col , myState, neighborhoodChoice);
     this.state = myState;
     this.myNextState = state;
-    this.breedingTime = 0;
-    this.energyLevel = 2;
+    this.breedingTime = ZERO;
+    this.energyLevel = STARTING_ENERGY_LEVEL;
     this.myNextState = state;
     this.setCellColor();
     setDirectNeighbors(row, col);
@@ -126,13 +134,13 @@ public class PredatorPreyCell extends Cell {
   @Override
   public void setCellColor() {
     if(state == VACANT) {
-      cellColor = "white";
+      cellColor = WHITE;
     }
     else if(state == FISH) {
-      cellColor = "blue";
+      cellColor = BLUE;
     }
     else {
-      cellColor = "gray";
+      cellColor = GRAY;
     }
   }
 
@@ -140,21 +148,21 @@ public class PredatorPreyCell extends Cell {
     increaseBreedingTime();
     decreaseEnergyLevel();
     int tempState = state;
-    if(energyLevel == 0) {
+    if(energyLevel == MIN_ENERGY_LEVEL) {
       myNextState = VACANT;
       setEnergyLevel(MAX_ENERGY_LEVEL);
     }
-    else if(breedingTime > MAX_BREEDING_TIME && vacantCells.size() > 0) {
+    else if(breedingTime > MAX_BREEDING_TIME && vacantCells.size() > ZERO) {
       handleNextAction(cellGrid, tempState, state, 0, vacantCells);
     }
-    else if(fishCells.size() > 0) {
+    else if(fishCells.size() > ZERO) {
       increaseEnergyLevel();
-      Point targetPt = fishCells.get(0);
+      Point targetPt = fishCells.get(ZERO);
       handleNextAction(cellGrid, tempState, SHARK, getBreedingTime(), fishCells);
       ((PredatorPreyCell) cellGrid.getCell((int) targetPt.getX(), (int) targetPt.getY())).setEnergyLevel(getEnergyLevel());
     }
-    else if(vacantCells.size() > 0) {
-      Point targetPt = vacantCells.get(0);
+    else if(vacantCells.size() > ZERO) {
+      Point targetPt = vacantCells.get(ZERO);
       handleNextAction(cellGrid, tempState, VACANT, getBreedingTime(), vacantCells);
       ((PredatorPreyCell) cellGrid.getCell((int) targetPt.getX(), (int) targetPt.getY())).setEnergyLevel(getEnergyLevel());
     }
@@ -166,10 +174,10 @@ public class PredatorPreyCell extends Cell {
   private void handleFishState(Grid cellGrid) {
     increaseBreedingTime();
     int tempState = state;
-    if(breedingTime > MAX_BREEDING_TIME && vacantCells.size() > 0) {
-      handleNextAction(cellGrid, tempState, state, 0, vacantCells);
+    if(breedingTime > MAX_BREEDING_TIME && vacantCells.size() > ZERO) {
+      handleNextAction(cellGrid, tempState, state, ZERO, vacantCells);
     }
-    else if(vacantCells.size() > 0) {
+    else if(vacantCells.size() > ZERO) {
       handleNextAction(cellGrid, tempState, VACANT, getBreedingTime(), vacantCells);
     }
     else {
@@ -179,12 +187,12 @@ public class PredatorPreyCell extends Cell {
 
   private void handleNextAction(Grid cellGrid, int tempState, int nextState, int newBreedingTime, List<Point> cellList) {
     myNextState = nextState;
-    Point targetPt = cellList.get(0);
+    Point targetPt = cellList.get(ZERO);
     cellGrid.getCell((int) targetPt.getX(), (int) targetPt.getY()).setMyNextState(tempState);
 //    cellHashMap.get(targetPt).setMyNextState(tempState);
     ((PredatorPreyCell) cellGrid.getCell((int) targetPt.getX(), (int) targetPt.getY())).setBreedingTime(newBreedingTime);
-    setBreedingTime(0);
-    cellList.remove(0);
+    setBreedingTime(ZERO);
+    cellList.remove(ZERO);
   }
 
   private void getVacantCells(Grid grid, int row, int col) {
@@ -203,7 +211,7 @@ public class PredatorPreyCell extends Cell {
     energyLevel--;
   }
   private void increaseEnergyLevel() {
-    energyLevel = energyLevel + 2;
+    energyLevel = energyLevel + STARTING_ENERGY_LEVEL;
   }
 
   private void setEnergyLevel(int level) {
