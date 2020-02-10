@@ -41,6 +41,12 @@ public class Grid {
     private static final int SUGARSCAPE = 6;
     private static int numStates = 2;
     private static final int NUMSTATES = 3;
+    private static final int TWO = 2;
+    private static final int THREE = 3;
+    private static final int FOUR = 4;
+    private static final int DEAD = 0;
+    private static final int ALIVE = 1;
+
 
 
 
@@ -155,13 +161,13 @@ public class Grid {
                 if (choice == GAMEOFLIFE) {
                     tempCell = makeGlider(i, j, choice);
                 } else if (choice == RPS) {
-                    numStates = 3;
+                    numStates = NUMSTATES;
                     tempCell = getSimulation(i, j, numChooser.nextInt(numStates), choice, myNeighborhoodChoice);
                 } else if (choice == SUGARSCAPE) {
-                    numStates = 2;
+                    numStates = NUMSTATES - 1;
                     tempCell = getSimulation(i, j, numChooser.nextInt(numStates), choice, myNeighborhoodChoice);
                 } else {
-                    numStates = 3;
+                    numStates = NUMSTATES;
                     tempCell = getSimulation(i, j, numChooser.nextInt(numStates), choice, myNeighborhoodChoice);
                 }
                 cellGrid.put(new Point(i, j), tempCell);
@@ -171,13 +177,13 @@ public class Grid {
 
     private Cell makeGlider(int i, int j, int choice) {
         Cell tempCell;
-        if (i == 2 && j == 3) {
-            tempCell = getSimulation(i, j, 1, choice, myNeighborhoodChoice);
-        } else if (i == 3 && j == 4) {
-            tempCell = getSimulation(i, j, 1, choice, myNeighborhoodChoice);
-        } else if (i == 4 && (j == 2 || j == 3 || j == 4)) {
-            tempCell = getSimulation(i, j, 1, choice, myNeighborhoodChoice);
-        } else tempCell = getSimulation(i, j, 0, choice, myNeighborhoodChoice);
+        if (i == TWO && j == THREE) {
+            tempCell = getSimulation(i, j, ALIVE, choice, myNeighborhoodChoice);
+        } else if (i == THREE && j == FOUR) {
+            tempCell = getSimulation(i, j, ALIVE, choice, myNeighborhoodChoice);
+        } else if (i == FOUR && (j == TWO || j == THREE || j == FOUR)) {
+            tempCell = getSimulation(i, j, ALIVE, choice, myNeighborhoodChoice);
+        } else tempCell = getSimulation(i, j, DEAD, choice, myNeighborhoodChoice);
         return tempCell;
     }
 
