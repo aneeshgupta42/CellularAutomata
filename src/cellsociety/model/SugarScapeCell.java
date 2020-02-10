@@ -26,10 +26,7 @@ public class SugarScapeCell extends Cell {
     private static final int STARTING_SUGAR_AMOUNT = 0;
     private static final String WHITE = "white";
     private static final String BLACK = "black";
-
     private static final int ONE = 1;
-
-
     private Random numChooser = new Random();
 
 
