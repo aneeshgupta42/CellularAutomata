@@ -23,6 +23,11 @@ public class SegregationCell extends Cell {
   private static final int VACANT = 0;
   private static final int AGENT1 = 1;
   private static final int AGENT2 = 2;
+  private static final int ZERO = 0;
+  private static final String RED = "red";
+  private static final String BLUE = "blue";
+  private static final String WHITE= "white";
+
   private double THRESHOLD;
   private String cellColor;
   private List<Point> vacantCells;
@@ -64,9 +69,9 @@ public class SegregationCell extends Cell {
     if(checkThreshold < THRESHOLD && state!= VACANT) {
       int tempState = state;
       myNextState = VACANT;
-      Point targetPt = vacantCells.get(0);
+      Point targetPt = vacantCells.get(ZERO);
       cellGrid.getCell((int) targetPt.getX(), (int) targetPt.getY()).setMyNextState(tempState);
-      vacantCells.remove(0);
+      vacantCells.remove(ZERO);
     }
     else if(checkThreshold >= THRESHOLD && state!=VACANT){
       this.myNextState = state;
@@ -125,14 +130,14 @@ public class SegregationCell extends Cell {
    */
   @Override
   public void setCellColor() {
-    if(state == 0) {
-      cellColor = "white";
+    if(state == VACANT) {
+      cellColor = WHITE;
     }
-    else if(state == 1) {
-      cellColor = "blue";
+    else if(state == AGENT1) {
+      cellColor = BLUE;
     }
     else {
-      cellColor = "red";
+      cellColor = RED;
     }
   }
 
@@ -146,7 +151,7 @@ public class SegregationCell extends Cell {
 
 
   private int getNotVacantNeighborCount(Grid cellGrid, int row, int col) {
-    int count = 0;
+    int count = ZERO;
 
     int[] rowDelta = {-1, -1, -1, 0, 0, 1, 1, 1};
     int[] colDelta = {-1, 0, 1, -1, 1, -1, 0, 1};
@@ -165,7 +170,4 @@ public class SegregationCell extends Cell {
     return cellGrid.getCell(row, col).getState() != VACANT;
   }
 
-  private int getNeighborTypeCount(Grid cellGrid, int row, int col, int state) {
-    return getNeighborCount(cellGrid, row, col, state);
-  }
 }

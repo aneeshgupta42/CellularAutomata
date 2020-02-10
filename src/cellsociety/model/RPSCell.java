@@ -5,6 +5,14 @@ public class RPSCell extends Cell {
   private static final int ROCK = 0;
   private static final int PAPER = 1;
   private static final int SCISSORS = 2;
+  private static final int WIN = 1;
+  private static final int LOSE = 0;
+  private static final String BLACK = "black";
+  private static final String WHITE = "white";
+  private static final String GRAY = "gray";
+
+
+
   private int THRESHOLD;
   private String cellColor;
 
@@ -31,7 +39,7 @@ public class RPSCell extends Cell {
     int compState = this.getNeighbors().getMaxNeighborState();
     int currState = cellGrid.getCell(row, col).getState();
 
-    if(THRESHOLD < maxNeighborCount && stateWinChecks(compState, currState) == 1) {
+    if(THRESHOLD < maxNeighborCount && stateWinChecks(compState, currState) == WIN) {
       return this.getNeighbors().getMaxNeighborState();
     }
     else {
@@ -61,13 +69,13 @@ public class RPSCell extends Cell {
   @Override
   public void setCellColor() {
     if(state == ROCK) {
-      cellColor = "gray";
+      cellColor = GRAY;
     }
     else if(state == PAPER) {
-      cellColor = "white";
+      cellColor = WHITE;
     }
     else {
-      cellColor = "black";
+      cellColor = BLACK;
     }
   }
 
@@ -77,9 +85,9 @@ public class RPSCell extends Cell {
     if (state1 == ROCK && state2 == PAPER
         || state1 == SCISSORS && state2 == ROCK
         || state1 == PAPER && state2 == SCISSORS) {
-      return 0;
+      return LOSE;
     } else {
-      return 1;
+      return WIN;
     }
   }
 

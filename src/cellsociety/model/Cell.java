@@ -23,7 +23,7 @@ public abstract class Cell {
     private int myNeighborhoodChoice;
   private final static int HALF = 2;
   private final static int ZERO = 0;
-  private final static int TRIANGLE_NEIGHBOR = 2;
+  private final static int TRIANGLE_NEIGHBOR = 1;
 
 
   /**
