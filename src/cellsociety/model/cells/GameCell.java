@@ -1,4 +1,7 @@
-package cellsociety.model;
+package cellsociety.model.cells;
+
+import cellsociety.model.Grid;
+import cellsociety.model.cells.Cell;
 
 /**
  * GameCell class based on Game of Life simulation. Users can choose the Game simulation and then cells are created

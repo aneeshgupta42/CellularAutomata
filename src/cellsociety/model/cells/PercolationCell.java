@@ -1,4 +1,7 @@
-package cellsociety.model;
+package cellsociety.model.cells;
+
+import cellsociety.model.Grid;
+import cellsociety.model.cells.Cell;
 
 /**
  * PercolationCell class based on Percolation simulation. Users can choose the percolation simulation and then cells are created
