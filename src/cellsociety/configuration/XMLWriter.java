@@ -5,7 +5,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
@@ -18,12 +17,12 @@ import org.w3c.dom.Element;
 
 public class XMLWriter {
 
-    public static final String xmlFilePath = "data/savedfiles/saved.xml";
+    private String xmlFilePath = "data/savedfiles/";
     private static final double BASE_VALUE = 0.0;
     private String simName, authName, layout;
-    private int choice, rows, cols, isLayout, shape;
-    private float prob;
-    private double threshold;
+    private int choice, myRows, myCols, isLayout, myShape;
+    private float myProb;
+    private double myThreshold;
     private Grid myGrid;
     private Game myGame;
     private DocumentBuilderFactory documentFactory = DocumentBuilderFactory.newInstance();
@@ -35,21 +34,21 @@ public class XMLWriter {
         myGame = game;
         simName = game.getSimulationName(); authName = game.getAuthor();
         choice = game.getMyChoice();
-        rows = game.getMyRows(); cols = game.getMyCols();
-        shape = game.getMyShape();
+        myRows = game.getMyRows(); myCols = game.getMyCols();
+        myShape = game.getMyShape();
         isLayout = game.getIsLayout();
         try{
-            prob = game.getMyProb();
+            myProb = game.getMyProb();
         }
         catch(Exception e){
-            prob = (float) BASE_VALUE;
+            myProb = (float) BASE_VALUE;
             throw new Exception("Not a fire type simulation");
         }
         try{
-            threshold = game.getMyThreshold();
+            myThreshold = game.getMyThreshold();
         }
         catch(Exception e){
-            threshold = BASE_VALUE;
+            myThreshold = BASE_VALUE;
             throw new Exception("Not a segregation or threshold type");
         }
         getLayout();
@@ -57,8 +56,8 @@ public class XMLWriter {
 
     private void getLayout(){
         layout = "";
-        for(int i = 0; i<myGrid.getMyHeight(); i++){
-            for(int j = 0; j<myGrid.getMyWidth(); j++){
+        for(int i = 0; i<myGame.getMyRows(); i++){
+            for(int j = 0; j<myGame.getMyCols(); j++){
                 layout += Integer.toString(myGrid.getCell(i,j).getState());
                 layout += " ";
             }
@@ -74,40 +73,44 @@ public class XMLWriter {
         root.setAttributeNode(attr);
 
         Element name = document.createElement("name");
-        name.appendChild(document.createTextNode("Example Sim"));
+        name.appendChild(document.createTextNode(simName));
         root.appendChild(name);
 
-        Element choice = document.createElement("choice");
-        choice.appendChild(document.createTextNode("1"));
-        root.appendChild(choice);
+        Element myChoice = document.createElement("choice");
+        myChoice.appendChild(document.createTextNode(Integer.toString(choice)));
+        root.appendChild(myChoice);
 
         Element author = document.createElement("author");
-        author.appendChild(document.createTextNode("Aneesh Gupta"));
+        author.appendChild(document.createTextNode(authName));
         root.appendChild(author);
 
-        Element isLayout = document.createElement("islayout");
-        isLayout.appendChild(document.createTextNode("0"));
-        root.appendChild(isLayout);
+        Element islayout = document.createElement("islayout");
+        islayout.appendChild(document.createTextNode(Integer.toString(isLayout)));
+        root.appendChild(islayout);
 
         Element rows = document.createElement("rows");
-        rows.appendChild(document.createTextNode("15"));
+        rows.appendChild(document.createTextNode(Integer.toString(myRows)));
         root.appendChild(rows);
 
         Element cols = document.createElement("cols");
-        cols.appendChild(document.createTextNode("15"));
+        cols.appendChild(document.createTextNode(Integer.toString(myCols)));
         root.appendChild(cols);
 
+        Element shape = document.createElement("shape");
+        shape.appendChild(document.createTextNode(Integer.toString(myShape)));
+        root.appendChild(shape);
+
         Element threshold = document.createElement("threshold");
-        threshold.appendChild(document.createTextNode("Thresh"));
+        threshold.appendChild(document.createTextNode(Double.toString(myThreshold)));
         root.appendChild(threshold);
 
         Element prob = document.createElement("prob");
-        prob.appendChild(document.createTextNode("Probability"));
+        prob.appendChild(document.createTextNode(Float.toString(myProb)));
         root.appendChild(prob);
 
-        Element layout = document.createElement("layout");
-        layout.appendChild(document.createTextNode("Layout"));
-        root.appendChild(layout);
+        Element thelayout = document.createElement("layout");
+        thelayout.appendChild(document.createTextNode(layout));
+        root.appendChild(thelayout);
     }
 
     private void writeFile(){
@@ -115,7 +118,7 @@ public class XMLWriter {
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource domSource = new DOMSource(document);
-            StreamResult streamResult = new StreamResult(new File(xmlFilePath));
+            StreamResult streamResult = new StreamResult(new File(xmlFilePath+simName+"_saved.xml"));
             transformer.transform(domSource, streamResult);
             System.out.println("Done creating XML File");
         }
@@ -124,5 +127,8 @@ public class XMLWriter {
         }
     }
 
-
+    public void outputFile() throws ParserConfigurationException {
+        addElements();
+        writeFile();
+    }
 }
