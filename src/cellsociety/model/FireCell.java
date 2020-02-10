@@ -2,6 +2,7 @@ package cellsociety.model;
 
 
 import java.util.Random;
+import javafx.scene.shape.TriangleMesh;
 
 /**
  * Fire Cell class based on Fire simulation. Users can choose the fire simulation and then cells are created
@@ -20,6 +21,10 @@ public class FireCell extends Cell {
   private final static int EMPTY = 0;
   private final static int TREE = 1;
   private final static int BURNING = 2;
+
+  private final static String YELLOW = "yellow";
+  private final static String GREEN = "green";
+  private final static String RED = "red";
   private String cellColor;
   private int state;
   private Random numChooser = new Random();
@@ -31,12 +36,12 @@ public class FireCell extends Cell {
    * @param mystate: current state of the cell
    * @param prob : probability of catching fire
    */
-  public FireCell(int row, int col, int mystate, float prob) {
-    super(row, col, mystate);
+  public FireCell(int row, int col, int mystate, float prob,  int neighborhoodChoice) {
+    super(row, col, mystate, neighborhoodChoice);
     this.state = mystate;
     this.setCellColor();
     this.probCatch = prob;
-    this.getNeighbors().setDirectNeighbors();
+    setDirectNeighbors(row, col);
   }
 
   /**
@@ -86,13 +91,13 @@ public class FireCell extends Cell {
   @Override
   public void setCellColor() {
     if(state == EMPTY) {
-      cellColor = "yellow";
+      cellColor = YELLOW;
     }
     else if(state == TREE) {
-      cellColor = "green";
+      cellColor = GREEN;
     }
     else {
-      cellColor = "red";
+      cellColor = RED;
     }
   }
 
@@ -103,8 +108,5 @@ public class FireCell extends Cell {
   public void setState(int state) {
     this.state = state;
   }
-
-
-
 
 }

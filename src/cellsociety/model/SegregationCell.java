@@ -27,24 +27,22 @@ public class SegregationCell extends Cell {
   private String cellColor;
   private List<Point> vacantCells;
 
-  //private Neighbor neighbors = new SquareNeighbor();
-  private int neighborhoodChoice;
+
 
   /**
    * Constructor for the FireCell object
-   * @param width: width of grid
-   * @param height: height of grid
+   * @param row: width of grid
+   * @param col: height of grid
    * @param state: current state of the cell
    * @param thresh : threshold for moving groups
    */
-  public SegregationCell(int width, int height, int state, double thresh) {
-    super(width, height, state);
+  public SegregationCell(int row, int col, int state, double thresh, int neighborhoodChoice) {
+    super(row, col, state,  neighborhoodChoice);
     this.state = state;
     this.myNextState = state;
     this.THRESHOLD = thresh;
     this.setCellColor();
-    neighborhoodChoice = 0;
-    this.getNeighbors().setAllNeighbors();
+    setAllNeighbors(row, col);
   }
 
   /**

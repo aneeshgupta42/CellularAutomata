@@ -15,28 +15,25 @@ public class GameCell extends Cell {
   private int state;
   private static final int DEAD = 0;
   private static final int ALIVE = 1;
-  private static final int SQUARE = 0;
-  private static final int TRIANGLE = 1;
-  private static final int HEXAGONAL = 2;
-
-  //private Neighbor neighbors = new SquareNeighbor();
-
-  private int neighborhoodChoice;
+  private static final String RED = "red";
+  private static final String BLACK = "black";
+  private static final String BLUE = "blue";
+  private static final int TWO = 2;
+  private static final int THREE = 3;
 
 
   private String cellColor;
 
   /**
    * Constructor for the FireCell object
-   * @param width: width of grid
-   * @param height: height of grid
+   * @param row: row of grid
+   * @param col: column of grid
    * @param mystate: current state of the cell
    */
-  public GameCell(int width, int height, int mystate) {
-    super(width, height, mystate);
-    neighborhoodChoice = 0;
+  public GameCell(int row, int col, int mystate,  int neighborhoodChoice) {
+    super(row, col, mystate, neighborhoodChoice);
     this.state = mystate;
-    this.getNeighbors().setAllNeighbors();
+    setAllNeighbors(row, col);
     this.setCellColor();
   }
 
@@ -51,15 +48,15 @@ public class GameCell extends Cell {
    */
   @Override
   public int updateCell(Grid cellGrid, int row, int col, int width, int height) {
-    if((getNeighborCount(cellGrid, row, col, ALIVE) > 3 || getNeighborCount(cellGrid, row, col, ALIVE) < 2) && checkState(
+    if((getNeighborCount(cellGrid, row, col, ALIVE) > THREE || getNeighborCount(cellGrid, row, col, ALIVE) < TWO) && checkState(
         cellGrid, row, col, ALIVE)) {
       return DEAD;
     }
-    else if(getNeighborCount(cellGrid, row, col, ALIVE) == 3 && checkState(cellGrid, row, col, DEAD)) {
+    else if(getNeighborCount(cellGrid, row, col, ALIVE) == THREE && checkState(cellGrid, row, col, DEAD)) {
       return ALIVE;
 
     }
-    else if(getNeighborCount(cellGrid, row, col, ALIVE) >= 2 && checkState(cellGrid, row, col,
+    else if(getNeighborCount(cellGrid, row, col, ALIVE) >= TWO && checkState(cellGrid, row, col,
         ALIVE)) {
       return ALIVE;
 
@@ -100,13 +97,13 @@ public class GameCell extends Cell {
   @Override
   public void setCellColor() {
     if(state == ALIVE) {
-      cellColor = "blue";
+      cellColor = BLUE;
     }
     else if(state == DEAD) {
-      cellColor = "black";
+      cellColor = BLACK;
     }
     else {
-      cellColor = "red";
+      cellColor = RED;
     }
   }
 

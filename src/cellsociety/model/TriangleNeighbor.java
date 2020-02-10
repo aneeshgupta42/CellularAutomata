@@ -16,16 +16,30 @@ public class TriangleNeighbor extends Neighbor {
 
   @Override
   public void setDirectNeighbors() {
-    rowDelta = new int[]{-1, 0, 0, 1};
-    colDelta = new int[]{0, -1, 1, 0};
+    rowDelta = new int[]{0, 0, -1};
+    colDelta = new int[]{-1, 1, 0};
     setRowDelta(rowDelta);
     setColDelta(colDelta);
   }
 
   @Override
   public void setAllNeighbors() {
-    rowDelta = new int[]{-1, -1, -1, 0, 0, 1, 1, 1};
-    colDelta = new int[]{-1, 0, 1, -1, 1, -1, 0, 1};
+    rowDelta = new int[]{-1, -1, -1, -1, -1, 0, 0, 0, 0, 1, 1, 1};
+    colDelta = new int[]{-2, -1, 0, 1, 2, -2, -1, 1, 2, -1, 0, 1};
+    setRowDelta(rowDelta);
+    setColDelta(colDelta);
+  }
+
+  public void setDirectNeighborsUpTri() {
+    rowDelta = new int[]{0, 0, 1};
+    colDelta = new int[]{-1, 1, 0};
+    setRowDelta(rowDelta);
+    setColDelta(colDelta);
+  }
+
+  public void setAllNeighborsUpTri() {
+    rowDelta = new int[]{-1, -1, -1, 0, 0, 0, 0, 1, 1, 1, 1, 1};
+    colDelta = new int[]{-1, 0, 1, -1, 1, -2, 2, -2, -1, 0, 1, 2};
     setRowDelta(rowDelta);
     setColDelta(colDelta);
   }

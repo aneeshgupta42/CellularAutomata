@@ -19,21 +19,17 @@ public class PercolationCell extends Cell {
   private static final int PERCOLATED = 2;
   private String cellColor;
 
-  //private Neighbor neighbors = new SquareNeighbor();
-  private int neighborhoodChoice;
-
-
   /**
    * Constructor for the FireCell object
-   * @param width: width of grid
-   * @param height: height of grid
+   * @param row: width of grid
+   * @param col: height of grid
    * @param state: current state of the cell
   */
-  public PercolationCell(int width, int height, int state) {
-    super(width, height, state);
+  public PercolationCell(int row, int col, int state,  int neighborhoodChoice) {
+    super(row, col, state, neighborhoodChoice);
     this.state = state;
     this.setCellColor();
-    this.getNeighbors().setAllNeighbors();
+    setAllNeighbors(row, col);
   }
 
   /**

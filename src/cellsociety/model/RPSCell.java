@@ -8,7 +8,6 @@ public class RPSCell extends Cell {
   private int THRESHOLD;
   private String cellColor;
 
-  private int neighborhoodChoice;
 
   /**
    * Constructor for the Cell object
@@ -17,13 +16,12 @@ public class RPSCell extends Cell {
    * @param col     : column number cell is in
    * @param mystate : current state of the cell
    */
-  public RPSCell(int row, int col, int mystate, int threshold) {
-    super(row, col, mystate);
-    neighborhoodChoice = 0;
+  public RPSCell(int row, int col, int mystate, int threshold,  int neighborhoodChoice) {
+    super(row, col, mystate, neighborhoodChoice);
     this.state = mystate;
     this.setCellColor();
     this.THRESHOLD = threshold;
-    this.getNeighbors().setAllNeighbors();
+    setAllNeighbors(row, col);
   }
 
   @Override
@@ -33,7 +31,7 @@ public class RPSCell extends Cell {
     int compState = this.getNeighbors().getMaxNeighborState();
     int currState = cellGrid.getCell(row, col).getState();
 
-    if(THRESHOLD < maxNeighborCount && stateWinChecks(compState, currState)) {
+    if(THRESHOLD < maxNeighborCount && stateWinChecks(compState, currState) == 1) {
       return this.getNeighbors().getMaxNeighborState();
     }
     else {
@@ -75,9 +73,14 @@ public class RPSCell extends Cell {
 
 
   //fix booleans
-  public boolean stateWinChecks(int state1, int state2) {
-    return true;
+  public int stateWinChecks(int state1, int state2) {
+    if (state1 == ROCK && state2 == PAPER
+        || state1 == SCISSORS && state2 == ROCK
+        || state1 == PAPER && state2 == SCISSORS) {
+      return 0;
+    } else {
+      return 1;
+    }
   }
-
 
 }

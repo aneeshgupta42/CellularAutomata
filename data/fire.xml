@@ -7,6 +7,7 @@
     <rows>20</rows>
     <cols>20</cols>
     <prob>0.4</prob>
+    <shape>0</shape>
     <layout>1 0 1 0 1
         0 1 0 1 0
         1 0 1 0 1

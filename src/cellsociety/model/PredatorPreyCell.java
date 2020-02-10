@@ -31,25 +31,21 @@ public class PredatorPreyCell extends Cell {
   private List<Point> vacantCells;
   private List<Point> fishCells;
 
-  //private Neighbor neighbors = new SquareNeighbor();
-  private int neighborhoodChoice;
-
   /**
    * Constructor for the FireCell object
    * @param row: row number cell is in
    * @param col: column number cell is in
    * @param myState: current state of the cell
    */
-  public PredatorPreyCell(int row, int col, int myState) {
-    super(row, col , myState);
+  public PredatorPreyCell(int row, int col, int myState,  int neighborhoodChoice) {
+    super(row, col , myState, neighborhoodChoice);
     this.state = myState;
     this.myNextState = state;
     this.breedingTime = 0;
     this.energyLevel = 2;
     this.myNextState = state;
     this.setCellColor();
-    this.getNeighbors().setDirectNeighbors();
-    neighborhoodChoice = 0;
+    setDirectNeighbors(row, col);
   }
 
   /**
