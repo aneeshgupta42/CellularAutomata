@@ -25,8 +25,6 @@ public class Toolbar extends ToolBar {
     private static final double MILLISECOND_DELAY = 10000/FRAMES_PER_SECOND;
     private int seconds;
     private Grid currentGrid;
-    private Grid copyGrid;
-    private Boolean isDefaultGrid;
     private Game myGame;
     private Timeline animation;
     private Label lblTime;
@@ -58,7 +56,6 @@ public class Toolbar extends ToolBar {
         myGame = myMainView.getMyGame();
         currentGrid = myMainView.getDisplayGrid();
 //        choosingNewSim(0);
-        copyGrid = currentGrid;
         Button play = new Button("Play");
         play.setOnAction(this::handlePlay);
 
