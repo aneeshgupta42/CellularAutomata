@@ -2,8 +2,6 @@ package cellsociety.model;
 
 import cellsociety.configuration.Game;
 import cellsociety.configuration.XMLException;
-
-import javax.sql.rowset.RowSetWarning;
 import java.awt.Point;
 import java.util.HashMap;
 import java.util.Random;

@@ -24,7 +24,6 @@ public class MainView extends BorderPane {
     private Toolbar myToolbar;
     private GridPane theGrid;
     private Configpanel myPanel;
-    private MainView myMainview;
 
     private static final int SIZEOFGRID = 500;
 
@@ -82,19 +81,6 @@ public class MainView extends BorderPane {
                 Rectangle rect = new Rectangle(SIZEOFGRID/rows,SIZEOFGRID/cols, tempColor);
                 int finalI = i;
                 int finalJ = j;
-//                rect.setOnMouseClicked(new EventHandler<MouseEvent>()
-//                {
-//                    @Override
-//                    public void handle(MouseEvent t) {
-//                        System.out.println(finalI + "" + finalJ);
-//
-//                        displayGrid.updateGrid(finalI,finalJ);
-//                        GridPane newGrid = displayGrid(displayGrid);
-//                        this.getChildren().remove(1);
-//                        this.setCenter(newGrid);
-//                        this.setRight(myPanel);
-//                    }
-//                });
                 gridPane.add(rect, j, i);
             }
         }

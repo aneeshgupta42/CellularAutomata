@@ -27,9 +27,11 @@ public class Configpanel extends VBox {
     private boolean submitbuttonstatus = false;
     private Toolbar toolBar;
     private LineChart<Number,Number> myLinechart;
-    private static String cursorPosFormat = "Cursor (%d, %d)";
     private XYChart.Series<Number, Number> myseries;
     private Grid currentGrid;
+
+    private static final int WIDTH = 50;
+    private static final int SPACING = 10;
 
     public Configpanel(MainView mainView) {
 
@@ -40,17 +42,17 @@ public class Configpanel extends VBox {
         this.inputRows= new TextField();
         HBox rowBox = new HBox();
         inputRows.setPromptText("Enter # of rows");
-        inputRows.setPrefWidth(50);
+        inputRows.setPrefWidth(WIDTH);
         rowBox.getChildren().addAll(Rows, inputRows);
-        rowBox.setSpacing(10);
+        rowBox.setSpacing(SPACING);
 
         Label Cols = new Label("Columns:");
         this.inputCols= new TextField();
         HBox colbox = new HBox();
         inputCols.setPromptText("Enter # of Columns");
-        inputCols.setPrefWidth(50);
+        inputCols.setPrefWidth(WIDTH);
         colbox.getChildren().addAll(Cols, inputCols);
-        colbox.setSpacing(10);
+        colbox.setSpacing(SPACING);
 
 
         submission();
@@ -102,7 +104,6 @@ public class Configpanel extends VBox {
         yAxis.setLabel("Value");
         yAxis.setAnimated(false);
 
-        //creating the line chart with two axis created above
         this.myLinechart = new LineChart<Number, Number>(xAxis, yAxis);
         myLinechart.setTitle("Cell Populations");
         myLinechart.setAnimated(false); // disable animations
@@ -111,13 +112,6 @@ public class Configpanel extends VBox {
         myseries.setName("Data Series");
         myLinechart.getData().add(myseries);
 
-        // add series to chart
-        // System.out.println(myMainView.getStates());
-//        for (int i = 0; i < currentGrid.getNumStates(); i++) {
-//            XYChart.Series series = new XYChart.Series();
-//            series.setName(Integer.toString(i));
-//            myLinechart.getData().add(series);
-//        }
     }
 
     public void addDataToGraph(int timernumber) {
