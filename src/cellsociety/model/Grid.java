@@ -3,7 +3,14 @@ package cellsociety.model;
 import cellsociety.configuration.Game;
 import cellsociety.configuration.XMLException;
 
-import javax.sql.rowset.RowSetWarning;
+import cellsociety.model.cells.Cell;
+import cellsociety.model.cells.FireCell;
+import cellsociety.model.cells.GameCell;
+import cellsociety.model.cells.PercolationCell;
+import cellsociety.model.cells.PredatorPreyCell;
+import cellsociety.model.cells.RPSCell;
+import cellsociety.model.cells.SegregationCell;
+import cellsociety.model.cells.SugarScapeCell;
 import java.awt.Point;
 import java.util.HashMap;
 import java.util.Random;
