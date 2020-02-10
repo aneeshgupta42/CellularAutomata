@@ -135,63 +135,6 @@ public class Grid {
         populateGridCells(width, height, choice, myNeighborhoodChoice);
     }
 
-    private void populateGridCells(int width, int height, int choice, int neighborhoodChoice) {
-        if (isLayout == 1) {
-            populateFromLayout(width, height, choice, myLayout);
-        } else {
-            defaultPopulateCells(width, height, choice);
-        }
-    }
-
-    private void populateFromLayout(int width, int height, int choice, String layout) {
-        String[] rows = layout.split("\n");
-        if (rows.length != height || rows[0].split(" ").length != width) {
-            throw new XMLException(ROWCOLSDONTMATCH, Game.DATA_TYPE);
-        }
-        Cell tempCell;
-        for (int i = 0; i < height; i++) {
-            String[] row = rows[i].trim().split(" ");
-            for (int j = 0; j < width; j++) {
-                tempCell = getSimulation(i, j, Integer.parseInt(row[j]), choice, myNeighborhoodChoice);
-                cellGrid.put(new Point(i, j), tempCell);
-            }
-        }
-    }
-
-    private void defaultPopulateCells(int width, int height, int choice) {
-        Cell tempCell;
-        for (int i = 0; i < height; i++) {
-            for (int j = 0; j < width; j++) {
-                if (choice == GAMEOFLIFE) {
-                    tempCell = makeGlider(i, j, choice);
-                } else if (choice == RPS) {
-                    numStates = NUMSTATES;
-                    numStates = 3;
-
-                    tempCell = getSimulation(i, j, numChooser.nextInt(numStates), choice, myNeighborhoodChoice);
-                } else if (choice == SUGARSCAPE) {
-                    numStates = NUMSTATES - 1;
-                    tempCell = getSimulation(i, j, numChooser.nextInt(numStates), choice, myNeighborhoodChoice);
-                } else {
-                    numStates = NUMSTATES;
-                    tempCell = getSimulation(i, j, numChooser.nextInt(numStates), choice, myNeighborhoodChoice);
-                }
-                cellGrid.put(new Point(i, j), tempCell);
-            }
-        }
-    }
-
-    private Cell makeGlider(int i, int j, int choice) {
-        Cell tempCell;
-        if (i == TWO && j == THREE) {
-            tempCell = getSimulation(i, j, ALIVE, choice, myNeighborhoodChoice);
-        } else if (i == THREE && j == FOUR) {
-            tempCell = getSimulation(i, j, ALIVE, choice, myNeighborhoodChoice);
-        } else if (i == FOUR && (j == TWO || j == THREE || j == FOUR)) {
-            tempCell = getSimulation(i, j, ALIVE, choice, myNeighborhoodChoice);
-        } else tempCell = getSimulation(i, j, DEAD, choice, myNeighborhoodChoice);
-        return tempCell;
-    }
 
     /***
      * Carries out Grid updates,
@@ -275,23 +218,7 @@ public class Grid {
         return this.myChoice;
     }
 
-    private Cell getSimulation(int row, int col, int state, int choice, int neighborhoodChoice) {
-        if (choice == GAMEOFLIFE) {
-            return new GameCell(row, col, state, neighborhoodChoice);
-        } else if (choice == PERCOLATION) {
-            return new PercolationCell(row, col, state, neighborhoodChoice);
-        } else if (choice == SEGREGATION) {
-            return new SegregationCell(row, col, state, myThreshold, neighborhoodChoice);
-        } else if (choice == PREDATORPREY) {
-            return new PredatorPreyCell(row, col, state, neighborhoodChoice);
-        } else if (choice == FIRE) { //FIRE
-            return new FireCell(row, col, state, myProb, neighborhoodChoice);
-        } else if (choice == RPS) {
-            return new RPSCell(row, col, state, myThresholdRPS, neighborhoodChoice);
-        } else {
-            return new SugarScapeCell(row, col, state, neighborhoodChoice);
-        }
-    }
+
 
     /***
      * Get string color at the cell
@@ -312,5 +239,82 @@ public class Grid {
     public int getNumStates() {
         return numStates;
     }
+
+    private Cell getSimulation(int row, int col, int state, int choice, int neighborhoodChoice) {
+        if (choice == GAMEOFLIFE) {
+            return new GameCell(row, col, state, neighborhoodChoice);
+        } else if (choice == PERCOLATION) {
+            return new PercolationCell(row, col, state, neighborhoodChoice);
+        } else if (choice == SEGREGATION) {
+            return new SegregationCell(row, col, state, myThreshold, neighborhoodChoice);
+        } else if (choice == PREDATORPREY) {
+            return new PredatorPreyCell(row, col, state, neighborhoodChoice);
+        } else if (choice == FIRE) { //FIRE
+            return new FireCell(row, col, state, myProb, neighborhoodChoice);
+        } else if (choice == RPS) {
+            return new RPSCell(row, col, state, myThresholdRPS, neighborhoodChoice);
+        } else {
+            return new SugarScapeCell(row, col, state, neighborhoodChoice);
+        }
+    }
+
+    private void populateGridCells(int width, int height, int choice, int neighborhoodChoice) {
+        if (isLayout == 1) {
+            populateFromLayout(width, height, choice, myLayout);
+        } else {
+            defaultPopulateCells(width, height, choice);
+        }
+    }
+
+    private void populateFromLayout(int width, int height, int choice, String layout) {
+        String[] rows = layout.split("\n");
+        if (rows.length != height || rows[0].split(" ").length != width) {
+            throw new XMLException(ROWCOLSDONTMATCH, Game.DATA_TYPE);
+        }
+        Cell tempCell;
+        for (int i = 0; i < height; i++) {
+            String[] row = rows[i].trim().split(" ");
+            for (int j = 0; j < width; j++) {
+                tempCell = getSimulation(i, j, Integer.parseInt(row[j]), choice, myNeighborhoodChoice);
+                cellGrid.put(new Point(i, j), tempCell);
+            }
+        }
+    }
+
+    private void defaultPopulateCells(int width, int height, int choice) {
+        Cell tempCell;
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                if (choice == GAMEOFLIFE) {
+                    tempCell = makeGlider(i, j, choice);
+                } else if (choice == RPS) {
+                    numStates = NUMSTATES;
+                    numStates = 3;
+
+                    tempCell = getSimulation(i, j, numChooser.nextInt(numStates), choice, myNeighborhoodChoice);
+                } else if (choice == SUGARSCAPE) {
+                    numStates = NUMSTATES - 1;
+                    tempCell = getSimulation(i, j, numChooser.nextInt(numStates), choice, myNeighborhoodChoice);
+                } else {
+                    numStates = NUMSTATES;
+                    tempCell = getSimulation(i, j, numChooser.nextInt(numStates), choice, myNeighborhoodChoice);
+                }
+                cellGrid.put(new Point(i, j), tempCell);
+            }
+        }
+    }
+
+    private Cell makeGlider(int i, int j, int choice) {
+        Cell tempCell;
+        if (i == TWO && j == THREE) {
+            tempCell = getSimulation(i, j, ALIVE, choice, myNeighborhoodChoice);
+        } else if (i == THREE && j == FOUR) {
+            tempCell = getSimulation(i, j, ALIVE, choice, myNeighborhoodChoice);
+        } else if (i == FOUR && (j == TWO || j == THREE || j == FOUR)) {
+            tempCell = getSimulation(i, j, ALIVE, choice, myNeighborhoodChoice);
+        } else tempCell = getSimulation(i, j, DEAD, choice, myNeighborhoodChoice);
+        return tempCell;
+    }
+
 
 }
