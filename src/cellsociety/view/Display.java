@@ -98,9 +98,13 @@ public class Display extends Application {
                 return myGame;
         }
 
+
+        public static void main(String[] args) {launch();}
         /**
          * Runs the program
          * @param args runs the program
          */
-        public static void main(String[] args) {launch();}
+        public void display(String[] args){
+                launch();
+        }
 }
