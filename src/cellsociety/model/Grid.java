@@ -135,11 +135,9 @@ public class Grid {
             defaultPopulateCells(width, height, choice, myNeighborhoodChoice);
         }
     }
+
     private void populateFromLayout(int width, int height, int choice, String layout, int neighborhoodChoice) {
-//        System.out.println(layout);
         String[] rows = layout.split("\n");
-//        System.out.println(rows.length);
-//        System.out.println(rows[0].trim().split(" ").length);
         if (rows.length != height || rows[0].split(" ").length != width) {
             throw new XMLException(ROWCOLSDONTMATCH, Game.DATA_TYPE);
         }
@@ -150,7 +148,6 @@ public class Grid {
                 tempCell = getSimulation(i, j, Integer.parseInt(row[j]), choice, myNeighborhoodChoice);
                 cellGrid.put(new Point(i, j), tempCell);
             }
-
         }
     }
 
@@ -199,7 +196,7 @@ public class Grid {
      */
     public void updateGrid(int width, int height) {
         HashMap<Point, Integer> newStateMap = new HashMap<>();
-        int tempInitInt = 100;
+        int tempInitInt = 100; //garbage value
         for (int i = 0; i < height; i++) { // first pass: get the new states
             for (int j = 0; j < width; j++) {
                 newStateMap.put(new Point(i, j), tempInitInt);//initialize the key for new state
