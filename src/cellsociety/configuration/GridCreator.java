@@ -1,8 +1,5 @@
 package cellsociety.configuration;
 import cellsociety.model.*;
-import cellsociety.view.Configpanel;
-import cellsociety.view.MainView;
-
 /***
  * Choosing a Grid object based on choice integer
  * Used in Display, and set up, to read in a grid
@@ -16,52 +13,45 @@ public class GridCreator {
      * Returns a Grid object based on a choice entered
      * takes in an integer choice,
      * and selects the corresponding simulation xml.
-     * @param choice
-     * @return  Grid object for corresponding simulation
      */
     private static final int FIRE = 4;
     private static final int SEGREGATION = 2;
     private static final int RPS = 5;
     private Game myGame;
 
+    /***
+     * Easy dropdown select some standard simulations
+     * Have hardcoded files in
+     * @param choice: choice code for a sim
+     * @return grid: Grid for that sim
+     */
     public Grid defaultGridSelector(int choice){
-        String[] choices = {"data/gameOfLife.xml", "data/percolation.xml", "data/segregation.xml", "data/predator.xml", "data/fire.xml", "data/rps.xml", "data/sugarScape.xml"};
+        String[] defaultChoices = {"data/gameOfLife.xml", "data/percolation.xml", "data/segregation.xml", "data/predator.xml", "data/fire.xml", "data/rps.xml", "data/sugarScape.xml"};
         XMLReader reader = new XMLReader("media");
-        Game game = reader.getGame(choices[choice]);
+        Game game = reader.getGame(defaultChoices[choice]);
         myGame = game;
-        Grid myGrid;
-        if(choice == FIRE){
-            myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice(), game.getMyProb(), game.getMyLayout(), game.getIsLayout(), game.getMyShape());
-        }
-        else if(choice == SEGREGATION){
-            myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice(), game.getMyThreshold(), game.getMyLayout(), game.getIsLayout(), game.getMyShape());
-        }
-        else if(choice == RPS){
-            myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice(), (int) game.getMyThreshold(), game.getMyLayout(), game.getIsLayout(), game.getMyShape());
-        }
-        else{
-            myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice(), game.getMyLayout(), game.getIsLayout(), game.getMyShape());
-        }
-        return myGrid;
+        return gridChooser(game, choice);
     }
 
     public Grid newGridSelector (Game game){
         myGame = game;
         int choice = myGame.getMyChoice();
-        Grid myGrid;
+        return gridChooser(game, choice);
+    }
+
+    private Grid gridChooser(Game game, int choice){
         if(choice == FIRE){
-            myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice(), game.getMyProb(), game.getMyLayout(), game.getIsLayout(), game.getMyShape());
+            return new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice(), game.getMyProb(), game.getMyLayout(), game.getIsLayout(), game.getMyShape());
         }
         else if(choice == SEGREGATION){
-            myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice(), game.getMyThreshold(), game.getMyLayout(), game.getIsLayout(), game.getMyShape());
+            return new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice(), game.getMyThreshold(), game.getMyLayout(), game.getIsLayout(), game.getMyShape());
         }
         else if(choice == RPS){
-            myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice(), (int) game.getMyThreshold(), game.getMyLayout(), game.getIsLayout(), game.getMyShape());
+            return new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice(), (int) game.getMyThreshold(), game.getMyLayout(), game.getIsLayout(), game.getMyShape());
         }
         else{
-            myGrid = new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice(), game.getMyLayout(), game.getIsLayout(), game.getMyShape());
+            return new Grid(game.getMyRows(), game.getMyCols(), game.getMyChoice(), game.getMyLayout(), game.getIsLayout(), game.getMyShape());
         }
-        return myGrid;
     }
 
     public Game getMyGame() {

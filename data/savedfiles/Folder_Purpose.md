@@ -1,0 +1,1 @@
+#### This Folder Houses files that are saved when a user wants to extract current simulation on screen 
