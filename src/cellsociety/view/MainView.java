@@ -2,10 +2,13 @@ package cellsociety.view;
 
 import cellsociety.configuration.Game;
 import cellsociety.model.*;
+import cellsociety.model.neighbors.HexagonNeighbor;
 import javafx.geometry.Pos;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 
 /**
@@ -19,10 +22,18 @@ public class MainView extends BorderPane {
     private int rows;
     private int cols;
     private Toolbar myToolbar;
-    private GridPane theGrid;
+    private AnchorPane theGrid;
+    //private GridPane theGrid;
     private Configpanel myPanel;
 
+
     private static final int SIZEOFGRID = 500;
+    private static final int HALF = 2;
+    private static final int ZERO = 0;
+    private static final int SQUARE = 0;
+    private static final int TRIANGLE = 1;
+    private static final int HEXAGON = 2;
+
 
     /**
      * Sets instance variables myToolbar, displayGrid, and the grid and adds myToolbar and theGrid to the mainView
@@ -34,7 +45,7 @@ public class MainView extends BorderPane {
         myPanel = new Configpanel(this);
         displayGrid = display.getDisplayGrid();
         this.theGrid = displayGrid(displayGrid);
-        this.theGrid.setAlignment(Pos.TOP_LEFT);
+        //this.theGrid.setAlignment(Pos.TOP_LEFT);
         this.setTop(myToolbar);
         this.setCenter(theGrid);
         this.setLeft(null);
@@ -50,7 +61,7 @@ public class MainView extends BorderPane {
      */
     public void step() {
         displayGrid.updateGrid(rows, cols);
-        GridPane newGrid = displayGrid(displayGrid);
+        AnchorPane newGrid = displayGrid(displayGrid);
         this.getChildren().remove(1);
         this.setCenter(newGrid);
         this.setRight(myPanel);
@@ -63,22 +74,93 @@ public class MainView extends BorderPane {
      * @param myGrid the grid being displayed in which was made in the grid class.
      * @return returns the GridPane to be displayed
      */
-    public GridPane displayGrid(Grid myGrid) {
-        GridPane gridPane = new GridPane();
+    public AnchorPane displayGrid(Grid myGrid) {
+        AnchorPane gridPane = new AnchorPane();
         this.rows = myGrid.getMyHeight();
         this.cols = myGrid.getMyWidth();
-        gridPane.addColumn(cols);
-        gridPane.addRow(rows);
-        gridPane.setHgap(1);
-        gridPane.setVgap(1);
+
         for(int i = 0; i<rows; i++){
             for (int j = 0; j<cols; j++){
                 Color tempColor = Color.web(myGrid.getPointColor(i,j));
                 System.out.println("");
-                Rectangle rect = new Rectangle(SIZEOFGRID/rows,SIZEOFGRID/cols, tempColor);
+                double rowSize = (double) (SIZEOFGRID / rows - 1);
+                double colSize = (double) (SIZEOFGRID/cols - 1);
+                double halfSize = (double) (SIZEOFGRID / rows - 1) / 2;
+                double fullSize = (double) (SIZEOFGRID / rows - 1);
+                if(myGrid.getMyNeighborhoodChoice() == SQUARE) {
+                    handleSquare(gridPane, tempColor, rowSize, colSize, i, j);
+                }
+                else if(myGrid.getMyNeighborhoodChoice() == TRIANGLE) {
+                    handleTriangle(gridPane, tempColor, halfSize, i, j);
+                } else {
+                    handleHexagon(gridPane, tempColor, halfSize, fullSize, i, j);
+                }
+                /*
+
+
+                double halfSize = (double) (SIZEOFGRID / rows - 1) / 2;
+                double fullSize = (double) (SIZEOFGRID / rows - 1);
+
+                /*
+                Polygon triangle = new Polygon();
+                triangle.setFill(tempColor);
+                if(checkDownwardFacing(i, j)) {
+                    triangle.getPoints().addAll(new Double[]{
+                        ((double) (SIZEOFGRID / rows - 1) / 2), (double) SIZEOFGRID/rows - 1,
+                        0.0, 0.0,
+                        ((double) SIZEOFGRID / rows) - 1, 0.0});
+                    AnchorPane.setLeftAnchor(triangle, (double) + j * (SIZEOFGRID/rows) - (halfSize*j));
+                } else {
+                    triangle.getPoints().addAll(new Double[]{
+                        (double) (SIZEOFGRID / rows - 1) / 2, 0.0,
+                        0.0, (double) (SIZEOFGRID / cols - 1),
+                        (double) SIZEOFGRID / rows - 1, (double) SIZEOFGRID / cols - 1});
+                    AnchorPane.setLeftAnchor(triangle, (double) + j * (SIZEOFGRID/rows) - (halfSize*j));
+                }
                 int finalI = i;
                 int finalJ = j;
-                gridPane.add(rect, j, i);
+                gridPane.getChildren().add(triangle);
+
+                AnchorPane.setTopAnchor(triangle, (double) + i * (SIZEOFGRID/rows));
+
+
+                Polygon hexagon = new Polygon();
+                hexagon.setFill(tempColor);
+                if(j % 2 == ZERO) {
+                    hexagon.getPoints().addAll(new Double[]{
+                        halfSize / 2, 0.0,
+                        fullSize - halfSize / 2, 0.0,
+                        fullSize, fullSize / 2,
+                        fullSize - halfSize / 2, fullSize,
+                        halfSize / 2, fullSize,
+                        0.0, fullSize / 2
+                    });
+
+                    AnchorPane.setTopAnchor(hexagon,(double) i * fullSize + halfSize - 1);
+                    AnchorPane.setLeftAnchor(hexagon, (double) + j * (SIZEOFGRID/rows));
+
+                    //AnchorPane.setTopAnchor(hexagon, (double) +\\ i * (SIZEOFGRID/rows) + j*(fullSize/2));
+
+                }
+                else {
+                    hexagon.getPoints().addAll(new Double[]{
+                        halfSize / 2, 0.0,
+                        fullSize - halfSize / 2, 0.0,
+                        fullSize, fullSize / 2,
+                        fullSize - halfSize / 2, fullSize,
+                        halfSize / 2, fullSize,
+                        0.0, fullSize / 2
+                    });
+                    AnchorPane.setLeftAnchor(hexagon, (double) + j * (SIZEOFGRID/rows));
+                    AnchorPane.setTopAnchor(hexagon, (double) i * (SIZEOFGRID/rows));
+                   // AnchorPane.setTopAnchor(hexagon, (double) + i * (SIZEOFGRID/rows) + j*(fullSize));
+                }
+                gridPane.getChildren().add(hexagon);
+
+
+
+*/
+
             }
         }
 
@@ -86,11 +168,65 @@ public class MainView extends BorderPane {
         return gridPane;
     }
 
+    private boolean checkDownwardFacing(int row, int col) {
+        return (row % HALF) == ZERO && (col % HALF) != ZERO
+            || (row % HALF) != ZERO && (col % HALF) == ZERO;
+    }
+
+    private void handleSquare(AnchorPane gridPane, Color tempColor, double rowSize, double colSize, int row, int col) {
+        Rectangle rect = new Rectangle(rowSize - 1,colSize - 1, tempColor);
+        gridPane.getChildren().add(rect);
+        AnchorPane.setLeftAnchor(rect, colSize * col);
+        AnchorPane.setTopAnchor(rect, rowSize*row);
+    }
+
+    private void handleTriangle(AnchorPane gridPane, Color tempColor, double halfSize, int row, int col) {
+        Polygon triangle = new Polygon();
+        triangle.setFill(tempColor);
+        if(checkDownwardFacing(row, col)) {
+            triangle.getPoints().addAll(new Double[]{
+                ((double) (SIZEOFGRID / rows - 1) / 2), (double) SIZEOFGRID/rows - 1,
+                0.0, 0.0,
+                ((double) SIZEOFGRID / rows) - 1, 0.0});
+            AnchorPane.setLeftAnchor(triangle, (double) + col * (SIZEOFGRID/rows) - (halfSize*col));
+        } else {
+            triangle.getPoints().addAll(new Double[]{
+                (double) (SIZEOFGRID / rows - 1) / 2, 0.0,
+                0.0, (double) (SIZEOFGRID / cols - 1),
+                (double) SIZEOFGRID / rows - 1, (double) SIZEOFGRID / cols - 1});
+            AnchorPane.setLeftAnchor(triangle, (double) + col * (SIZEOFGRID/rows) - (halfSize*col));
+        }
+        gridPane.getChildren().add(triangle);
+        AnchorPane.setTopAnchor(triangle, (double) + row * (SIZEOFGRID/rows));
+    }
+
+    private void handleHexagon(AnchorPane gridPane, Color tempColor, double halfSize, double fullSize, int row, int col) {
+        Polygon hexagon = new Polygon();
+        hexagon.setFill(tempColor);
+        hexagon.getPoints().addAll(new Double[]{
+            halfSize / 2, 0.0,
+            fullSize - halfSize / 2, 0.0,
+            fullSize, fullSize / 2,
+            fullSize - halfSize / 2, fullSize,
+            halfSize / 2, fullSize,
+            0.0, fullSize / 2
+        });
+        if(col % 2 == ZERO) {
+            AnchorPane.setTopAnchor(hexagon,(double) row * fullSize + halfSize - 1);
+            AnchorPane.setLeftAnchor(hexagon, (double) + col * (SIZEOFGRID/rows));
+        }
+        else {
+            AnchorPane.setLeftAnchor(hexagon, (double) + col * (SIZEOFGRID/rows));
+            AnchorPane.setTopAnchor(hexagon, (double) row * (SIZEOFGRID/rows));
+        }
+        gridPane.getChildren().add(hexagon);
+    }
+
     /**
      * Replaces the current grid with a new one
      * @param newgrid the new grid being displayed
      */
-    public void replaceGrid(GridPane newgrid) {
+    public void replaceGrid(AnchorPane newgrid) {
         this.getChildren().remove(1);
         this.setCenter(newgrid);
         this.setRight(myPanel);
