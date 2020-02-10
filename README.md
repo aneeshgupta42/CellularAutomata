@@ -20,13 +20,14 @@ Hours Spent: 20+ hours per person.
 
 2. Shruthi Kumar: Backend side writing the complete implementations for all the Cell classes/subclasses, wrote the grid class, wrote the Neighbor class and corresponding subclasses, worked on setting up the UI anchorpane to hold different cell shapes
 
-3. Chris Warren:
+3. Chris Warren: Front end/UI, displaying the simulation as well as adding functionality for all the buttons and inputs, running the simulation and updating it. everything in the view folder. Also helped with some logic of the grid.
 
 ### Resources Used
 1. Class and Lab code: [Spike Simulation](https://coursework.cs.duke.edu/compsci308_2020spring/spike_simulation)
 2. StackOverflow and Oracle Java documentation
 3. XMLWrite [example](https://examples.javacodegeeks.com/core-java/xml/parsers/documentbuilderfactory/create-xml-file-in-java-using-dom-parser-example/)
-4. 
+4. Hexagon grid: https://www.redblobgames.com/grids/hexagons/
+5. https://www.youtube.com/watch?v=ncRA1OAbMmk&t=1197s
 
 
 ### Running the Program
@@ -77,7 +78,25 @@ XML Files housed in `simulation_team03/data`: These house the simulations, the e
         2. Uses inheritance and abstract neighbor superclass to hold abstract methods
         3. Each subclass has its own way of checking for neighbors based on how many they have
 - Visualization:
-
+    2. Configpanel
+        1. Vbox holding more UI features
+        2. Includes the graph
+        3. Includes the input fields to change the number of rows and columns as well as a submit button to update the simulation
+    3. Display
+        1. Displays the Mainview Borderpane on a stage
+        2. Allows users to upload a file corresponding to a simulation
+        3. Displays error message if wrong format is uploaded
+    4. Toolbar
+        1. Vbox that includes most of the functionality for the simulations
+        2. Start/Pause button to stop and start the simulation.
+        3. Step button to iterate through the simulation one step at a time
+        4. Reset button to reset to the original state of the sumulation
+        5. Dropdown menu to choose which simulation to play
+        6. Elapsed time display to display the amount of time elapsed over the course of the simulationa nd it is based on the speed of
+            the iterations. Resets along with any resets to the simulation
+        7. Upload and save file button to upload a file into the simulation and to save a current instance of a simulation to an xml file.
+        8. Slider to change the speed of the simulation.
+      
 
 
 ### Notes/Assumptions
@@ -118,6 +137,9 @@ Extra credit:
 - Even though M-V-C model provides a good amount of separation and blocks, it is still hard at times to integrate them
 together and join pipelines between different components.
 - Important, and sometimes hard to keep track of all the repercussions and trace-effects of any small change.
+- One thing we did notice but didn't know how to fix is one set of chained if statements in the Grid class. This happens when we 
+use the getSimulation method, but its used in multiple other places and we needed to pass in the state variables so we didn't know 
+how to avoid using the if statements here. We made sure to avoid them elsewhere. 
 
 ### Screenshot
 Game of Life: Glider layout
