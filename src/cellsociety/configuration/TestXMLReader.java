@@ -12,7 +12,7 @@ public class TestXMLReader {
     public static void main (String[] args) {
         System.out.println("Testing out XML reading");
         XMLReader reader = new XMLReader("media");
-        Game game = reader.getGame("data/populatedCells.xml");
+        Game game = reader.getGame("data/random1.xml");
         System.out.println("Author: " + game.getAuthor());
         System.out.println("Simulation name: " + game.getSimulationName());
         System.out.println("Choice: " + game.getMyChoice());

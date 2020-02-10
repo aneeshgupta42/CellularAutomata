@@ -18,17 +18,15 @@ import org.w3c.dom.Element;
 public class XMLWriter {
 
     public static final String xmlFilePath = "data/savedfiles/saved.xml";
-    public XMLWriter(Grid grid){
-//        grid.
+    public XMLWriter(Grid grid, Game game){
+
 
     }
     public static void main(String argv[]) {
         try {
 
             DocumentBuilderFactory documentFactory = DocumentBuilderFactory.newInstance();
-
             DocumentBuilder documentBuilder = documentFactory.newDocumentBuilder();
-
             Document document = documentBuilder.newDocument();
 
             // root element
@@ -57,8 +55,8 @@ public class XMLWriter {
             root.appendChild(author);
 
             // department elements
-            Element size = document.createElement("size");
-            size.appendChild(document.createTextNode("300"));
+            Element size = document.createElement("islayout");
+            size.appendChild(document.createTextNode("0"));
             root.appendChild(size);
 
             Element rows = document.createElement("rows");
