@@ -50,7 +50,7 @@ public class SugarScapeCell extends Cell {
     }
 
     private void initializeAgent() {
-        mySugarAmount = 0;
+        mySugarAmount = 4;
         visionDist = 1;
         myAge = MINIMUM_AGE + numChooser.nextInt(40);
     }
@@ -59,12 +59,12 @@ public class SugarScapeCell extends Cell {
         mySugarAmount = numChooser.nextInt(MAX_SUGAR_AMOUNT + 1);
     }
 
-    private void initializeNewAgent(Grid cellGrid, int width, int heigtht) {
-        List<Point> vacantCells =     this.getNeighbors().getVacantCells(cellGrid, width, heigtht, SUGAR_PATCH);
+    private void initializeNewAgent(Grid cellGrid, int width, int height) {
+        List<Point> vacantCells =     this.getNeighbors().getVacantCells(cellGrid, width, height, SUGAR_PATCH);
         Collections.shuffle(vacantCells);
 
         if(deathCount >= 1) {
-            int tempState = state;
+            int tempState = AGENT;
             myNextState = AGENT;
             Point targetPt = vacantCells.get(0);
             cellGrid.getCell((int) targetPt.getX(), (int) targetPt.getY()).setMyNextState(tempState);
@@ -73,36 +73,44 @@ public class SugarScapeCell extends Cell {
         }
 
         deathCount = 0;
+
     }
 
 
     @Override
     public int updateCell(Grid cellGrid, int row, int col, int width,
                           int height) {
-        if(checkState(cellGrid, row, col, SUGAR_PATCH)) {
+        if(checkState(cellGrid, row, col, SUGAR_PATCH) && checkNextState(cellGrid, row, col, SUGAR_PATCH)) {
             handleSugar();
         }
         else {
             handleAgent(cellGrid, row, col);
         }
-        initializeNewAgent(cellGrid, width, height);
+        if(deathCount >= 1) {
+            initializeNewAgent(cellGrid, width, height);
+        }
         return myNextState;
     }
 
     private void handleAgent(Grid cellGrid, int row, int col) {
         int tempState = state;
         metabolizeAgent();
+        myAge++;
         Point targetPt = this.getNeighbors().getMaxNeighborTypeCount(cellGrid, row, col, SUGAR_PATCH);
-        if(cellGrid.getCell((int) targetPt.getX(), (int) targetPt.getY()).getState() == AGENT) {
-            if(((SugarScapeCell) cellGrid.getCell((int) targetPt.getX(), (int) targetPt.getY())).getMySugarCount() <= 0
-                || myAge > MAXIMUM_AGE) {
-                deathCount++;
-                handleNextAction(cellGrid, tempState, SUGAR_PATCH, targetPt);
-            }
+        SugarScapeCell temp = (SugarScapeCell) cellGrid.getCell((int) targetPt.getX(), (int) targetPt.getY());
+        ((SugarScapeCell) cellGrid.getCell(row, col)).setMySugarCount(temp.getMySugarCount());
+
+        if((((SugarScapeCell) cellGrid.getCell((int) targetPt.getX(), (int) targetPt.getY()))
+            .getMySugarCount() <= 0)
+            || (myAge > MAXIMUM_AGE)) {
+            deathCount++;
+            handleNextAction(cellGrid, tempState, SUGAR_PATCH, targetPt);
         }
+
         else {
             handleNextAction(cellGrid, tempState, SUGAR_PATCH, targetPt);
         }
+
     }
 
     private void handleNextAction(Grid cellGrid, int tempState, int nextState, Point targetPt) {
@@ -110,7 +118,8 @@ public class SugarScapeCell extends Cell {
         cellGrid.getCell((int) targetPt.getX(), (int) targetPt.getY()).setMyNextState(tempState);
 //        cellHashMap.get(targetPt).setMyNextState(tempState);
         SugarScapeCell nextCellType = (SugarScapeCell) cellGrid.getCell((int) targetPt.getX(), (int) targetPt.getY());
-        nextCellType.setStateVariables(nextState);
+        nextCellType.setStateVariables(tempState);
+
     }
 
     private void handleSugar() {
@@ -121,7 +130,7 @@ public class SugarScapeCell extends Cell {
 
     @Override
     public int getState() {
-        return 0;
+        return this.state;
     }
 
     @Override
@@ -129,9 +138,14 @@ public class SugarScapeCell extends Cell {
         return cellColor;
     }
 
-    public int getMySugarCount() {
-        return mySugarCount;
+    public void setMySugarCount(int addedSugar) {
+        mySugarAmount += addedSugar;
     }
+
+    public int getMySugarCount() {
+        return mySugarAmount;
+    }
+
 
     /**
      * Sets the color of the cell

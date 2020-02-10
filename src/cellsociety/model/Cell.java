@@ -118,6 +118,10 @@ public abstract class Cell {
     return grid.getCell(row, col).getState() == currState;
   }
 
+  public boolean checkNextState(Grid grid, int row, int col, int nextState) {
+    return grid.getCell(row, col).getNextState() == nextState;
+  }
+
   public int getMyNeighborhoodChoice() {
       return myNeighborhoodChoice;
   }
@@ -136,8 +140,9 @@ public abstract class Cell {
       handleTriangleAllNeighborShape(row, col);
     }
     else {
-      ((TriangleNeighbor) this.getNeighbors()).setAllNeighborsUpTri();
+      this.getNeighbors().setAllNeighbors();
     }
+
   }
 
   private void handleTriangleDirectNeighborShape(int row, int col) {
