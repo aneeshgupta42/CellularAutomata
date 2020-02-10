@@ -42,12 +42,13 @@ public abstract class Neighbor {
   }
 
   public Point getMaxNeighborTypeCount(Grid grid, int row, int col, int state) {
-    int maxSugarAmount = ((SugarScapeCell) grid.getCell(row, col)).getMySugarCount();
-    Point maxSugarPoint = new Point(row, col);
+    int maxSugarAmount = 0;
+    Point maxSugarPoint = null;
     int compSugar = 0;
 
     for(int i = 0; i < rowDelta.length; i++) {
-      if(grid.gridContainsCell(row + rowDelta[i], col + colDelta[i]) && checkState(grid, row + rowDelta[i], col + colDelta[i], state)) {
+      if(grid.gridContainsCell(row + rowDelta[i], col + colDelta[i]) && checkState(grid, row + rowDelta[i], col + colDelta[i], state)
+          && checkNextState(grid, row + rowDelta[i], col + colDelta[i], state)) {
         compSugar = ((SugarScapeCell) grid.getCell(row + rowDelta[i], col + colDelta[i])).getMySugarCount();
         if(compSugar > maxSugarAmount) {
           maxSugarAmount = compSugar;
