@@ -8,7 +8,6 @@ public class RPSCell extends Cell {
   private int THRESHOLD;
   private String cellColor;
 
-  private int neighborhoodChoice;
 
   /**
    * Constructor for the Cell object
@@ -17,13 +16,12 @@ public class RPSCell extends Cell {
    * @param col     : column number cell is in
    * @param mystate : current state of the cell
    */
-  public RPSCell(int row, int col, int mystate, int threshold) {
-    super(row, col, mystate);
-    neighborhoodChoice = 0;
+  public RPSCell(int row, int col, int mystate, int threshold,  int neighborhoodChoice) {
+    super(row, col, mystate, neighborhoodChoice);
     this.state = mystate;
     this.setCellColor();
     this.THRESHOLD = threshold;
-    this.getNeighbors().setAllNeighbors();
+    setAllNeighbors(row, col);
   }
 
   @Override

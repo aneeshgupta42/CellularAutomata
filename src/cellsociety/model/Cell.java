@@ -10,7 +10,7 @@ import java.awt.*;
  *  while still maintaining the basic functions of a cell.
  * Assumptions: The class will work assuming all dependencies are functioning.
  * Dependencies: This class relies on the Grid class to instantiate it correctly and its subclasses to properly override methods
- * Example: Choose a simulation and then the program will correctly instatiate the correct cells.
+ * Example: Choose a simulation and then the program will correctly instantiate the correct cells.
  * @author Shruthi Kumar, Chris Warren, Aneesh Gupta
  */
 public abstract class Cell {
@@ -19,8 +19,12 @@ public abstract class Cell {
     private Image displayImage;
     Point gridPos;
     private String color;
-    private Neighbor neighbors = new SquareNeighbor();
+    private Neighbor neighbors; //= new SquareNeighbor();
     private int myNeighborhoodChoice;
+  private final static int HALF = 2;
+  private final static int ZERO = 0;
+  private final static int TRIANGLE_NEIGHBOR = 2;
+
 
   /**
    * Constructor for the Cell object
@@ -32,6 +36,8 @@ public abstract class Cell {
       Point gridPos = new  Point(row, col);
       this.state = mystate;
       this.myNeighborhoodChoice = neighborhoodChoice;
+      setNeighborHoodShape();
+
     }
 
   /**
@@ -92,12 +98,71 @@ public abstract class Cell {
     this.state = state;
   }
 
+  private void setNeighborHoodShape() {
+    if(myNeighborhoodChoice == 0) {
+      neighbors = new SquareNeighbor();
+    }
+    else if(myNeighborhoodChoice == 1) {
+      neighbors = new TriangleNeighbor();
+    }
+    else {
+      neighbors = new HexagonNeighbor();
+    }
+  }
+
   public int getNeighborCount(Grid grid, int row, int col, int state) {
     return neighbors.getNeighborCount(grid, row, col, state);
   }
 
   public boolean checkState(Grid grid, int row, int col, int currState) {
     return grid.getCell(row, col).getState() == currState;
+  }
+
+  public int getMyNeighborhoodChoice() {
+      return myNeighborhoodChoice;
+  }
+
+  public void setDirectNeighbors(int row, int col) {
+    if(this.getMyNeighborhoodChoice() == TRIANGLE_NEIGHBOR) {
+      handleTriangleDirectNeighborShape(row, col);
+    }
+    else {
+      this.getNeighbors().setDirectNeighbors();
+    }
+  }
+
+  public void setAllNeighbors(int row, int col) {
+    if(this.getMyNeighborhoodChoice() == TRIANGLE_NEIGHBOR) {
+      handleTriangleAllNeighborShape(row, col);
+    }
+    else {
+      ((TriangleNeighbor) this.getNeighbors()).setAllNeighborsUpTri();
+    }
+  }
+
+  private void handleTriangleDirectNeighborShape(int row, int col) {
+    if(checkDownTri(row, col)) {
+      this.getNeighbors().setDirectNeighbors();
+    }
+    else {
+      ((TriangleNeighbor) this.getNeighbors()).setDirectNeighborsUpTri();
+    }
+  }
+
+
+
+  private void handleTriangleAllNeighborShape(int row, int col) {
+    if(checkDownTri(row, col)) {
+      this.getNeighbors().setAllNeighbors();
+    }
+    else {
+      ((TriangleNeighbor) this.getNeighbors()).setAllNeighborsUpTri();
+    }
+  }
+
+  private boolean checkDownTri(int row, int col) {
+    return (row % HALF) == ZERO && (col % HALF) != ZERO
+        || (row % HALF) != ZERO && (col % HALF) == ZERO;
   }
 
 

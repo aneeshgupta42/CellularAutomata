@@ -15,28 +15,19 @@ public class GameCell extends Cell {
   private int state;
   private static final int DEAD = 0;
   private static final int ALIVE = 1;
-  private static final int SQUARE = 0;
-  private static final int TRIANGLE = 1;
-  private static final int HEXAGONAL = 2;
-
-  //private Neighbor neighbors = new SquareNeighbor();
-
-  private int neighborhoodChoice;
-
 
   private String cellColor;
 
   /**
    * Constructor for the FireCell object
-   * @param width: width of grid
-   * @param height: height of grid
+   * @param row: row of grid
+   * @param col: column of grid
    * @param mystate: current state of the cell
    */
-  public GameCell(int width, int height, int mystate) {
-    super(width, height, mystate);
-    neighborhoodChoice = 0;
+  public GameCell(int row, int col, int mystate,  int neighborhoodChoice) {
+    super(row, col, mystate, neighborhoodChoice);
     this.state = mystate;
-    this.getNeighbors().setAllNeighbors();
+    setAllNeighbors(row, col);
     this.setCellColor();
   }
 
