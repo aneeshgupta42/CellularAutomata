@@ -58,7 +58,7 @@ public class Grid {
      * @param choice: choice of simulations
      */
     public Grid(int width, int height, int choice, String layout, int islayout, int neighborhoodChoice) {
-        cellGrid = new HashMap<Point, Cell>();
+        cellGrid = new HashMap<>();
         myChoice = choice;
         myWidth = width;
         myHeight = height;
@@ -130,13 +130,13 @@ public class Grid {
 
     private void populateGridCells(int width, int height, int choice, int neighborhoodChoice) {
         if (isLayout == 1) {
-            populateFromLayout(width, height, choice, myLayout, neighborhoodChoice);
+            populateFromLayout(width, height, choice, myLayout);
         } else {
-            defaultPopulateCells(width, height, choice, myNeighborhoodChoice);
+            defaultPopulateCells(width, height, choice);
         }
     }
 
-    private void populateFromLayout(int width, int height, int choice, String layout, int neighborhoodChoice) {
+    private void populateFromLayout(int width, int height, int choice, String layout) {
         String[] rows = layout.split("\n");
         if (rows.length != height || rows[0].split(" ").length != width) {
             throw new XMLException(ROWCOLSDONTMATCH, Game.DATA_TYPE);
@@ -151,7 +151,7 @@ public class Grid {
         }
     }
 
-    private void defaultPopulateCells(int width, int height, int choice, int neighborhoodChoice) {
+    private void defaultPopulateCells(int width, int height, int choice) {
         Cell tempCell;
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
@@ -221,10 +221,22 @@ public class Grid {
         return cellGrid;
     }
 
+    /***
+     * returns a cell, without having to expose data structure
+     * @param row: x coord
+     * @param col: y coord
+     * @return cell: cell object at that coordinate
+     */
     public Cell getCell(int row, int col) {
         return cellGrid.get(new Point(row, col));
     }
 
+    /***
+     * Does a cell exist at given coordinates?
+     * @param row: x coord
+     * @param col: y coord
+     * @return: Booleanvalue: yes or no
+     */
     public boolean gridContainsCell(int row, int col) {
         return cellGrid.containsKey(new Point(row, col));
     }
@@ -272,10 +284,22 @@ public class Grid {
         }
     }
 
+    /***
+     * Get string color at the cell
+     * Doesn't expose the data structure
+     * and we dont have to insert javafx stuff in model
+     * @param x: coord
+     * @param y: coord
+     * @return color: String
+     */
     public String getPointColor(int x, int y) {
         return cellGrid.get(new Point(x, y)).getCellColor();
     }
 
+    /***
+     * Number of possible states the current simulation has
+     * @return num states
+     */
     public int getNumStates() {
         return numStates;
     }

@@ -3,7 +3,8 @@ package cellsociety.configuration;
 import cellsociety.model.Grid;
 
 /**
- * Testing out the XML reader, by passsing in a file.
+ * Testing out the XML writer, by reading in a file.
+ * And then writing it out.
  * @author Aneesh Gupta, Shruthi Kumar, Chris Warren
  */
 public class TestXMLWriter {

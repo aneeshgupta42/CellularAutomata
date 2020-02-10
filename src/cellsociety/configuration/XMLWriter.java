@@ -15,6 +15,14 @@ import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+/***
+ * Class for writing out or "Downloading" XML files
+ * for the simulations being run
+ * Dependencies: Pass in a Grid and Game object
+ * @author Aneesh Gupta
+ * @author Shruthi Kumar
+ * @author Chris Warren
+ */
 public class XMLWriter {
 
     private static final String xmlFilePath = "data/savedfiles/";
@@ -29,6 +37,13 @@ public class XMLWriter {
     private DocumentBuilder documentBuilder = documentFactory.newDocumentBuilder();
     private Document document = documentBuilder.newDocument();
 
+    /***
+     * Constructor for the writer object
+     * Intiailizes the writing out mechanism,
+     * @param grid: grid with current states
+     * @param game: game, with broader things like name, author, etc
+     * @throws Exception: writing or parsing exceptions
+     */
     public XMLWriter(Grid grid, Game game) throws Exception {
         myGrid = grid;
         myGame = game;
@@ -126,6 +141,11 @@ public class XMLWriter {
         }
     }
 
+    /***
+     * Call both the above methods to, first initialize
+     * the xml tree structure, and then write it out to a file
+     * @throws ParserConfigurationException: exceptions
+     */
     public void outputFile() throws ParserConfigurationException {
         addElements();
         writeFile();
