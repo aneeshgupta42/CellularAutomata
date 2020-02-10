@@ -170,5 +170,4 @@ public abstract class Cell {
         || (row % HALF) != ZERO && (col % HALF) == ZERO;
   }
 
-
 }
