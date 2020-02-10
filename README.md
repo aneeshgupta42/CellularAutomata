@@ -60,8 +60,6 @@ XML Files housed in `simulation_team03/data`: These house the simulations, the e
      3. Type of simulation to be run.
      4. States of specific cells.
      
-
-
 - Model:
 
 - Visualization:
@@ -94,7 +92,19 @@ Extra credit:
 - Writing to XML file the current state of the program.
 - Being able to load in specific states and locations for cells through configuration.
 - Error and exception handling.
-
+- Implement and update grid states according to rules of simulation.
+- Many different types of Simulations and rules: _Game of Life, Percolation, Fire, Predator-Prey, Segregation, Rock-Paper-Scissors_ and _SugarScape_.
+- Different types of cell shaps: Square, Triangle, and Neighbours.
+- UI Features to show time, reset, stop, upload new, step through, etc.
+- Architecture in place to interact with CA through custom UI inputs, clicks etc.
+- Can easily add more UI elements, such as graph to monitor progress of CA simulation.
 
 ### Impressions
+- Assignment had many different moving parts.
+- Even though M-V-C model provides a good amount of separation and blocks, it is still hard at times to integrate them
+together and join pipelines between different components.
+- Important, and sometimes hard to keep track of all the repercussions and trace-effects of any small change.
 
+### Screenshot
+Game of Life: Glider layout
+![Game Of Life - Glider](data/screenshot.png)
