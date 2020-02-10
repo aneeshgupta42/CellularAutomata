@@ -26,17 +26,21 @@ public class SugarScapeCell extends Cell {
     private int myAge;
     private int deathCount = 0;
     private int visionDist = 0;
+    private int mySugarCount; //for agent
     private int mySugarAmount; //for sugar cell
-    private static final int MAX_SUGAR_AMOUNT = 5;
+    private static final int MAX_SUGAR_AMOUNT = 17;
     private static final int METABOLISM_RATE = 3; //at every tick, the agents consumes this much sugar
     private static final int MINIMUM_AGE = 60;
     private static final int MAXIMUM_AGE = 100;
     private static final int ZERO = 0;
     private static final int MIN_SUGAR_AMOUNT = 0;
-    private static final int STARTING_SUGAR_AMOUNT = 4;
+    private static final int STARTING_SUGAR_AMOUNT = 0;
     private static final String WHITE = "white";
     private static final String BLACK = "black";
+
     private static final int ONE = 1;
+
+
     private Random numChooser = new Random();
 
 
@@ -146,8 +150,8 @@ public class SugarScapeCell extends Cell {
     }
 
     private void initializeAgent() {
-        mySugarAmount = 4;
-        visionDist = 1;
+        mySugarAmount = STARTING_SUGAR_AMOUNT;
+        visionDist = ONE;
         myAge = MINIMUM_AGE + numChooser.nextInt(40);
     }
 
@@ -159,38 +163,40 @@ public class SugarScapeCell extends Cell {
         List<Point> vacantCells =     this.getNeighbors().getVacantCells(cellGrid, width, height, SUGAR_PATCH);
         Collections.shuffle(vacantCells);
 
-
+        if(deathCount >= ONE && vacantCells.size() > ZERO) {
             int tempState = AGENT;
             myNextState = AGENT;
-            Point targetPt = vacantCells.get(0);
+            Point targetPt = vacantCells.get(ZERO);
             cellGrid.getCell((int) targetPt.getX(), (int) targetPt.getY()).setMyNextState(tempState);
             ((SugarScapeCell) cellGrid.getCell((int) targetPt.getX(), (int) targetPt.getY())).initializeAgent();
-            vacantCells.remove(0);
+            vacantCells.remove(ZERO);
+        }
 
+        deathCount = ZERO;
 
-        deathCount = 0;
     }
+
 
     private void handleAgent(Grid cellGrid, int row, int col) {
         int tempState = state;
         metabolizeAgent();
-        myAge++;
+        increaseAge();
         Point targetPt = this.getNeighbors().getMaxNeighborTypeCount(cellGrid, row, col, SUGAR_PATCH);
-
         if(targetPt != null) {
             SugarScapeCell temp = (SugarScapeCell) cellGrid
                 .getCell((int) targetPt.getX(), (int) targetPt.getY());
             ((SugarScapeCell) cellGrid.getCell(row, col)).setMySugarCount(temp.getMySugarCount());
 
             if ((((SugarScapeCell) cellGrid.getCell((int) targetPt.getX(), (int) targetPt.getY()))
-                .getMySugarCount() <= 0)
+                .getMySugarCount() <= MIN_SUGAR_AMOUNT)
                 || (myAge > MAXIMUM_AGE)) {
+                deathCount++;
                 handleNextAction(cellGrid, tempState, SUGAR_PATCH, targetPt);
-                initializeNewAgent(cellGrid, cellGrid.getMyWidth(), cellGrid.getMyHeight());
             } else {
                 handleNextAction(cellGrid, tempState, SUGAR_PATCH, targetPt);
             }
         }
+
     }
 
     private void handleNextAction(Grid cellGrid, int tempState, int nextState, Point targetPt) {
@@ -199,6 +205,7 @@ public class SugarScapeCell extends Cell {
         SugarScapeCell nextCellType = (SugarScapeCell) cellGrid.getCell((int) targetPt.getX(), (int) targetPt.getY());
         myAge = 0;
         mySugarAmount = numChooser.nextInt(MAX_SUGAR_AMOUNT);
+        nextCellType.setStateVariables(tempState);
     }
 
     private void handleSugar() {
@@ -207,15 +214,23 @@ public class SugarScapeCell extends Cell {
         }
     }
 
-    private void setMySugarCount(int addedSugar) {
+
+
+    public void setMySugarCount(int addedSugar) {
         mySugarAmount += addedSugar;
     }
 
-    private int getMySugarCount() {
+    public int getMySugarCount() {
         return mySugarAmount;
     }
 
-    private void metabolizeAgent() {
-        mySugarAmount -= METABOLISM_RATE;
+    private void increaseAge() {
+        myAge++;
     }
+
+
+    private void metabolizeAgent() {
+        mySugarCount -= METABOLISM_RATE;
+    }
+
 }

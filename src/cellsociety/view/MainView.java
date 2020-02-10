@@ -6,10 +6,10 @@ import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 
 /**
@@ -23,10 +23,8 @@ public class MainView extends BorderPane {
     private int rows;
     private int cols;
     private Toolbar myToolbar;
-    private AnchorPane anchorPane;
     private GridPane theGrid;
     private Configpanel myPanel;
-    private MainView myMainview;
 
     private static final int SIZEOFGRID = 500;
 
@@ -39,9 +37,8 @@ public class MainView extends BorderPane {
         myToolbar = new Toolbar(this);
         myPanel = new Configpanel(this);
         displayGrid = display.getDisplayGrid();
-        this.anchorPane = displayGrid(displayGrid);
-        //this.theGrid = displayGrid(displayGrid);
-//        this.theGrid.setAlignment(Pos.TOP_LEFT);
+        this.theGrid = displayGrid(displayGrid);
+        this.theGrid.setAlignment(Pos.TOP_LEFT);
         this.setTop(myToolbar);
         this.setCenter(theGrid);
         this.setLeft(null);
@@ -57,7 +54,7 @@ public class MainView extends BorderPane {
      */
     public void step() {
         displayGrid.updateGrid(rows, cols);
-        AnchorPane newGrid = displayGrid(displayGrid);
+        GridPane newGrid = displayGrid(displayGrid);
         this.getChildren().remove(1);
         this.setCenter(newGrid);
         this.setRight(myPanel);
@@ -70,48 +67,34 @@ public class MainView extends BorderPane {
      * @param myGrid the grid being displayed in which was made in the grid class.
      * @return returns the GridPane to be displayed
      */
-    public AnchorPane displayGrid(Grid myGrid) {
-        AnchorPane anchorPane = new AnchorPane();
+    public GridPane displayGrid(Grid myGrid) {
+        GridPane gridPane = new GridPane();
         this.rows = myGrid.getMyHeight();
         this.cols = myGrid.getMyWidth();
-        //anchorPane.addColumn(cols);
-        //anchorPane.addRow(rows);
-        //anchorPane.setHgap(1);
-        //anchorPane.setVgap(1);
-        for(int i = 0; i<rows; i++) {
+        gridPane.addColumn(cols);
+        gridPane.addRow(rows);
+        gridPane.setHgap(1);
+        gridPane.setVgap(1);
+        for(int i = 0; i<rows; i++){
             for (int j = 0; j<cols; j++){
                 Color tempColor = Color.web(myGrid.getPointColor(i,j));
                 System.out.println("");
                 Rectangle rect = new Rectangle(SIZEOFGRID/rows,SIZEOFGRID/cols, tempColor);
                 int finalI = i;
                 int finalJ = j;
-//                rect.setOnMouseClicked(new EventHandler<MouseEvent>()
-//                {
-//                    @Override
-//                    public void handle(MouseEvent t) {
-//                        System.out.println(finalI + "" + finalJ);
-//
-//                        displayGrid.updateGrid(finalI,finalJ);
-//                        GridPane newGrid = displayGrid(displayGrid);
-//                        this.getChildren().remove(1);
-//                        this.setCenter(newGrid);
-//                        this.setRight(myPanel);
-//                    }
-//                });
-                anchorPane.getChildren().add(rect);
-                AnchorPane.setBottomAnchor(rect, (double) j + (SIZEOFGRID/rows));
-                AnchorPane.setLeftAnchor(rect, (double) i + (SIZEOFGRID/rows));
+                gridPane.add(rect, j, i);
             }
         }
 
-        return anchorPane;
+
+        return gridPane;
     }
 
     /**
      * Replaces the current grid with a new one
      * @param newgrid the new grid being displayed
      */
-    public void replaceGrid(AnchorPane newgrid) {
+    public void replaceGrid(GridPane newgrid) {
         this.getChildren().remove(1);
         this.setCenter(newgrid);
         this.setRight(myPanel);
@@ -136,4 +119,18 @@ public class MainView extends BorderPane {
     public void setMyGame(Game myGame) {
         this.myGame = myGame;
     }
+
+//    private void upTriangle(Polygon triangle, int row, int col) {
+//        double xTip = ((cols+1)*(WIDTH / 2) + (cols+1)*getSpacing());
+//        double yTip = rows*HEIGHT + (row+1)*getSpacing();
+//        double xLeft = cols*(WIDTH / 2) + (cols+1)*getSpacing();
+//        double yLeft = (rows+1)*HEIGHT + (rows+1)*getSpacing();
+//        double xRight = (cols+2)*(WIDTH / 2) + (cols+1)*getSpacing();
+//        double yRight = (rows+1)*HEIGHT + (rows+1)*getSpacing();
+//        triangle.getPoints().addAll(new Double[] {
+//                xTip, yTip,
+//                xLeft, yLeft,
+//                xRight, yRight,
+//        });
+//    }
 }

@@ -47,8 +47,12 @@ public class XMLReader {
         TYPE_ATTRIBUTE = type;
     }
 
-    /**
-     * Get data contained in this XML file as an object
+    /***
+     * Get the game from the xml file,
+     * extracting all required information
+     * @param fname: file name
+     * @return: Game object
+     * @throws XMLException: various hit cases
      */
     public Game getGame (String fname) throws XMLException{
         File dataFile = new File(fname);
