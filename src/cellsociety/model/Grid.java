@@ -151,7 +151,7 @@ public class Grid {
         int tempInitInt = 100; //garbage value
         for (int i = 0; i < height; i++) { // first pass: get the new states
             for (int j = 0; j < width; j++) {
-                newStateMap.put(new Point(i, j), tempInitInt);//initialize the key for new state
+                newStateMap.put(new Point(i, j), tempInitInt); //initialize the key for new state
                 int newState = cellGrid.get(new Point(i, j)).updateCell(this, i, j, width, height);
                 newStateMap.put(new Point(i, j), newState); //put new state for a point in
             }
@@ -193,6 +193,13 @@ public class Grid {
         return cellGrid.containsKey(new Point(row, col));
     }
 
+    /***
+     * Gets neighborhood shape choice
+     * @return myNeighborhoodChoice : neighborhood shape choice
+     */
+    public int getMyNeighborhoodChoice() {
+        return myNeighborhoodChoice;
+    }
 
     /***
      * Get Height of Grid
