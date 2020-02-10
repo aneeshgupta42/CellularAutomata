@@ -49,14 +49,13 @@ public class Toolbar extends ToolBar {
     private static final int SLIDERMAXNUM = 10;
     private static final int SLIDERUNIT = 5;
     private int timernumber;
-
     private ResourceBundle toolbarBundle;
+
     /**
      * Creates the toolbar with all of the functionality buttons and sets it in the mainView.
      * @param mainView where the toolbar will be displayed
      */
     public Toolbar(MainView mainView) {
-
         myMainView = mainView;
         myGame = myMainView.getMyGame();
         currentGrid = myMainView.getDisplayGrid();
@@ -222,6 +221,10 @@ public class Toolbar extends ToolBar {
         seconds = 0;
     }
 
+    /**
+     * Makes a window pop up where you can upload a new simulation to the application
+     * @param actionEvent the event is clicking the Upload Sim button
+     */
     public void uploadNewSim(ActionEvent actionEvent){
         animation.stop();
         Display tempDisp = new Display();
@@ -236,6 +239,10 @@ public class Toolbar extends ToolBar {
         resetTime();
     }
 
+    /**
+     * Saves the current simulation to a file that can be uploaded later
+     * @param actionEvent clicking the Download Sim Button
+     */
     private void writeOutSim(ActionEvent actionEvent) {
         try{
             animation.stop();
@@ -267,6 +274,9 @@ public class Toolbar extends ToolBar {
 
     }
 
+    /**
+     * Creates a dropdown box that allows you choose from a selection of simulations once you click on it.
+     */
     public void switchingSimulation() {
         this.switchSimulation = new ComboBox();
         switchSimulation.getItems().addAll(toolbarBundle.getString("GameofLifeSim"), toolbarBundle.getString("PercolationSim"), toolbarBundle.getString("SegregationSim"),
@@ -296,14 +306,26 @@ public class Toolbar extends ToolBar {
         });
     }
 
+    /**
+     * Getter method getting the choice of the simulation
+     * @return int representing the choice of the simulation
+     */
     public int getMyChoice() {
         return myChoice;
     }
 
+    /**
+     * return the status of the submit button
+     * @return
+     */
     public boolean getsumbitbutton() {
         return submitbuttonstatus;
     }
 
+    /**
+     * get the time elapsed
+     * @return int representing the time elapsed
+     */
     public int getTimeElapsed() {
         return timernumber;
     }
