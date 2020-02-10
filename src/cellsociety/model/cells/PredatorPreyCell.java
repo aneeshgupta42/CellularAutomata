@@ -1,10 +1,10 @@
-package cellsociety.model;
+package cellsociety.model.cells;
 
+import cellsociety.model.Grid;
 import java.util.Collections;
 import java.util.List;
 
 import java.awt.Point;
-import java.util.HashMap;
 
 /**
  * PredatorPreyCell class based on Predator Prey WaTor simulation. Users can choose the predator-prey simulation and then cells are created

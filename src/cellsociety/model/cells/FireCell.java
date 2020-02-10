@@ -1,8 +1,9 @@
-package cellsociety.model;
+package cellsociety.model.cells;
 
 
+import cellsociety.model.Grid;
+import cellsociety.model.cells.Cell;
 import java.util.Random;
-import javafx.scene.shape.TriangleMesh;
 
 /**
  * Fire Cell class based on Fire simulation. Users can choose the fire simulation and then cells are created

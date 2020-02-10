@@ -1,5 +1,10 @@
-package cellsociety.model;
+package cellsociety.model.cells;
 
+import cellsociety.model.Grid;
+import cellsociety.model.neighbors.HexagonNeighbor;
+import cellsociety.model.neighbors.Neighbor;
+import cellsociety.model.neighbors.SquareNeighbor;
+import cellsociety.model.neighbors.TriangleNeighbor;
 import java.awt.*;
 
 /**

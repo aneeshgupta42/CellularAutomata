@@ -1,5 +1,7 @@
-package cellsociety.model;
+package cellsociety.model.cells;
 
+import cellsociety.model.Grid;
+import cellsociety.model.cells.Cell;
 import java.awt.Point;
 import java.util.Collections;
 import java.util.HashMap;
