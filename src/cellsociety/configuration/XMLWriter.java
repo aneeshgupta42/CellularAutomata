@@ -17,10 +17,10 @@ import org.w3c.dom.Element;
 
 public class XMLWriter {
 
-    private String xmlFilePath = "data/savedfiles/";
+    private static final String xmlFilePath = "data/savedfiles/";
     private static final double BASE_VALUE = 0.0;
     private String simName, authName, layout;
-    private int choice, myRows, myCols, isLayout, myShape;
+    private int choice, myRows, myCols, myShape;
     private float myProb;
     private double myThreshold;
     private Grid myGrid;
@@ -36,7 +36,6 @@ public class XMLWriter {
         choice = game.getMyChoice();
         myRows = game.getMyRows(); myCols = game.getMyCols();
         myShape = game.getMyShape();
-        isLayout = game.getIsLayout();
         try{
             myProb = game.getMyProb();
         }
@@ -85,7 +84,7 @@ public class XMLWriter {
         root.appendChild(author);
 
         Element islayout = document.createElement("islayout");
-        islayout.appendChild(document.createTextNode(Integer.toString(isLayout)));
+        islayout.appendChild(document.createTextNode("1"));
         root.appendChild(islayout);
 
         Element rows = document.createElement("rows");
