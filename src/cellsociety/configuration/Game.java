@@ -22,7 +22,8 @@ public class Game {
         "author",
         "islayout",
         "rows",
-        "cols"
+        "cols",
+        "shape"
     );
 
     // specific data values for this instance
@@ -32,6 +33,7 @@ public class Game {
     private int myChoice;
     private int isLayout;
     private int myRows;
+    private int myShape;
     private int myCols;
     private float myProb;
     private double myThreshold;
@@ -43,7 +45,7 @@ public class Game {
     /**
      * Create game data from given data.
      */
-    public Game(String simName, String authName, int choice, int islayout, int rows, int cols, String layout) {
+    public Game(String simName, String authName, int choice, int islayout, int rows, int cols, String layout, int shape) {
         simulationName = simName;
         author = authName;
         myChoice = choice;
@@ -56,6 +58,7 @@ public class Game {
         }
         isLayout = islayout;
         myRows = rows;
+        myShape = shape;
         myCols = cols;
         myLayout = layout;
         // NOTE: this is useful so our code does not fail due to a NullPointerException
@@ -73,8 +76,8 @@ public class Game {
      * @param prob: probCatch for Fire
      */
     //Fire - has probability
-    public Game(String simName, String authName, int choice, int islayout, int rows, int cols, float prob, String layout){
-        this(simName, authName, choice, islayout,rows,cols, layout);
+    public Game(String simName, String authName, int choice, int islayout, int rows, int cols, float prob, String layout, int shape){
+        this(simName, authName, choice, islayout,rows,cols, layout, shape);
         this.myProb = prob;
     }
     /***
@@ -88,8 +91,8 @@ public class Game {
      * @param thresh: "Happiness" threshold for segregation
      */
     //Segregation - has threshold
-    public Game(String simName, String authName, int choice, int islayout, int rows, int cols, double thresh, String layout){
-        this(simName, authName, choice, islayout,rows,cols, layout);
+    public Game(String simName, String authName, int choice, int islayout, int rows, int cols, double thresh, String layout, int shape){
+        this(simName, authName, choice, islayout,rows,cols, layout, shape);
         this.myThreshold = thresh;
     }
 
@@ -104,8 +107,8 @@ public class Game {
      * @param thresh: threshold for rps rounds
      */
     //RPS - has threshold
-    public Game(String simName, String authName, int choice, int islayout, int rows, int cols, int thresh, String layout){
-        this(simName, authName, choice, islayout,rows,cols, layout);
+    public Game(String simName, String authName, int choice, int islayout, int rows, int cols, int thresh, String layout, int shape){
+        this(simName, authName, choice, islayout,rows,cols, layout, shape);
         this.myThreshold = thresh;
     }
 
