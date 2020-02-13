@@ -115,22 +115,55 @@ public abstract class Cell {
     }
   }
 
+  /**
+   * Gets the number of neighbors
+   * @param grid : grid of cells
+   * @param row : row of cell
+   * @param col : column of the cell
+   * @param state : state of the cell
+   * @return the number of neighbors
+   */
   public int getNeighborCount(Grid grid, int row, int col, int state) {
     return neighbors.getNeighborCount(grid, row, col, state);
   }
 
+  /**
+   * Gets the number of neighbors
+   * @param grid : grid of cells
+   * @param row : row of cell
+   * @param col : column of the cell
+   * @param currState : current state of the cell
+   * @return true/false whether or not the cell matches the current state
+   */
   public boolean checkState(Grid grid, int row, int col, int currState) {
     return grid.getCell(row, col).getState() == currState;
   }
 
+  /**
+   * Gets the number of neighbors
+   * @param grid : grid of cells
+   * @param row : row of cell
+   * @param col : column of the cell
+   * @param nextState : state of the cell
+   * @return true/false whether or not the cell matches the next state
+   */
   public boolean checkNextState(Grid grid, int row, int col, int nextState) {
     return grid.getCell(row, col).getNextState() == nextState;
   }
 
+  /**
+   * Returns neighborhood choice
+   * @return neighborhood choice
+   */
   public int getMyNeighborhoodChoice() {
       return myNeighborhoodChoice;
   }
 
+  /**
+   * Sets direct neighbors
+   * @param row: row of cell
+   * @param col: column of cell
+   */
   public void setDirectNeighbors(int row, int col) {
     if(this.getMyNeighborhoodChoice() == TRIANGLE_NEIGHBOR) {
       handleTriangleDirectNeighborShape(row, col);
@@ -140,6 +173,11 @@ public abstract class Cell {
     }
   }
 
+  /**
+   * Sets all neighbors
+   * @param row: row of cell
+   * @param col: column of cell
+   */
   public void setAllNeighbors(int row, int col) {
     if(this.getMyNeighborhoodChoice() == TRIANGLE_NEIGHBOR) {
       handleTriangleAllNeighborShape(row, col);
