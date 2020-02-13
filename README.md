@@ -78,6 +78,9 @@ XML Files housed in `simulation_team03/data`: These house the simulations, the e
         2. Uses inheritance and abstract neighbor superclass to hold abstract methods
         3. Each subclass has its own way of checking for neighbors based on how many they have
 - Visualization:
+    1. Mainview
+        1. Borderpane that holds the toolbar, grid and config panel
+        2. Updates the game and determines the shape of the panels.
     2. Configpanel
         1. Vbox holding more UI features
         2. Includes the graph
