@@ -2,11 +2,9 @@ package cellsociety.view;
 
 import cellsociety.configuration.Game;
 import cellsociety.model.*;
-import cellsociety.model.neighbors.HexagonNeighbor;
 import javafx.geometry.Pos;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
@@ -32,7 +30,6 @@ public class MainView extends BorderPane {
     private static final int ZERO = 0;
     private static final int SQUARE = 0;
     private static final int TRIANGLE = 1;
-    private static final int HEXAGON = 2;
 
 
     /**
@@ -95,72 +92,6 @@ public class MainView extends BorderPane {
                 } else {
                     handleHexagon(gridPane, tempColor, halfSize, fullSize, i, j);
                 }
-                /*
-
-
-                double halfSize = (double) (SIZEOFGRID / rows - 1) / 2;
-                double fullSize = (double) (SIZEOFGRID / rows - 1);
-
-                /*
-                Polygon triangle = new Polygon();
-                triangle.setFill(tempColor);
-                if(checkDownwardFacing(i, j)) {
-                    triangle.getPoints().addAll(new Double[]{
-                        ((double) (SIZEOFGRID / rows - 1) / 2), (double) SIZEOFGRID/rows - 1,
-                        0.0, 0.0,
-                        ((double) SIZEOFGRID / rows) - 1, 0.0});
-                    AnchorPane.setLeftAnchor(triangle, (double) + j * (SIZEOFGRID/rows) - (halfSize*j));
-                } else {
-                    triangle.getPoints().addAll(new Double[]{
-                        (double) (SIZEOFGRID / rows - 1) / 2, 0.0,
-                        0.0, (double) (SIZEOFGRID / cols - 1),
-                        (double) SIZEOFGRID / rows - 1, (double) SIZEOFGRID / cols - 1});
-                    AnchorPane.setLeftAnchor(triangle, (double) + j * (SIZEOFGRID/rows) - (halfSize*j));
-                }
-                int finalI = i;
-                int finalJ = j;
-                gridPane.getChildren().add(triangle);
-
-                AnchorPane.setTopAnchor(triangle, (double) + i * (SIZEOFGRID/rows));
-
-
-                Polygon hexagon = new Polygon();
-                hexagon.setFill(tempColor);
-                if(j % 2 == ZERO) {
-                    hexagon.getPoints().addAll(new Double[]{
-                        halfSize / 2, 0.0,
-                        fullSize - halfSize / 2, 0.0,
-                        fullSize, fullSize / 2,
-                        fullSize - halfSize / 2, fullSize,
-                        halfSize / 2, fullSize,
-                        0.0, fullSize / 2
-                    });
-
-                    AnchorPane.setTopAnchor(hexagon,(double) i * fullSize + halfSize - 1);
-                    AnchorPane.setLeftAnchor(hexagon, (double) + j * (SIZEOFGRID/rows));
-
-                    //AnchorPane.setTopAnchor(hexagon, (double) +\\ i * (SIZEOFGRID/rows) + j*(fullSize/2));
-
-                }
-                else {
-                    hexagon.getPoints().addAll(new Double[]{
-                        halfSize / 2, 0.0,
-                        fullSize - halfSize / 2, 0.0,
-                        fullSize, fullSize / 2,
-                        fullSize - halfSize / 2, fullSize,
-                        halfSize / 2, fullSize,
-                        0.0, fullSize / 2
-                    });
-                    AnchorPane.setLeftAnchor(hexagon, (double) + j * (SIZEOFGRID/rows));
-                    AnchorPane.setTopAnchor(hexagon, (double) i * (SIZEOFGRID/rows));
-                   // AnchorPane.setTopAnchor(hexagon, (double) + i * (SIZEOFGRID/rows) + j*(fullSize));
-                }
-                gridPane.getChildren().add(hexagon);
-
-
-
-*/
-
             }
         }
 
@@ -240,29 +171,27 @@ public class MainView extends BorderPane {
         displayGrid = currentGrid;
     }
 
+    /**
+     * Returns the grid being displayed
+     * @return The grid being displayed
+     */
     public Grid getDisplayGrid() {
         return displayGrid;
     }
 
+    /**
+     * Returns the game/simulation currently being run
+     * @return this game
+     */
     public Game getMyGame() {
         return myGame;
     }
-    
+
+    /**
+     * Sets the game into the Anchorpane
+     * @param myGame the simulation
+     */
     public void setMyGame(Game myGame) {
         this.myGame = myGame;
     }
-
-//    private void upTriangle(Polygon triangle, int row, int col) {
-//        double xTip = ((cols+1)*(WIDTH / 2) + (cols+1)*getSpacing());
-//        double yTip = rows*HEIGHT + (row+1)*getSpacing();
-//        double xLeft = cols*(WIDTH / 2) + (cols+1)*getSpacing();
-//        double yLeft = (rows+1)*HEIGHT + (rows+1)*getSpacing();
-//        double xRight = (cols+2)*(WIDTH / 2) + (cols+1)*getSpacing();
-//        double yRight = (rows+1)*HEIGHT + (rows+1)*getSpacing();
-//        triangle.getPoints().addAll(new Double[] {
-//                xTip, yTip,
-//                xLeft, yLeft,
-//                xRight, yRight,
-//        });
-//    }
 }
